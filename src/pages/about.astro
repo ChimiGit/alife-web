@@ -1,9 +1,9 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import History from '../components/History.astro';
-import Mission from '../components/Mission.astro';
-import WhoWeAre from '../components/WhoWeAre.astro';
+import History from '../components/sections/about/History.astro';
+import Mission from '../components/sections/about/Mission.astro';
+import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
 import AboutUsLoading from '../components/loader/AboutUsLoading.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
@@ -29,7 +29,6 @@ const t = translations[lang as keyof typeof translations] || translations.en;
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 	</head>
 	<body class="min-h-screen bg-gray-50">
-		<!-- Loading Screen -->
 		<div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
 			<AboutUsLoading />
 		</div>
