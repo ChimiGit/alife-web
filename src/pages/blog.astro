@@ -3,8 +3,6 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import BlogLoading from '../components/ui/loaders/BlogLoading.astro';
 
-
-// Get language from URL parameters or default to English
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
 const translations = {
