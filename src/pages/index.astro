@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import WaveParticles from '../components/WaveParticles.astro';
 import ParallelogramParticles from '../components/ParallelogramParticles.astro';
-import CircularParticles from '../components/CircularParticles.astro';
+// import CircularParticles from '../components/CircularParticles.astro';
 
 
 // Get language from URL parameters or default to English
@@ -39,12 +39,12 @@ const translations = {
 
 const t = translations[lang as keyof typeof translations] || translations.en;
 
-// Randomly choose which particle system to use on refresh (1 of 3)
+// Randomly choose which particle system to use on refresh (1 of 2)
 const randomChoice = Math.random();
-let particleChoice = 'circular'; // default
-if (randomChoice < 0.33) {
+let particleChoice = 'wave'; // default
+if (randomChoice < 0.5) {
   particleChoice = 'wave';
-} else if (randomChoice < 0.66) {
+} else {
   particleChoice = 'parallelogram';
 }
 ---
@@ -64,7 +64,7 @@ if (randomChoice < 0.33) {
     <!-- Randomly chosen particle background with header included -->
     {particleChoice === 'wave' && <WaveParticles lang={lang} translations={t} />}
     {particleChoice === 'parallelogram' && <ParallelogramParticles lang={lang} translations={t} />}
-    {particleChoice === 'circular' && <CircularParticles lang={lang} translations={t} />}
+    {/* {particleChoice === 'circular' && <CircularParticles lang={lang} translations={t} />} */}
 
   </body>
 </html>
