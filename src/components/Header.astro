@@ -10,17 +10,17 @@ const { lang = 'en', translations } = Astro.props;
 
 <header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]">
 
-  
-  	<!-- Main  header content -->
-	<div class="bg-white/20 backdrop-blur-md border-b border-white/30">
-    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center min-h-20">
+
+    <!-- Main  header content -->
+    <div class="bg-white/20 backdrop-blur-md border-b border-white/30">
+      <div class="max-w-6xl mx-auto px-4 flex justify-between items-center min-h-20">
       <!-- Logo section -->
       <div class="flex items-center">
         <a href="/" class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
           <img src="/assets/logo/logo.png" alt="ALIFE Logo" class="h-8 w-32"/>
         </a>
       </div>
-      
+
       <!-- Navigation section -->
       <nav class="flex items-center gap-8" role="navigation" aria-label="Main navigation">
         <ul class="flex list-none m-0 p-0 gap-8">
@@ -37,15 +37,63 @@ const { lang = 'en', translations } = Astro.props;
             <a href={`/support?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.support || 'Support Us'}</a>
           </li>
         </ul>
-        
+
         <!-- Language selector -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2" id="language-selector">
           <span class="w-px h-4 bg-gray-300"></span>
-          <a href="?lang=en" class={`no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan ${lang === 'en' ? 'text-accent-cyan' : 'text-primary'}`} aria-label="English">EN</a>
+          <a href="?lang=en" class="no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan text-primary" aria-label="English" data-lang="en">EN</a>
           <span class="w-px h-4 bg-gray-300"></span>
-          <a href="?lang=jp" class={`no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan ${lang === 'jp' ? 'text-accent-cyan' : 'text-primary'}`} aria-label="Japanese">JP</a>
+          <a href="?lang=jp" class="no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan text-primary" aria-label="Japanese" data-lang="jp">JP</a>
         </div>
       </nav>
+      </div>
     </div>
-  </div>
 </header>
+
+<script>
+  // Language switching functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const languageSelector = document.getElementById('language-selector');
+    if (!languageSelector) return;
+
+    // Get current language from URL or default to English
+    const getCurrentLang = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('lang') || 'en';
+    };
+
+    // Update active language styling
+    const updateActiveLanguage = () => {
+      const currentLang = getCurrentLang();
+      const langLinks = languageSelector?.querySelectorAll('a[data-lang]');
+
+      langLinks?.forEach((link) => {
+        const lang = link.getAttribute('data-lang');
+        if (lang === currentLang) {
+          link.classList.add('text-accent-cyan');
+          link.classList.remove('text-primary');
+        } else {
+          link.classList.remove('text-accent-cyan');
+          link.classList.add('text-primary');
+        }
+      });
+    };
+
+    // Handle language switching
+    languageSelector.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target && target.tagName === 'A' && target.hasAttribute('data-lang')) {
+        e.preventDefault();
+        const newLang = target.getAttribute('data-lang');
+        if (newLang) {
+          const currentUrl = new URL(window.location.href);
+          currentUrl.searchParams.set('lang', newLang);
+          window.location.href = currentUrl.toString();
+        }
+      }
+    });
+
+    // Initialize active language styling
+    updateActiveLanguage();
+  });
+</script>

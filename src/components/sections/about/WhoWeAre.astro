@@ -1,34 +1,32 @@
 ---
 import '../../../styles/global.css';
+
+export interface Props {
+  lang?: string;
+  translations?: any;
+}
+
+const { translations } = Astro.props;
 ---
 
 <!-- Who We Are Section -->
 <div class="max-w-4xl mx-auto px-4 pb-12">
-	<!-- Who We Are Section -->
-	<div class="mb-10">
-		<h2 class="text-5xl font-bold text-primary mb-8 text-center" style="font-family: 'GT Alpina Fine', serif;">Who We Are</h2>
-		
-		<div class="space-y-6 text-primary leading-relaxed">
-			<p class="text-20px" style="line-height: 2;">
-				The Artificial Life Institute stands at the intersection of cutting-edge computer science and nature's 
-				most profound creative force: evolution. We don't follow predetermined paths like most traditional AIs. 
-				Instead, we harness open-endedness—nature's grandest achievement that created a path from single 
-				cells to intelligent life, from the discovery of fire to exploring outer space, from primitive tools to 
-				artificial intelligence.
-			</p>
-			
-			<p class="text-20px" style="line-height: 2;">
-				Founded by <span class="font-semibold text-primary underline">world-class researchers</span> and <span class="font-semibold text-primary underline">business leaders</span>, we are dedicated to advancing research 
-				and driving business innovations. Our work spans from microscopic digital organisms to complex 
-				evolutionary simulations that could reshape how we understand intelligence itself.
-			</p>
-			
-			<p class="text-20px" style="line-height: 2;">
-				Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the 
-				foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither 
-				could achieve alone. For complete transparency about our operations and commitment to your privacy, 
-				please see our <span class="font-semibold text-primary underline cursor-pointer hover:text-accent-cyan transition-colors duration-200">fiscal report</span> and <span class="font-semibold text-primary underline cursor-pointer hover:text-accent-cyan transition-colors duration-200">privacy policy</span>.
-			</p>
-		</div>
-	</div>
+  <!-- Who We Are Section -->
+  <div class="mb-10">
+    <h2 class="text-5xl font-bold text-primary mb-8 text-center" style="font-family: 'GT Alpina Fine', serif;">{translations?.['Who We Are'] || 'Who We Are'}</h2>
+
+    <div class="space-y-6 text-primary leading-relaxed">
+      <p class="text-20px" style="line-height: 2;">
+        {translations?.['The Artificial Life Institute stands at the intersection of cutting-edge computer science and nature\'s most profound creative force: evolution. We don\'t follow predetermined paths like most traditional AIs. Instead, we harness open-endedness—nature\'s grandest achievement that created a path from single cells to intelligent life, from the discovery of fire to exploring outer space, from primitive tools to artificial intelligence.'] || 'The Artificial Life Institute stands at the intersection of cutting-edge computer science and nature\'s most profound creative force: evolution. We don\'t follow predetermined paths like most traditional AIs. Instead, we harness open-endedness—nature\'s grandest achievement that created a path from single cells to intelligent life, from the discovery of fire to exploring outer space, from primitive tools to artificial intelligence.'}
+      </p>
+
+      <p class="text-20px" style="line-height: 2;">
+        {translations?.['Founded by world-class researchers and business leaders, we are dedicated to advancing research and driving business innovations. Our work spans from microscopic digital organisms to complex evolutionary simulations that could reshape how we understand intelligence itself.'] || 'Founded by world-class researchers and business leaders, we are dedicated to advancing research and driving business innovations. Our work spans from microscopic digital organisms to complex evolutionary simulations that could reshape how we understand intelligence itself.'}
+      </p>
+
+      <p class="text-20px" style="line-height: 2;">
+        {translations?.['Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither could achieve alone. For complete transparency about our operations and commitment to your privacy, please see our fiscal report and privacy policy.'] || 'Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither could achieve alone. For complete transparency about our operations and commitment to your privacy, please see our fiscal report and privacy policy.'}
+      </p>
+    </div>
+  </div>
 </div>
