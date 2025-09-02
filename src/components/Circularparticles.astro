@@ -11,12 +11,15 @@ const { lang = 'en', translations } = Astro.props;
 ---
 
 <div class="relative min-h-screen overflow-hidden" style="background-color: #29D6E2;">
+	<!-- Particle Canvas Background -->
 	<canvas id="canvas" class="absolute inset-0 block"></canvas>
-    
+	
+	<!-- Header -->
 	<div class="relative z-10">
 		<Header lang={lang} translations={translations} />
 	</div>
 	
+	<!-- Text Content -->
 	<main class="relative z-20 min-h-screen mt-5">
 		<div class="text-left max-w-7xl mx-auto px-4 space-y-6">
 		<h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
