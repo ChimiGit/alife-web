@@ -1,0 +1,159 @@
+---
+// Parallelogram pattern particle system component
+import Header from './Header.astro';
+
+export interface Props {
+  lang?: string;
+  translations?: any;
+}
+
+const { lang = 'en', translations } = Astro.props;
+---
+
+<div class="relative min-h-screen overflow-hidden">
+    <canvas id="circularWaveCanvas" class="absolute inset-0"></canvas>
+    
+    <div class="relative z-10">
+        <Header lang={lang} translations={translations} />
+    </div>
+    
+    <main class="relative z-20 min-h-screen mt-5">
+        <div class="text-left max-w-7xl mx-auto px-4 space-y-6">
+        <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
+            {translations?.titleLine1 || 'Where'}
+        </h1>
+        <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
+            {translations?.titleLine2 || 'Evolution Meets'}
+        </h1>
+        <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
+            {translations?.titleLine3 || 'Innovation'}
+        </h1>
+        <p class="text-primary max-w-4xl leading-relaxed" style="font-family: 'Inter', sans-serif; font-size: '16px';">
+            {translations?.description || "We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners."}
+        </p>
+        </div>
+    </main>
+    
+    <script is:inline>
+        function createCircularWaveParticleSystem() {
+            const canvas = document.getElementById('circularWaveCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            let particles = [];
+            let animationId = null;
+            let mouse = { x: 0, y: 0, isDown: false };
+            let waveOffset = 0; // Controls the wave's movement
+            const particleCount = 2500; // Number of particles to create
+            const waveAmplitude = 100; // The height of the wave
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    // Create particles with random positions
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    
+                    particles.push({
+                        x: x,
+                        y: y,
+                        baseX: x,
+                        baseY: y,
+                        size: Math.random() * 1.5 + 0.8,
+                        opacity: 0.8 + Math.random() * 0.2,
+                        time: Math.random() * Math.PI * 2,
+                    });
+                }
+            }
+
+            function animate() {
+                // Coral/peach background
+                ctx.fillStyle = "#FFB5A4";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                waveOffset += 0.01; // Animate the wave
+
+                particles.forEach(function(particle) {
+                    particle.time += 0.02;
+
+                    // Calculate distance from mouse
+                    const dx = mouse.x - particle.baseX;
+                    const dy = mouse.y - particle.baseY;
+                    const distance = Math.hypot(dx, dy);
+                    
+                    // Base floating motion
+                    let offsetX = Math.sin(particle.time) * 1.5;
+                    let offsetY = Math.cos(particle.time * 0.8) * 1.2;
+
+                    // Circular wave effect based on distance from the center of the screen
+                    const centerScreenX = canvas.width / 2;
+                    const centerScreenY = canvas.height / 2;
+                    const distFromCenter = Math.hypot(particle.baseX - centerScreenX, particle.baseY - centerScreenY);
+                    
+                    // Use a sine wave to create the ripple effect
+                    let waveEffect = Math.sin(distFromCenter * 0.02 + waveOffset) * waveAmplitude;
+                    
+                    // Apply the wave effect perpendicular to the direction from the center
+                    const angle = Math.atan2(particle.baseY - centerScreenY, particle.baseX - centerScreenX);
+                    offsetX += Math.sin(angle) * waveEffect;
+                    offsetY += Math.cos(angle) * waveEffect;
+                    
+                    // Mouse interaction - create a ripple effect
+                    if (distance < 200) {
+                        const force = (200 - distance) / 200; // Stronger force when closer
+                        const rippleEffect = force * 50; // Maximum ripple distance
+                        
+                        // Push particles away from the mouse
+                        offsetX += (dx / distance) * rippleEffect * force;
+                        offsetY += (dy / distance) * rippleEffect * force;
+                    }
+                    
+                    particle.x = particle.baseX + offsetX;
+                    particle.y = particle.baseY + offsetY;
+
+                    // Draw the particle
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(195, 215, 255, ${particle.opacity})`; // #C3D7FF
+                    ctx.fill();
+                });
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            function setupEventListeners() {
+                window.addEventListener('resize', function() {
+                    resizeCanvas();
+                    initParticles();
+                });
+                
+                window.addEventListener('mousemove', function(e) {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+            }
+
+            resizeCanvas();
+            initParticles();
+            setupEventListeners();
+            animate();
+
+            return {
+                destroy: function() {
+                    if (animationId) {
+                        cancelAnimationFrame(animationId);
+                    }
+                }
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', createCircularWaveParticleSystem);
+    </script>
+</div>

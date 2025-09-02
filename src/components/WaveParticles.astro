@@ -1,0 +1,278 @@
+---
+// Wave pattern particle system with cursor interaction and text morphing
+import Header from './Header.astro';
+
+export interface Props {
+  lang?: string;
+  translations?: any;
+}
+
+const { lang = 'en', translations } = Astro.props;
+---
+
+<div class="relative min-h-screen overflow-hidden">
+    <canvas id="waveCanvas" class="absolute inset-0"></canvas>
+    
+    <div class="relative z-10">
+        <Header lang={lang} translations={translations} />
+    </div>
+    
+    <main class="relative z-20 min-h-screen mt-5">
+        <div class="flex flex-col items-start justify-start max-w-7xl mx-auto px-4 space-y-6">
+        </div>
+    </main>
+    
+    <script is:inline>
+        function createWaveParticleSystem() {
+            const canvas = document.getElementById('waveCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            let particles = [];
+            let animationId = null;
+            let morphProgress = 0;
+            let morphDirection = 1;
+            const morphSpeed = 0.005;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function getTextPixels(text, font, size, x, y) {
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCtx.font = `${size}px ${font}`;
+                const textMetrics = tempCtx.measureText(text);
+
+                tempCanvas.width = textMetrics.width;
+                tempCanvas.height = size;
+                tempCtx.font = `${size}px ${font}`;
+                tempCtx.fillStyle = 'white';
+                tempCtx.fillText(text, 0, size * 0.75);
+
+                const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+                const pixels = [];
+                for (let i = 0; i < imageData.data.length; i += 4) {
+                    if (imageData.data[i + 3] > 0) {
+                        const pixelX = (i / 4) % tempCanvas.width;
+                        const pixelY = Math.floor((i / 4) / tempCanvas.width);
+                        pixels.push({
+                            x: pixelX + x,
+                            y: pixelY + y
+                        });
+                    }
+                }
+                return pixels;
+            }
+
+            function initParticles() {
+                particles = [];
+                const particleSpacing = 20;
+                const columns = Math.floor(canvas.width / particleSpacing);
+                const rows = Math.floor(canvas.height / particleSpacing);
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const lang = urlParams.get('lang');
+
+                let textContent = ['Where', 'Evolution Meets', 'Innovation'];
+
+                if (lang === 'jp') {
+                    textContent = ['進化と', 'イノベーションが', '出会う場所'];
+                }
+
+                const textPixels = [];
+                const lineHeight = 120; // Adjusted line height for 128px font
+                const startY = canvas.height * 0.25;
+
+                textContent.forEach((line, index) => {
+                    const linePixels = getTextPixels(line, 'GT Alpina Fine', 128, 50, startY + (index * lineHeight));
+                    textPixels.push(...linePixels);
+                });
+                
+                for (let col = 0; col < columns; col++) {
+                    const centerX = col * particleSpacing + particleSpacing / 2;
+
+                    for (let row = 0; row < rows; row++) {
+                        const y = row * particleSpacing;
+
+                        const wavePhase = col * 0.5 + row * 0.1;
+                        const waveIntensity = Math.sin(wavePhase) * 0.5 + 0.5;
+                        const verticalGradient = Math.pow(1 - y / canvas.height, 1.5);
+                        const density = waveIntensity * verticalGradient * 0.8;
+                        const dotsCount = Math.floor(density * 12);
+
+                        for (let dot = 0; dot < dotsCount; dot++) {
+                            const offsetX = (Math.random() - 0.5) * particleSpacing * 0.8;
+                            const offsetY = (Math.random() - 0.5) * 20;
+
+                            const randomTextPixel = textPixels.length > 0 ? textPixels[Math.floor(Math.random() * textPixels.length)] : { x: centerX + offsetX, y: y + offsetY };
+
+                            particles.push({
+                                x: centerX + offsetX,
+                                y: y + offsetY,
+                                baseX: centerX + offsetX,
+                                baseY: y + offsetY,
+                                targetX: randomTextPixel.x,
+                                targetY: randomTextPixel.y,
+                                size: Math.random() * 0.5 + 0.1,
+                                opacity: 0.95 + Math.random() * 0.05,
+                                time: Math.random() * Math.PI * 2,
+                            });
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                // Create animated background with gradient and moving patterns
+                const time = Date.now() * 0.001;
+                
+                // Create gradient background
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, '#FBEC61');
+                gradient.addColorStop(0.3, '#F7E05A');
+                gradient.addColorStop(0.7, '#F4D854');
+                gradient.addColorStop(1, '#F0D04E');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Add animated background circles
+                for (let i = 0; i < 8; i++) {
+                    const circleX = (canvas.width * 0.5) + Math.sin(time * 0.3 + i * 0.8) * canvas.width * 0.3;
+                    const circleY = (canvas.height * 0.5) + Math.cos(time * 0.2 + i * 0.6) * canvas.height * 0.3;
+                    const radius = 50 + Math.sin(time * 0.5 + i) * 20;
+                    
+                    const circleGradient = ctx.createRadialGradient(circleX, circleY, 0, circleX, circleY, radius);
+                    circleGradient.addColorStop(0, `rgba(255, 255, 255, ${0.1 + Math.sin(time + i) * 0.05})`);
+                    circleGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    
+                    ctx.beginPath();
+                    ctx.arc(circleX, circleY, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = circleGradient;
+                    ctx.fill();
+                }
+                
+                // Add floating geometric shapes
+                for (let i = 0; i < 12; i++) {
+                    const shapeX = (canvas.width * 0.3) + Math.sin(time * 0.4 + i * 0.5) * canvas.width * 0.4;
+                    const shapeY = (canvas.height * 0.3) + Math.cos(time * 0.3 + i * 0.7) * canvas.height * 0.4;
+                    const size = 15 + Math.sin(time * 0.6 + i) * 8;
+                    
+                    ctx.save();
+                    ctx.translate(shapeX, shapeY);
+                    ctx.rotate(time * 0.2 + i * 0.3);
+                    
+                    ctx.beginPath();
+                    if (i % 3 === 0) {
+                        // Triangle
+                        ctx.moveTo(0, -size);
+                        ctx.lineTo(size * 0.866, size * 0.5);
+                        ctx.lineTo(-size * 0.866, size * 0.5);
+                    } else if (i % 3 === 1) {
+                        // Square
+                        ctx.rect(-size * 0.5, -size * 0.5, size, size);
+                    } else {
+                        // Diamond
+                        ctx.moveTo(0, -size);
+                        ctx.lineTo(size, 0);
+                        ctx.lineTo(0, size);
+                        ctx.lineTo(-size, 0);
+                    }
+                    ctx.closePath();
+                    
+                    ctx.fillStyle = `rgba(255, 255, 255, ${0.15 + Math.sin(time * 0.8 + i) * 0.1})`;
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                if (morphProgress >= 1) {
+                    morphProgress = 1;
+                    particles.forEach(function(particle) {
+                        particle.x = particle.targetX;
+                        particle.y = particle.targetY;
+                        const size = particle.size + (1);
+                        const opacity = particle.opacity + (0.8);
+                        ctx.beginPath();
+                        ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+                        ctx.fill();
+                    });
+                } else {
+                    morphProgress += morphDirection * morphSpeed;
+
+                    particles.forEach(function(particle) {
+                        particle.time += 0.05;
+                        
+                        const currentX = (1 - morphProgress) * particle.baseX + morphProgress * particle.targetX;
+                        const currentY = (1 - morphProgress) * particle.baseY + morphProgress * particle.targetY;
+
+                        const waveOffsetX = Math.sin(particle.time) * (1 - morphProgress) * 5;
+                        const waveOffsetY = Math.cos(particle.time * 0.6) * (1 - morphProgress) * 5;
+
+                        particle.x = currentX + waveOffsetX;
+                        particle.y = currentY + waveOffsetY;
+
+                        const size = particle.size + (1 * morphProgress);
+                        const opacity = particle.opacity + (0.8 * morphProgress);
+
+                        ctx.beginPath();
+                        ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+                        ctx.fill();
+                    });
+                }
+                
+                morphProgress += morphDirection * morphSpeed;
+
+                particles.forEach(function(particle) {
+                    particle.time += 0.05;
+                    
+                    const currentX = (1 - morphProgress) * particle.baseX + morphProgress * particle.targetX;
+                    const currentY = (1 - morphProgress) * particle.baseY + morphProgress * particle.targetY;
+
+                    const waveOffsetX = Math.sin(particle.time) * (1 - morphProgress) * 5;
+                    const waveOffsetY = Math.cos(particle.time * 0.6) * (1 - morphProgress) * 5;
+
+                    particle.x = currentX + waveOffsetX;
+                    particle.y = currentY + waveOffsetY;
+
+                    const size = particle.size + (1 * morphProgress);
+                    const opacity = particle.opacity + (0.8 * morphProgress);
+
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+                    ctx.fill();
+                });
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            function setupEventListeners() {
+                window.addEventListener('resize', function() {
+                    resizeCanvas();
+                    initParticles();
+                });
+            }
+
+            resizeCanvas();
+            initParticles();
+            setupEventListeners();
+            animate();
+
+            return {
+                destroy: function() {
+                    if (animationId) {
+                        cancelAnimationFrame(animationId);
+                    }
+                }
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', createWaveParticleSystem);
+    </script>
+</div>

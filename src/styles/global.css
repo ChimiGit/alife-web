@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* GT Alpina Fine font */
+@font-face {
+  font-family: "GT Alpina Fine";
+  src: url("/fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Custom ALIFE colors */
+.bg-primary {
+  background-color: #1a365d;
+}
+
+.text-primary {
+  color: #1a365d;
+}
+
+.border-primary {
+  border-color: #1a365d;
+}
+
+.bg-accent-cyan {
+  background-color: #0891b2;
+}
+
+.text-accent-cyan {
+  color: #0891b2;
+}
+
+.hover\:bg-accent-cyan:hover {
+  background-color: #0891b2;
+}
+
+.hover\:text-accent-cyan:hover {
+  color: #0891b2;
+}
+
+.hover\:bg-primary:hover {
+  background-color: #1a365d;
+}
+
+/* Primary color filter for images */
+.filter-primary {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(42%) saturate(1352%)
+    hue-rotate(204deg) brightness(95%) contrast(91%);
+}
+
+/* Custom spacing utilities */
+.min-w-100 {
+  min-width: 25rem;
+}
+
+.mb-15 {
+  margin-bottom: 3.75rem;
+}
+
+.h-15 {
+  height: 3.75rem;
+}
+
+.h-25 {
+  height: 6.25rem;
+}
+
+.w-30 {
+  width: 7.5rem;
+}
+
+.w-50 {
+  width: 12.5rem;
+}
+
+.mt-15 {
+  margin-top: 3.75rem;
+}
+
+/* Custom width utility */
+.w-25 {
+  width: 6.25rem;
+}
+
+/* Custom animation delays */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
+}
+
+.delay-1500 {
+  animation-delay: 1.5s;
+}
+
+/* Custom animation durations */
+.duration-3000 {
+  animation-duration: 3s;
+}
+
+.duration-4000 {
+  animation-duration: 4s;
+}
+
+/* Custom border radius */
+.rounded-medium {
+  border-radius: 0.75rem; /* 12px */
+}
+
+/* Custom main tab hover states */
+.main-tab:not(.active):hover {
+  background-color: #1a365d !important; /* primary color */
+  color: white !important;
+  border-color: #1a365d !important;
+}
+
+.main-tab.active:hover {
+  background-color: #0891b2 !important; /* accent-cyan color */
+  color: white !important;
+}
+
+/* Loading screen slide-up animation */
+.loading-slide-up {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* Custom 64px font size */
+.text-64px {
+  font-size: 64px;
+  line-height: 1.1;
+}
+
+/* Extra large text sizes for loading screens */
+.text-10xl {
+  font-size: 10rem; /* 160px */
+  line-height: 1;
+}
+
+.text-11xl {
+  font-size: 12rem; /* 192px */
+  line-height: 1;
+}
+
+.text-12xl {
+  font-size: 14rem; /* 224px */
+  line-height: 1;
+}
+
+.text-200px {
+  font-size: 12.5rem; /* 200px */
+  line-height: 1;
+}
