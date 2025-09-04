@@ -1,6 +1,6 @@
 ---
 import Header from '../components/Header.astro';
-import CareerLoading from '../components/ui/loaders/CareerLoading.astro';
+import CareerLoading from '../components/loaders/CareerLoading.astro';
 import Jobs from '../components/sections/career/Jobs.astro';
 import Team from '../components/sections/career/Team.astro';
 
@@ -47,7 +47,7 @@ const t = translations[lang as keyof typeof translations] || translations.en;
       <Header lang={lang} translations={t} />
 
       <!-- Main content -->
-      <main class="max-w-6xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
+      <main class="max-w-6xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
 
       <!-- Hero Section -->
       <section class="text-center mb-10">

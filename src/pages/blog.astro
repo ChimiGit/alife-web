@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import BlogLoading from '../components/ui/loaders/BlogLoading.astro';
+import BlogLoading from '../components/loaders/BlogLoading.astro';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
@@ -136,7 +136,7 @@ const contentData = {
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
       <Header lang={lang} translations={t} />
 
-      <main class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
+      <main class="max-w-7xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
         <div class="text-center mb-12">
           <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
           <p class="text-20px text-gray-600 max-w-4xl mx-auto">

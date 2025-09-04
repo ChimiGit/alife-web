@@ -138,38 +138,49 @@ const jobs = getAllJobs();
 <script>
   // Job details modal functionality
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function showJobDetails(slug) {
+  function showJobDetails(slug: string) {
     // Fetch job details from the server
     fetch(`/api/jobs/${slug}`)
       .then(response => response.json())
       .then((job) => {
-        document.getElementById('modal-title').textContent = job.title;
-        document.getElementById('modal-location').textContent = job.location;
-        document.getElementById('modal-content').innerHTML = job.htmlContent;
-        document.getElementById('job-modal').classList.remove('hidden');
+        const modalTitle = document.getElementById('modal-title') as HTMLElement;
+        const modalLocation = document.getElementById('modal-location') as HTMLElement;
+        const modalContent = document.getElementById('modal-content') as HTMLElement;
+        const jobModal = document.getElementById('job-modal') as HTMLElement;
+        
+        if (modalTitle) modalTitle.textContent = job.title;
+        if (modalLocation) modalLocation.textContent = job.location;
+        if (modalContent) modalContent.innerHTML = job.htmlContent;
+        if (jobModal) jobModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
       })
-      .catch((error) => {
-        console.error('Error fetching job details:', error);
-        alert('Error loading job details. Please try again.');
+      .catch((_error) => {
+        // Error handling - could be replaced with a proper error UI
+        const modalContent = document.getElementById('modal-content') as HTMLElement;
+        if (modalContent) modalContent.innerHTML = '<p class="text-red-500">Error loading job details. Please try again.</p>';
       });
   }
 
   function closeJobModal() {
-    document.getElementById('job-modal').classList.add('hidden');
+    const jobModal = document.getElementById('job-modal') as HTMLElement;
+    if (jobModal) jobModal.classList.add('hidden');
     document.body.style.overflow = 'auto';
   }
 
   // Close modal when clicking outside
-  document.getElementById('job-modal').addEventListener('click', function (e) {
-    if (e.target === this) {
-      closeJobModal();
-    }
-  });
+  const jobModal = document.getElementById('job-modal') as HTMLElement;
+  if (jobModal) {
+    jobModal.addEventListener('click', function (e) {
+      if (e.target === this) {
+        closeJobModal();
+      }
+    });
+  }
 
   // Close modal with Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !document.getElementById('job-modal').classList.contains('hidden')) {
+    const modal = document.getElementById('job-modal') as HTMLElement;
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
       closeJobModal();
     }
   });

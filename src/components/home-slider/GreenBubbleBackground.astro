@@ -1,5 +1,5 @@
 ---
-import Header from './Header.astro';
+import Header from '../Header.astro';
 
 export interface Props {
   lang?: string;
@@ -13,7 +13,7 @@ const { lang = 'en', translations } = Astro.props;
   <!-- Background GIF -->
   <div class="fixed inset-0 z-0">
     <img
-      src="/assets/home-slider/parallelogram.gif"
+      src="/assets/home-slider/green-buble.gif"
       alt="ALIFE Background Animation"
       class="w-full h-full object-cover"
     />
@@ -23,7 +23,7 @@ const { lang = 'en', translations } = Astro.props;
   <Header lang={lang} translations={translations} />
 
   <!-- Text Content -->
-  <main class="relative z-20 min-h-screen mt-5">
+  <main class="relative z-20 min-h-screen pt-24">
     <div class="text-left max-w-7xl mx-auto px-4 space-y-6">
       <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
         {translations?.titleLine1 || 'Where'}

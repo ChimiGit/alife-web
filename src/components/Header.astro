@@ -8,11 +8,10 @@ export interface Props {
 const { lang = 'en', translations } = Astro.props;
 ---
 
-<header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]">
-
+<header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] sticky top-0 z-50">
 
     <!-- Main  header content -->
-    <div class="bg-white/20 backdrop-blur-md border-b border-white/30">
+    <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
       <div class="max-w-6xl mx-auto px-4 flex justify-between items-center min-h-20">
       <!-- Logo section -->
       <div class="flex items-center">
@@ -25,16 +24,19 @@ const { lang = 'en', translations } = Astro.props;
       <nav class="flex items-center gap-8" role="navigation" aria-label="Main navigation">
         <ul class="flex list-none m-0 p-0 gap-8">
           <li class="m-0">
-            <a href={`/about?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.about || 'About'}</a>
+            <a href={`/?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="home">Home</a>
           </li>
           <li class="m-0">
-            <a href={`/career?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.career || 'Career'}</a>
+            <a href={`/about?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="about">{translations?.navigation?.about || 'About'}</a>
           </li>
           <li class="m-0">
-            <a href={`/blog?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.blog || 'Blog'}</a>
+            <a href={`/career?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="career">{translations?.navigation?.career || 'Career'}</a>
           </li>
           <li class="m-0">
-            <a href={`/support?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.support || 'Support Us'}</a>
+            <a href={`/blog?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="blog">{translations?.navigation?.blog || 'Blog'}</a>
+          </li>
+          <li class="m-0">
+            <a href={`/support?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="support">{translations?.navigation?.support || 'Support Us'}</a>
           </li>
         </ul>
 
@@ -49,6 +51,36 @@ const { lang = 'en', translations } = Astro.props;
       </div>
     </div>
 </header>
+
+<style>
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #1a365d; /* primary color */
+    transition: width 0.3s ease;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: #1a365d !important; /* primary color */
+    font-weight: 600;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+</style>
 
 <script>
   // Language switching functionality
@@ -95,5 +127,29 @@ const { lang = 'en', translations } = Astro.props;
 
     // Initialize active language styling
     updateActiveLanguage();
+
+    // Navigation active state functionality
+    const updateActiveNavigation = () => {
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach((link) => {
+        const linkElement = link as HTMLElement;
+        const page = linkElement.getAttribute('data-page');
+        
+        // Remove active class from all links
+        linkElement.classList.remove('active');
+        
+        // Add active class to current page
+        if (currentPath === '/' && page === 'home') {
+          linkElement.classList.add('active');
+        } else if (currentPath.includes(`/${page}`)) {
+          linkElement.classList.add('active');
+        }
+      });
+    };
+
+    // Initialize active navigation styling
+    updateActiveNavigation();
   });
 </script>

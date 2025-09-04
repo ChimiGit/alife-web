@@ -1,6 +1,6 @@
 ---
 import Header from '../components/Header.astro';
-import SupportLoading from '../components/ui/loaders/SupportLoading.astro';
+import SupportLoading from '../components/loaders/SupportLoading.astro';
 
 import '../styles/global.css';
 
@@ -45,7 +45,7 @@ const t = translations[lang as keyof typeof translations] || translations.en;
       <Header lang={lang} translations={t} />
 
       <!-- Main content -->
-      <main style="font-family: 'Inter', sans-serif;">
+      <main class="pt-24" style="font-family: 'Inter', sans-serif;">
       <!-- Hero Section -->
       <section class="bg-white py-20">
         <div class="max-w-6xl mx-auto px-4 text-center">

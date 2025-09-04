@@ -65,7 +65,7 @@ export function getTeamCategoryBySlug(slug: string): TeamCategory | null {
       content: content.trim(),
     };
   } catch (error) {
-    console.error(`Error reading team category ${slug}:`, error);
+    // Error handling - could be logged to a proper logging service
     return null;
   }
 }
