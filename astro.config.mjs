@@ -32,6 +32,7 @@ export default defineConfig({
         'es-module-lexer',
         'devalue',
         'unstorage',
+        'destr',
         // Astro and related
         'astro',
         '@astrojs/vercel',

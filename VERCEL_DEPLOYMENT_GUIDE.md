@@ -41,6 +41,7 @@ export default defineConfig({
         'es-module-lexer',
         'devalue',
         'unstorage',
+        'destr',
 
         // Astro and related
         'astro',
@@ -94,7 +95,7 @@ export default defineConfig({
 Install these packages to ensure all dependencies are available:
 
 ```bash
-pnpm add kleur cookie es-module-lexer devalue unstorage magic-string rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @types/node@^20.0.0
+pnpm add kleur cookie es-module-lexer devalue unstorage magic-string rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @types/node@^20.0.0 destr
 ```
 
 ## Why This Works
@@ -110,6 +111,19 @@ If you encounter new `ERR_MODULE_NOT_FOUND` errors:
 1. Install the missing package: `pnpm add <package-name>`
 2. Add it to the `noExternal` list in `astro.config.mjs`
 3. Rebuild: `pnpm run build`
+
+### Common Missing Dependencies
+
+The following packages are commonly missing and should be added to `noExternal`:
+
+- `kleur` - Console colors
+- `cookie` - Cookie parsing
+- `es-module-lexer` - ES module parsing
+- `devalue` - Data serialization
+- `unstorage` - Storage abstraction
+- `destr` - Destructuring utilities
+- `magic-string` - String manipulation
+- `rollup` - JavaScript bundler
 
 ## Notes
 
