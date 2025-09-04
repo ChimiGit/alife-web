@@ -49,6 +49,7 @@ export default defineConfig({
         'vite',
         // Markdown and content
         'remark-gfm',
+        'deterministic-object-hash',
       ],
     },
   },
