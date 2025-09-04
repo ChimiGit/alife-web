@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getTeamCategoryBySlug } from '../../../utils/team-categories.ts';
+// Ensure kleur is bundled
+import 'kleur';
 
 export const prerender = false;
 

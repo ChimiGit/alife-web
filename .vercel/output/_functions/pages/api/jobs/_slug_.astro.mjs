@@ -1,5 +1,6 @@
 import { marked } from 'marked';
 import { g as getJobBySlug } from '../../../chunks/jobs_C3I116ym.mjs';
+import 'kleur';
 export { renderers } from '../../../renderers.mjs';
 
 const prerender = false;

@@ -24,6 +24,7 @@
     "kleur": "^4.1.5",
     "marked": "^16.2.1",
     "motion": "^12.23.12",
+    "picocolors": "^1.1.1",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

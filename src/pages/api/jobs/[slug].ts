@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { marked } from 'marked';
 import { getJobBySlug } from '../../../utils/jobs.ts';
+// Ensure kleur is bundled
+import 'kleur';
 
 export const prerender = false;
 

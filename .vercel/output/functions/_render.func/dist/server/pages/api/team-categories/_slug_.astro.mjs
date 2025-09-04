@@ -1,4 +1,5 @@
 import { g as getTeamCategoryBySlug } from '../../../chunks/team-categories_CY1SIQmP.mjs';
+import 'kleur';
 export { renderers } from '../../../renderers.mjs';
 
 const prerender = false;
