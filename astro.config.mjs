@@ -34,6 +34,7 @@ export default defineConfig({
         'unstorage',
         'destr',
         'path-to-regexp',
+        'path-to-regexp-updated',
         // Astro and related
         'astro',
         '@astrojs/vercel',
