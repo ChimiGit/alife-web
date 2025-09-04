@@ -1,6 +1,7 @@
-import type { APIRoute } from "astro";
-import { getTeamMemberBySlug } from "../../../utils/team";
-import { marked } from "marked";
+import type { APIRoute } from 'astro';
+import { getTeamMemberBySlug } from '../../../utils/team.ts';
+// Ensure kleur is bundled
+import 'kleur';
 
 export const prerender = false;
 
@@ -9,27 +10,24 @@ export const GET: APIRoute = async ({ params }) => {
     const { slug } = params;
 
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Slug is required" }), {
+      return new Response(JSON.stringify({ error: 'Slug is required' }), {
         status: 400,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
     }
 
-    const member = getTeamMemberBySlug(slug);
+    const member = await getTeamMemberBySlug(slug);
 
     if (!member) {
-      return new Response(JSON.stringify({ error: "Team member not found" }), {
+      return new Response(JSON.stringify({ error: 'Team member not found' }), {
         status: 404,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
     }
-
-    // Convert markdown to HTML
-    const htmlContent = marked(member.content);
 
     return new Response(
       JSON.stringify({
@@ -37,23 +35,24 @@ export const GET: APIRoute = async ({ params }) => {
         title: member.title,
         image: member.image,
         location: member.location,
+        bio: member.bio,
         linkedin: member.linkedin,
         twitter: member.twitter,
         email: member.email,
-        htmlContent,
       }),
       {
         status: 200,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
+    console.error('API Error:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
   }

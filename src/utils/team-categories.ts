@@ -1,71 +1,42 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import { getCollection } from 'astro:content';
 
 export interface TeamCategory {
-  slug: string;
   title: string;
   description: string;
   order: number;
-  content: string;
+  slug: string;
 }
 
-export function getAllTeamCategories(): TeamCategory[] {
-  const categoriesDirectory = path.join(
-    process.cwd(),
-    "src/content/team-categories"
-  );
-
-  if (!fs.existsSync(categoriesDirectory)) {
+export async function getAllTeamCategories(): Promise<TeamCategory[]> {
+  try {
+    const categories = await getCollection('team-categories');
+    return categories.map((category) => ({
+      ...category.data,
+      slug: category.slug,
+    }));
+  } catch (error) {
+    console.error('Error loading team categories:', error);
     return [];
   }
-
-  const fileNames = fs.readdirSync(categoriesDirectory);
-  const categories = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, "");
-      const fullPath = path.join(categoriesDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data, content } = matter(fileContents);
-
-      return {
-        slug,
-        title: data.title || "",
-        description: data.description || "",
-        order: data.order || 999,
-        content: content.trim(),
-      };
-    })
-    .sort((a, b) => a.order - b.order);
-
-  return categories;
 }
 
-export function getTeamCategoryBySlug(slug: string): TeamCategory | null {
+export async function getTeamCategoryBySlug(
+  slug: string
+): Promise<TeamCategory | null> {
   try {
-    const fullPath = path.join(
-      process.cwd(),
-      "src/content/team-categories",
-      `${slug}.md`
-    );
-
-    if (!fs.existsSync(fullPath)) {
+    const categories = await getCollection('team-categories');
+    const category = categories.find((category) => category.slug === slug);
+    
+    if (!category) {
       return null;
     }
 
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
-
     return {
-      slug,
-      title: data.title || "",
-      description: data.description || "",
-      order: data.order || 999,
-      content: content.trim(),
+      ...category.data,
+      slug: category.slug,
     };
   } catch (error) {
-    console.error(`Error reading team category ${slug}:`, error);
+    console.error('Error loading team category:', error);
     return null;
   }
 }

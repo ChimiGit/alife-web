@@ -1,18 +1,19 @@
 ---
 // Header component for ALIFE website
+import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
+
 export interface Props {
   lang?: string;
-  translations?: any;
 }
 
-const { lang = 'en', translations } = Astro.props;
+const { lang = 'en' } = Astro.props;
+const translations = await loadMarkdownTranslations(lang);
 ---
 
-<header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]">
-
+<header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] sticky top-0 z-50">
 
     <!-- Main  header content -->
-    <div class="bg-white/20 backdrop-blur-md border-b border-white/30">
+    <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
       <div class="max-w-6xl mx-auto px-4 flex justify-between items-center min-h-20">
       <!-- Logo section -->
       <div class="flex items-center">
@@ -21,24 +22,27 @@ const { lang = 'en', translations } = Astro.props;
         </a>
       </div>
 
-      <!-- Navigation section -->
-      <nav class="flex items-center gap-8" role="navigation" aria-label="Main navigation">
+      <!-- Desktop Navigation section -->
+      <nav class="hidden lg:flex items-center gap-8" role="navigation" aria-label="Main navigation">
         <ul class="flex list-none m-0 p-0 gap-8">
           <li class="m-0">
-            <a href={`/about?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.about || 'About'}</a>
+            <a href={`/?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="home">{translations.Home || 'Home'}</a>
           </li>
           <li class="m-0">
-            <a href={`/career?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.career || 'Career'}</a>
+            <a href={`/about?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="about">{translations['About Us'] || 'About Us'}</a>
           </li>
           <li class="m-0">
-            <a href={`/blog?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.blog || 'Blog'}</a>
+            <a href={`/career?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="career">{translations.Career || 'Career'}</a>
           </li>
           <li class="m-0">
-            <a href={`/support?lang=${lang}`} class="no-underline text-primary font-normal text-sm transition-colors duration-200 hover:text-accent-cyan">{translations?.navigation?.support || 'Support Us'}</a>
+            <a href={`/blog?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="blog">{translations.Blog || 'Blog'}</a>
+          </li>
+          <li class="m-0">
+            <a href={`/support?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="support">{translations['Support Us'] || 'Support Us'}</a>
           </li>
         </ul>
 
-        <!-- Language selector -->
+        <!-- Desktop Language selector -->
         <div class="flex items-center gap-2" id="language-selector">
           <span class="w-px h-4 bg-gray-300"></span>
           <a href="?lang=en" class="no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan text-primary" aria-label="English" data-lang="en">EN</a>
@@ -46,15 +50,199 @@ const { lang = 'en', translations } = Astro.props;
           <a href="?lang=jp" class="no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan text-primary" aria-label="Japanese" data-lang="jp">JP</a>
         </div>
       </nav>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button 
+        id="mobile-menu-button"
+        class="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 text-primary hover:text-accent-cyan transition-colors duration-200"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+        style="cursor: pointer; position: relative; z-index: 100;"
+      >
+        <span class="block w-6 h-0.5 bg-current transition-all duration-300 transform" id="hamburger-line-1"></span>
+        <span class="block w-6 h-0.5 bg-current transition-all duration-300 transform" id="hamburger-line-2"></span>
+        <span class="block w-6 h-0.5 bg-current transition-all duration-300 transform" id="hamburger-line-3"></span>
+      </button>
       </div>
     </div>
+
+    <!-- Mobile Flyover Side Menu -->
+    <div 
+      id="mobile-menu" 
+      class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform transition-all duration-500 ease-out z-50 lg:hidden"
+      style="box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3); transform: translateX(100%);"
+    >
+      <div class="flex flex-col h-full">
+        <!-- Mobile Menu Header -->
+        <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-gradient-to-r from-primary/5 to-accent-cyan/5">
+          <div class="flex items-center">
+            <img src="/assets/logo/logo.png" alt="ALIFE Logo" class="h-6 w-24"/>
+          </div>
+          <button 
+            id="mobile-menu-close"
+            class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-200"
+            aria-label="Close mobile menu"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="flex-1 p-6" role="navigation" aria-label="Mobile navigation">
+          <ul class="space-y-2">
+            <li>
+              <a href={`/?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="home">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                {translations.Home || 'Home'}
+              </a>
+            </li>
+            <li>
+              <a href={`/about?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="about">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                {translations['About Us'] || 'About Us'}
+              </a>
+            </li>
+            <li>
+              <a href={`/career?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="career">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                {translations.Career || 'Career'}
+              </a>
+            </li>
+            <li>
+              <a href={`/blog?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="blog">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                {translations.Blog || 'Blog'}
+              </a>
+            </li>
+            <li>
+              <a href={`/support?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="support">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                {translations['Support Us'] || 'Support Us'}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Mobile Language Selector -->
+        <div class="p-6 border-t border-gray-100 bg-gray-50/50">
+          <div class="flex items-center justify-center gap-3" id="mobile-language-selector">
+            <a href="?lang=en" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-primary text-primary font-medium transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg" aria-label="English" data-lang="en">English</a>
+            <a href="?lang=jp" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-primary text-primary font-medium transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg" aria-label="Japanese" data-lang="jp">日本語</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div 
+      id="mobile-menu-overlay" 
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden opacity-0 pointer-events-none transition-all duration-500 ease-out"
+    ></div>
 </header>
+
+<style>
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #1a365d; /* primary color */
+    transition: width 0.3s ease;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: #1a365d !important; /* primary color */
+    font-weight: 600;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Mobile menu styles */
+  .mobile-nav-link.active {
+    color: #1a365d !important;
+    font-weight: 600;
+    background-color: #1a365d/10 !important;
+  }
+
+  .mobile-nav-link.active .w-2 {
+    opacity: 1 !important;
+  }
+
+  .mobile-lang-link.active {
+    background-color: #1a365d !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3) !important;
+  }
+
+  /* Hamburger animation */
+  .hamburger-open #hamburger-line-1 {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger-open #hamburger-line-2 {
+    opacity: 0;
+  }
+
+  .hamburger-open #hamburger-line-3 {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Flyover menu animation */
+  #mobile-menu {
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #mobile-menu.menu-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  /* Menu item hover effects */
+  .mobile-nav-link:hover {
+    transform: translateX(4px);
+  }
+
+  /* Language button hover effects */
+  .mobile-lang-link:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Ensure hamburger button is visible and clickable */
+  #mobile-menu-button {
+    position: relative;
+    z-index: 100;
+    pointer-events: auto;
+  }
+</style>
 
 <script>
   // Language switching functionality
   document.addEventListener('DOMContentLoaded', () => {
     const languageSelector = document.getElementById('language-selector');
-    if (!languageSelector) return;
+    const mobileLanguageSelector = document.getElementById('mobile-language-selector');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
     // Get current language from URL or default to English
     const getCurrentLang = () => {
@@ -65,22 +253,38 @@ const { lang = 'en', translations } = Astro.props;
     // Update active language styling
     const updateActiveLanguage = () => {
       const currentLang = getCurrentLang();
-      const langLinks = languageSelector?.querySelectorAll('a[data-lang]');
+      
+      // Desktop language selector
+      if (languageSelector) {
+        const langLinks = languageSelector.querySelectorAll('a[data-lang]');
+        langLinks.forEach((link) => {
+          const lang = link.getAttribute('data-lang');
+          if (lang === currentLang) {
+            link.classList.add('text-accent-cyan');
+            link.classList.remove('text-primary');
+          } else {
+            link.classList.remove('text-accent-cyan');
+            link.classList.add('text-primary');
+          }
+        });
+      }
 
-      langLinks?.forEach((link) => {
-        const lang = link.getAttribute('data-lang');
-        if (lang === currentLang) {
-          link.classList.add('text-accent-cyan');
-          link.classList.remove('text-primary');
-        } else {
-          link.classList.remove('text-accent-cyan');
-          link.classList.add('text-primary');
-        }
-      });
+      // Mobile language selector
+      if (mobileLanguageSelector) {
+        const mobileLangLinks = mobileLanguageSelector.querySelectorAll('a[data-lang]');
+        mobileLangLinks.forEach((link) => {
+          const lang = link.getAttribute('data-lang');
+          if (lang === currentLang) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
     };
 
     // Handle language switching
-    languageSelector.addEventListener('click', (e) => {
+    const handleLanguageSwitch = (e: Event) => {
       const target = e.target as HTMLElement;
       if (target && target.tagName === 'A' && target.hasAttribute('data-lang')) {
         e.preventDefault();
@@ -91,9 +295,100 @@ const { lang = 'en', translations } = Astro.props;
           window.location.href = currentUrl.toString();
         }
       }
+    };
+
+    // Desktop language selector
+    if (languageSelector) {
+      languageSelector.addEventListener('click', handleLanguageSwitch);
+    }
+
+    // Mobile language selector
+    if (mobileLanguageSelector) {
+      mobileLanguageSelector.addEventListener('click', handleLanguageSwitch);
+    }
+
+    // Mobile menu functionality
+    const toggleMobileMenu = (open: boolean) => {
+      if (mobileMenu && mobileMenuOverlay && mobileMenuButton) {
+        if (open) {
+          mobileMenu.style.transform = 'translateX(0)';
+          mobileMenuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+          mobileMenuButton.classList.add('hamburger-open');
+          mobileMenuButton.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('menu-open');
+        } else {
+          mobileMenu.style.transform = 'translateX(100%)';
+          mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none');
+          mobileMenuButton.classList.remove('hamburger-open');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('menu-open');
+        }
+      }
+    };
+
+    // Open mobile menu
+    if (mobileMenuButton) {
+      mobileMenuButton.addEventListener('click', () => {
+        toggleMobileMenu(true);
+      });
+    } else {
+      console.error('Mobile menu button not found');
+    }
+
+    // Close mobile menu
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener('click', () => {
+        toggleMobileMenu(false);
+      });
+    }
+
+    // Close mobile menu when clicking overlay
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', () => {
+        toggleMobileMenu(false);
+      });
+    }
+
+    // Close mobile menu when pressing Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu && mobileMenu.style.transform === 'translateX(0px)') {
+        toggleMobileMenu(false);
+      }
     });
+
+    // Navigation active state functionality
+    const updateActiveNavigation = () => {
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+      
+      navLinks.forEach((link) => {
+        const linkElement = link as HTMLElement;
+        const page = linkElement.getAttribute('data-page');
+        
+        // Remove active class from all links
+        linkElement.classList.remove('active');
+        
+        // Add active class to current page
+        if (currentPath === '/' && page === 'home') {
+          linkElement.classList.add('active');
+        } else if (currentPath.includes(`/${page}`)) {
+          linkElement.classList.add('active');
+        }
+      });
+    };
 
     // Initialize active language styling
     updateActiveLanguage();
+
+    // Initialize active navigation styling
+    updateActiveNavigation();
+
+    // Close mobile menu when clicking on a navigation link
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        toggleMobileMenu(false);
+      });
+    });
   });
 </script>

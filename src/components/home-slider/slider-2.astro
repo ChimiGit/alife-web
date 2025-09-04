@@ -1,0 +1,43 @@
+---
+import { loadMarkdownTranslations } from '../../utils/markdown-translations.ts';
+
+export interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const translations = await loadMarkdownTranslations(lang);
+---
+
+<div class="relative min-h-screen">
+  <!-- Background GIF -->
+  <div class="fixed inset-0 z-0">
+    <img
+      src="/assets/home-slider/slider-2.gif"
+      alt="ALIFE Background Animation"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <!-- Text Content -->
+  <main class="relative z-20 min-h-screen pt-20 sm:pt-10">
+    <div class="text-left max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+        {translations.Where || 'Where'}
+      </h1>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+        {translations['Evolution Meets'] || 'Evolution Meets'}
+      </h1>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+        {translations.Innovation || 'Innovation'}
+      </h1>
+      <p class="text-primary max-w-4xl leading-relaxed opacity-90 text-sm sm:text-base md:text-lg" style="font-family: 'Inter', sans-serif;">
+        {translations['We\'re cultivating alternative approaches through evolution itself—creating systems that don\'t just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.'] || 'We\'re cultivating alternative approaches through evolution itself—creating systems that don\'t just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.'}
+      </p>
+    </div>
+  </main>
+</div>
+
+<script>
+  // Add any client-side functionality here if needed
+</script>

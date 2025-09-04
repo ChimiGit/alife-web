@@ -1,0 +1,9 @@
+# Ignore development files
+node_modules/
+.env
+.env.local
+.DS_Store
+*.log
+.git/
+.gitignore
+README.md
