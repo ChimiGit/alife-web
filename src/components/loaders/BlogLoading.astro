@@ -1,5 +1,13 @@
 ---
 import '../../styles/global.css';
+import { loadMarkdownTranslations } from '../../utils/markdown-translations.ts';
+
+export interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const translations = await loadMarkdownTranslations(lang);
 ---
 
 <!-- Blog Loading Page -->
@@ -12,7 +20,7 @@ import '../../styles/global.css';
   <!-- Content -->
   <div class="relative z-10 text-center">
     <h1 class="text-200px text-primary mb-8 animate-fade-in opacity-0 transition-opacity duration-1000 ease-out" style="font-family: 'GT Alpina Fine', serif;">
-      Blog
+      {translations.Blog || 'Blog'}
     </h1>
   </div>
 </div>

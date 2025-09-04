@@ -5,20 +5,20 @@ import BlogLoading from '../components/loaders/BlogLoading.astro';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
-const translations = {
-  en: {
-    navigation: {
-      about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-    }
-  },
-  jp: {
-    navigation: {
-      about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-    }
-  }
-};
+// const translations = {
+//   en: {
+//     navigation: {
+//       about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
+//     }
+//   },
+//   jp: {
+//     navigation: {
+//       about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
+//     }
+//   }
+// };
 
-const t = translations[lang as keyof typeof translations] || translations.en;
+// const t = translations[lang as keyof typeof translations] || translations.en;
 
 
 const contentData = {
@@ -130,11 +130,11 @@ const contentData = {
   </head>
   <body class="min-h-screen bg-gray-50">
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <BlogLoading />
+      <BlogLoading lang={lang} />
     </div>
 
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} translations={t} />
+      <Header lang={lang} />
 
       <main class="max-w-7xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
         <div class="text-center mb-12">

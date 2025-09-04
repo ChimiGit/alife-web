@@ -1,12 +1,13 @@
 ---
 import '../../../styles/global.css';
+import { loadMarkdownTranslations } from '../../../utils/markdown-translations.ts';
 
 export interface Props {
   lang?: string;
-  translations?: any;
 }
 
-const { translations } = Astro.props;
+const { lang = 'en' } = Astro.props;
+const translations = await loadMarkdownTranslations(lang);
 ---
 
 <!-- Who We Are Section -->

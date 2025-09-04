@@ -7,19 +7,19 @@ import '../styles/global.css';
 // Get language from URL parameters or default to English
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
-const translations = {
-  en: {
-    navigation: {
-      about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-    }
-  },
-  jp: {
-    navigation: {
-      about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-    }
-  }
-};
-const t = translations[lang as keyof typeof translations] || translations.en;
+// const translations = {
+//   en: {
+//     navigation: {
+//       about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
+//     }
+//   },
+//   jp: {
+//     navigation: {
+//       about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
+//     }
+//   }
+// };
+// const t = translations[lang as keyof typeof translations] || translations.en;
 ---
 
 <!DOCTYPE html>
@@ -37,12 +37,12 @@ const t = translations[lang as keyof typeof translations] || translations.en;
   <body class="min-h-screen bg-gray-50">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <SupportLoading />
+      <SupportLoading lang={lang} />
     </div>
 
     <!-- Main Content (Hidden Initially) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} translations={t} />
+      <Header lang={lang} />
 
       <!-- Main content -->
       <main class="pt-24" style="font-family: 'Inter', sans-serif;">

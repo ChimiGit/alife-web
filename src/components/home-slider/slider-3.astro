@@ -1,12 +1,13 @@
 ---
 import Header from '../Header.astro';
+import { loadMarkdownTranslations } from '../../utils/markdown-translations.ts';
 
 export interface Props {
   lang?: string;
-  translations?: any;
 }
 
-const { lang = 'en', translations } = Astro.props;
+const { lang = 'en' } = Astro.props;
+const translations = await loadMarkdownTranslations(lang);
 ---
 
 <div class="relative min-h-screen">
@@ -20,22 +21,22 @@ const { lang = 'en', translations } = Astro.props;
   </div>
 
   <!-- Header -->
-  <Header lang={lang} translations={translations} />
+  <Header lang={lang} />
 
   <!-- Text Content -->
   <main class="relative z-20 min-h-screen pt-10">
     <div class="text-left max-w-7xl mx-auto px-4 space-y-6">
       <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
-        {translations?.titleLine1 || 'Where'}
+        {translations.Where || 'Where'}
       </h1>
       <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
-        {translations?.titleLine2 || 'Evolution Meets'}
+        {translations['Evolution Meets'] || 'Evolution Meets'}
       </h1>
       <h1 class="text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif;">
-        {translations?.titleLine3 || 'Innovation'}
+        {translations.Innovation || 'Innovation'}
       </h1>
       <p class="text-primary max-w-4xl leading-relaxed opacity-90" style="font-family: 'Inter', sans-serif; font-size: '16px';">
-        {translations?.description || 'We\'re cultivating alternative approaches through evolution itself—creating systems that don\'t just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.'}
+        {translations['We\'re cultivating alternative approaches through evolution itself—creating systems that don\'t just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.'] || 'We\'re cultivating alternative approaches through evolution itself—creating systems that don\'t just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.'}
       </p>
     </div>
   </main>

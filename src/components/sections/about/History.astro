@@ -1,12 +1,20 @@
 ---
 import '../../../styles/global.css';
+import { loadMarkdownTranslations } from '../../../utils/markdown-translations.ts';
+
+export interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const translations = await loadMarkdownTranslations(lang);
 ---
 
 <!-- History Content -->
 <div class="max-w-4xl mx-auto px-4 pb-12">
-  <h2 class="text-5xl text-primary text-center mb-2" style="font-family: 'GT Alpina Fine', serif;">History</h2>
+  <h2 class="text-5xl text-primary text-center mb-2" style="font-family: 'GT Alpina Fine', serif;">{translations.History || 'History'}</h2>
   <div class="text-center mb-15">
-    <span class="text-20px text-primary">Why Us ? We are already well positioned to succeed.</span>
+    <span class="text-20px text-primary">{translations['Why Us ? We are already well positioned to succeed.'] || 'Why Us ? We are already well positioned to succeed.'}</span>
   </div>
 
   <!-- Timeline -->
@@ -15,11 +23,11 @@ import '../../../styles/global.css';
     <div class="flex gap-x-3">
       <!-- Left Content -->
       <div class="min-w-100 text-end mb-20">
-        <span class="text-3xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Sakana.ai</span>
+        <span class="text-3xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Sakana.ai'] || 'Sakana.ai'}</span>
         <br/>
         <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Jan, 2024</span>
         <br/>
-        <span class="text-xs text-primary mt-2 block">1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.</span>
+        <span class="text-xs text-primary mt-2 block">{translations['1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.'] || '1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.'}</span>
       </div>
       <!-- End Left Content -->
 
@@ -57,9 +65,9 @@ import '../../../styles/global.css';
 
       <!-- Right Content -->
       <div class="grow pt-0.5 pb-8">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Alife</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Alife || 'Alife'}</span>
         <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Institute Incorporated</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Institute Incorporated'] || 'Institute Incorporated'}</span>
       </div>
       <!-- End Right Content -->
     </div>
@@ -69,9 +77,9 @@ import '../../../styles/global.css';
     <div class="flex gap-x-3">
       <!-- Left Content -->
       <div class="min-w-100 text-end mb-20">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Research</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Research || 'Research'}</span>
         <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Projects Began</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Projects Began'] || 'Projects Began'}</span>
         <br/>
         <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Dec, 2024</span>
       </div>
@@ -90,37 +98,37 @@ import '../../../styles/global.css';
         <!-- ALife Research Grid -->
         <div class="grid grid-cols-2 gap-4 max-w-md">
           <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">primordial soup</p>
+            <p class="text-sm font-medium text-orange-400 mb-2">{translations['primordial soup'] || 'primordial soup'}</p>
             <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
               <img src="/assets/images/primordial soup.png" alt="Primordial Soup" class="w-full h-24 object-cover"/>
             </div>
           </div>
           <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">structure</p>
+            <p class="text-sm font-medium text-orange-400 mb-2">{translations.structure || 'structure'}</p>
             <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
               <img src="/assets/images/primordial soup.png" alt="Structure" class="w-full h-24 object-cover"/>
             </div>
           </div>
           <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">locomotion</p>
+            <p class="text-sm font-medium text-orange-400 mb-2">{translations.locomotion || 'locomotion'}</p>
             <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
               <img src="/assets/images/primordial soup.png" alt="Locomotion" class="w-full h-24 object-cover"/>
             </div>
           </div>
           <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">coevolution</p>
+            <p class="text-sm font-medium text-orange-400 mb-2">{translations.coevolution || 'coevolution'}</p>
             <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
               <img src="/assets/images/primordial soup.png" alt="Coevolution" class="w-full h-24 object-cover"/>
             </div>
           </div>
           <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">complexification</p>
+            <p class="text-sm font-medium text-orange-400 mb-2">{translations.complexification || 'complexification'}</p>
             <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
               <img src="/assets/images/primordial soup.png" alt="Complexification" class="w-full h-24 object-cover"/>
             </div>
           </div>
           <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">disordered structures</p>
+            <p class="text-sm font-medium text-orange-400 mb-2">{translations['disordered structures'] || 'disordered structures'}</p>
             <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
               <img src="/assets/images/primordial soup.png" alt="Disordered Structures" class="w-full h-24 object-cover"/>
             </div>
@@ -135,7 +143,7 @@ import '../../../styles/global.css';
     <div class="flex gap-x-3">
       <!-- Left Content -->
       <div class="min-w-100 text-end mb-20">
-        <span class="text-xl text-primary">Now</span>
+        <span class="text-xl text-primary">{translations.Now || 'Now'}</span>
       </div>
       <!-- End Left Content -->
 
@@ -149,9 +157,9 @@ import '../../../styles/global.css';
 
       <!-- Right Content -->
       <div class="grow pt-0.5 pb-8">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Kyoto</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Kyoto || 'Kyoto'}</span>
         <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Office Opens</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Office Opens'] || 'Office Opens'}</span>
         <br/>
         <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Oct, 2025</span>
       </div>
@@ -163,9 +171,9 @@ import '../../../styles/global.css';
     <div class="flex gap-x-3">
       <!-- Left Content -->
       <div class="min-w-100 text-end mb-15">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Non-Profit</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Non-Profit'] || 'Non-Profit'}</span>
         <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Incorporation</span>
+        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Incorporation || 'Incorporation'}</span>
         <br/>
         <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Dec, 2025</span>
       </div>

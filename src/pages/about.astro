@@ -39,12 +39,12 @@ const t = translations[lang as keyof typeof translations] || translations.en;
   <body class="min-h-screen bg-gray-50">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <AboutUsLoading />
+      <AboutUsLoading lang={lang} />
     </div>
     
     <!-- Main Content (Hidden Initially) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} translations={t} />
+      <Header lang={lang} />
       <!-- Main content -->
       <main class="max-w-4xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
       <!-- Tabs Section -->
@@ -67,13 +67,13 @@ const t = translations[lang as keyof typeof translations] || translations.en;
 
         <div class="mt-15">
           <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
-            <WhoWeAre lang={lang} translations={t}/>  
+            <WhoWeAre lang={lang} />  
           </div>
           <div id="tabs-with-underline-2" class="hidden" role="tabpanel" aria-labelledby="tabs-with-underline-item-2">
-            <History lang={lang} translations={t}/>
+            <History lang={lang} />
           </div>
           <div id="tabs-with-underline-3" class="hidden" role="tabpanel" aria-labelledby="tabs-with-underline-item-3">
-            <Mission lang={lang} translations={t}/>
+            <Mission lang={lang} />
           </div>
         </div>
       </div>

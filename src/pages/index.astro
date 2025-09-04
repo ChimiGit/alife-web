@@ -3,43 +3,11 @@ import '../styles/global.css';
 import Slider1 from '../components/home-slider/slider-1.astro';
 import Slider2 from '../components/home-slider/slider-2.astro';
 import Slider3 from '../components/home-slider/slider-3.astro';
-
+import TranslationProvider from '../components/TranslationProvider.astro';
 
 // Get language from URL parameters or default to English
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
-
-// Simple translation object for server-side rendering
-const translations = {
-  en: {
-    titleLine1: 'Where',
-    titleLine2: 'Evolution Meets',
-    titleLine3: 'Innovation',
-    description: 'We\'re cultivating alternative approaches through evolution itself—creating systems that don\'t just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.',
-    navigation: {
-      about: 'About',
-      career: 'Career',
-      blog: 'Blog',
-      support: 'Support Us'
-    }
-  },
-  jp: {
-    titleLine1: '進化と',
-    titleLine2: 'イノベーションが',
-    titleLine3: '出会う場所',
-    description: '私たちは進化そのものを通じて代替的なアプローチを培っています。最適化するだけでなく、発見し、驚かせ、継続的に進化するシステムを創造しています。これは、エンジニアリングされた未来ではなく、人間と人工生命体が補完的なパートナーとして協力するボトムアップエコシステムを通じて有機的に成長する未来への道を切り拓く場所です。',
-    navigation: {
-      about: '概要',
-      career: 'キャリア',
-      blog: 'ブログ',
-      support: 'サポート'
-    }
-  }
-};
-
-const t = translations[lang as keyof typeof translations] || translations.en;
-
-// We'll handle the random choice on the client side
 ---
 
 <html lang={lang}>
@@ -54,14 +22,15 @@ const t = translations[lang as keyof typeof translations] || translations.en;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen overflow-hidden">
+    <TranslationProvider lang={lang} />
     <!-- Backgrounds will be shown/hidden via JavaScript -->
     <div id="gif-background" class="hidden">
-      <Slider1 lang={lang} translations={t} />
+      <Slider1 lang={lang} />
     </div>
     <div id="slider-2-background" class="hidden">
-      <Slider2 lang={lang} translations={t} />
+      <Slider2 lang={lang} />
     </div>
-    <div id="slider-3-background" class="hidden"> <Slider3 lang={lang} translations={t} /> </div>
+    <div id="slider-3-background" class="hidden"> <Slider3 lang={lang} /> </div>
     <script>
       // Randomly choose which background to show on page load
       const backgrounds = ['gif', 'slider-2', 'slider-3'];
