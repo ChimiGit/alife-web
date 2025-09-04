@@ -1,6 +1,5 @@
-// Markdown-based translation utility for ALIFE website
-import fs from 'fs';
-import path from 'path';
+// JSON-based translation utility for ALIFE website
+import translationsData from '../translations/translations.json';
 
 interface TranslationMap {
   [key: string]: string;
@@ -10,58 +9,16 @@ export async function loadMarkdownTranslations(
   lang: string
 ): Promise<TranslationMap> {
   try {
-    const filePath = path.join(
-      process.cwd(),
-      'src',
-      'translations',
-      'translations.md'
-    );
-    if (fs.existsSync(filePath)) {
-      const fileContent = fs.readFileSync(filePath, 'utf8');
-      return parseMarkdownTranslations(fileContent, lang);
+    const langData = translationsData[lang as keyof typeof translationsData];
+    if (langData) {
+      return langData as TranslationMap;
     }
   } catch (error) {
-    // console.warn(`Failed to load markdown translations:`, error);
+    // console.warn(`Failed to load translations:`, error);
   }
 
-  return {};
-}
-
-function parseMarkdownTranslations(
-  content: string,
-  lang: string
-): TranslationMap {
-  const translations: TranslationMap = {};
-  const lines = content.split('\n');
-
-  lines.forEach(line => {
-    const trimmedLine = line.trim();
-
-    // Skip empty lines, headers, and section markers
-    if (
-      !trimmedLine ||
-      trimmedLine.startsWith('#') ||
-      trimmedLine.startsWith('##')
-    ) {
-      return;
-    }
-
-    // Look for translation pattern: "English = Japanese"
-    const equalIndex = trimmedLine.indexOf(' = ');
-    if (equalIndex !== -1) {
-      const english = trimmedLine.substring(0, equalIndex).trim();
-      const japanese = trimmedLine.substring(equalIndex + 3).trim();
-
-      if (lang === 'jp') {
-        translations[english] = japanese;
-      } else {
-        // For English, use the English text as both key and value
-        translations[english] = english;
-      }
-    }
-  });
-
-  return translations;
+  // Fallback to English if language not found
+  return translationsData.en as TranslationMap;
 }
 
 export function getTranslation(
