@@ -1,46 +1,175 @@
 ---
 import '../../../styles/global.css';
+import { getAllJobs } from '../../../utils/jobs.ts';
+
+const jobs = getAllJobs();
 ---
 
 <!-- Jobs Content -->
 <div class="space-y-8">
-  <!-- Research Head - First Instance -->
-  <div class="border-b border-gray-200 pb-8">
-    <div class="flex justify-between items-start mb-4">
-      <div class="flex-1">
-        <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">Research Head</h3>
-        <p class="text-primary font-medium mb-1">Kyoto HQ, Japan</p>
-        <p class="text-gray-600 text-sm">Job Description: Turning data into insights, and insights into impact.</p>
-      </div>
-      <div class="flex flex-col items-end space-y-2">
-        <button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200">
-          View Details
-        </button>
-        <div class="text-right text-sm">
-          <p class="text-gray-600">Dateline: <span class="font-medium">30-Aug-2025</span></p>
-          <p class="text-gray-600">Job Type: <span class="font-medium">Full Time</span></p>
+  {jobs.map(job => (
+    <div class="border-b border-gray-200 pb-8 last:border-b-0">
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex-1">
+          <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">
+            {job.title}
+          </h3>
+          <p class="text-primary font-medium mb-1">{job.location}</p>
+          <p class="text-gray-600 text-sm mb-2">
+            <span class="font-medium">{job.department}</span> • {job.experience} experience
+          </p>
+        </div>
+        <div class="flex flex-col items-end space-y-2">
+          <button
+            class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200"
+            onclick={`showJobDetails('${job.slug}')`}
+          >
+            View Details
+          </button>
+          <div class="text-right text-sm">
+            <p class="text-gray-600">
+              Deadline: <span class="font-medium">{new Date(job.deadline).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })}</span>
+            </p>
+            <p class="text-gray-600">
+              Type: <span class="font-medium">{job.type}</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  ))}
+</div>
 
-  <!-- Business Analyst - First Instance -->
-  <div class="border-b border-gray-200 pb-8">
-    <div class="flex justify-between items-start mb-4">
-      <div class="flex-1">
-        <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">Business Analyst</h3>
-        <p class="text-primary font-medium mb-1">Tokyo Office, Japan</p>
-        <p class="text-gray-600 text-sm">Job Description: Bridging business needs with smart solutions.</p>
-      </div>
-      <div class="flex flex-col items-end space-y-2">
-        <button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200">
-          View Details
-        </button>
-        <div class="text-right text-sm">
-          <p class="text-gray-600">Dateline: <span class="font-medium">02-Sept-2025</span></p>
-          <p class="text-gray-600">Job Type: <span class="font-medium">Full Time</span></p>
+<!-- Job Details Modal -->
+<div id="job-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h2 id="modal-title" class="text-3xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;"></h2>
+            <p id="modal-location" class="text-primary font-medium"></p>
+          </div>
+          <button 
+            onclick="closeJobModal()"
+            class="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+          >
+            ×
+          </button>
+        </div>
+        <div id="modal-content" class="prose prose-lg max-w-none text-primary">
+          <!-- Markdown content will be inserted here -->
+        </div>
+        <div class="mt-8 flex justify-end space-x-4">
+          <button 
+            onclick="closeJobModal()"
+            class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-colors duration-200"
+          >
+            Close
+          </button>
+          <button 
+            class="px-6 py-2 bg-primary text-white rounded-full font-medium hover:bg-accent-cyan transition-colors duration-200"
+          >
+            Apply Now
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .prose {
+    color: inherit;
+  }
+  
+  .prose h1 {
+    color: #1a365d;
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .prose h2 {
+    color: #1a365d;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .prose h3 {
+    color: #1a365d;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+  
+  .prose ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose strong {
+    font-weight: 600;
+    color: #1a365d;
+  }
+  
+  .prose em {
+    font-style: italic;
+    color: #6b7280;
+  }
+</style>
+
+<script>
+  // Job details modal functionality
+  function showJobDetails(slug) {
+    // Fetch job details from the server
+    fetch(`/api/jobs/${slug}`)
+      .then(response => response.json())
+      .then(job => {
+        document.getElementById('modal-title').textContent = job.title;
+        document.getElementById('modal-location').textContent = job.location;
+        document.getElementById('modal-content').innerHTML = job.htmlContent;
+        document.getElementById('job-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      })
+      .catch(error => {
+        console.error('Error fetching job details:', error);
+        alert('Error loading job details. Please try again.');
+      });
+  }
+
+  function closeJobModal() {
+    document.getElementById('job-modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Close modal when clicking outside
+  document.getElementById('job-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeJobModal();
+    }
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !document.getElementById('job-modal').classList.contains('hidden')) {
+      closeJobModal();
+    }
+  });
+</script>

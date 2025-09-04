@@ -1,89 +1,105 @@
 ---
 import '../../../styles/global.css';
+import { getAllTeamMembers } from '../../../utils/team.ts';
+import { getAllTeamCategories } from '../../../utils/team-categories.ts';
+
+const teamMembers = getAllTeamMembers();
+const teamCategories = getAllTeamCategories();
 ---
 
-<!-- Team Section with Tabs -->
+<!-- Team Section with Enhanced Layout -->
 <section class="mb-20">
-  <div class="flex">
+  <div class="flex flex-col lg:flex-row">
     <!-- Left Sidebar with Tabs -->
-    <div class="w-1/4 pr-8">
+    <div class="w-full lg:w-1/4 lg:pr-8 mb-8 lg:mb-0">
       <h3 class="text-2xl font-bold text-gray-400 mb-8 flex justify-start">The Team</h3>
       <nav class="space-y-2" role="tablist" aria-orientation="vertical">
-        <button type="button" class="team-tab active w-full text-left py-3 px-4 text-lg font-semibold text-primary border-l-4 border-primary bg-gray-100" id="executives-tab" aria-selected="true" data-target="#executives-panel" role="tab">
-          Executives
-        </button>
-        <button type="button" class="team-tab w-full text-left py-3 px-4 text-lg text-gray-500 border-l-4 border-transparent hover:text-primary" id="directors-tab" aria-selected="false" data-target="#directors-panel" role="tab">
-          Directors
-        </button>
-        <button type="button" class="team-tab w-full text-left py-3 px-4 text-lg text-gray-500 border-l-4 border-transparent hover:text-primary" id="researchers-tab" aria-selected="false" data-target="#researchers-panel" role="tab">
-          Researchers
-        </button>
-        <button type="button" class="team-tab w-full text-left py-3 px-4 text-lg text-gray-500 border-l-4 border-transparent hover:text-primary" id="admin-tab" aria-selected="false" data-target="#admin-panel" role="tab">
-          Admin Team
-        </button>
+        {teamCategories.map((category, index) => (
+          <button 
+            type="button" 
+            class={`team-tab w-full text-left py-3 px-4 text-lg border-l-4 hover:text-primary ${index === 0 ? 'active font-semibold text-primary border-primary bg-gray-100' : 'text-gray-500 border-transparent'}`} 
+            id={`${category.slug}-tab`} 
+            aria-selected={index === 0 ? 'true' : 'false'} 
+            data-target={`#${category.slug}-panel`} 
+            role="tab"
+          >
+            {category.title}
+          </button>
+        ))}
       </nav>
     </div>
 
     <!-- Right Content Area -->
-    <div class="w-3/4">
-      <!-- Executives Panel -->
-      <div id="executives-panel" class="team-panel" role="tabpanel" aria-labelledby="executives-tab">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Banjo Yamauchi -->
-          <div class="text-center">
-            <div class="w-48 h-48 mx-auto mb-4 rounded-medium overflow-hidden bg-gray-200">
-              <img src="/assets/team/Banjo Yamauchi.png" alt="Banjo Yamauchi" class="w-full h-full object-cover">
-            </div>
-            <h4 class="text-xl font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">Banjo Yamauchi</h4>
-            <p class="text-primary font-medium mb-1">Seed Investor</p>
-            <p class="text-xs text-gray-600">Yamauchi No.10 Family Office</p>
-          </div>
-
-          <!-- Ken Suzuki -->
-          <div class="text-center">
-            <div class="w-48 h-48 mx-auto mb-4 rounded-medium overflow-hidden bg-gray-200">
-              <img src="/assets/team/Ken Suzuki.png" alt="Ken Suzuki" class="w-full h-full object-cover">
-            </div>
-            <h4 class="text-xl font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">Ken Suzuki</h4>
-            <p class="text-primary font-medium mb-1">Founder</p>
-            <p class="text-xs text-gray-600">Founder/Executive Chair of SmartNews</p>
-          </div>
-
-          <!-- Mizuki Oka -->
-          <div class="text-center">
-            <div class="w-48 h-48 mx-auto mb-4 rounded-medium overflow-hidden bg-gray-200">
-              <img src="/assets/team/Mizuki Oka.png" alt="Mizuki Oka" class="w-full h-full object-cover">
-            </div>
-            <h4 class="text-xl font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">Mizuki Oka</h4>
-            <p class="text-primary font-medium mb-1">CEO</p>
-            <p class="text-xs text-gray-600">Artificial Life Researcher</p>
+    <div class="w-full lg:w-3/4">
+      {teamCategories.map((category, index) => (
+        <div 
+          id={`${category.slug}-panel`} 
+          class={`team-panel ${index === 0 ? '' : 'hidden'}`} 
+          role="tabpanel" 
+          aria-labelledby={`${category.slug}-tab`}
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.filter(member => member.category === category.slug).map(member => (
+              <div class="text-center group cursor-pointer" onclick={`showTeamMemberDetails('${member.slug}')`}>
+                <div class="w-48 h-48 mx-auto mb-4 rounded-medium overflow-hidden bg-gray-200 group-hover:shadow-lg transition-all duration-300">
+                  <img src={member.image} alt={member.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <h4 class="text-xl font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
+                <p class="text-primary font-medium mb-1">{member.title}</p>
+                <p class="text-xs text-gray-600 mb-2">{member.bio}</p>
+                <p class="text-xs text-gray-500">{member.location}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</section>
 
-      <!-- Directors Panel -->
-      <div id="directors-panel" class="team-panel hidden" role="tabpanel" aria-labelledby="directors-tab">
-        <div class="text-center py-12">
-          <p class="text-gray-500 text-lg">Directors information coming soon...</p>
+<!-- Team Member Details Modal -->
+<div id="team-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-6">
+          <div class="flex items-start space-x-6">
+            <div class="w-32 h-32 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
+              <img id="modal-image" src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h2 id="modal-name" class="text-3xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;"></h2>
+              <p id="modal-title" class="text-xl text-primary font-medium mb-1"></p>
+              <p id="modal-location" class="text-gray-600 mb-3"></p>
+              <div id="modal-social" class="flex space-x-4">
+                <!-- Social links will be inserted here -->
+              </div>
+            </div>
+          </div>
+          <button 
+            onclick="closeTeamModal()"
+            class="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+          >
+            ×
+          </button>
         </div>
-      </div>
-
-      <!-- Researchers Panel -->
-      <div id="researchers-panel" class="team-panel hidden" role="tabpanel" aria-labelledby="researchers-tab">
-        <div class="text-center py-12">
-          <p class="text-gray-500 text-lg">Researchers information coming soon...</p>
+        <div id="modal-content" class="text-primary space-y-6">
+          <!-- Markdown content will be inserted here -->
         </div>
-      </div>
-
-      <!-- Admin Team Panel -->
-      <div id="admin-panel" class="team-panel hidden" role="tabpanel" aria-labelledby="admin-tab">
-        <div class="text-center py-12">
-          <p class="text-gray-500 text-lg">Admin team information coming soon...</p>
+        <div class="mt-8 flex justify-end">
+          <button 
+            onclick="closeTeamModal()"
+            class="px-6 py-2 bg-primary text-white rounded-full font-medium hover:bg-accent-cyan transition-colors duration-200"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+
 
 <script>
   // Team tabs functionality
@@ -119,5 +135,143 @@ import '../../../styles/global.css';
         }
       });
     });
+  });
+
+
+
+  // Team member details modal functionality
+  function showTeamMemberDetails(slug: string) {
+    // Fetch team member details from the server
+    fetch(`/api/team/${slug}`)
+      .then(response => response.json())
+      .then(member => {
+        const modalImage = document.getElementById('modal-image') as HTMLImageElement;
+        const modalName = document.getElementById('modal-name');
+        const modalTitle = document.getElementById('modal-title');
+        const modalLocation = document.getElementById('modal-location');
+        
+        if (modalImage) modalImage.src = member.image;
+        if (modalImage) modalImage.alt = member.name;
+        if (modalName) modalName.textContent = member.name;
+        if (modalTitle) modalTitle.textContent = member.title;
+        if (modalLocation) modalLocation.textContent = member.location;
+        
+        // Add social links
+        const socialContainer = document.getElementById('modal-social');
+        if (socialContainer) {
+          socialContainer.innerHTML = '';
+        
+                  if (member.linkedin) {
+            socialContainer.innerHTML += `<a href="${member.linkedin}" target="_blank" class="text-primary hover:text-accent-cyan transition-colors duration-200">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>`;
+          }
+          
+          if (member.twitter) {
+            socialContainer.innerHTML += `<a href="${member.twitter}" target="_blank" class="text-primary hover:text-accent-cyan transition-colors duration-200">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>`;
+          }
+          
+          if (member.email) {
+            socialContainer.innerHTML += `<a href="mailto:${member.email}" class="text-primary hover:text-accent-cyan transition-colors duration-200">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </a>`;
+          }
+        }
+        
+        // Apply Tailwind classes to markdown content
+        const modalContent = document.getElementById('modal-content');
+        if (modalContent) {
+          // Create a temporary div to parse the HTML
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = member.htmlContent;
+          
+          // Apply Tailwind classes to headings
+          tempDiv.querySelectorAll('h1').forEach(h1 => {
+            h1.className = 'text-3xl font-bold text-primary mb-4';
+          });
+          
+          tempDiv.querySelectorAll('h2').forEach(h2 => {
+            h2.className = 'text-2xl font-semibold text-primary mt-8 mb-3';
+          });
+          
+          tempDiv.querySelectorAll('h3').forEach(h3 => {
+            h3.className = 'text-xl font-semibold text-primary mt-6 mb-2';
+          });
+          
+          // Apply Tailwind classes to paragraphs
+          tempDiv.querySelectorAll('p').forEach(p => {
+            p.className = 'text-primary leading-relaxed mb-4';
+          });
+          
+          // Apply Tailwind classes to lists
+          tempDiv.querySelectorAll('ul').forEach(ul => {
+            ul.className = 'list-disc list-inside text-primary mb-4 space-y-1';
+          });
+          
+          tempDiv.querySelectorAll('ol').forEach(ol => {
+            ol.className = 'list-decimal list-inside text-primary mb-4 space-y-1';
+          });
+          
+          // Apply Tailwind classes to list items
+          tempDiv.querySelectorAll('li').forEach(li => {
+            li.className = 'text-primary';
+          });
+          
+          // Apply Tailwind classes to strong elements
+          tempDiv.querySelectorAll('strong').forEach(strong => {
+            strong.className = 'font-semibold text-primary';
+          });
+          
+          // Apply Tailwind classes to em elements
+          tempDiv.querySelectorAll('em').forEach(em => {
+            em.className = 'italic text-gray-600';
+          });
+          
+          modalContent.innerHTML = tempDiv.innerHTML;
+        }
+        const teamModal = document.getElementById('team-modal');
+        if (teamModal) {
+          teamModal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching team member details:', error);
+        alert('Error loading team member details. Please try again.');
+      });
+  }
+
+  function closeTeamModal() {
+    const teamModal = document.getElementById('team-modal');
+    if (teamModal) {
+      teamModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // Close modal when clicking outside
+  const teamModal = document.getElementById('team-modal');
+  if (teamModal) {
+    teamModal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeTeamModal();
+      }
+    });
+  }
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', function(e) {
+    const teamModal = document.getElementById('team-modal');
+    if (e.key === 'Escape' && teamModal && !teamModal.classList.contains('hidden')) {
+      closeTeamModal();
+    }
   });
 </script>
