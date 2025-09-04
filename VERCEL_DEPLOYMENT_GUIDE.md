@@ -48,6 +48,7 @@ export default defineConfig({
         '@astrojs/vercel',
         '@astrojs/react',
         '@astrojs/markdown-remark',
+        '@vercel/routing-utils',
 
         // Build tools
         'magic-string',
@@ -95,7 +96,7 @@ export default defineConfig({
 Install these packages to ensure all dependencies are available:
 
 ```bash
-pnpm add kleur cookie es-module-lexer devalue unstorage magic-string rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @types/node@^20.0.0 destr
+pnpm add kleur cookie es-module-lexer devalue unstorage magic-string rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @types/node@^20.0.0 destr @vercel/routing-utils
 ```
 
 ## Why This Works
@@ -122,6 +123,7 @@ The following packages are commonly missing and should be added to `noExternal`:
 - `devalue` - Data serialization
 - `unstorage` - Storage abstraction
 - `destr` - Destructuring utilities
+- `@vercel/routing-utils` - Vercel routing utilities
 - `magic-string` - String manipulation
 - `rollup` - JavaScript bundler
 

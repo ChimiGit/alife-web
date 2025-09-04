@@ -38,6 +38,7 @@ export default defineConfig({
         '@astrojs/vercel',
         '@astrojs/react',
         '@astrojs/markdown-remark',
+        '@vercel/routing-utils',
         // Build tools
         'magic-string',
         'rollup',

@@ -35,6 +35,9 @@ dependencies:
   '@vercel/node':
     specifier: ^5.3.20
     version: 5.3.20(rollup@4.50.0)
+  '@vercel/routing-utils':
+    specifier: ^5.1.1
+    version: 5.1.1
   astro:
     specifier: ^5.12.0
     version: 5.12.0(@types/node@20.19.13)(rollup@4.50.0)(typescript@5.9.2)
