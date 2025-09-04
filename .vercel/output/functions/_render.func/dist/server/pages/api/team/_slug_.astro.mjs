@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import { g as getTeamMemberBySlug } from '../../../chunks/team_dq6RpL0U.mjs';
+import { g as getTeamMemberBySlug } from '../../../chunks/team_pZBN56tJ.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const prerender = false;

@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import { g as getJobBySlug } from '../../../chunks/jobs_Uvz6tZVG.mjs';
+import { g as getJobBySlug } from '../../../chunks/jobs_C3I116ym.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const prerender = false;

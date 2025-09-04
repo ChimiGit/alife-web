@@ -1,6 +1,4 @@
-// Temporarily disable content collections
-// eslint-disable-next-line import/no-unresolved
-// import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 export interface TeamMember {
   name: string;
@@ -10,26 +8,41 @@ export interface TeamMember {
   image: string;
   category: string;
   slug: string;
+  linkedin?: string;
+  twitter?: string;
+  email?: string;
 }
 
 export async function getAllTeamMembers(): Promise<TeamMember[]> {
   try {
-    // Temporarily return empty array
-    return [];
+    const team = await getCollection('team');
+    return team.map((member) => ({
+      ...member.data,
+      slug: member.slug,
+    }));
   } catch (error) {
-    // Error loading team members
+    console.error('Error loading team members:', error);
     return [];
   }
 }
 
 export async function getTeamMemberBySlug(
-  _slug: string
+  slug: string
 ): Promise<TeamMember | null> {
   try {
-    // Temporarily return null
-    return null;
+    const team = await getCollection('team');
+    const member = team.find((member) => member.slug === slug);
+    
+    if (!member) {
+      return null;
+    }
+
+    return {
+      ...member.data,
+      slug: member.slug,
+    };
   } catch (error) {
-    // Error loading team member
+    console.error('Error loading team member:', error);
     return null;
   }
 }

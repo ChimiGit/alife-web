@@ -1,31 +1,42 @@
-// Temporarily disable content collections
-// eslint-disable-next-line import/no-unresolved
-// import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 export interface TeamCategory {
   title: string;
   description: string;
+  order: number;
   slug: string;
 }
 
 export async function getAllTeamCategories(): Promise<TeamCategory[]> {
   try {
-    // Temporarily return empty array
-    return [];
+    const categories = await getCollection('team-categories');
+    return categories.map((category) => ({
+      ...category.data,
+      slug: category.slug,
+    }));
   } catch (error) {
-    // Error loading team categories
+    console.error('Error loading team categories:', error);
     return [];
   }
 }
 
 export async function getTeamCategoryBySlug(
-  _slug: string
+  slug: string
 ): Promise<TeamCategory | null> {
   try {
-    // Temporarily return null
-    return null;
+    const categories = await getCollection('team-categories');
+    const category = categories.find((category) => category.slug === slug);
+    
+    if (!category) {
+      return null;
+    }
+
+    return {
+      ...category.data,
+      slug: category.slug,
+    };
   } catch (error) {
-    // Error loading team category
+    console.error('Error loading team category:', error);
     return null;
   }
 }
