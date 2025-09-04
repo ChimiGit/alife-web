@@ -1,4 +1,3 @@
-import { marked } from 'marked';
 import { g as getTeamMemberBySlug } from '../../../chunks/team_pZBN56tJ.mjs';
 export { renderers } from '../../../renderers.mjs';
 
@@ -23,17 +22,16 @@ const GET = async ({ params }) => {
         }
       });
     }
-    const htmlContent = marked(member.content);
     return new Response(
       JSON.stringify({
         name: member.name,
         title: member.title,
         image: member.image,
         location: member.location,
+        bio: member.bio,
         linkedin: member.linkedin,
         twitter: member.twitter,
-        email: member.email,
-        htmlContent
+        email: member.email
       }),
       {
         status: 200,
@@ -43,6 +41,7 @@ const GET = async ({ params }) => {
       }
     );
   } catch (error) {
+    console.error("API Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: {

@@ -23,11 +23,15 @@ const GET = async ({ params }) => {
         }
       });
     }
-    const htmlContent = marked(job.content);
+    const htmlContent = job.content ? marked(job.content) : "";
     return new Response(
       JSON.stringify({
         title: job.title,
         location: job.location,
+        type: job.type,
+        deadline: job.deadline,
+        department: job.department,
+        experience: job.experience,
         htmlContent
       }),
       {
@@ -38,6 +42,7 @@ const GET = async ({ params }) => {
       }
     );
   } catch (error) {
+    console.error("API Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: {

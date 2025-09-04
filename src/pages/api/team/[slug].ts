@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { marked } from 'marked';
 import { getTeamMemberBySlug } from '../../../utils/team.ts';
 
 export const prerender = false;
@@ -28,19 +27,16 @@ export const GET: APIRoute = async ({ params }) => {
       });
     }
 
-    // Convert markdown to HTML
-    const htmlContent = marked(member.content);
-
     return new Response(
       JSON.stringify({
         name: member.name,
         title: member.title,
         image: member.image,
         location: member.location,
+        bio: member.bio,
         linkedin: member.linkedin,
         twitter: member.twitter,
         email: member.email,
-        htmlContent,
       }),
       {
         status: 200,
@@ -50,6 +46,7 @@ export const GET: APIRoute = async ({ params }) => {
       }
     );
   } catch (error) {
+    console.error('API Error:', error);
     return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {

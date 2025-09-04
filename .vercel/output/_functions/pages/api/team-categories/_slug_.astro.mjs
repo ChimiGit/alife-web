@@ -1,4 +1,3 @@
-import { marked } from 'marked';
 import { g as getTeamCategoryBySlug } from '../../../chunks/team-categories_CY1SIQmP.mjs';
 export { renderers } from '../../../renderers.mjs';
 
@@ -26,13 +25,11 @@ const GET = async ({ params }) => {
         }
       );
     }
-    const htmlContent = marked(category.content);
     return new Response(
       JSON.stringify({
         title: category.title,
         description: category.description,
-        order: category.order,
-        htmlContent
+        order: category.order
       }),
       {
         status: 200,
@@ -42,6 +39,7 @@ const GET = async ({ params }) => {
       }
     );
   } catch (error) {
+    console.error("API Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: {

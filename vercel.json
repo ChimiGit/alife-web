@@ -1,3 +1,10 @@
 {
-  "framework": "astro"
+  "framework": "astro",
+  "functions": {
+    "dist/server/entry.mjs": {
+      "maxDuration": 30
+    }
+  },
+  "buildCommand": "pnpm run build",
+  "outputDirectory": ".vercel/output"
 }

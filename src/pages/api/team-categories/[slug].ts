@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { marked } from 'marked';
 import { getTeamCategoryBySlug } from '../../../utils/team-categories.ts';
 
 export const prerender = false;
@@ -31,14 +30,11 @@ export const GET: APIRoute = async ({ params }) => {
       );
     }
 
-    const htmlContent = marked(category.content);
-
     return new Response(
       JSON.stringify({
         title: category.title,
         description: category.description,
         order: category.order,
-        htmlContent,
       }),
       {
         status: 200,
@@ -48,6 +44,7 @@ export const GET: APIRoute = async ({ params }) => {
       }
     );
   } catch (error) {
+    console.error('API Error:', error);
     return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {
