@@ -1,7 +1,6 @@
-import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, n as defineScriptVars, b as addAttribute, r as renderHead, d as renderComponent } from '../chunks/astro/server_D85hp0mG.mjs';
+import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, n as defineScriptVars, b as addAttribute, r as renderHead, d as renderComponent } from '../chunks/astro/server_BcM0bjOt.mjs';
 /* empty css                                 */
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_DpfppVyu.mjs';
-import 'clsx';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_VkMvDEAR.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro$4 = createAstro();
