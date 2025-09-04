@@ -22,7 +22,9 @@ export async function getAllTeamMembers(): Promise<TeamMember[]> {
   }
 }
 
-export async function getTeamMemberBySlug(_slug: string): Promise<TeamMember | null> {
+export async function getTeamMemberBySlug(
+  _slug: string
+): Promise<TeamMember | null> {
   try {
     // Temporarily return null
     return null;

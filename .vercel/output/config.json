@@ -44,10 +44,6 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^/debug/?$",
-			"dest": "_render"
-		},
-		{
 			"src": "^/privacy-policy/?$",
 			"dest": "_render"
 		},

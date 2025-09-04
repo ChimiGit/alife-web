@@ -1,5 +1,6 @@
-import { e as createComponent, f as createAstro, m as maybeRenderHead, k as renderScript, r as renderTemplate, h as addAttribute, l as renderHead, n as renderComponent } from '../chunks/astro/server_Rd5E_EmL.mjs';
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_C9Vkaj9E.mjs';
+import { e as createComponent, f as createAstro, m as maybeRenderHead, k as renderScript, r as renderTemplate, h as addAttribute, l as renderHead, n as renderComponent } from '../chunks/astro/server_Dt7KTtva.mjs';
+import 'kleur/colors';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_BvgYAMh7.mjs';
 import 'clsx';
 /* empty css                                 */
 /* empty css                                   */
@@ -11,8 +12,8 @@ const $$SupportLoading = createComponent(async ($$result, $$props, $$slots) => {
   Astro2.self = $$SupportLoading;
   const { lang = "en" } = Astro2.props;
   const translations = await loadMarkdownTranslations(lang);
-  return renderTemplate`<!-- Support Loading Page -->${maybeRenderHead()}<div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/loader/support-loading.png');" data-astro-cid-jmfnqbd5> <!-- Animated Background Pattern --> <div class="absolute inset-0 opacity-30" data-astro-cid-jmfnqbd5> <div class="dots-pattern animate-pulse" data-astro-cid-jmfnqbd5></div> </div> <!-- Content --> <div class="relative z-10 text-center" data-astro-cid-jmfnqbd5> <h1 class="text-200px text-primary mb-8 animate-fade-in opacity-0 transition-opacity duration-1000 ease-out" style="font-family: 'GT Alpina Fine', serif;" data-astro-cid-jmfnqbd5> ${translations["Support Us"] || "Support Us"} </h1> </div> </div>  ${renderScript($$result, "/Users/chimitshering/Documents/alife/src/components/loaders/SupportLoading.astro?astro&type=script&index=0&lang.ts")}`;
-}, "/Users/chimitshering/Documents/alife/src/components/loaders/SupportLoading.astro", void 0);
+  return renderTemplate`<!-- Support Loading Page -->${maybeRenderHead()}<div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/loader/support-loading.png');" data-astro-cid-jmfnqbd5> <!-- Animated Background Pattern --> <div class="absolute inset-0 opacity-30" data-astro-cid-jmfnqbd5> <div class="dots-pattern animate-pulse" data-astro-cid-jmfnqbd5></div> </div> <!-- Content --> <div class="relative z-10 text-center" data-astro-cid-jmfnqbd5> <h1 class="text-200px text-primary mb-8 animate-fade-in opacity-0 transition-opacity duration-1000 ease-out" style="font-family: 'GT Alpina Fine', serif;" data-astro-cid-jmfnqbd5> ${translations["Support Us"] || "Support Us"} </h1> </div> </div>  ${renderScript($$result, "/Users/chimitshering/Documents/alife-web/src/components/loaders/SupportLoading.astro?astro&type=script&index=0&lang.ts")}`;
+}, "/Users/chimitshering/Documents/alife-web/src/components/loaders/SupportLoading.astro", void 0);
 
 const $$Astro = createAstro();
 const $$Support = createComponent(($$result, $$props, $$slots) => {
@@ -33,10 +34,10 @@ Email <span class="text-red-500">*</span> </label> <input type="email" id="email
 Message
 </label> <textarea id="message" name="message" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500 resize-vertical" placeholder="Tell us about your interest in supporting our research..."></textarea> </div> <!-- Submit Button --> <div class="flex justify-end"> <button type="submit" class="bg-primary text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
 Submit
-</button> </div> </form> </div> </div> </div> </section> </main> </div> <!-- Loading screen script --> ${renderScript($$result, "/Users/chimitshering/Documents/alife/src/pages/support.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
-}, "/Users/chimitshering/Documents/alife/src/pages/support.astro", void 0);
+</button> </div> </form> </div> </div> </div> </section> </main> </div> <!-- Loading screen script --> ${renderScript($$result, "/Users/chimitshering/Documents/alife-web/src/pages/support.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
+}, "/Users/chimitshering/Documents/alife-web/src/pages/support.astro", void 0);
 
-const $$file = "/Users/chimitshering/Documents/alife/src/pages/support.astro";
+const $$file = "/Users/chimitshering/Documents/alife-web/src/pages/support.astro";
 const $$url = "/support";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

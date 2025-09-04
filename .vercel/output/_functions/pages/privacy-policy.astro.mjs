@@ -1,5 +1,6 @@
-import { e as createComponent, f as createAstro, h as addAttribute, l as renderHead, n as renderComponent, r as renderTemplate } from '../chunks/astro/server_Rd5E_EmL.mjs';
-import { $ as $$Header } from '../chunks/Header_C9Vkaj9E.mjs';
+import { e as createComponent, f as createAstro, h as addAttribute, l as renderHead, n as renderComponent, r as renderTemplate } from '../chunks/astro/server_Dt7KTtva.mjs';
+import 'kleur/colors';
+import { $ as $$Header } from '../chunks/Header_BvgYAMh7.mjs';
 /* empty css                                 */
 export { renderers } from '../renderers.mjs';
 
@@ -63,9 +64,9 @@ Article 10: Contact
 </h3> <p class="text-gray-700 leading-relaxed mb-4 text-sm" style="line-height: 2  ">
 For inquiries regarding the handling of personal information, requests for disclosure, or complaints, please contact:
 </p> <div> <p class="text-gray-700 font-medium">Artificial Life Institute</p> <p class="text-gray-700">Secretariat</p> <p class="text-gray-700">Email: <a href="mailto:staff@alife.institute" class="text-primary hover:text-accent-cyan transition-colors duration-200">staff@alife.institute</a></p> </div> </article> </div> </main> </body></html>`;
-}, "/Users/chimitshering/Documents/alife/src/pages/privacy-policy.astro", void 0);
+}, "/Users/chimitshering/Documents/alife-web/src/pages/privacy-policy.astro", void 0);
 
-const $$file = "/Users/chimitshering/Documents/alife/src/pages/privacy-policy.astro";
+const $$file = "/Users/chimitshering/Documents/alife-web/src/pages/privacy-policy.astro";
 const $$url = "/privacy-policy";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
