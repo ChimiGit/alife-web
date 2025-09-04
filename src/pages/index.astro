@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
-import WaveParticles from '../components/WaveParticles.astro';
 import ParallelogramParticles from '../components/ParallelogramParticles.astro';
+import GreenBubbleBackground from '../components/GreenBubbleBackground.astro';
 // import CircularParticles from '../components/CircularParticles.astro';
 
 
@@ -39,13 +39,13 @@ const translations = {
 
 const t = translations[lang as keyof typeof translations] || translations.en;
 
-// Randomly choose which particle system to use on refresh (1 of 2)
+// Randomly choose which background to use on refresh (1 of 2)
 const randomChoice = Math.random();
-let particleChoice = 'wave'; // default
+let backgroundChoice = 'gif'; // default
 if (randomChoice < 0.5) {
-  particleChoice = 'wave';
+  backgroundChoice = 'gif';
 } else {
-  particleChoice = 'parallelogram';
+  backgroundChoice = 'parallelogram';
 }
 ---
 
@@ -61,10 +61,10 @@ if (randomChoice < 0.5) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen overflow-hidden">
-    <!-- Randomly chosen particle background with header included -->
-    {particleChoice === 'wave' && <WaveParticles lang={lang} translations={t} />}
-    {particleChoice === 'parallelogram' && <ParallelogramParticles lang={lang} translations={t} />}
-    {/* {particleChoice === 'circular' && <CircularParticles lang={lang} translations={t} />} */}
+    <!-- Randomly chosen background with header included -->
+    {backgroundChoice === 'gif' && <GreenBubbleBackground lang={lang} translations={t} />}
+    {backgroundChoice === 'parallelogram' && <ParallelogramParticles lang={lang} translations={t} />}
+    {/* {backgroundChoice === 'circular' && <CircularParticles lang={lang} translations={t} />} */}
 
   </body>
 </html>
