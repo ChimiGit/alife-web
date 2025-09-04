@@ -18,6 +18,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
     ssr: {
       noExternal: [
+        // Core dependencies
         'kleur',
         'picocolors',
         'clsx',
@@ -30,13 +31,20 @@ export default defineConfig({
         'react-dom',
         'es-module-lexer',
         'devalue',
+        'unstorage',
+        // Astro and related
         'astro',
         '@astrojs/vercel',
-        'remark-gfm',
+        '@astrojs/react',
+        '@astrojs/markdown-remark',
+        // Build tools
         'magic-string',
         'rollup',
         '@rollup/plugin-commonjs',
         '@rollup/plugin-node-resolve',
+        'vite',
+        // Markdown and content
+        'remark-gfm',
       ],
     },
   },
