@@ -1,13 +1,12 @@
-import { l as decryptString, n as createSlotValueFromString, o as isAstroComponentFactory, f as renderComponent, r as renderTemplate, p as ROUTE_TYPE_HEADER, q as REROUTE_DIRECTIVE_HEADER, A as AstroError, s as i18nNoLocaleFoundInPath, t as ResponseSentError, M as MiddlewareNoDataOrNextCalled, v as MiddlewareNotAResponse, w as originPathnameSymbol, x as RewriteWithBodyUsed, G as GetStaticPathsRequired, I as InvalidGetStaticPathsReturn, y as InvalidGetStaticPathsEntry, z as GetStaticPathsExpectedParams, B as GetStaticPathsInvalidRouteParam, P as PageNumberParamNotFound, D as DEFAULT_404_COMPONENT, C as ActionNotFoundError, N as NoMatchingStaticPathFound, E as PrerenderDynamicEndpointPathCollide, F as ReservedSlotName, H as renderSlotToString, J as renderJSX, K as chunkToString, L as isRenderInstruction, O as ForbiddenRewrite, S as SessionStorageInitError, Q as SessionStorageSaveError, T as ASTRO_VERSION, V as CspNotEnabled, W as LocalsReassigned, X as generateCspDigest, Y as PrerenderClientAddressNotAvailable, Z as clientAddressSymbol, _ as ClientAddressNotAvailable, $ as StaticClientAddressNotAvailable, a0 as AstroResponseHeadersReassigned, a1 as responseSentSymbol$1, a2 as renderPage, a3 as REWRITE_DIRECTIVE_HEADER_KEY, a4 as REWRITE_DIRECTIVE_HEADER_VALUE, a5 as renderEndpoint, a6 as LocalsNotAnObject, a7 as REROUTABLE_STATUS_CODES } from './astro/server_DFt_xPjJ.mjs';
-import { bold, red, yellow, dim, blue, green } from 'kleur/colors';
+import { G as decryptString, H as createSlotValueFromString, J as isAstroComponentFactory, d as renderComponent, e as renderTemplate, K as ROUTE_TYPE_HEADER, O as REROUTE_DIRECTIVE_HEADER, A as AstroError, P as i18nNoLocaleFoundInPath, Q as ResponseSentError, S as bold, T as red, V as yellow, W as dim, X as blue, Y as MiddlewareNoDataOrNextCalled, Z as MiddlewareNotAResponse, _ as originPathnameSymbol, $ as RewriteWithBodyUsed, a0 as GetStaticPathsRequired, a1 as InvalidGetStaticPathsReturn, a2 as InvalidGetStaticPathsEntry, a3 as GetStaticPathsExpectedParams, a4 as GetStaticPathsInvalidRouteParam, a5 as PageNumberParamNotFound, D as DEFAULT_404_COMPONENT, a6 as ActionNotFoundError, a7 as NoMatchingStaticPathFound, a8 as PrerenderDynamicEndpointPathCollide, a9 as ReservedSlotName, aa as renderSlotToString, ab as renderJSX, ac as chunkToString, ad as isRenderInstruction, ae as ForbiddenRewrite, af as SessionStorageInitError, ag as SessionStorageSaveError, ah as ASTRO_VERSION, ai as CspNotEnabled, aj as green, ak as LocalsReassigned, al as generateCspDigest, am as PrerenderClientAddressNotAvailable, an as clientAddressSymbol, ao as ClientAddressNotAvailable, ap as StaticClientAddressNotAvailable, aq as AstroResponseHeadersReassigned, ar as responseSentSymbol$1, as as renderPage, at as REWRITE_DIRECTIVE_HEADER_KEY, au as REWRITE_DIRECTIVE_HEADER_VALUE, av as renderEndpoint, aw as LocalsNotAnObject, ax as REROUTABLE_STATUS_CODES } from './astro/server_D85hp0mG.mjs';
 import 'clsx';
 import { serialize, parse } from 'cookie';
-import { A as ActionError, d as deserializeActionResult, s as serializeActionResult, a as ACTION_RPC_ROUTE_PATTERN, b as ACTION_QUERY_PARAMS, g as getActionQueryString, D as DEFAULT_404_ROUTE, c as default404Instance, N as NOOP_MIDDLEWARE_FN, e as ensure404Route } from './astro-designed-error-pages_SfeplMqa.mjs';
+import { A as ActionError, d as deserializeActionResult, s as serializeActionResult, a as ACTION_RPC_ROUTE_PATTERN, b as ACTION_QUERY_PARAMS, g as getActionQueryString, D as DEFAULT_404_ROUTE, c as default404Instance, N as NOOP_MIDDLEWARE_FN, e as ensure404Route } from './astro-designed-error-pages_EHbSr_dA.mjs';
 import 'es-module-lexer';
 import buffer from 'node:buffer';
 import crypto$1 from 'node:crypto';
 import { Http2ServerResponse } from 'node:http2';
-import { a as appendForwardSlash, j as joinPaths, f as fileExtension, s as slash, p as prependForwardSlash, b as removeTrailingForwardSlash, t as trimSlashes, c as isInternalPath, d as collapseDuplicateTrailingSlashes, h as hasFileExtension } from './path_mk0j0CbE.mjs';
+import { a as appendForwardSlash, j as joinPaths, f as fileExtension, s as slash, p as prependForwardSlash, b as removeTrailingForwardSlash, t as trimSlashes, c as collapseDuplicateTrailingSlashes, h as hasFileExtension } from './path_Cvt6sEOY.mjs';
 import { unflatten as unflatten$1, stringify as stringify$1 } from 'devalue';
 import { createStorage, builtinDrivers } from 'unstorage';
 import '@vercel/routing-utils';
@@ -331,7 +330,7 @@ function requestHasLocale(locales) {
   };
 }
 function pathHasLocale(path, locales) {
-  const segments = path.split("/").map(normalizeThePath);
+  const segments = path.split("/");
   for (const segment of segments) {
     for (const locale of locales) {
       if (typeof locale === "string") {
@@ -363,9 +362,6 @@ function getPathByLocale(locale, locales) {
 }
 function normalizeTheLocale(locale) {
   return locale.replaceAll("_", "-").toLowerCase();
-}
-function normalizeThePath(path) {
-  return path.endsWith(".html") ? path.slice(0, -5) : path;
 }
 function getAllCodes(locales) {
   const result = [];
@@ -1084,7 +1080,7 @@ function computePreferredLocaleList(request, locales) {
   return result;
 }
 function computeCurrentLocale(pathname, locales, defaultLocale) {
-  for (const segment of pathname.split("/").map(normalizeThePath)) {
+  for (const segment of pathname.split("/")) {
     for (const locale of locales) {
       if (typeof locale === "string") {
         if (!segment.includes(locale)) continue;
@@ -1896,8 +1892,8 @@ function sequence(...handlers) {
             carriedPayload = payload;
             handleContext.request = newRequest;
             handleContext.url = new URL(newRequest.url);
+            handleContext.cookies = new AstroCookies(newRequest);
             handleContext.params = getParams(routeData, pathname);
-            handleContext.routePattern = routeData.route;
             setOriginPathname(
               handleContext.request,
               oldPathname,
@@ -2073,14 +2069,7 @@ class AstroSession {
    * Destroys the session, clearing the cookie and storage if it exists.
    */
   destroy() {
-    const sessionId = this.#sessionID ?? this.#cookies.get(this.#cookieName)?.value;
-    if (sessionId) {
-      this.#toDestroy.add(sessionId);
-    }
-    this.#cookies.delete(this.#cookieName, this.#cookieConfig);
-    this.#sessionID = void 0;
-    this.#data = void 0;
-    this.#dirty = true;
+    this.#destroySafe();
   }
   /**
    * Regenerates the session, creating a new session ID. The existing session data is preserved.
@@ -2188,7 +2177,7 @@ class AstroSession {
     try {
       const storedMap = unflatten(raw);
       if (!(storedMap instanceof Map)) {
-        await this.destroy();
+        await this.#destroySafe();
         throw new AstroError({
           ...SessionStorageInitError,
           message: SessionStorageInitError.message(
@@ -2207,7 +2196,7 @@ class AstroSession {
       this.#partial = false;
       return this.#data;
     } catch (err) {
-      await this.destroy();
+      await this.#destroySafe();
       if (err instanceof AstroError) {
         throw err;
       }
@@ -2222,6 +2211,20 @@ class AstroSession {
         { cause: err }
       );
     }
+  }
+  /**
+   * Safely destroys the session, clearing the cookie and storage if it exists.
+   */
+  #destroySafe() {
+    if (this.#sessionID) {
+      this.#toDestroy.add(this.#sessionID);
+    }
+    if (this.#cookieName) {
+      this.#cookies.delete(this.#cookieName, this.#cookieConfig);
+    }
+    this.#sessionID = void 0;
+    this.#data = void 0;
+    this.#dirty = true;
   }
   /**
    * Returns the session ID, generating a new one if it does not exist.
@@ -2321,7 +2324,7 @@ function resolveSessionDriverName(driver) {
 
 const apiContextRoutesSymbol = Symbol.for("context.routes");
 class RenderContext {
-  constructor(pipeline, locals, middleware, actions, pathname, request, routeData, status, clientAddress, cookies = new AstroCookies(request), params = getParams(routeData, pathname), url = new URL(request.url), props = {}, partial = void 0, shouldInjectCspMetaTags = !!pipeline.manifest.csp, session = pipeline.manifest.sessionConfig ? new AstroSession(cookies, pipeline.manifest.sessionConfig, pipeline.runtimeMode) : void 0) {
+  constructor(pipeline, locals, middleware, actions, pathname, request, routeData, status, clientAddress, cookies = new AstroCookies(request), params = getParams(routeData, pathname), url = new URL(request.url), props = {}, partial = void 0, session = pipeline.manifest.sessionConfig ? new AstroSession(cookies, pipeline.manifest.sessionConfig, pipeline.runtimeMode) : void 0) {
     this.pipeline = pipeline;
     this.locals = locals;
     this.middleware = middleware;
@@ -2336,7 +2339,6 @@ class RenderContext {
     this.url = url;
     this.props = props;
     this.partial = partial;
-    this.shouldInjectCspMetaTags = shouldInjectCspMetaTags;
     this.session = session;
   }
   /**
@@ -2359,8 +2361,7 @@ class RenderContext {
     status = 200,
     props,
     partial = void 0,
-    actions,
-    shouldInjectCspMetaTags
+    actions
   }) {
     const pipelineMiddleware = await pipeline.getMiddleware();
     const pipelineActions = actions ?? await pipeline.getActions();
@@ -2384,8 +2385,7 @@ class RenderContext {
       void 0,
       void 0,
       props,
-      partial,
-      shouldInjectCspMetaTags ?? !!pipeline.manifest.csp
+      partial
     );
   }
   /**
@@ -2400,7 +2400,7 @@ class RenderContext {
    * - fallback
    */
   async render(componentInstance, slots = {}) {
-    const { middleware, pipeline } = this;
+    const { cookies, middleware, pipeline } = this;
     const { logger, serverLike, streaming, manifest } = pipeline;
     const props = Object.keys(this.props).length > 0 ? this.props : await getProps({
       mod: componentInstance,
@@ -2514,7 +2514,7 @@ class RenderContext {
       }
       const responseCookies = getCookiesFromResponse(response2);
       if (responseCookies) {
-        this.cookies.merge(responseCookies);
+        cookies.merge(responseCookies);
       }
       return response2;
     };
@@ -2525,7 +2525,7 @@ class RenderContext {
     if (response.headers.get(ROUTE_TYPE_HEADER)) {
       response.headers.delete(ROUTE_TYPE_HEADER);
     }
-    attachCookiesToResponse(response, this.cookies);
+    attachCookiesToResponse(response, cookies);
     return response;
   }
   createAPIContext(props, context) {
@@ -2567,11 +2567,7 @@ class RenderContext {
       );
     }
     this.url = new URL(this.request.url);
-    const newCookies = new AstroCookies(this.request);
-    if (this.cookies) {
-      newCookies.merge(this.cookies);
-    }
-    this.cookies = newCookies;
+    this.cookies = new AstroCookies(this.request);
     this.params = getParams(routeData, pathname);
     this.pathname = pathname;
     this.isRewriting = true;
@@ -2586,16 +2582,13 @@ class RenderContext {
   }
   createActionAPIContext() {
     const renderContext = this;
-    const { params, pipeline, url } = this;
+    const { cookies, params, pipeline, url } = this;
     const generator = `Astro v${ASTRO_VERSION}`;
     const rewrite = async (reroutePayload) => {
       return await this.#executeRewrite(reroutePayload);
     };
     return {
-      // Don't allow reassignment of cookies because it doesn't work
-      get cookies() {
-        return renderContext.cookies;
-      },
+      cookies,
       routePattern: this.routeData.route,
       isPrerendered: this.routeData.prerender,
       get clientAddress() {
@@ -2642,39 +2635,35 @@ class RenderContext {
         }
         return renderContext.session;
       },
-      get csp() {
-        return {
-          insertDirective(payload) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.directives.push(payload);
-          },
-          insertScriptResource(resource) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.scriptResources.push(resource);
-          },
-          insertStyleResource(resource) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.styleResources.push(resource);
-          },
-          insertStyleHash(hash) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.styleHashes.push(hash);
-          },
-          insertScriptHash(hash) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.scriptHashes.push(hash);
-          }
-        };
+      insertDirective(payload) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.directives.push(payload);
+      },
+      insertScriptResource(resource) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.scriptResources.push(resource);
+      },
+      insertStyleResource(resource) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.styleResources.push(resource);
+      },
+      insertStyleHash(hash) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.styleHashes.push(hash);
+      },
+      insertScriptHash(hash) {
+        if (!!pipeline.manifest.csp === false) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.scriptHashes.push(hash);
       }
     };
   }
@@ -2684,7 +2673,7 @@ class RenderContext {
     const { links, scripts, styles } = await pipeline.headElements(routeData);
     const extraStyleHashes = [];
     const extraScriptHashes = [];
-    const shouldInjectCspMetaTags = this.shouldInjectCspMetaTags;
+    const shouldInjectCspMetaTags = !!manifest.csp;
     const cspAlgorithm = manifest.csp?.algorithm ?? "SHA-256";
     if (shouldInjectCspMetaTags) {
       for (const style of styles) {
@@ -2870,39 +2859,35 @@ class RenderContext {
       get originPathname() {
         return getOriginPathname(renderContext.request);
       },
-      get csp() {
-        return {
-          insertDirective(payload) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.directives.push(payload);
-          },
-          insertScriptResource(resource) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.scriptResources.push(resource);
-          },
-          insertStyleResource(resource) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.styleResources.push(resource);
-          },
-          insertStyleHash(hash) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.styleHashes.push(hash);
-          },
-          insertScriptHash(hash) {
-            if (!pipeline.manifest.csp) {
-              throw new AstroError(CspNotEnabled);
-            }
-            renderContext.result?.scriptHashes.push(hash);
-          }
-        };
+      insertDirective(payload) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.directives.push(payload);
+      },
+      insertScriptResource(resource) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.scriptResources.push(resource);
+      },
+      insertStyleResource(resource) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.styleResources.push(resource);
+      },
+      insertStyleHash(hash) {
+        if (!pipeline.manifest.csp) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.styleHashes.push(hash);
+      },
+      insertScriptHash(hash) {
+        if (!!pipeline.manifest.csp === false) {
+          throw new AstroError(CspNotEnabled);
+        }
+        renderContext.result?.scriptHashes.push(hash);
       }
     };
   }
@@ -3259,7 +3244,7 @@ class App {
   }
   #redirectTrailingSlash(pathname) {
     const { trailingSlash } = this.#manifest;
-    if (pathname === "/" || isInternalPath(pathname)) {
+    if (pathname === "/" || pathname.startsWith("/_")) {
       return pathname;
     }
     const path = collapseDuplicateTrailingSlashes(pathname, trailingSlash !== "never");
@@ -3775,10 +3760,4 @@ const createExports = (manifest, {
 function start() {
 }
 
-const serverEntrypointModule = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  createExports,
-  start
-}, Symbol.toStringTag, { value: 'Module' }));
-
-export { start as a, createExports as c, serverEntrypointModule as s };
+export { createExports as c, start as s };

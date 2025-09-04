@@ -1,1 +1,1 @@
-export { c as createExports, a as start } from './chunks/_@astrojs-ssr-adapter_BFfC59E5.mjs';
+export { c as createExports, s as start } from './chunks/entrypoint_B_R10xm6.mjs';

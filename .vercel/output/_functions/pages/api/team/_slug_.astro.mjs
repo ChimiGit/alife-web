@@ -1,5 +1,5 @@
-import { g as getTeamMemberBySlug } from '../../../chunks/team_pZBN56tJ.mjs';
-import 'kleur';
+import { g as getTeamMemberBySlug } from '../../../chunks/team_CLUvWhj5.mjs';
+import '../../../chunks/index_t2PvLSUE.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const prerender = false;

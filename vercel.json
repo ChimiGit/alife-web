@@ -2,10 +2,17 @@
   "framework": "astro",
   "functions": {
     "dist/server/entry.mjs": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "runtime": "nodejs22.x"
     }
   },
   "buildCommand": "pnpm run build",
   "outputDirectory": ".vercel/output",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "regions": ["iad1"]
 }

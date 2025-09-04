@@ -1,6 +1,5 @@
-import { c as createComponent, a as createAstro, m as maybeRenderHead, b as renderScript, r as renderTemplate, d as addAttribute, e as renderHead, f as renderComponent } from '../chunks/astro/server_DFt_xPjJ.mjs';
-import 'kleur/colors';
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_C7lNreCu.mjs';
+import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, b as addAttribute, r as renderHead, d as renderComponent } from '../chunks/astro/server_D85hp0mG.mjs';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_DpfppVyu.mjs';
 import 'clsx';
 /* empty css                                 */
 /* empty css                                   */

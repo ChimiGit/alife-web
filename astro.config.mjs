@@ -6,9 +6,19 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: false,
+    },
+    speedInsights: {
+      enabled: false,
+    },
+  }),
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ['kleur', 'picocolors'],
+    },
   },
   markdown: {
     remarkPlugins: ['remark-gfm'],

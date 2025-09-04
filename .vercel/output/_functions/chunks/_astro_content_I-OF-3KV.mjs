@@ -2,10 +2,9 @@ import { escape } from 'html-escaper';
 import { Traverse } from 'neotraverse/modern';
 import pLimit from 'p-limit';
 import { z } from 'zod';
-import { r as removeBase, i as isRemotePath, p as prependForwardSlash } from './path_mk0j0CbE.mjs';
+import { r as removeBase, i as isRemotePath, p as prependForwardSlash } from './path_Cvt6sEOY.mjs';
 import { V as VALID_INPUT_FORMATS } from './consts_BmVDRGlB.mjs';
-import { A as AstroError, U as UnknownContentCollectionError, c as createComponent, R as RenderUndefinedEntryError, u as unescapeHTML, r as renderTemplate, g as renderUniqueStylesheet, h as renderScriptElement, i as createHeadAndContent, f as renderComponent } from './astro/server_DFt_xPjJ.mjs';
-import 'kleur/colors';
+import { A as AstroError, U as UnknownContentCollectionError, c as createComponent, R as RenderUndefinedEntryError, u as unescapeHTML, e as renderTemplate, h as renderUniqueStylesheet, i as renderScriptElement, j as createHeadAndContent, d as renderComponent } from './astro/server_D85hp0mG.mjs';
 import * as devalue from 'devalue';
 
 const CONTENT_IMAGE_FLAG = "astroContentImageFlag";
@@ -66,7 +65,7 @@ class ImmutableDataStore {
    */
   static async fromModule() {
     try {
-      const data = await import('./_astro_data-layer-content_C0xHC3Kk.mjs');
+      const data = await import('./_astro_data-layer-content_B62EXxin.mjs');
       if (data.default instanceof Map) {
         return ImmutableDataStore.fromMap(data.default);
       }
@@ -225,7 +224,7 @@ const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;
 async function updateImageReferencesInBody(html, fileName) {
   const { default: imageAssetMap } = await import('./content-assets_DleWbedO.mjs');
   const imageObjects = /* @__PURE__ */ new Map();
-  const { getImage } = await import('./_astro_assets_C7ugAyuA.mjs').then(n => n._);
+  const { getImage } = await import('./_astro_assets_DGk865A4.mjs').then(n => n._);
   for (const [_full, imagePath] of html.matchAll(CONTENT_LAYER_IMAGE_REGEX)) {
     try {
       const decodedImagePath = JSON.parse(imagePath.replaceAll("&#x22;", '"'));

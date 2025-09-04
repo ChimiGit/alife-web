@@ -1,4 +1,4 @@
-import { a8 as NOOP_MIDDLEWARE_HEADER, a9 as REDIRECT_STATUS_CODES, A as AstroError, aa as ActionsReturnedInvalidDataError, D as DEFAULT_404_COMPONENT } from './astro/server_DFt_xPjJ.mjs';
+import { N as NOOP_MIDDLEWARE_HEADER, k as REDIRECT_STATUS_CODES, A as AstroError, l as ActionsReturnedInvalidDataError, D as DEFAULT_404_COMPONENT } from './astro/server_D85hp0mG.mjs';
 import { parse, stringify } from 'devalue';
 import { escape } from 'html-escaper';
 
@@ -329,7 +329,7 @@ const DEFAULT_404_ROUTE = {
   component: DEFAULT_404_COMPONENT,
   generate: () => "",
   params: [],
-  pattern: /^\/404\/?$/,
+  pattern: /\/404/,
   prerender: false,
   pathname: "/404",
   segments: [[{ content: "404", dynamic: false, spread: false }]],
