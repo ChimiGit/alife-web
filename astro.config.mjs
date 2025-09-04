@@ -17,7 +17,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     ssr: {
-      noExternal: ['kleur', 'picocolors', 'clsx'],
+      noExternal: ['kleur', 'picocolors', 'clsx', 'cookie'],
     },
   },
   markdown: {
