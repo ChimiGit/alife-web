@@ -1,6 +1,5 @@
-import { readFileSync, readdirSync } from 'fs';
-import { join } from 'path';
-import matter from 'gray-matter';
+// eslint-disable-next-line import/no-unresolved
+import { getCollection } from 'astro:content';
 
 export interface TeamMember {
   name: string;
@@ -17,62 +16,60 @@ export interface TeamMember {
   category: string;
 }
 
-export function getAllTeamMembers(): TeamMember[] {
-  const teamDirectory = join(process.cwd(), 'src/content/team');
-  const teamFiles = readdirSync(teamDirectory, { withFileTypes: true })
-    .filter(dirent => dirent.isFile() && dirent.name.endsWith('.md'))
-    .map(dirent => dirent.name);
+export async function getAllTeamMembers(): Promise<TeamMember[]> {
+  try {
+    const teamCollection = await getCollection('team');
 
-  const teamMembers: TeamMember[] = [];
+    const teamMembers: TeamMember[] = teamCollection.map(member => ({
+      name: member.data.name,
+      title: member.data.title,
+      image: member.data.image,
+      bio: member.data.bio,
+      location: member.data.location,
+      linkedin: member.data.linkedin,
+      twitter: member.data.twitter,
+      email: member.data.email,
+      order: member.data.order,
+      content: member.body || '',
+      slug: member.id,
+      category: member.data.category || 'executives',
+    }));
 
-  teamFiles.forEach(filename => {
-    const filePath = join(teamDirectory, filename);
-    const fileContents = readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
-
-    const slug = filename.replace(/\.md$/, '');
-
-    teamMembers.push({
-      name: data.name,
-      title: data.title,
-      image: data.image,
-      bio: data.bio,
-      location: data.location,
-      linkedin: data.linkedin,
-      twitter: data.twitter,
-      email: data.email,
-      order: data.order,
-      content,
-      slug,
-      category: data.category || 'executives',
-    });
-  });
-
-  // Sort by order field
-  return teamMembers.sort((a, b) => a.order - b.order);
+    // Sort by order field
+    return teamMembers.sort((a, b) => a.order - b.order);
+  } catch (error) {
+    // Error loading team members
+    return [];
+  }
 }
 
-export function getTeamMemberBySlug(slug: string): TeamMember | null {
+export async function getTeamMemberBySlug(
+  slug: string
+): Promise<TeamMember | null> {
   try {
-    const filePath = join(process.cwd(), 'src/content/team', `${slug}.md`);
-    const fileContents = readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const teamCollection = await getCollection('team');
+    const memberEntry = teamCollection.find(member => member.id === slug);
+
+    if (!memberEntry) {
+      return null;
+    }
 
     return {
-      name: data.name,
-      title: data.title,
-      image: data.image,
-      bio: data.bio,
-      location: data.location,
-      linkedin: data.linkedin,
-      twitter: data.twitter,
-      email: data.email,
-      order: data.order,
-      content,
-      slug,
-      category: data.category || 'executives',
+      name: memberEntry.data.name,
+      title: memberEntry.data.title,
+      image: memberEntry.data.image,
+      bio: memberEntry.data.bio,
+      location: memberEntry.data.location,
+      linkedin: memberEntry.data.linkedin,
+      twitter: memberEntry.data.twitter,
+      email: memberEntry.data.email,
+      order: memberEntry.data.order,
+      content: memberEntry.body || '',
+      slug: memberEntry.id,
+      category: memberEntry.data.category || 'executives',
     };
   } catch (error) {
+    // Error loading team member
     return null;
   }
 }

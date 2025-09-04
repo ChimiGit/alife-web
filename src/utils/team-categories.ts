@@ -1,6 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+// eslint-disable-next-line import/no-unresolved
+import { getCollection } from 'astro:content';
 
 export interface TeamCategory {
   slug: string;
@@ -10,62 +9,47 @@ export interface TeamCategory {
   content: string;
 }
 
-export function getAllTeamCategories(): TeamCategory[] {
-  const categoriesDirectory = path.join(
-    process.cwd(),
-    'src/content/team-categories'
-  );
+export async function getAllTeamCategories(): Promise<TeamCategory[]> {
+  try {
+    const categoriesCollection = await getCollection('team-categories');
 
-  if (!fs.existsSync(categoriesDirectory)) {
+    const categories: TeamCategory[] = categoriesCollection.map(category => ({
+      slug: category.id,
+      title: category.data.title || '',
+      description: category.data.description || '',
+      order: category.data.order || 999,
+      content: category.body?.trim() || '',
+    }));
+
+    return categories.sort((a, b) => a.order - b.order);
+  } catch (error) {
+    // Error loading team categories
     return [];
   }
-
-  const fileNames = fs.readdirSync(categoriesDirectory);
-  const categories = fileNames
-    .filter(fileName => fileName.endsWith('.md'))
-    .map(fileName => {
-      const slug = fileName.replace(/\.md$/, '');
-      const fullPath = path.join(categoriesDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data, content } = matter(fileContents);
-
-      return {
-        slug,
-        title: data.title || '',
-        description: data.description || '',
-        order: data.order || 999,
-        content: content.trim(),
-      };
-    })
-    .sort((a, b) => a.order - b.order);
-
-  return categories;
 }
 
-export function getTeamCategoryBySlug(slug: string): TeamCategory | null {
+export async function getTeamCategoryBySlug(
+  slug: string
+): Promise<TeamCategory | null> {
   try {
-    const fullPath = path.join(
-      process.cwd(),
-      'src/content/team-categories',
-      `${slug}.md`
+    const categoriesCollection = await getCollection('team-categories');
+    const categoryEntry = categoriesCollection.find(
+      category => category.id === slug
     );
 
-    if (!fs.existsSync(fullPath)) {
+    if (!categoryEntry) {
       return null;
     }
 
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { data, content } = matter(fileContents);
-
     return {
-      slug,
-      title: data.title || '',
-      description: data.description || '',
-      order: data.order || 999,
-      content: content.trim(),
+      slug: categoryEntry.id,
+      title: categoryEntry.data.title || '',
+      description: categoryEntry.data.description || '',
+      order: categoryEntry.data.order || 999,
+      content: categoryEntry.body?.trim() || '',
     };
   } catch (error) {
-    // Error handling - could be logged to a proper logging service
+    // Error loading team category
     return null;
   }
 }

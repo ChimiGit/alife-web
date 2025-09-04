@@ -21,7 +21,6 @@
     "@types/react-dom": "^19.1.9",
     "astro": "^5.13.5",
     "clsx": "^2.1.1",
-    "gray-matter": "^4.0.3",
     "marked": "^16.2.1",
     "motion": "^12.23.12",
     "radix-ui": "^1.4.3",

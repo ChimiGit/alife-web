@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ params }) => {
       });
     }
 
-    const member = getTeamMemberBySlug(slug);
+    const member = await getTeamMemberBySlug(slug);
 
     if (!member) {
       return new Response(JSON.stringify({ error: 'Team member not found' }), {

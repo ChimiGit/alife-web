@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ params }) => {
       });
     }
 
-    const category = getTeamCategoryBySlug(slug);
+    const category = await getTeamCategoryBySlug(slug);
 
     if (!category) {
       return new Response(

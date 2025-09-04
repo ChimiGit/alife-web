@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ params }) => {
       });
     }
 
-    const job = getJobBySlug(slug);
+    const job = await getJobBySlug(slug);
 
     if (!job) {
       return new Response(JSON.stringify({ error: 'Job not found' }), {
