@@ -28,6 +28,7 @@ export default defineConfig({
         'radix-ui',
         'react',
         'react-dom',
+        'es-module-lexer',
       ],
     },
   },
