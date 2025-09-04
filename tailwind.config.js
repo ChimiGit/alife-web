@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         primary: '#2e3192', // Deep blue for ALIFE branding
-        'accent-cyan': '#0891b2' // Cyan accent for hover states
+        'accent-cyan': '#0891b2', // Cyan accent for hover states
       },
       fontFamily: {
         sans: [
@@ -14,13 +14,13 @@ export default {
           'BlinkMacSystemFont',
           'Segoe UI',
           'Roboto',
-          'sans-serif'
-        ]
+          'sans-serif',
+        ],
       },
       spacing: {
-        21: '5.25rem' // Custom width for logo
-      }
-    }
+        21: '5.25rem', // Custom width for logo
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };

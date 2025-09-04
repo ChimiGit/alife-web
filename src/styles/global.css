@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* GT Alpina Fine font */
 @font-face {
-  font-family: "GT Alpina Fine";
-  src: url("/fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2")
-    format("woff2");
+  font-family: 'GT Alpina Fine';
+  src: url('/fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2')
+    format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;

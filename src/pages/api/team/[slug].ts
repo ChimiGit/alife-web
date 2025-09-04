@@ -12,8 +12,8 @@ export const GET: APIRoute = async ({ params }) => {
       return new Response(JSON.stringify({ error: 'Slug is required' }), {
         status: 400,
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
     }
 
@@ -23,8 +23,8 @@ export const GET: APIRoute = async ({ params }) => {
       return new Response(JSON.stringify({ error: 'Team member not found' }), {
         status: 404,
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
     }
 
@@ -40,21 +40,21 @@ export const GET: APIRoute = async ({ params }) => {
         linkedin: member.linkedin,
         twitter: member.twitter,
         email: member.email,
-        htmlContent
+        htmlContent,
       }),
       {
         status: 200,
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       }
     );
   } catch (error) {
     return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
   }
 };

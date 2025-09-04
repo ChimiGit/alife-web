@@ -21,7 +21,7 @@ export function getAllJobs(): JobPosting[] {
 
   const jobs: JobPosting[] = [];
 
-  jobFiles.forEach((filename) => {
+  jobFiles.forEach(filename => {
     const filePath = join(jobsDirectory, filename);
     const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
@@ -36,7 +36,7 @@ export function getAllJobs(): JobPosting[] {
       department: data.department,
       experience: data.experience,
       content,
-      slug
+      slug,
     });
   });
 
@@ -60,7 +60,7 @@ export function getJobBySlug(slug: string): JobPosting | null {
       department: data.department,
       experience: data.experience,
       content,
-      slug
+      slug,
     };
   } catch (error) {
     return null;

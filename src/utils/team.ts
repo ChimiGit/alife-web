@@ -25,7 +25,7 @@ export function getAllTeamMembers(): TeamMember[] {
 
   const teamMembers: TeamMember[] = [];
 
-  teamFiles.forEach((filename) => {
+  teamFiles.forEach(filename => {
     const filePath = join(teamDirectory, filename);
     const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
@@ -44,7 +44,7 @@ export function getAllTeamMembers(): TeamMember[] {
       order: data.order,
       content,
       slug,
-      category: data.category || 'executives'
+      category: data.category || 'executives',
     });
   });
 
@@ -70,7 +70,7 @@ export function getTeamMemberBySlug(slug: string): TeamMember | null {
       order: data.order,
       content,
       slug,
-      category: data.category || 'executives'
+      category: data.category || 'executives',
     };
   } catch (error) {
     return null;

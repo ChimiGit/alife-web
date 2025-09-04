@@ -23,7 +23,7 @@ export function getAllTeamCategories(): TeamCategory[] {
   const fileNames = fs.readdirSync(categoriesDirectory);
   const categories = fileNames
     .filter(fileName => fileName.endsWith('.md'))
-    .map((fileName) => {
+    .map(fileName => {
       const slug = fileName.replace(/\.md$/, '');
       const fullPath = path.join(categoriesDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -34,7 +34,7 @@ export function getAllTeamCategories(): TeamCategory[] {
         title: data.title || '',
         description: data.description || '',
         order: data.order || 999,
-        content: content.trim()
+        content: content.trim(),
       };
     })
     .sort((a, b) => a.order - b.order);
@@ -62,7 +62,7 @@ export function getTeamCategoryBySlug(slug: string): TeamCategory | null {
       title: data.title || '',
       description: data.description || '',
       order: data.order || 999,
-      content: content.trim()
+      content: content.trim(),
     };
   } catch (error) {
     console.error(`Error reading team category ${slug}:`, error);
