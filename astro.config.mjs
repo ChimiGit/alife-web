@@ -17,7 +17,18 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     ssr: {
-      noExternal: ['kleur', 'picocolors', 'clsx', 'cookie'],
+      noExternal: [
+        'kleur',
+        'picocolors',
+        'clsx',
+        'cookie',
+        'marked',
+        'motion',
+        'tailwind-merge',
+        'radix-ui',
+        'react',
+        'react-dom',
+      ],
     },
   },
   markdown: {

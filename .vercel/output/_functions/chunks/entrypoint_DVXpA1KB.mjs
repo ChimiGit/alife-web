@@ -1,6 +1,5 @@
-import { G as decryptString, H as createSlotValueFromString, J as isAstroComponentFactory, d as renderComponent, e as renderTemplate, K as ROUTE_TYPE_HEADER, O as REROUTE_DIRECTIVE_HEADER, A as AstroError, P as i18nNoLocaleFoundInPath, Q as ResponseSentError, S as bold, T as red, V as yellow, W as dim, X as blue, Y as MiddlewareNoDataOrNextCalled, Z as MiddlewareNotAResponse, _ as originPathnameSymbol, $ as RewriteWithBodyUsed, a0 as GetStaticPathsRequired, a1 as InvalidGetStaticPathsReturn, a2 as InvalidGetStaticPathsEntry, a3 as GetStaticPathsExpectedParams, a4 as GetStaticPathsInvalidRouteParam, a5 as PageNumberParamNotFound, D as DEFAULT_404_COMPONENT, a6 as ActionNotFoundError, a7 as NoMatchingStaticPathFound, a8 as PrerenderDynamicEndpointPathCollide, a9 as ReservedSlotName, aa as renderSlotToString, ab as renderJSX, ac as chunkToString, ad as isRenderInstruction, ae as ForbiddenRewrite, af as SessionStorageInitError, ag as SessionStorageSaveError, ah as ASTRO_VERSION, ai as CspNotEnabled, aj as green, ak as LocalsReassigned, al as generateCspDigest, am as PrerenderClientAddressNotAvailable, an as clientAddressSymbol, ao as ClientAddressNotAvailable, ap as StaticClientAddressNotAvailable, aq as AstroResponseHeadersReassigned, ar as responseSentSymbol$1, as as renderPage, at as REWRITE_DIRECTIVE_HEADER_KEY, au as REWRITE_DIRECTIVE_HEADER_VALUE, av as renderEndpoint, aw as LocalsNotAnObject, ax as REROUTABLE_STATUS_CODES } from './astro/server_BcM0bjOt.mjs';
-import { serialize, parse } from 'cookie';
-import { A as ActionError, d as deserializeActionResult, s as serializeActionResult, a as ACTION_RPC_ROUTE_PATTERN, b as ACTION_QUERY_PARAMS, g as getActionQueryString, D as DEFAULT_404_ROUTE, c as default404Instance, N as NOOP_MIDDLEWARE_FN, e as ensure404Route } from './astro-designed-error-pages_DUK37ULX.mjs';
+import { G as decryptString, H as createSlotValueFromString, J as isAstroComponentFactory, d as renderComponent, e as renderTemplate, K as ROUTE_TYPE_HEADER, O as REROUTE_DIRECTIVE_HEADER, A as AstroError, P as i18nNoLocaleFoundInPath, Q as ResponseSentError, S as bold, T as red, V as yellow, W as dim, X as blue, Y as MiddlewareNoDataOrNextCalled, Z as MiddlewareNotAResponse, _ as originPathnameSymbol, $ as RewriteWithBodyUsed, a0 as GetStaticPathsRequired, a1 as InvalidGetStaticPathsReturn, a2 as InvalidGetStaticPathsEntry, a3 as GetStaticPathsExpectedParams, a4 as GetStaticPathsInvalidRouteParam, a5 as PageNumberParamNotFound, D as DEFAULT_404_COMPONENT, a6 as ActionNotFoundError, a7 as NoMatchingStaticPathFound, a8 as PrerenderDynamicEndpointPathCollide, a9 as ReservedSlotName, aa as renderSlotToString, ab as renderJSX, ac as chunkToString, ad as isRenderInstruction, ae as ForbiddenRewrite, af as SessionStorageInitError, ag as SessionStorageSaveError, ah as ASTRO_VERSION, ai as CspNotEnabled, aj as green, ak as LocalsReassigned, al as generateCspDigest, am as PrerenderClientAddressNotAvailable, an as clientAddressSymbol, ao as ClientAddressNotAvailable, ap as StaticClientAddressNotAvailable, aq as AstroResponseHeadersReassigned, ar as responseSentSymbol$1, as as renderPage, at as REWRITE_DIRECTIVE_HEADER_KEY, au as REWRITE_DIRECTIVE_HEADER_VALUE, av as renderEndpoint, aw as LocalsNotAnObject, ax as REROUTABLE_STATUS_CODES } from './astro/server_Dl3YwkSB.mjs';
+import { d as distExports, A as ActionError, a as deserializeActionResult, s as serializeActionResult, b as ACTION_RPC_ROUTE_PATTERN, c as ACTION_QUERY_PARAMS, g as getActionQueryString, D as DEFAULT_404_ROUTE, e as default404Instance, N as NOOP_MIDDLEWARE_FN, f as ensure404Route } from './astro-designed-error-pages_B103CVb6.mjs';
 import 'es-module-lexer';
 import buffer from 'node:buffer';
 import crypto$1 from 'node:crypto';
@@ -515,7 +514,7 @@ class AstroCookies {
     };
     this.#ensureOutgoingMap().set(key, [
       DELETED_VALUE,
-      serialize(key, DELETED_VALUE, serializeOptions),
+      distExports.serialize(key, DELETED_VALUE, serializeOptions),
       false
     ]);
   }
@@ -593,7 +592,7 @@ class AstroCookies {
     }
     this.#ensureOutgoingMap().set(key, [
       serializedValue,
-      serialize(key, serializedValue, serializeOptions),
+      distExports.serialize(key, serializedValue, serializeOptions),
       true
     ]);
     if (this.#request[responseSentSymbol]) {
@@ -654,7 +653,7 @@ class AstroCookies {
     if (!raw) {
       return;
     }
-    this.#requestValues = parse(raw, { decode: identity });
+    this.#requestValues = distExports.parse(raw, { decode: identity });
   }
 }
 
