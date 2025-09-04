@@ -1,5 +1,5 @@
 # build output
-dist/
+# dist/ - Commented out for Vercel deployment
 # generated types
 .astro/
 
