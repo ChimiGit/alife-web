@@ -1,4 +1,4 @@
-import { g as getJobBySlug } from '../../../chunks/jobs_CBfcpRjV.mjs';
+import { g as getJobBySlug } from '../../../chunks/jobs_-5SnKLAx.mjs';
 import '../../../chunks/index_t2PvLSUE.mjs';
 export { renderers } from '../../../renderers.mjs';
 
