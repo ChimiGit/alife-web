@@ -1,7 +1,8 @@
 ---
 import '../styles/global.css';
-import ParallelogramParticles from '../components/ParallelogramParticles.astro';
+// import ParallelogramParticles from '../components/ParallelogramParticles.astro';
 import GreenBubbleBackground from '../components/GreenBubbleBackground.astro';
+import ParallelogramBackground from '../components/ParallelogramBackground.astro';
 // import CircularParticles from '../components/CircularParticles.astro';
 
 
@@ -39,14 +40,7 @@ const translations = {
 
 const t = translations[lang as keyof typeof translations] || translations.en;
 
-// Randomly choose which background to use on refresh (1 of 2)
-const randomChoice = Math.random();
-let backgroundChoice = 'gif'; // default
-if (randomChoice < 0.5) {
-  backgroundChoice = 'gif';
-} else {
-  backgroundChoice = 'parallelogram';
-}
+// We'll handle the random choice on the client side
 ---
 
 <html lang={lang}>
@@ -61,10 +55,29 @@ if (randomChoice < 0.5) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen overflow-hidden">
-    <!-- Randomly chosen background with header included -->
-    {backgroundChoice === 'gif' && <GreenBubbleBackground lang={lang} translations={t} />}
-    {backgroundChoice === 'parallelogram' && <ParallelogramParticles lang={lang} translations={t} />}
-    {/* {backgroundChoice === 'circular' && <CircularParticles lang={lang} translations={t} />} */}
+    <!-- Backgrounds will be shown/hidden via JavaScript -->
+    <div id="gif-background" class="hidden">
+      <GreenBubbleBackground lang={lang} translations={t} />
+    </div>
+    <div id="parallelogram-background" class="hidden">
+      <ParallelogramBackground lang={lang} translations={t} />
+    </div>
 
+    <script>
+      // Randomly choose which background to show on page load
+      const backgrounds = ['gif', 'parallelogram'];
+      const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+      
+      // Hide all backgrounds first
+      const gifBackground = document.getElementById('gif-background') as HTMLElement;
+      const parallelogramBackground = document.getElementById('parallelogram-background') as HTMLElement;
+      
+      gifBackground?.classList.add('hidden');
+      parallelogramBackground?.classList.add('hidden');
+      
+      // Show the randomly chosen background
+      const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
+      selectedBackground?.classList.remove('hidden');
+    </script>
   </body>
 </html>
