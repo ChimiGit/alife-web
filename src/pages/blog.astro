@@ -1,118 +1,79 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import BlogLoading from '../components/loaders/BlogLoading.astro';
+import BlogLoading from '../components/ui/loaders/BlogLoading.astro';
+import { getAllBlogs, getBlogsByCategory, getAllCategories } from '../utils/blog';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
-// const translations = {
-//   en: {
-//     navigation: {
-//       about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-//     }
-//   },
-//   jp: {
-//     navigation: {
-//       about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-//     }
-//   }
-// };
+const translations = {
+  en: {
+    navigation: {
+      about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
+    }
+  },
+  jp: {
+    navigation: {
+      about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
+    }
+  }
+};
 
-// const t = translations[lang as keyof typeof translations] || translations.en;
+const t = translations[lang as keyof typeof translations] || translations.en;
 
+// Get actual blog posts and categories
+const allBlogs = getAllBlogs();
+const categories = getAllCategories();
 
+// Create content data based on actual blog posts
 const contentData = {
   overview: {
-    posts: [
-      {
-        id: 1,
-        title: 'Welcome to ALIFE Research',
-        excerpt: 'Discover our mission to advance artificial life through cutting-edge research, innovative technologies, and collaborative exploration of emergent systems.',
-        category: 'Overview'
-      },
-      {
-        id: 2,
-        title: 'Latest Research Highlights',
-        excerpt: 'Our recent breakthroughs in evolutionary algorithms and digital organisms are opening new frontiers in artificial life and emergent behavior studies.',
-        category: 'Overview'
-      },
-      {
-        id: 3,
-        title: 'Community & Collaboration',
-        excerpt: 'Join our growing community of researchers, developers, and enthusiasts working together to push the boundaries of artificial life research.',
-        category: 'Overview'
-      }
-    ],
-    sidebar: ['Latest Updates', 'Featured Research', 'Community Highlights', 'Getting Started', 'Research Overview']
+    posts: allBlogs.map((blog, index) => ({
+      id: index + 1,
+      title: blog.title,
+      excerpt: blog.description,
+      category: blog.category,
+      slug: blog.slug,
+      pubDate: blog.pubDate,
+      author: blog.author,
+      tags: blog.tags || []
+    })),
   },
   research: {
-    posts: [
-      {
-        id: 4,
-        title: 'Evolutionary Algorithm Optimization',
-        excerpt: 'New approaches to genetic algorithms and evolutionary programming that demonstrate improved convergence rates and solution quality in complex problem spaces.',
-        category: 'Research'
-      },
-      {
-        id: 5,
-        title: 'Digital Organism Emergence Studies',
-        excerpt: 'Investigating how complex behaviors emerge from simple rules in digital ecosystems, providing insights into the fundamental principles of life and evolution.',
-        category: 'Research'
-      },
-      {
-        id: 6,
-        title: 'Open-Ended Evolution Systems',
-        excerpt: 'Developing computational frameworks that support indefinite evolutionary growth and novelty, mimicking the open-ended nature of biological evolution.',
-        category: 'Research'
-      }
-    ],
-    sidebar: ['Evolutionary Algorithms', 'Digital Organisms', 'Emergence Studies', 'Open-Ended Evolution', 'Artificial Life Systems']
+    posts: getBlogsByCategory('Research').map((blog, index) => ({
+      id: index + 1,
+      title: blog.title,
+      excerpt: blog.description,
+      category: blog.category,
+      slug: blog.slug,
+      pubDate: blog.pubDate,
+      author: blog.author,
+      tags: blog.tags || []
+    })),
   },
   events: {
-    posts: [
-      {
-        id: 7,
-        title: 'ALIFE 2024 International Conference',
-        excerpt: 'Join us at the premier artificial life conference featuring cutting-edge research presentations, workshops, and networking opportunities with leading researchers.',
-        category: 'Events'
-      },
-      {
-        id: 8,
-        title: 'Workshop: Introduction to Digital Evolution',
-        excerpt: 'Hands-on workshop covering the fundamentals of digital evolution, simulation environments, and practical applications in research and industry.',
-        category: 'Events'
-      },
-      {
-        id: 9,
-        title: 'Research Symposium: Emergent Behaviors',
-        excerpt: 'A symposium dedicated to exploring emergent behaviors in artificial systems, featuring keynote speakers and collaborative research sessions.',
-        category: 'Events'
-      }
-    ],
-    sidebar: ['Upcoming Events', 'Conferences', 'Workshops', 'Symposiums', 'Webinars']
+    posts: getBlogsByCategory('Events').map((blog, index) => ({
+      id: index + 1,
+      title: blog.title,
+      excerpt: blog.description,
+      category: blog.category,
+      slug: blog.slug,
+      pubDate: blog.pubDate,
+      author: blog.author,
+      tags: blog.tags || []
+    })),
   },
   news: {
-    posts: [
-      {
-        id: 10,
-        title: 'New Grant Funding for Artificial Life Research',
-        excerpt: 'ALIFE receives significant funding to advance research in computational evolution and artificial life systems, enabling expanded research programs.',
-        category: 'News'
-      },
-      {
-        id: 11,
-        title: 'Partnership with Leading Tech Companies',
-        excerpt: 'Strategic partnerships formed with industry leaders to translate artificial life research into practical applications and real-world solutions.',
-        category: 'News'
-      },
-      {
-        id: 12,
-        title: 'Publication in Nature: Breakthrough Discovery',
-        excerpt: 'Our latest research on emergent intelligence in artificial systems has been published in Nature, marking a significant milestone for the field.',
-        category: 'News'
-      }
-    ],
-    sidebar: ['Latest News', 'Press Releases', 'Publications', 'Announcements', 'Media Coverage']
+    posts: getBlogsByCategory('News').map((blog, index) => ({
+      id: index + 1,
+      title: blog.title,
+      excerpt: blog.description,
+      category: blog.category,
+      slug: blog.slug,
+      pubDate: blog.pubDate,
+      author: blog.author,
+      tags: blog.tags || []
+    })),
   }
 };
 ---
@@ -120,7 +81,7 @@ const contentData = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Blog - ALIFE</title>
@@ -130,13 +91,13 @@ const contentData = {
   </head>
   <body class="min-h-screen bg-gray-50">
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <BlogLoading lang={lang} />
+      <BlogLoading />
     </div>
 
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} />
+      <Header lang={lang} translations={t} />
 
-      <main class="max-w-7xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
+      <main class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
         <div class="text-center mb-12">
           <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
           <p class="text-20px text-gray-600 max-w-4xl mx-auto">
@@ -161,101 +122,170 @@ const contentData = {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div class="lg:col-span-1">
-            <div class="rounded-xl p-6">
-              <h3 id="sidebar-title" class="text-3xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Latest Updates</h3>
-              <div id="sidebar-content" class="space-y-3">
-                <div class="text-gray-600 text-sm">Latest Updates</div>
-                <div class="text-gray-600 text-sm">Featured Research</div>
-                <div class="text-gray-600 text-sm">Community Highlights</div>
-                <div class="text-gray-600 text-sm">Getting Started</div>
-                <div class="text-gray-600 text-sm">Research Overview</div>
+        <div class="w-full">
+          <div id="tab-content" class="w-full">
+            <!-- Overview content (default) -->
+            <div id="overview-content" class="tab-content">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {contentData.overview.posts.map(post => (
+                  <a href={`/blog/${post.slug}`} class="block">
+                    <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div class="aspect-w-16 aspect-h-9">
+                        <img 
+                          src={[
+                            "/assets/images/Blog Loading.png",
+                            "/assets/images/About Loading.png", 
+                            "/assets/images/Career Loading.png",
+                            "/assets/images/Support Us Loading.png"
+                          ][post.id % 4]} 
+                          alt={post.title}
+                          class="w-full h-48 object-cover"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                          {post.title}
+                        </h2>
+                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </article>
+                  </a>
+                ))}
+                
+                {contentData.overview.posts.length === 0 && (
+                  <div class="col-span-full text-center py-12">
+                    <p class="text-gray-500 text-lg">No blog posts available yet.</p>
+                    <p class="text-gray-400 text-sm mt-2">Check back soon for updates!</p>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
 
-          <div class="lg:col-span-3">
-            <div id="tab-content" class="space-y-8">
-              <!-- Overview content (default) -->
-              <div id="overview-content" class="tab-content">
-                {contentData.overview.posts.map(post => (
-                  <article class="py-6 border-b border-gray-200 last:border-b-0">
-                    <h2 class="text-2xl font-bold text-primary mb-4 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-                      {post.title}
-                    </h2>
-
-                    <p class="text-gray-600 leading-relaxed mb-6 text-20px">
-                      {post.excerpt}
-                    </p>
-
-                    <button class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-all duration-200">
-                      Explore
-                    </button>
-                  </article>
-                ))}
-              </div>
-
-              <div id="research-content" class="tab-content hidden">
+            <!-- Research content -->
+            <div id="research-content" class="tab-content hidden">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.research.posts.map(post => (
-                  <article class="py-6 border-b border-gray-200 last:border-b-0">
-                    <h2 class="text-2xl font-bold text-primary mb-4 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-                      {post.title}
-                    </h2>
-
-                    <p class="text-gray-600 leading-relaxed mb-6 text-20px">
-                      {post.excerpt}
-                    </p>
-
-                    <button class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-all duration-200">
-                      Explore
-                    </button>
-                  </article>
+                  <a href={`/blog/${post.slug}`} class="block">
+                    <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div class="aspect-w-16 aspect-h-9">
+                        <img 
+                          src={[
+                            "/assets/images/Blog Loading.png",
+                            "/assets/images/About Loading.png", 
+                            "/assets/images/Career Loading.png",
+                            "/assets/images/Support Us Loading.png"
+                          ][post.id % 4]} 
+                          alt={post.title}
+                          class="w-full h-48 object-cover"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                          {post.title}
+                        </h2>
+                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </article>
+                  </a>
                 ))}
               </div>
+            </div>
 
-              <!-- Events content -->
-              <div id="events-content" class="tab-content hidden">
+            <!-- Events content -->
+            <div id="events-content" class="tab-content hidden">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.events.posts.map(post => (
-                  <article class="py-6 border-b border-gray-200 last:border-b-0">
-                    <h2 class="text-2xl font-bold text-primary mb-4 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-                      {post.title}
-                    </h2>
-
-                    <p class="text-gray-600 leading-relaxed mb-6 text-20px">
-                      {post.excerpt}
-                    </p>
-
-                    <button class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-all duration-200">
-                      Explore
-                    </button>
-                  </article>
+                  <a href={`/blog/${post.slug}`} class="block">
+                    <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div class="aspect-w-16 aspect-h-9">
+                        <img 
+                          src={[
+                            "/assets/images/Blog Loading.png",
+                            "/assets/images/About Loading.png", 
+                            "/assets/images/Career Loading.png",
+                            "/assets/images/Support Us Loading.png"
+                          ][post.id % 4]} 
+                          alt={post.title}
+                          class="w-full h-48 object-cover"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                          {post.title}
+                        </h2>
+                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </article>
+                  </a>
                 ))}
               </div>
+            </div>
 
-              <!-- News content -->
-              <div id="news-content" class="tab-content hidden">
+            <!-- News content -->
+            <div id="news-content" class="tab-content hidden">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.news.posts.map(post => (
-                  <article class="py-6 border-b border-gray-200 last:border-b-0">
-                    <h2 class="text-2xl font-bold text-primary mb-4 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-                      {post.title}
-                    </h2>
-
-                    <p class="text-gray-600 leading-relaxed mb-6 text-20px">
-                      {post.excerpt}
-                    </p>
-
-                    <button class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-all duration-200">
-                      Explore
-                    </button>
-                  </article>
+                  <a href={`/blog/${post.slug}`} class="block">
+                    <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer">
+                      <div class="aspect-w-16 aspect-h-9">
+                        <img 
+                          src={[
+                            "/assets/images/Blog Loading.png",
+                            "/assets/images/About Loading.png", 
+                            "/assets/images/Career Loading.png",
+                            "/assets/images/Support Us Loading.png"
+                          ][post.id % 4]} 
+                          alt={post.title}
+                          class="w-full h-48 object-cover"
+                        />
+                      </div>
+                      <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                          {post.title}
+                        </h2>
+                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </article>
+                  </a>
                 ))}
               </div>
+            </div>
             </div>
           </div>
         </div>
       </main>
     </div>
+
+    <style>
+      .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      
+      .aspect-w-16 {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      }
+      
+      .aspect-w-16 img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
 
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
@@ -275,31 +305,9 @@ const contentData = {
           }, 2000);
         }
 
-        // Sidebar content data
-        const sidebarData = {
-          overview: {
-            title: 'Latest Updates',
-            items: ['Latest Updates', 'Featured Research', 'Community Highlights', 'Getting Started', 'Research Overview']
-          },
-          research: {
-            title: 'Research Teams',
-            items: ['Evolutionary Algorithms', 'Digital Organisms', 'Emergence Studies', 'Open-Ended Evolution', 'Artificial Life Systems']
-          },
-          events: {
-            title: 'Event Categories',
-            items: ['Upcoming Events', 'Conferences', 'Workshops', 'Symposiums', 'Webinars']
-          },
-          news: {
-            title: 'News Categories',
-            items: ['Latest News', 'Press Releases', 'Publications', 'Announcements', 'Media Coverage']
-          }
-        };
-
         // Tab functionality
         const tabs = document.querySelectorAll('.tab, .active-tab');
         const tabContents = document.querySelectorAll('.tab-content');
-        const sidebarTitle = document.getElementById('sidebar-title');
-        const sidebarContent = document.getElementById('sidebar-content');
 
         function showTab(tabName) {
           // Hide all tab contents
@@ -311,13 +319,6 @@ const contentData = {
           const selectedContent = document.getElementById(`${tabName}-content`);
           if (selectedContent) {
             selectedContent.classList.remove('hidden');
-          }
-
-          // Update sidebar
-          const sidebarInfo = sidebarData[tabName];
-          if (sidebarInfo && sidebarTitle && sidebarContent) {
-            sidebarTitle.textContent = sidebarInfo.title;
-            sidebarContent.innerHTML = sidebarInfo.items.map(item => `<div class="text-gray-600 text-sm">${item}</div>`).join('');
           }
         }
 
