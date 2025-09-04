@@ -1,7 +1,8 @@
 ---
 import '../styles/global.css';
-import GreenBubbleBackground from '../components/home-slider/GreenBubbleBackground.astro';
-import ParallelogramBackground from '../components/home-slider/ParallelogramBackground.astro';
+import Slider1 from '../components/home-slider/slider-1.astro';
+import Slider2 from '../components/home-slider/slider-2.astro';
+import Slider3 from '../components/home-slider/slider-3.astro';
 
 
 // Get language from URL parameters or default to English
@@ -44,7 +45,7 @@ const t = translations[lang as keyof typeof translations] || translations.en;
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>ALIFE - Artificial Life Institute</title>
@@ -55,23 +56,25 @@ const t = translations[lang as keyof typeof translations] || translations.en;
   <body class="min-h-screen overflow-hidden">
     <!-- Backgrounds will be shown/hidden via JavaScript -->
     <div id="gif-background" class="hidden">
-      <GreenBubbleBackground lang={lang} translations={t} />
+      <Slider1 lang={lang} translations={t} />
     </div>
-    <div id="parallelogram-background" class="hidden">
-      <ParallelogramBackground lang={lang} translations={t} />
+    <div id="slider-2-background" class="hidden">
+      <Slider2 lang={lang} translations={t} />
     </div>
-
+    <div id="slider-3-background" class="hidden"> <Slider3 lang={lang} translations={t} /> </div>
     <script>
       // Randomly choose which background to show on page load
-      const backgrounds = ['gif', 'parallelogram'];
+      const backgrounds = ['gif', 'slider-2', 'slider-3'];
       const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
       
       // Hide all backgrounds first
       const gifBackground = document.getElementById('gif-background') as HTMLElement;
-      const parallelogramBackground = document.getElementById('parallelogram-background') as HTMLElement;
+      const parallelogramBackground = document.getElementById('slider-2-background') as HTMLElement;
+      const slider3Background = document.getElementById('slider-3-background') as HTMLElement;
       
-      gifBackground?.classList.add('hidden');
+      gifBackground?.classList.add('hidden'); 
       parallelogramBackground?.classList.add('hidden');
+      slider3Background?.classList.add('hidden');
       
       // Show the randomly chosen background
       const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
