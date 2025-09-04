@@ -1,4 +1,4 @@
-// Export empty collections for now
+// Temporarily disable content collections
 const collections = {};
 
 export default collections;

@@ -1,3 +1,7 @@
+// Temporarily disable content collections
+// eslint-disable-next-line import/no-unresolved
+// import { getCollection } from 'astro:content';
+
 export interface JobPosting {
   title: string;
   location: string;
@@ -11,7 +15,7 @@ export interface JobPosting {
 
 export async function getAllJobs(): Promise<JobPosting[]> {
   try {
-    // Temporarily return empty array while content collections are disabled
+    // Temporarily return empty array
     return [];
   } catch (error) {
     // Error loading jobs
@@ -21,7 +25,7 @@ export async function getAllJobs(): Promise<JobPosting[]> {
 
 export async function getJobBySlug(_slug: string): Promise<JobPosting | null> {
   try {
-    // Temporarily return null while content collections are disabled
+    // Temporarily return null
     return null;
   } catch (error) {
     // Error loading job

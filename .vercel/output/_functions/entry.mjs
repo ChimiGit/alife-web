@@ -1,6 +1,6 @@
 import { renderers } from './renderers.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_DhXaPqYJ.mjs';
-import { manifest } from './manifest_DVz7R9LA.mjs';
+import { manifest } from './manifest_BHsN-fpO.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -11,9 +11,10 @@ const _page3 = () => import('./pages/api/team/_slug_.astro.mjs');
 const _page4 = () => import('./pages/api/team-categories/_slug_.astro.mjs');
 const _page5 = () => import('./pages/blog.astro.mjs');
 const _page6 = () => import('./pages/career.astro.mjs');
-const _page7 = () => import('./pages/privacy-policy.astro.mjs');
-const _page8 = () => import('./pages/support.astro.mjs');
-const _page9 = () => import('./pages/index.astro.mjs');
+const _page7 = () => import('./pages/debug.astro.mjs');
+const _page8 = () => import('./pages/privacy-policy.astro.mjs');
+const _page9 = () => import('./pages/support.astro.mjs');
+const _page10 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
     ["node_modules/.pnpm/astro@5.13.5_typescript@5.9.2/node_modules/astro/dist/assets/endpoint/generic.js", _page0],
     ["src/pages/about.astro", _page1],
@@ -22,9 +23,10 @@ const pageMap = new Map([
     ["src/pages/api/team-categories/[slug].ts", _page4],
     ["src/pages/blog.astro", _page5],
     ["src/pages/career.astro", _page6],
-    ["src/pages/privacy-policy.astro", _page7],
-    ["src/pages/support.astro", _page8],
-    ["src/pages/index.astro", _page9]
+    ["src/pages/debug.astro", _page7],
+    ["src/pages/privacy-policy.astro", _page8],
+    ["src/pages/support.astro", _page9],
+    ["src/pages/index.astro", _page10]
 ]);
 
 const _manifest = Object.assign(manifest, {
@@ -35,7 +37,7 @@ const _manifest = Object.assign(manifest, {
     middleware: () => import('./_noop-middleware.mjs')
 });
 const _args = {
-    "middlewareSecret": "75ea31a5-1008-4236-b1d8-0ae74ccc3069",
+    "middlewareSecret": "3aadef2d-8d34-4bf5-b6f0-1c61a79906d9",
     "skewProtection": false
 };
 const _exports = createExports(_manifest, _args);

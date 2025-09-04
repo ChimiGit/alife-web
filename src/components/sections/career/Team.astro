@@ -3,8 +3,12 @@ import '../../../styles/global.css';
 import { getAllTeamMembers } from '../../../utils/team.ts';
 import { getAllTeamCategories } from '../../../utils/team-categories.ts';
 
-const teamMembers = getAllTeamMembers();
-const teamCategories = getAllTeamCategories();
+const teamMembers = await getAllTeamMembers();
+const teamCategories = await getAllTeamCategories();
+
+// Debug logging
+console.log('Team Members:', teamMembers);
+console.log('Team Categories:', teamCategories);
 ---
 
 <!-- Team Section with Enhanced Layout -->
@@ -14,45 +18,62 @@ const teamCategories = getAllTeamCategories();
     <div class="w-full lg:w-1/4 lg:pr-8 mb-8 lg:mb-0">
       <h3 class="text-2xl font-bold text-gray-400 mb-8 flex justify-start">The Team</h3>
       <nav class="space-y-2" role="tablist" aria-orientation="vertical">
-        {teamCategories.map((category, index) => (
-          <button
-            type="button"
-            class={`team-tab w-full text-left py-3 px-4 text-lg border-l-4 hover:text-primary ${index === 0 ? 'active font-semibold text-primary border-primary bg-gray-100' : 'text-gray-500 border-transparent'}`}
-            id={`${category.slug}-tab`}
-            aria-selected={index === 0 ? 'true' : 'false'}
-            data-target={`#${category.slug}-panel`}
-            role="tab"
-          >
-            {category.title}
-          </button>
-        ))}
+        {teamCategories && teamCategories.length > 0 ? (
+          teamCategories.map((category, index) => (
+            <button
+              type="button"
+              class={`team-tab w-full text-left py-3 px-4 text-lg border-l-4 hover:text-primary ${index === 0 ? 'active font-semibold text-primary border-primary bg-gray-100' : 'text-gray-500 border-transparent'}`}
+              id={`${category.slug}-tab`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+              data-target={`#${category.slug}-panel`}
+              role="tab"
+            >
+              {category.title}
+            </button>
+          ))
+        ) : (
+          <div class="text-gray-500 text-sm">No team categories available</div>
+        )}
       </nav>
     </div>
 
     <!-- Right Content Area -->
     <div class="w-full lg:w-3/4">
-      {teamCategories.map((category, index) => (
-        <div
-          id={`${category.slug}-panel`}
-          class={`team-panel ${index === 0 ? '' : 'hidden'}`}
-          role="tabpanel"
-          aria-labelledby={`${category.slug}-tab`}
-        >
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.filter(member => member.category === category.slug).map(member => (
-              <div class="text-center group cursor-pointer" onclick={`showTeamMemberDetails('${member.slug}')`}>
-                <div class="w-48 h-48 mx-auto mb-4 rounded-medium overflow-hidden bg-gray-200 group-hover:shadow-lg transition-all duration-300">
-                  <img src={member.image} alt={member.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+      {teamCategories && teamCategories.length > 0 ? (
+        teamCategories.map((category, index) => (
+          <div
+            id={`${category.slug}-panel`}
+            class={`team-panel ${index === 0 ? '' : 'hidden'}`}
+            role="tabpanel"
+            aria-labelledby={`${category.slug}-tab`}
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {teamMembers && teamMembers.filter(member => member.category === category.slug).length > 0 ? (
+                teamMembers.filter(member => member.category === category.slug).map(member => (
+                  <div class="text-center group cursor-pointer" onclick={`showTeamMemberDetails('${member.slug}')`}>
+                    <div class="w-48 h-48 mx-auto mb-4 rounded-medium overflow-hidden bg-gray-200 group-hover:shadow-lg transition-all duration-300">
+                      <img src={member.image} alt={member.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h4 class="text-xl font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
+                    <p class="text-primary font-medium mb-1">{member.title}</p>
+                    <p class="text-xs text-gray-600 mb-2">{member.bio}</p>
+                    <p class="text-xs text-gray-500">{member.location}</p>
+                  </div>
+                ))
+              ) : (
+                <div class="col-span-full text-center text-gray-500 py-8">
+                  No team members found in this category
                 </div>
-                <h4 class="text-xl font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                <p class="text-primary font-medium mb-1">{member.title}</p>
-                <p class="text-xs text-gray-600 mb-2">{member.bio}</p>
-                <p class="text-xs text-gray-500">{member.location}</p>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
+        ))
+      ) : (
+        <div class="text-center text-gray-500 py-8">
+          <h3 class="text-xl font-semibold mb-4">Team Information Coming Soon</h3>
+          <p>Our team profiles are being updated. Please check back later.</p>
         </div>
-      ))}
+      )}
     </div>
   </div>
 </section>

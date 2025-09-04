@@ -1,0 +1,22 @@
+---
+import { getAllTeamMembers } from '../utils/team.ts';
+import { getAllTeamCategories } from '../utils/team-categories.ts';
+
+const teamMembers = await getAllTeamMembers();
+const teamCategories = await getAllTeamCategories();
+---
+
+<html>
+<head>
+  <title>Debug Content Collections</title>
+</head>
+<body>
+  <h1>Debug Content Collections</h1>
+  
+  <h2>Team Categories ({teamCategories?.length || 0})</h2>
+  <pre>{JSON.stringify(teamCategories, null, 2)}</pre>
+  
+  <h2>Team Members ({teamMembers?.length || 0})</h2>
+  <pre>{JSON.stringify(teamMembers, null, 2)}</pre>
+</body>
+</html>

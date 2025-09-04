@@ -2,46 +2,53 @@
 import '../../../styles/global.css';
 import { getAllJobs } from '../../../utils/jobs.ts';
 
-const jobs = getAllJobs();
+const jobs = await getAllJobs();
 ---
 
 <!-- Jobs Content -->
 <div class="space-y-8">
-  {jobs.map(job => (
-    <div class="border-b border-gray-200 pb-8 last:border-b-0">
-      <div class="flex justify-between items-start mb-4">
-        <div class="flex-1">
-          <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">
-            {job.title}
-          </h3>
-          <p class="text-primary font-medium mb-1">{job.location}</p>
-          <p class="text-gray-600 text-sm mb-2">
-            <span class="font-medium">{job.department}</span> • {job.experience} experience
-          </p>
-        </div>
-        <div class="flex flex-col items-end space-y-2">
-          <button
-            class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200"
-            onclick={`showJobDetails('${job.slug}')`}
-          >
-            View Details
-          </button>
-          <div class="text-right text-sm">
-            <p class="text-gray-600">
-              Deadline: <span class="font-medium">{new Date(job.deadline).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-              })}</span>
+  {jobs && jobs.length > 0 ? (
+    jobs.map(job => (
+      <div class="border-b border-gray-200 pb-8 last:border-b-0">
+        <div class="flex justify-between items-start mb-4">
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">
+              {job.title}
+            </h3>
+            <p class="text-primary font-medium mb-1">{job.location}</p>
+            <p class="text-gray-600 text-sm mb-2">
+              <span class="font-medium">{job.department}</span> • {job.experience} experience
             </p>
-            <p class="text-gray-600">
-              Type: <span class="font-medium">{job.type}</span>
-            </p>
+          </div>
+          <div class="flex flex-col items-end space-y-2">
+            <button
+              class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200"
+              onclick={`showJobDetails('${job.slug}')`}
+            >
+              View Details
+            </button>
+            <div class="text-right text-sm">
+              <p class="text-gray-600">
+                Deadline: <span class="font-medium">{new Date(job.deadline).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}</span>
+              </p>
+              <p class="text-gray-600">
+                Type: <span class="font-medium">{job.type}</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
+    ))
+  ) : (
+    <div class="text-center text-gray-500 py-8">
+      <h3 class="text-xl font-semibold mb-4">Job Openings Coming Soon</h3>
+      <p>We're currently updating our job listings. Please check back later for new opportunities.</p>
     </div>
-  ))}
+  )}
 </div>
 
 <!-- Job Details Modal -->

@@ -1,21 +1,20 @@
+// Temporarily disable content collections
+// eslint-disable-next-line import/no-unresolved
+// import { getCollection } from 'astro:content';
+
 export interface TeamMember {
   name: string;
   title: string;
-  image: string;
   bio: string;
   location: string;
-  linkedin?: string;
-  twitter?: string;
-  email?: string;
-  order: number;
-  content: string;
-  slug: string;
+  image: string;
   category: string;
+  slug: string;
 }
 
 export async function getAllTeamMembers(): Promise<TeamMember[]> {
   try {
-    // Temporarily return empty array while content collections are disabled
+    // Temporarily return empty array
     return [];
   } catch (error) {
     // Error loading team members
@@ -23,11 +22,9 @@ export async function getAllTeamMembers(): Promise<TeamMember[]> {
   }
 }
 
-export async function getTeamMemberBySlug(
-  _slug: string
-): Promise<TeamMember | null> {
+export async function getTeamMemberBySlug(_slug: string): Promise<TeamMember | null> {
   try {
-    // Temporarily return null while content collections are disabled
+    // Temporarily return null
     return null;
   } catch (error) {
     // Error loading team member

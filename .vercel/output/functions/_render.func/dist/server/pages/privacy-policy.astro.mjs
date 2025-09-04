@@ -1,5 +1,5 @@
 import { e as createComponent, f as createAstro, h as addAttribute, l as renderHead, n as renderComponent, r as renderTemplate } from '../chunks/astro/server_Rd5E_EmL.mjs';
-import { $ as $$Header } from '../chunks/Header_BVjmRCSA.mjs';
+import { $ as $$Header } from '../chunks/Header_C9Vkaj9E.mjs';
 /* empty css                                 */
 export { renderers } from '../renderers.mjs';
 
@@ -7,27 +7,9 @@ const $$Astro = createAstro();
 const $$PrivacyPolicy = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$PrivacyPolicy;
-  const lang = "en";
-  const translations = {
-    en: {
-      navigation: {
-        about: "About",
-        career: "Career",
-        blog: "Blog",
-        support: "Support Us"
-      }
-    },
-    jp: {
-      navigation: {
-        about: "\u6982\u8981",
-        career: "\u30AD\u30E3\u30EA\u30A2",
-        blog: "\u30D6\u30ED\u30B0",
-        support: "\u30B5\u30DD\u30FC\u30C8"
-      }
-    }
-  };
-  const t = translations[lang] || translations.en;
-  return renderTemplate`<html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png"><meta name="viewport" content="width=device-width"><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>Privacy Policy - ALIFE</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">${renderHead()}</head> <body class="min-h-screen bg-gray-50"> ${renderComponent($$result, "Header", $$Header, { "lang": lang, "translations": t })} <!-- Main content --> <main class="max-w-4xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;"> <!-- Header Section --> <div class="text-center mb-12"> <h1 class="text-4xl md:text-5xl font-bold text-primary mb-6" style="font-family: 'GT Alpina Fine', serif;">
+  const urlParams = new URLSearchParams(Astro2.url.search);
+  const lang = urlParams.get("lang") || "en";
+  return renderTemplate`<html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png"><meta name="viewport" content="width=device-width"><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>Privacy Policy - ALIFE</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">${renderHead()}</head> <body class="min-h-screen bg-gray-50"> ${renderComponent($$result, "Header", $$Header, { "lang": lang })} <!-- Main content --> <main class="max-w-4xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;"> <!-- Header Section --> <div class="text-center mb-12"> <h1 class="text-4xl md:text-5xl font-bold text-primary mb-6" style="font-family: 'GT Alpina Fine', serif;">
 Privacy Policy
 </h1> </div> <!-- Introduction --> <div class="mb-8"> <div class="mb-8 space-y-2"> <h2 class="text-xl font-semibold text-primary">Artificial Life Institute</h2> <p class="text-gray-600">Date created: May 21, 2025</p> </div> <p class="text-gray-700 leading-relaxed text-sm" style="line-height: 2">
 This Privacy Policy ("Policy") describes how the Artificial Life Institute

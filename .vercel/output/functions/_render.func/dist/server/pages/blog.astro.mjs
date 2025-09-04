@@ -1,6 +1,6 @@
 import { e as createComponent, f as createAstro, m as maybeRenderHead, k as renderScript, r as renderTemplate, n as renderComponent, l as renderHead, h as addAttribute } from '../chunks/astro/server_Rd5E_EmL.mjs';
 /* empty css                                 */
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_BVjmRCSA.mjs';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_C9Vkaj9E.mjs';
 import 'clsx';
 /* empty css                                */
 export { renderers } from '../renderers.mjs';
