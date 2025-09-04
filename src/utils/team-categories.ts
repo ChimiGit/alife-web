@@ -1,6 +1,6 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 export interface TeamCategory {
   slug: string;
@@ -13,7 +13,7 @@ export interface TeamCategory {
 export function getAllTeamCategories(): TeamCategory[] {
   const categoriesDirectory = path.join(
     process.cwd(),
-    "src/content/team-categories"
+    'src/content/team-categories'
   );
 
   if (!fs.existsSync(categoriesDirectory)) {
@@ -22,19 +22,19 @@ export function getAllTeamCategories(): TeamCategory[] {
 
   const fileNames = fs.readdirSync(categoriesDirectory);
   const categories = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter(fileName => fileName.endsWith('.md'))
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, "");
+      const slug = fileName.replace(/\.md$/, '');
       const fullPath = path.join(categoriesDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
 
       return {
         slug,
-        title: data.title || "",
-        description: data.description || "",
+        title: data.title || '',
+        description: data.description || '',
         order: data.order || 999,
-        content: content.trim(),
+        content: content.trim()
       };
     })
     .sort((a, b) => a.order - b.order);
@@ -46,7 +46,7 @@ export function getTeamCategoryBySlug(slug: string): TeamCategory | null {
   try {
     const fullPath = path.join(
       process.cwd(),
-      "src/content/team-categories",
+      'src/content/team-categories',
       `${slug}.md`
     );
 
@@ -54,15 +54,15 @@ export function getTeamCategoryBySlug(slug: string): TeamCategory | null {
       return null;
     }
 
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
     return {
       slug,
-      title: data.title || "",
-      description: data.description || "",
+      title: data.title || '',
+      description: data.description || '',
       order: data.order || 999,
-      content: content.trim(),
+      content: content.trim()
     };
   } catch (error) {
     console.error(`Error reading team category ${slug}:`, error);

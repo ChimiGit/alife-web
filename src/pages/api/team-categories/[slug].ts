@@ -1,6 +1,6 @@
-import type { APIRoute } from "astro";
-import { getTeamCategoryBySlug } from "../../../utils/team-categories";
-import { marked } from "marked";
+import type { APIRoute } from 'astro';
+import { marked } from 'marked';
+import { getTeamCategoryBySlug } from '../../../utils/team-categories.ts';
 
 export const prerender = false;
 
@@ -9,11 +9,11 @@ export const GET: APIRoute = async ({ params }) => {
     const { slug } = params;
 
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Slug is required" }), {
+      return new Response(JSON.stringify({ error: 'Slug is required' }), {
         status: 400,
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       });
     }
 
@@ -21,12 +21,12 @@ export const GET: APIRoute = async ({ params }) => {
 
     if (!category) {
       return new Response(
-        JSON.stringify({ error: "Team category not found" }),
+        JSON.stringify({ error: 'Team category not found' }),
         {
           status: 404,
           headers: {
-            "Content-Type": "application/json",
-          },
+            'Content-Type': 'application/json'
+          }
         }
       );
     }
@@ -38,21 +38,21 @@ export const GET: APIRoute = async ({ params }) => {
         title: category.title,
         description: category.description,
         order: category.order,
-        htmlContent,
+        htmlContent
       }),
       {
         status: 200,
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
     );
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {
-        "Content-Type": "application/json",
-      },
+        'Content-Type': 'application/json'
+      }
     });
   }
 };

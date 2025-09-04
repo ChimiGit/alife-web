@@ -1,6 +1,6 @@
-import { readFileSync, readdirSync } from "fs";
-import { join } from "path";
-import matter from "gray-matter";
+import { readFileSync, readdirSync } from 'fs';
+import { join } from 'path';
+import matter from 'gray-matter';
 
 export interface JobPosting {
   title: string;
@@ -14,19 +14,19 @@ export interface JobPosting {
 }
 
 export function getAllJobs(): JobPosting[] {
-  const jobsDirectory = join(process.cwd(), "src/content/jobs");
+  const jobsDirectory = join(process.cwd(), 'src/content/jobs');
   const jobFiles = readdirSync(jobsDirectory, { withFileTypes: true })
-    .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
-    .map((dirent) => dirent.name);
+    .filter(dirent => dirent.isFile() && dirent.name.endsWith('.md'))
+    .map(dirent => dirent.name);
 
   const jobs: JobPosting[] = [];
 
-  for (const filename of jobFiles) {
+  jobFiles.forEach((filename) => {
     const filePath = join(jobsDirectory, filename);
-    const fileContents = readFileSync(filePath, "utf8");
+    const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    const slug = filename.replace(/\.md$/, "");
+    const slug = filename.replace(/\.md$/, '');
 
     jobs.push({
       title: data.title,
@@ -36,9 +36,9 @@ export function getAllJobs(): JobPosting[] {
       department: data.department,
       experience: data.experience,
       content,
-      slug,
+      slug
     });
-  }
+  });
 
   // Sort by deadline (earliest first)
   return jobs.sort(
@@ -48,8 +48,8 @@ export function getAllJobs(): JobPosting[] {
 
 export function getJobBySlug(slug: string): JobPosting | null {
   try {
-    const filePath = join(process.cwd(), "src/content/jobs", `${slug}.md`);
-    const fileContents = readFileSync(filePath, "utf8");
+    const filePath = join(process.cwd(), 'src/content/jobs', `${slug}.md`);
+    const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
     return {
@@ -60,7 +60,7 @@ export function getJobBySlug(slug: string): JobPosting | null {
       department: data.department,
       experience: data.experience,
       content,
-      slug,
+      slug
     };
   } catch (error) {
     return null;
