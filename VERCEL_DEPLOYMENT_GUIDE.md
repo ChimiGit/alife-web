@@ -42,6 +42,7 @@ export default defineConfig({
         'devalue',
         'unstorage',
         'destr',
+        'path-to-regexp',
 
         // Astro and related
         'astro',
@@ -96,7 +97,7 @@ export default defineConfig({
 Install these packages to ensure all dependencies are available:
 
 ```bash
-pnpm add kleur cookie es-module-lexer devalue unstorage magic-string rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @types/node@^20.0.0 destr @vercel/routing-utils
+pnpm add kleur cookie es-module-lexer devalue unstorage magic-string rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @types/node@^20.0.0 destr @vercel/routing-utils path-to-regexp
 ```
 
 ## Why This Works
@@ -123,6 +124,7 @@ The following packages are commonly missing and should be added to `noExternal`:
 - `devalue` - Data serialization
 - `unstorage` - Storage abstraction
 - `destr` - Destructuring utilities
+- `path-to-regexp` - Path matching utilities
 - `@vercel/routing-utils` - Vercel routing utilities
 - `magic-string` - String manipulation
 - `rollup` - JavaScript bundler
