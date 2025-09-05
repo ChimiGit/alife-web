@@ -9,14 +9,13 @@ async function getAllJobs() {
       slug: job.slug
     }));
   } catch (error) {
-    console.error("Error loading jobs:", error);
     return [];
   }
 }
 async function getJobBySlug(slug) {
   try {
     const jobs = await getCollection("jobs");
-    const job = jobs.find((job2) => job2.slug === slug);
+    const job = jobs.find((jobItem) => jobItem.slug === slug);
     if (!job) {
       return null;
     }
@@ -26,7 +25,6 @@ async function getJobBySlug(slug) {
       slug: job.slug
     };
   } catch (error) {
-    console.error("Error loading job:", error);
     return null;
   }
 }

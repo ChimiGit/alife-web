@@ -1,5 +1,5 @@
 import { d } from '../../../chunks/marked.esm_CxOeIXbN.mjs';
-import { g as getJobBySlug } from '../../../chunks/jobs_BsZV9oab.mjs';
+import { g as getJobBySlug } from '../../../chunks/jobs_DL8IPFRH.mjs';
 import '../../../chunks/index_t2PvLSUE.mjs';
 export { renderers } from '../../../renderers.mjs';
 
@@ -43,7 +43,6 @@ const GET = async ({ params }) => {
       }
     );
   } catch (error) {
-    console.error("API Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: {

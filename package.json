@@ -25,6 +25,7 @@
     "@vercel/node": "^5.3.20",
     "@vercel/routing-utils": "^5.1.1",
     "astro": "^5.12.0",
+    "base-64": "^1.0.0",
     "clsx": "^2.1.1",
     "cookie": "^1.0.2",
     "cssesc": "^3.0.0",

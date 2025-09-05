@@ -5,13 +5,12 @@ import matter from 'gray-matter';
 function getAllBlogs() {
   const blogsDirectory = join(process.cwd(), "src/content/blog");
   const blogFiles = readdirSync(blogsDirectory, { withFileTypes: true }).filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md")).map((dirent) => dirent.name);
-  const blogs = [];
-  for (const filename of blogFiles) {
+  const blogs = blogFiles.map((filename) => {
     const filePath = join(blogsDirectory, filename);
     const fileContents = readFileSync(filePath, "utf8");
     const { data, content } = matter(fileContents);
     const slug = filename.replace(/\.md$/, "");
-    blogs.push({
+    return {
       title: data.title,
       description: data.description,
       pubDate: data.pubDate,
@@ -21,8 +20,8 @@ function getAllBlogs() {
       category: data.category || "General",
       tags: data.tags || [],
       featuredImage: data.featuredImage || "/assets/images/Blog Loading.png"
-    });
-  }
+    };
+  });
   return blogs.sort(
     (a, b) => new Date(a.pubDate).getTime() - new Date(b.pubDate).getTime()
   );
@@ -53,10 +52,5 @@ function getBlogsByCategory(category) {
     (blog) => blog.category.toLowerCase() === category.toLowerCase()
   );
 }
-function getAllCategories() {
-  const allBlogs = getAllBlogs();
-  const categories = [...new Set(allBlogs.map((blog) => blog.category))];
-  return categories.sort();
-}
 
-export { getAllBlogs as a, getAllCategories as b, getBlogsByCategory as c, getBlogBySlug as g };
+export { getAllBlogs as a, getBlogsByCategory as b, getBlogBySlug as g };

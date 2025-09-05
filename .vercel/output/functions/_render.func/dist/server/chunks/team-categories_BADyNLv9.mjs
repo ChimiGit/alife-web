@@ -8,14 +8,15 @@ async function getAllTeamCategories() {
       slug: category.slug
     }));
   } catch (error) {
-    console.error("Error loading team categories:", error);
     return [];
   }
 }
 async function getTeamCategoryBySlug(slug) {
   try {
     const categories = await getCollection("team-categories");
-    const category = categories.find((category2) => category2.slug === slug);
+    const category = categories.find(
+      (categoryItem) => categoryItem.slug === slug
+    );
     if (!category) {
       return null;
     }
@@ -24,7 +25,6 @@ async function getTeamCategoryBySlug(slug) {
       slug: category.slug
     };
   } catch (error) {
-    console.error("Error loading team category:", error);
     return null;
   }
 }

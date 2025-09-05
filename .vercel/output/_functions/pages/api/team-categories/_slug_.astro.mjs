@@ -1,4 +1,4 @@
-import { g as getTeamCategoryBySlug } from '../../../chunks/team-categories_BmEr5t1N.mjs';
+import { g as getTeamCategoryBySlug } from '../../../chunks/team-categories_BADyNLv9.mjs';
 import '../../../chunks/index_t2PvLSUE.mjs';
 export { renderers } from '../../../renderers.mjs';
 
@@ -40,7 +40,6 @@ const GET = async ({ params }) => {
       }
     );
   } catch (error) {
-    console.error("API Error:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: {

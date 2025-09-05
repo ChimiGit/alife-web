@@ -8,14 +8,13 @@ async function getAllTeamMembers() {
       slug: member.slug
     }));
   } catch (error) {
-    console.error("Error loading team members:", error);
     return [];
   }
 }
 async function getTeamMemberBySlug(slug) {
   try {
     const team = await getCollection("team");
-    const member = team.find((member2) => member2.slug === slug);
+    const member = team.find((memberItem) => memberItem.slug === slug);
     if (!member) {
       return null;
     }
@@ -24,7 +23,6 @@ async function getTeamMemberBySlug(slug) {
       slug: member.slug
     };
   } catch (error) {
-    console.error("Error loading team member:", error);
     return null;
   }
 }

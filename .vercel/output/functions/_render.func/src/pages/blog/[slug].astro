@@ -1,9 +1,9 @@
 ---
 /* eslint-disable indent */
 import '../../styles/global.css';
-import Header from '../../components/Header.astro';
-import { getBlogBySlug } from '../../utils/blog';
 import { marked } from 'marked';
+import Header from '../../components/Header.astro';
+import { getBlogBySlug } from '../../utils/blog.ts';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
@@ -52,7 +52,7 @@ const htmlContent = marked(blog.content);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen bg-gray-50">
-    <Header lang={lang} translations={t} />
+    <Header lang={lang} />
 
     <main class="max-w-4xl mx-auto px-4 py-16" style="font-family: 'Inter', sans-serif;">
       <!-- Breadcrumb -->

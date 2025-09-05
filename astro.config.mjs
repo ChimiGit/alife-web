@@ -38,6 +38,7 @@ export default defineConfig({
         'marked',
         'motion',
         'tailwind-merge',
+        'base-64',
         'radix-ui',
         'react',
         'react-dom',

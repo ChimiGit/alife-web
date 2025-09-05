@@ -2,28 +2,13 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import BlogLoading from '../components/loaders/BlogLoading.astro';
-import { getAllBlogs, getBlogsByCategory, getAllCategories } from '../utils/blog';
+import { getAllBlogs, getBlogsByCategory } from '../utils/blog.ts';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
-const translations = {
-  en: {
-    navigation: {
-      about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-    }
-  },
-  jp: {
-    navigation: {
-      about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-    }
-  }
-};
-
-const t = translations[lang as keyof typeof translations] || translations.en;
 
 // Get actual blog posts and categories
 const allBlogs = getAllBlogs();
-const categories = getAllCategories();
 
 // Create content data based on actual blog posts
 const contentData = {
@@ -232,7 +217,6 @@ const contentData = {
                   </a>
                 ))}
               </div>
-            </div>
             </div>
           </div>
         </div>
