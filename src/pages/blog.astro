@@ -75,7 +75,7 @@ const contentData = {
     <title>Blog - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen bg-gray-50">
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
@@ -89,7 +89,7 @@ const contentData = {
       <main class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
         <div class="text-center mb-12">
           <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">{translations['Sharing Our Journey'] || 'Sharing Our Journey'}</h1>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p class="text-medium text-gray-600 max-w-3xl mx-auto font-light">
             {translations['Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI'] || 'Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI'}
           </p>
         </div>
@@ -97,17 +97,17 @@ const contentData = {
         <div class="mb-8">
           <div class="overflow-x-auto">
             <div class="flex justify-center min-w-max">
-              <div class="flex bg-gray-100 rounded-full p-1">
-                <button id="overview-tab" class="active-tab px-6 py-2 rounded-full bg-primary text-white font-medium transition-all duration-200 whitespace-nowrap">
+              <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
+                <button id="overview-tab" class="active-tab px-6 py-2 rounded-full bg-primary text-white transition-all duration-200 whitespace-nowrap">
                   {translations.Overview || 'Overview'}
                 </button>
-                <button id="research-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200 whitespace-nowrap">
+                <button id="research-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
                   {translations.Research || 'Research'}
                 </button>
-                <button id="events-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200 whitespace-nowrap">
+                <button id="events-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
                   {translations.Events || 'Events'}
                 </button>
-                <button id="news-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200 whitespace-nowrap">
+                <button id="news-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
                   {translations.News || 'News'}
                 </button>
               </div>
@@ -136,7 +136,7 @@ const contentData = {
                       <h2 class="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
                         {post.title}
                       </h2>
-                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 font-light">
                         {post.excerpt}
                       </p>
                     </div>
