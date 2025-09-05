@@ -44,6 +44,9 @@ module.exports = {
 
     // Disable parsing errors for Astro files
     'astro/no-unused-define-vars-in-style': 'off',
+
+    // Ignore Astro content import resolution issues
+    'import/no-unresolved': ['error', { ignore: ['^astro:'] }],
   },
   overrides: [
     {

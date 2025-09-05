@@ -47,16 +47,16 @@ const lang = urlParams.get('lang') || 'en';
       <Header lang={lang} />
 
       <!-- Main content -->
-      <main class="max-w-6xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
+      <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12" style="font-family: 'Inter', sans-serif;">
 
       <!-- Hero Section -->
-      <section class="text-center mb-10">
-        <h1 class="text-64px text-primary mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <section class="text-center mb-8 sm:mb-10">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           Where Brilliant<br>
           Minds Explore Together
         </h1>
       </section>
-      <p class="text-sm text-gray-700 max-w-4xl mx-auto leading-relaxed mb-20" style="line-height: 2">
+      <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0" style="line-height: 2">
         Discover what happens at the intersection of nature and computation, where we're creating something
         unprecedented. Our team combines world-class researchers and innovative engineers united by a shared
         fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that
@@ -64,15 +64,15 @@ const lang = urlParams.get('lang') || 'en';
       </p>
 
       <!-- Join Us Section with Tabs -->
-      <section class="text-center mb-20">
-        <h2 class="text-4xl font-bold text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">
+      <section class="text-center mb-12 sm:mb-20">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
           Join Us!
         </h2>
-        <div class="flex justify-center gap-4 mb-12">
-          <button id="our-team-tab" class="main-tab active bg-primary text-white px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#our-team-content">
+        <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+          <button id="our-team-tab" class="main-tab active bg-primary text-white px-4 sm:px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#our-team-content">
             Our Team
           </button>
-          <button id="jobs-tab" class="main-tab border border-primary text-primary px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#jobs-content">
+          <button id="jobs-tab" class="main-tab border border-primary text-primary px-4 sm:px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#jobs-content">
             Jobs
           </button>
         </div>

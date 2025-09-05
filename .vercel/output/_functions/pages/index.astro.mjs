@@ -1,6 +1,6 @@
 import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, k as defineScriptVars, b as addAttribute, r as renderHead, d as renderComponent } from '../chunks/astro/server_Dl3YwkSB.mjs';
 /* empty css                                 */
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_ByLuRFMM.mjs';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_B14pzxXm.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro$4 = createAstro();

@@ -14,13 +14,12 @@ export interface JobPosting {
 export async function getAllJobs(): Promise<JobPosting[]> {
   try {
     const jobs = await getCollection('jobs');
-    return jobs.map((job) => ({
+    return jobs.map(job => ({
       ...job.data,
       content: job.body,
       slug: job.slug,
     }));
   } catch (error) {
-    console.error('Error loading jobs:', error);
     return [];
   }
 }
@@ -28,8 +27,8 @@ export async function getAllJobs(): Promise<JobPosting[]> {
 export async function getJobBySlug(slug: string): Promise<JobPosting | null> {
   try {
     const jobs = await getCollection('jobs');
-    const job = jobs.find((job) => job.slug === slug);
-    
+    const job = jobs.find(jobItem => jobItem.slug === slug);
+
     if (!job) {
       return null;
     }
@@ -40,7 +39,6 @@ export async function getJobBySlug(slug: string): Promise<JobPosting | null> {
       slug: job.slug,
     };
   } catch (error) {
-    console.error('Error loading job:', error);
     return null;
   }
 }

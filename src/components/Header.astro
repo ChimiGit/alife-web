@@ -69,18 +69,15 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- Mobile Flyover Side Menu -->
     <div 
       id="mobile-menu" 
-      class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform transition-all duration-500 ease-out z-50 lg:hidden"
-      style="box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3); transform: translateX(100%);"
+      class="fixed top-0 right-0 w-80 h-full bg-white/10 backdrop-blur-xl shadow-2xl transform transition-all duration-500 ease-out z-50 lg:hidden"
+      style="box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.1); transform: translateX(100%);"
     >
       <div class="flex flex-col h-full">
         <!-- Mobile Menu Header -->
-        <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-gradient-to-r from-primary/5 to-accent-cyan/5">
-          <div class="flex items-center">
-            <img src="/assets/logo/logo.png" alt="ALIFE Logo" class="h-6 w-24"/>
-          </div>
+        <div class="flex justify-end items-center p-6">
           <button 
             id="mobile-menu-close"
-            class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 hover:text-primary transition-all duration-200"
+            class="w-10 h-10 rounded-full hover:bg-white/20 flex items-center justify-center text-gray-800 hover:text-primary transition-all duration-200"
             aria-label="Close mobile menu"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,31 +90,31 @@ const translations = await loadMarkdownTranslations(lang);
         <nav class="flex-1 p-6" role="navigation" aria-label="Mobile navigation">
           <ul class="space-y-2">
             <li>
-              <a href={`/?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="home">
+              <a href={`/?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations.Home || 'Home'}
               </a>
             </li>
             <li>
-              <a href={`/about?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="about">
+              <a href={`/about?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations['About Us'] || 'About Us'}
               </a>
             </li>
             <li>
-              <a href={`/career?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="career">
+              <a href={`/career?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations.Career || 'Career'}
               </a>
             </li>
             <li>
-              <a href={`/blog?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="blog">
+              <a href={`/blog?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations.Blog || 'Blog'}
               </a>
             </li>
             <li>
-              <a href={`/support?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200" data-page="support">
+              <a href={`/support?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations['Support Us'] || 'Support Us'}
               </a>
@@ -126,10 +123,10 @@ const translations = await loadMarkdownTranslations(lang);
         </nav>
 
         <!-- Mobile Language Selector -->
-        <div class="p-6 border-t border-gray-100 bg-gray-50/50">
+        <div class="p-6">
           <div class="flex items-center justify-center gap-3" id="mobile-language-selector">
-            <a href="?lang=en" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-primary text-primary font-medium transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg" aria-label="English" data-lang="en">English</a>
-            <a href="?lang=jp" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-primary text-primary font-medium transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg" aria-label="Japanese" data-lang="jp">日本語</a>
+            <a href="?lang=en" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-white/30 text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="English" data-lang="en">English</a>
+            <a href="?lang=jp" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-white/30 text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="Japanese" data-lang="jp">日本語</a>
           </div>
         </div>
       </div>
@@ -138,7 +135,7 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- Mobile Menu Overlay -->
     <div 
       id="mobile-menu-overlay" 
-      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden opacity-0 pointer-events-none transition-all duration-500 ease-out"
+      class="fixed inset-0 bg-black/40 backdrop-blur-md z-40 lg:hidden opacity-0 pointer-events-none transition-all duration-500 ease-out"
     ></div>
 </header>
 
@@ -175,7 +172,7 @@ const translations = await loadMarkdownTranslations(lang);
   .mobile-nav-link.active {
     color: #1a365d !important;
     font-weight: 600;
-    background-color: #1a365d/10 !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
   }
 
   .mobile-nav-link.active .w-2 {
@@ -183,9 +180,11 @@ const translations = await loadMarkdownTranslations(lang);
   }
 
   .mobile-lang-link.active {
-    background-color: #1a365d !important;
-    color: white !important;
-    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3) !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #1a365d !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(8px);
   }
 
   /* Hamburger animation */
@@ -332,7 +331,7 @@ const translations = await loadMarkdownTranslations(lang);
         toggleMobileMenu(true);
       });
     } else {
-      console.error('Mobile menu button not found');
+      // Mobile menu button not found
     }
 
     // Close mobile menu

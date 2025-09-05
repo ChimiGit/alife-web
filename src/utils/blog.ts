@@ -1,6 +1,6 @@
-import { readFileSync, readdirSync } from "fs";
-import { join } from "path";
-import matter from "gray-matter";
+import { readFileSync, readdirSync } from 'fs';
+import { join } from 'path';
+import matter from 'gray-matter';
 
 export interface Blog {
   title: string;
@@ -15,32 +15,30 @@ export interface Blog {
 }
 
 export function getAllBlogs(): Blog[] {
-  const blogsDirectory = join(process.cwd(), "src/content/blog");
+  const blogsDirectory = join(process.cwd(), 'src/content/blog');
   const blogFiles = readdirSync(blogsDirectory, { withFileTypes: true })
-    .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
-    .map((dirent) => dirent.name);
+    .filter(dirent => dirent.isFile() && dirent.name.endsWith('.md'))
+    .map(dirent => dirent.name);
 
-  const blogs: Blog[] = [];
-
-  for (const filename of blogFiles) {
+  const blogs: Blog[] = blogFiles.map(filename => {
     const filePath = join(blogsDirectory, filename);
-    const fileContents = readFileSync(filePath, "utf8");
+    const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    const slug = filename.replace(/\.md$/, "");
+    const slug = filename.replace(/\.md$/, '');
 
-    blogs.push({
+    return {
       title: data.title,
       description: data.description,
       pubDate: data.pubDate,
       author: data.author,
       content,
       slug,
-      category: data.category || "General",
+      category: data.category || 'General',
       tags: data.tags || [],
-      featuredImage: data.featuredImage || "/assets/images/Blog Loading.png",
-    });
-  }
+      featuredImage: data.featuredImage || '/assets/images/Blog Loading.png',
+    };
+  });
 
   // Sort by publication date (earliest first)
   return blogs.sort(
@@ -50,8 +48,8 @@ export function getAllBlogs(): Blog[] {
 
 export function getBlogBySlug(slug: string): Blog | null {
   try {
-    const filePath = join(process.cwd(), "src/content/blog", `${slug}.md`);
-    const fileContents = readFileSync(filePath, "utf8");
+    const filePath = join(process.cwd(), 'src/content/blog', `${slug}.md`);
+    const fileContents = readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
     return {
@@ -61,9 +59,9 @@ export function getBlogBySlug(slug: string): Blog | null {
       author: data.author,
       content,
       slug,
-      category: data.category || "General",
+      category: data.category || 'General',
       tags: data.tags || [],
-      featuredImage: data.featuredImage || "/assets/images/Blog Loading.png",
+      featuredImage: data.featuredImage || '/assets/images/Blog Loading.png',
     };
   } catch (error) {
     return null;
@@ -73,12 +71,12 @@ export function getBlogBySlug(slug: string): Blog | null {
 export function getBlogsByCategory(category: string): Blog[] {
   const allBlogs = getAllBlogs();
   return allBlogs.filter(
-    (blog) => blog.category.toLowerCase() === category.toLowerCase()
+    blog => blog.category.toLowerCase() === category.toLowerCase()
   );
 }
 
 export function getAllCategories(): string[] {
   const allBlogs = getAllBlogs();
-  const categories = [...new Set(allBlogs.map((blog) => blog.category))];
+  const categories = [...new Set(allBlogs.map(blog => blog.category))];
   return categories.sort();
 }

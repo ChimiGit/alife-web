@@ -19,28 +19,28 @@ const translations = await loadMarkdownTranslations(lang);
 
   <!-- Timeline -->
   <div class="relative max-w-4xl mx-auto">
+    <!-- Timeline Line -->
+    <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2"></div>
     <!-- Item -->
-    <div class="flex gap-x-3">
+    <div class="flex items-center mb-8">
       <!-- Left Content -->
-      <div class="min-w-100 text-end mb-20">
+      <div class="w-1/2 pr-8 text-end">
         <span class="text-3xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Sakana.ai'] || 'Sakana.ai'}</span>
         <br/>
         <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Jan, 2024</span>
         <br/>
-        <span class="text-xs text-primary mt-2 block">{translations['1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.'] || '1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.'}</span>
+        <span class="text-xs text-primary mt-2 block">{translations['1st Japanese company with a focus on ALife. $30M seed round Jan, 2024.'] || '1st Japanese company with a focus on ALife. $30M seed round Jan, 2024.'}</span>
       </div>
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
-        <div class="relative z-10 size-7 flex justify-center items-center">
-          <div class="size-2 rounded-full bg-primary"></div>
-        </div>
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-primary"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="grow">
+      <div class="w-1/2 pl-8">
         <img src="/assets/images/We-raised-30M 1.png" alt="Sakana.ai Logo" class="h-25 w-50 mt-5"/>
       </div>
       <!-- End Right Content -->
@@ -48,23 +48,21 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- End Item -->
 
     <!-- Item -->
-    <div class="flex gap-x-3">
+    <div class="flex items-center mb-8">
       <!-- Left Content -->
-      <div class="min-w-100 flex justify-end mb-15">
+      <div class="w-1/2 pr-8 flex justify-end">
         <img src="/assets/logo/logo2.png" alt="ALIFE Logo" class="h-15 w-30 mt-5 filter-primary"/>
       </div>
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
-        <div class="relative z-10 size-7 flex justify-center items-center">
-          <div class="size-2 rounded-full bg-primary"></div>
-        </div>
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-primary"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="grow pt-0.5 pb-8">
+      <div class="w-1/2 pl-8">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Alife || 'Alife'}</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Institute Incorporated'] || 'Institute Incorporated'}</span>
@@ -74,9 +72,9 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- End Item -->
 
     <!-- Item -->
-    <div class="flex gap-x-3">
+    <div class="flex items-center mb-8">
       <!-- Left Content -->
-      <div class="min-w-100 text-end mb-20">
+      <div class="w-1/2 pr-8 text-end">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Research || 'Research'}</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Projects Began'] || 'Projects Began'}</span>
@@ -86,15 +84,13 @@ const translations = await loadMarkdownTranslations(lang);
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
-        <div class="relative z-10 size-7 flex justify-center items-center">
-          <div class="size-2 rounded-full bg-primary"></div>
-        </div>
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-primary"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="grow pt-0.5 pb-8">
+      <div class="w-1/2 pl-8">
         <!-- ALife Research Grid -->
         <div class="grid grid-cols-2 gap-4 max-w-md">
           <div class="text-center">
@@ -140,23 +136,21 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- End Item -->
 
     <!-- Future Items -->
-    <div class="flex gap-x-3">
+    <div class="flex items-center mb-8">
       <!-- Left Content -->
-      <div class="min-w-100 text-end mb-20">
+      <div class="w-1/2 pr-8 text-end">
         <span class="text-xl text-primary">{translations.Now || 'Now'}</span>
       </div>
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
-        <div class="relative z-10 size-7 flex justify-center items-center">
-          <div class="size-2 rounded-full bg-primary"></div>
-        </div>
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-primary"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="grow pt-0.5 pb-8">
+      <div class="w-1/2 pl-8">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Kyoto || 'Kyoto'}</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Office Opens'] || 'Office Opens'}</span>
@@ -168,9 +162,9 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- End Item -->
 
     <!-- Final Item -->
-    <div class="flex gap-x-3">
+    <div class="flex items-center mb-8">
       <!-- Left Content -->
-      <div class="min-w-100 text-end mb-15">
+      <div class="w-1/2 pr-8 text-end">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations['Non-Profit'] || 'Non-Profit'}</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">{translations.Incorporation || 'Incorporation'}</span>
@@ -180,15 +174,13 @@ const translations = await loadMarkdownTranslations(lang);
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="relative">
-        <div class="relative z-10 size-7 flex justify-center items-center">
-          <div class="size-2 rounded-full bg-primary"></div>
-        </div>
+      <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="size-2 rounded-full bg-primary"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="grow pt-0.5 pb-8">
+      <div class="w-1/2 pl-8">
         <!-- Empty for clean layout -->
       </div>
       <!-- End Right Content -->

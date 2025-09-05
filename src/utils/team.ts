@@ -16,12 +16,11 @@ export interface TeamMember {
 export async function getAllTeamMembers(): Promise<TeamMember[]> {
   try {
     const team = await getCollection('team');
-    return team.map((member) => ({
+    return team.map(member => ({
       ...member.data,
       slug: member.slug,
     }));
   } catch (error) {
-    console.error('Error loading team members:', error);
     return [];
   }
 }
@@ -31,8 +30,8 @@ export async function getTeamMemberBySlug(
 ): Promise<TeamMember | null> {
   try {
     const team = await getCollection('team');
-    const member = team.find((member) => member.slug === slug);
-    
+    const member = team.find(memberItem => memberItem.slug === slug);
+
     if (!member) {
       return null;
     }
@@ -42,7 +41,6 @@ export async function getTeamMemberBySlug(
       slug: member.slug,
     };
   } catch (error) {
-    console.error('Error loading team member:', error);
     return null;
   }
 }

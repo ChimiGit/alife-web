@@ -1,6 +1,6 @@
-import type { APIRoute } from "astro";
-import { getBlogBySlug } from "../../../utils/blog";
-import { marked } from "marked";
+import { marked } from 'marked';
+import type { APIRoute } from 'astro';
+import { getBlogBySlug } from '../../../utils/blog.ts';
 
 export const prerender = false;
 
@@ -9,10 +9,10 @@ export const GET: APIRoute = async ({ params }) => {
     const { slug } = params;
 
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Slug is required" }), {
+      return new Response(JSON.stringify({ error: 'Slug is required' }), {
         status: 400,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
     }
@@ -20,10 +20,10 @@ export const GET: APIRoute = async ({ params }) => {
     const blog = getBlogBySlug(slug);
 
     if (!blog) {
-      return new Response(JSON.stringify({ error: "Blog not found" }), {
+      return new Response(JSON.stringify({ error: 'Blog not found' }), {
         status: 404,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
     }
@@ -42,15 +42,15 @@ export const GET: APIRoute = async ({ params }) => {
       {
         status: 200,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
   }

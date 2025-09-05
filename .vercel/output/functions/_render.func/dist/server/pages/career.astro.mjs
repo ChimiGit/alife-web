@@ -1,10 +1,10 @@
 import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, b as addAttribute, r as renderHead, d as renderComponent } from '../chunks/astro/server_Dl3YwkSB.mjs';
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_ByLuRFMM.mjs';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_B14pzxXm.mjs';
 /* empty css                                 */
 /* empty css                                  */
-import { a as getAllJobs } from '../chunks/jobs_-5SnKLAx.mjs';
-import { a as getAllTeamMembers } from '../chunks/team_D_skZF14.mjs';
-import { a as getAllTeamCategories } from '../chunks/team-categories_7qiIbqn-.mjs';
+import { a as getAllJobs } from '../chunks/jobs_BsZV9oab.mjs';
+import { a as getAllTeamMembers } from '../chunks/team_EJWNKCHj.mjs';
+import { a as getAllTeamCategories } from '../chunks/team-categories_BmEr5t1N.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro$1 = createAstro();
@@ -13,7 +13,7 @@ const $$CareerLoading = createComponent(async ($$result, $$props, $$slots) => {
   Astro2.self = $$CareerLoading;
   const { lang = "en" } = Astro2.props;
   const translations = await loadMarkdownTranslations(lang);
-  return renderTemplate`<!-- Career Loading Page -->${maybeRenderHead()}<div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/loader/career-loading.png');" data-astro-cid-ao5cb7ax> <!-- Animated Background Pattern --> <div class="absolute inset-0 opacity-30" data-astro-cid-ao5cb7ax> <div class="dots-pattern animate-pulse" data-astro-cid-ao5cb7ax></div> </div> <!-- Content --> <div class="relative z-10 text-center" data-astro-cid-ao5cb7ax> <h1 class="text-200px text-primary mb-8 animate-fade-in opacity-0 transition-opacity duration-1000 ease-out" style="font-family: 'GT Alpina Fine', serif;" data-astro-cid-ao5cb7ax> ${translations.Career || "Career"} </h1> </div> </div>  ${renderScript($$result, "/Users/chimitshering/Documents/alife-web/src/components/loaders/CareerLoading.astro?astro&type=script&index=0&lang.ts")}`;
+  return renderTemplate`<!-- Career Loading Page -->${maybeRenderHead()}<div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/loader/career-loading.png');" data-astro-cid-ao5cb7ax> <!-- Animated Background Pattern --> <div class="absolute inset-0 opacity-30" data-astro-cid-ao5cb7ax> <div class="dots-pattern animate-pulse" data-astro-cid-ao5cb7ax></div> </div> <!-- Content --> <div class="relative z-10 text-center px-4 sm:px-6" data-astro-cid-ao5cb7ax> <h1 class="loader-title text-primary mb-4 sm:mb-6 md:mb-8 animate-fade-in opacity-0 transition-opacity duration-1000 ease-out" style="font-family: 'GT Alpina Fine', serif;" data-astro-cid-ao5cb7ax> ${translations.Career || "Career"} </h1> </div> </div>  ${renderScript($$result, "/Users/chimitshering/Documents/alife-web/src/components/loaders/CareerLoading.astro?astro&type=script&index=0&lang.ts")}`;
 }, "/Users/chimitshering/Documents/alife-web/src/components/loaders/CareerLoading.astro", void 0);
 
 const $$Jobs = createComponent(async ($$result, $$props, $$slots) => {
@@ -56,19 +56,19 @@ const $$Career = createComponent(($$result, $$props, $$slots) => {
   Astro2.self = $$Career;
   const urlParams = new URLSearchParams(Astro2.url.search);
   const lang = urlParams.get("lang") || "en";
-  return renderTemplate`<html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png"><meta name="viewport" content="width=device-width"><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>Career - ALIFE</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">${renderHead()}</head> <body class="min-h-screen bg-gray-50"> <!-- Loading Screen --> <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out"> ${renderComponent($$result, "CareerLoading", $$CareerLoading, { "lang": lang })} </div> <!-- Main Content (Hidden Initially) --> <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden"> ${renderComponent($$result, "Header", $$Header, { "lang": lang })} <!-- Main content --> <main class="max-w-6xl mx-auto px-4 pt-24 pb-12" style="font-family: 'Inter', sans-serif;"> <!-- Hero Section --> <section class="text-center mb-10"> <h1 class="text-64px text-primary mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+  return renderTemplate`<html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png"><meta name="viewport" content="width=device-width"><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>Career - ALIFE</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">${renderHead()}</head> <body class="min-h-screen bg-gray-50"> <!-- Loading Screen --> <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out"> ${renderComponent($$result, "CareerLoading", $$CareerLoading, { "lang": lang })} </div> <!-- Main Content (Hidden Initially) --> <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden"> ${renderComponent($$result, "Header", $$Header, { "lang": lang })} <!-- Main content --> <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12" style="font-family: 'Inter', sans-serif;"> <!-- Hero Section --> <section class="text-center mb-8 sm:mb-10"> <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
 Where Brilliant<br>
 Minds Explore Together
-</h1> </section> <p class="text-sm text-gray-700 max-w-4xl mx-auto leading-relaxed mb-20" style="line-height: 2">
+</h1> </section> <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0" style="line-height: 2">
 Discover what happens at the intersection of nature and computation, where we're creating something
         unprecedented. Our team combines world-class researchers and innovative engineers united by a shared
         fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that
         grow organically, surprising even their creators.
-</p> <!-- Join Us Section with Tabs --> <section class="text-center mb-20"> <h2 class="text-4xl font-bold text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">
+</p> <!-- Join Us Section with Tabs --> <section class="text-center mb-12 sm:mb-20"> <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
 Join Us!
-</h2> <div class="flex justify-center gap-4 mb-12"> <button id="our-team-tab" class="main-tab active bg-primary text-white px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#our-team-content">
+</h2> <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12"> <button id="our-team-tab" class="main-tab active bg-primary text-white px-4 sm:px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#our-team-content">
 Our Team
-</button> <button id="jobs-tab" class="main-tab border border-primary text-primary px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#jobs-content">
+</button> <button id="jobs-tab" class="main-tab border border-primary text-primary px-4 sm:px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200" data-target="#jobs-content">
 Jobs
 </button> </div> <!-- Tab Content --> <div class="max-w-6xl mx-auto"> <!-- Our Team Content --> <div id="our-team-content" class="main-tab-content"> ${renderComponent($$result, "Team", $$Team, {})} </div> <!-- Jobs Content --> <div id="jobs-content" class="main-tab-content hidden"> <div class="text-left"> ${renderComponent($$result, "Jobs", $$Jobs, {})} </div> </div> </div> </section> </main> </div> <!-- Tab functionality script --> ${renderScript($$result, "/Users/chimitshering/Documents/alife-web/src/pages/career.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
 }, "/Users/chimitshering/Documents/alife-web/src/pages/career.astro", void 0);

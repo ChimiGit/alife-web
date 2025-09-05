@@ -1,4 +1,4 @@
-import { g as getCollection } from './_astro_content_DY8wZsUB.mjs';
+import { g as getCollection } from './_astro_content_DwzcOGpN.mjs';
 
 async function getAllJobs() {
   try {
