@@ -1,0 +1,5 @@
+# GitHub Pages configuration
+# This file tells GitHub Pages to use GitHub Actions instead of Jekyll
+
+# Disable Jekyll processing
+plugins: []

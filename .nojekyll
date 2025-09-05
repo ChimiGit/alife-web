@@ -1,0 +1,6 @@
+# GitHub Pages configuration
+# This file tells GitHub Pages to ignore Jekyll processing
+# and let our GitHub Actions workflow handle the build
+
+# Disable Jekyll processing
+plugins: []
