@@ -1,6 +1,5 @@
-import { N as NOOP_MIDDLEWARE_HEADER, l as REDIRECT_STATUS_CODES, A as AstroError, n as ActionsReturnedInvalidDataError, D as DEFAULT_404_COMPONENT } from './astro/server_Dl3YwkSB.mjs';
+import { N as NOOP_MIDDLEWARE_HEADER, n as REDIRECT_STATUS_CODES, A as AstroError, o as ActionsReturnedInvalidDataError, h as escape, D as DEFAULT_404_COMPONENT } from './astro/server_CFq5tQmY.mjs';
 import { U as UNDEFINED, N as NAN, P as POSITIVE_INFINITY, a as NEGATIVE_INFINITY, b as NEGATIVE_ZERO, e as encode64, H as HOLE, p as parse } from './parse_BMnn4H2B.mjs';
-import { escape } from 'html-escaper';
 
 var dist = {};
 

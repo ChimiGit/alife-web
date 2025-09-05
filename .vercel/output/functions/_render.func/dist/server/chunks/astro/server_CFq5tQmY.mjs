@@ -1,4 +1,3 @@
-import { escape } from 'html-escaper';
 import { decodeBase64, encodeBase64, encodeHexUpperCase, decodeHex } from '@oslojs/encoding';
 import { z } from 'zod';
 import 'cssesc';
@@ -543,6 +542,49 @@ Found handlers: ${Object.keys(mod).map((exp) => JSON.stringify(exp)).join(", ")}
   }
   return response;
 }
+
+/**
+ * Copyright (C) 2017-present by Andrea Giammarchi - @WebReflection
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+const {replace} = '';
+const ca = /[&<>'"]/g;
+
+const esca = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&#39;',
+  '"': '&quot;'
+};
+const pe = m => esca[m];
+
+/**
+ * Safely escape HTML entities such as `&`, `<`, `>`, `"`, and `'`.
+ * @param {string} es the input to safely escape
+ * @returns {string} the escaped input, and it **throws** an error if
+ *  the input type is unexpected, except for boolean and numbers,
+ *  converted as string.
+ */
+const escape = es => replace.call(es, ca, pe);
 
 function isPromise(value) {
   return !!value && typeof value === "object" && "then" in value && typeof value.then === "function";
@@ -2832,4 +2874,4 @@ function spreadAttributes(values = {}, _name, { class: scopedClassName } = {}) {
   return markHTMLString(output);
 }
 
-export { RewriteWithBodyUsed as $, AstroError as A, ExperimentalFontsNotEnabled as B, FontFamilyNotFound as C, DEFAULT_404_COMPONENT as D, ExpectedImage as E, FailedToFetchRemoteImageDimensions as F, decryptString as G, createSlotValueFromString as H, IncompatibleDescriptorOptions as I, isAstroComponentFactory as J, ROUTE_TYPE_HEADER as K, LocalImageUsedWrongly as L, MissingSharp as M, NOOP_MIDDLEWARE_HEADER as N, REROUTE_DIRECTIVE_HEADER as O, i18nNoLocaleFoundInPath as P, ResponseSentError as Q, RenderUndefinedEntryError as R, bold as S, red as T, UnknownContentCollectionError as U, yellow as V, dim as W, blue as X, MiddlewareNoDataOrNextCalled as Y, MiddlewareNotAResponse as Z, originPathnameSymbol as _, createAstro as a, GetStaticPathsRequired as a0, InvalidGetStaticPathsReturn as a1, InvalidGetStaticPathsEntry as a2, GetStaticPathsExpectedParams as a3, GetStaticPathsInvalidRouteParam as a4, PageNumberParamNotFound as a5, ActionNotFoundError as a6, NoMatchingStaticPathFound as a7, PrerenderDynamicEndpointPathCollide as a8, ReservedSlotName as a9, renderSlotToString as aa, renderJSX as ab, chunkToString as ac, isRenderInstruction as ad, ForbiddenRewrite as ae, SessionStorageInitError as af, SessionStorageSaveError as ag, ASTRO_VERSION as ah, CspNotEnabled as ai, green as aj, LocalsReassigned as ak, generateCspDigest as al, PrerenderClientAddressNotAvailable as am, clientAddressSymbol as an, ClientAddressNotAvailable as ao, StaticClientAddressNotAvailable as ap, AstroResponseHeadersReassigned as aq, responseSentSymbol as ar, renderPage as as, REWRITE_DIRECTIVE_HEADER_KEY as at, REWRITE_DIRECTIVE_HEADER_VALUE as au, renderEndpoint as av, LocalsNotAnObject as aw, REROUTABLE_STATUS_CODES as ax, addAttribute as b, createComponent as c, renderComponent as d, renderTemplate as e, renderScript as f, decodeKey as g, renderUniqueStylesheet as h, renderScriptElement as i, createHeadAndContent as j, defineScriptVars as k, REDIRECT_STATUS_CODES as l, maybeRenderHead as m, ActionsReturnedInvalidDataError as n, MissingImageDimension as o, UnsupportedImageFormat as p, UnsupportedImageConversion as q, renderHead as r, NoImageMetadata as s, toStyleString as t, unescapeHTML as u, ExpectedImageOptions as v, ExpectedNotESMImage as w, InvalidImageService as x, ImageMissingAlt as y, spreadAttributes as z };
+export { originPathnameSymbol as $, AstroError as A, spreadAttributes as B, ExperimentalFontsNotEnabled as C, DEFAULT_404_COMPONENT as D, ExpectedImage as E, FailedToFetchRemoteImageDimensions as F, FontFamilyNotFound as G, decryptString as H, IncompatibleDescriptorOptions as I, createSlotValueFromString as J, isAstroComponentFactory as K, LocalImageUsedWrongly as L, MissingSharp as M, NOOP_MIDDLEWARE_HEADER as N, ROUTE_TYPE_HEADER as O, REROUTE_DIRECTIVE_HEADER as P, i18nNoLocaleFoundInPath as Q, RenderUndefinedEntryError as R, ResponseSentError as S, bold as T, UnknownContentCollectionError as U, red as V, yellow as W, dim as X, blue as Y, MiddlewareNoDataOrNextCalled as Z, MiddlewareNotAResponse as _, createAstro as a, RewriteWithBodyUsed as a0, GetStaticPathsRequired as a1, InvalidGetStaticPathsReturn as a2, InvalidGetStaticPathsEntry as a3, GetStaticPathsExpectedParams as a4, GetStaticPathsInvalidRouteParam as a5, PageNumberParamNotFound as a6, ActionNotFoundError as a7, NoMatchingStaticPathFound as a8, PrerenderDynamicEndpointPathCollide as a9, ReservedSlotName as aa, renderSlotToString as ab, renderJSX as ac, chunkToString as ad, isRenderInstruction as ae, ForbiddenRewrite as af, SessionStorageInitError as ag, SessionStorageSaveError as ah, ASTRO_VERSION as ai, CspNotEnabled as aj, green as ak, LocalsReassigned as al, generateCspDigest as am, PrerenderClientAddressNotAvailable as an, clientAddressSymbol as ao, ClientAddressNotAvailable as ap, StaticClientAddressNotAvailable as aq, AstroResponseHeadersReassigned as ar, responseSentSymbol as as, renderPage as at, REWRITE_DIRECTIVE_HEADER_KEY as au, REWRITE_DIRECTIVE_HEADER_VALUE as av, renderEndpoint as aw, LocalsNotAnObject as ax, REROUTABLE_STATUS_CODES as ay, addAttribute as b, createComponent as c, renderComponent as d, renderTemplate as e, renderScript as f, decodeKey as g, escape as h, renderUniqueStylesheet as i, renderScriptElement as j, createHeadAndContent as k, defineScriptVars as l, maybeRenderHead as m, REDIRECT_STATUS_CODES as n, ActionsReturnedInvalidDataError as o, MissingImageDimension as p, UnsupportedImageFormat as q, renderHead as r, UnsupportedImageConversion as s, toStyleString as t, unescapeHTML as u, NoImageMetadata as v, ExpectedImageOptions as w, ExpectedNotESMImage as x, InvalidImageService as y, ImageMissingAlt as z };

@@ -1,4 +1,4 @@
-import { g as getCollection } from './_astro_content_DwzcOGpN.mjs';
+import { g as getCollection } from './_astro_content_BITFDy2J.mjs';
 
 async function getAllTeamCategories() {
   try {

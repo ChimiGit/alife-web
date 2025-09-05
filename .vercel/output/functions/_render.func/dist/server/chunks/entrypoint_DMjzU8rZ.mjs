@@ -1,11 +1,12 @@
-import { G as decryptString, H as createSlotValueFromString, J as isAstroComponentFactory, d as renderComponent, e as renderTemplate, K as ROUTE_TYPE_HEADER, O as REROUTE_DIRECTIVE_HEADER, A as AstroError, P as i18nNoLocaleFoundInPath, Q as ResponseSentError, S as bold, T as red, V as yellow, W as dim, X as blue, Y as MiddlewareNoDataOrNextCalled, Z as MiddlewareNotAResponse, _ as originPathnameSymbol, $ as RewriteWithBodyUsed, a0 as GetStaticPathsRequired, a1 as InvalidGetStaticPathsReturn, a2 as InvalidGetStaticPathsEntry, a3 as GetStaticPathsExpectedParams, a4 as GetStaticPathsInvalidRouteParam, a5 as PageNumberParamNotFound, D as DEFAULT_404_COMPONENT, a6 as ActionNotFoundError, a7 as NoMatchingStaticPathFound, a8 as PrerenderDynamicEndpointPathCollide, a9 as ReservedSlotName, aa as renderSlotToString, ab as renderJSX, ac as chunkToString, ad as isRenderInstruction, ae as ForbiddenRewrite, af as SessionStorageInitError, ag as SessionStorageSaveError, ah as ASTRO_VERSION, ai as CspNotEnabled, aj as green, ak as LocalsReassigned, al as generateCspDigest, am as PrerenderClientAddressNotAvailable, an as clientAddressSymbol, ao as ClientAddressNotAvailable, ap as StaticClientAddressNotAvailable, aq as AstroResponseHeadersReassigned, ar as responseSentSymbol$1, as as renderPage, at as REWRITE_DIRECTIVE_HEADER_KEY, au as REWRITE_DIRECTIVE_HEADER_VALUE, av as renderEndpoint, aw as LocalsNotAnObject, ax as REROUTABLE_STATUS_CODES } from './astro/server_Dl3YwkSB.mjs';
-import { d as distExports, A as ActionError, a as deserializeActionResult, s as serializeActionResult, b as ACTION_RPC_ROUTE_PATTERN, c as ACTION_QUERY_PARAMS, g as getActionQueryString, D as DEFAULT_404_ROUTE, e as default404Instance, N as NOOP_MIDDLEWARE_FN, f as stringify$2, h as ensure404Route } from './astro-designed-error-pages_BHAYXQE0.mjs';
+import { H as decryptString, J as createSlotValueFromString, K as isAstroComponentFactory, d as renderComponent, e as renderTemplate, O as ROUTE_TYPE_HEADER, P as REROUTE_DIRECTIVE_HEADER, A as AstroError, Q as i18nNoLocaleFoundInPath, S as ResponseSentError, T as bold, V as red, W as yellow, X as dim, Y as blue, Z as MiddlewareNoDataOrNextCalled, _ as MiddlewareNotAResponse, $ as originPathnameSymbol, a0 as RewriteWithBodyUsed, a1 as GetStaticPathsRequired, a2 as InvalidGetStaticPathsReturn, a3 as InvalidGetStaticPathsEntry, a4 as GetStaticPathsExpectedParams, a5 as GetStaticPathsInvalidRouteParam, a6 as PageNumberParamNotFound, D as DEFAULT_404_COMPONENT, a7 as ActionNotFoundError, a8 as NoMatchingStaticPathFound, a9 as PrerenderDynamicEndpointPathCollide, aa as ReservedSlotName, ab as renderSlotToString, ac as renderJSX, ad as chunkToString, ae as isRenderInstruction, af as ForbiddenRewrite, ag as SessionStorageInitError, ah as SessionStorageSaveError, ai as ASTRO_VERSION, aj as CspNotEnabled, ak as green, al as LocalsReassigned, am as generateCspDigest, an as PrerenderClientAddressNotAvailable, ao as clientAddressSymbol, ap as ClientAddressNotAvailable, aq as StaticClientAddressNotAvailable, ar as AstroResponseHeadersReassigned, as as responseSentSymbol$1, at as renderPage, au as REWRITE_DIRECTIVE_HEADER_KEY, av as REWRITE_DIRECTIVE_HEADER_VALUE, aw as renderEndpoint, ax as LocalsNotAnObject, ay as REROUTABLE_STATUS_CODES } from './astro/server_CFq5tQmY.mjs';
+import { d as distExports, A as ActionError, a as deserializeActionResult, s as serializeActionResult, b as ACTION_RPC_ROUTE_PATTERN, c as ACTION_QUERY_PARAMS, g as getActionQueryString, D as DEFAULT_404_ROUTE, e as default404Instance, N as NOOP_MIDDLEWARE_FN, f as stringify$2, h as ensure404Route } from './astro-designed-error-pages_Bz5cVOle.mjs';
 import buffer from 'node:buffer';
 import crypto$1 from 'node:crypto';
 import { Http2ServerResponse } from 'node:http2';
 import { a as appendForwardSlash, j as joinPaths, f as fileExtension, s as slash, p as prependForwardSlash, b as removeTrailingForwardSlash, t as trimSlashes, c as collapseDuplicateTrailingSlashes, h as hasFileExtension } from './path_Cvt6sEOY.mjs';
 import { u as unflatten$1 } from './parse_BMnn4H2B.mjs';
 import require$$0 from 'url';
+import { a as getAugmentedNamespace, c as commonjsGlobal } from './_commonjsHelpers_D5KtpA0t.mjs';
 import './index_MaT6fT73.mjs';
 import nodePath from 'node:path';
 
@@ -455,33 +456,6 @@ function redirectToFallback({
     }
     return response;
   };
-}
-
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-function getAugmentedNamespace(n) {
-  if (Object.prototype.hasOwnProperty.call(n, '__esModule')) return n;
-  var f = n.default;
-	if (typeof f == "function") {
-		var a = function a () {
-			if (this instanceof a) {
-        return Reflect.construct(f, arguments, this.constructor);
-			}
-			return f.apply(this, arguments);
-		};
-		a.prototype = f.prototype;
-  } else a = {};
-  Object.defineProperty(a, '__esModule', {value: true});
-	Object.keys(n).forEach(function (k) {
-		var d = Object.getOwnPropertyDescriptor(n, k);
-		Object.defineProperty(a, k, d.get ? d : {
-			enumerable: true,
-			get: function () {
-				return n[k];
-			}
-		});
-	});
-	return a;
 }
 
 const DELETED_EXPIRATION = /* @__PURE__ */ new Date(0);

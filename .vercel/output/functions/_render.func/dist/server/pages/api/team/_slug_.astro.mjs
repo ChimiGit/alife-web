@@ -1,4 +1,4 @@
-import { g as getTeamMemberBySlug } from '../../../chunks/team_BTo59Ru8.mjs';
+import { g as getTeamMemberBySlug } from '../../../chunks/team_dtK12f4i.mjs';
 import '../../../chunks/index_t2PvLSUE.mjs';
 export { renderers } from '../../../renderers.mjs';
 

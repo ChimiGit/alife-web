@@ -2,6 +2,7 @@
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
   "installCommand": "pnpm install",
+  "devCommand": "pnpm run dev",
   "framework": "astro",
   "functions": {
     "src/pages/api/**/*.ts": {
@@ -12,5 +13,6 @@
     "env": {
       "NODE_ENV": "production"
     }
-  }
+  },
+  "regions": ["iad1"]
 }

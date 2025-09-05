@@ -1,5 +1,5 @@
 import { d } from '../../../chunks/marked.esm_CxOeIXbN.mjs';
-import { g as getJobBySlug } from '../../../chunks/jobs_DL8IPFRH.mjs';
+import { g as getJobBySlug } from '../../../chunks/jobs_C5upJJjY.mjs';
 import '../../../chunks/index_t2PvLSUE.mjs';
 export { renderers } from '../../../renderers.mjs';
 
