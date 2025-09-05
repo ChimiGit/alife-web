@@ -10,8 +10,23 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'auto',
+  },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      cssMinify: true,
+      minify: 'terser',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+          },
+        },
+      },
+    },
     server: {
       allowedHosts: [
         'localhost',
