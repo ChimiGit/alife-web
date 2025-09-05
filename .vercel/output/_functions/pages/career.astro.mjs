@@ -1,5 +1,5 @@
 import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, b as addAttribute, r as renderHead, d as renderComponent } from '../chunks/astro/server_CFq5tQmY.mjs';
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_BwH-5tJO.mjs';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_CWiQ39rs.mjs';
 /* empty css                                 */
 /* empty css                                  */
 import { a as getAllJobs } from '../chunks/jobs_C5upJJjY.mjs';
@@ -18,22 +18,16 @@ const $$CareerLoading = createComponent(async ($$result, $$props, $$slots) => {
 
 const $$Jobs = createComponent(async ($$result, $$props, $$slots) => {
   const jobs = await getAllJobs();
-  return renderTemplate`<!-- Jobs Content -->${maybeRenderHead()}<div class="space-y-8" data-astro-cid-r3n6b353> ${jobs && jobs.length > 0 ? jobs.map((job) => renderTemplate`<div class="border-b border-gray-200 pb-8 last:border-b-0" data-astro-cid-r3n6b353> <div class="flex justify-between items-start mb-4" data-astro-cid-r3n6b353> <div class="flex-1" data-astro-cid-r3n6b353> <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;" data-astro-cid-r3n6b353> ${job.title} </h3> <p class="text-primary font-medium mb-1" data-astro-cid-r3n6b353>${job.location}</p> <p class="text-gray-600 text-sm mb-2" data-astro-cid-r3n6b353> <span class="font-medium" data-astro-cid-r3n6b353>${job.department}</span> • ${job.experience} experience
-</p> </div> <div class="flex flex-col items-end space-y-2" data-astro-cid-r3n6b353> <button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200"${addAttribute(`showJobDetails('${job.slug}')`, "onclick")} data-astro-cid-r3n6b353>
+  return renderTemplate`<!-- Jobs Content -->${maybeRenderHead()}<div class="space-y-8"> ${jobs && jobs.length > 0 ? jobs.map((job) => renderTemplate`<div class="border-b border-gray-200 pb-8 last:border-b-0"> <div class="flex justify-between items-start mb-4"> <div class="flex-1"> <h3 class="text-2xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;"> ${job.title} </h3> <p class="text-primary font-medium mb-1">${job.location}</p> <p class="text-gray-600 text-sm mb-2"> <span class="font-medium">${job.department}</span> • ${job.experience} experience
+</p> </div> <div class="flex flex-col items-end space-y-2"> <a${addAttribute(`/jobs/${job.slug}`, "href")} class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200 inline-block">
 View Details
-</button> <div class="text-right text-sm" data-astro-cid-r3n6b353> <p class="text-gray-600" data-astro-cid-r3n6b353>
-Deadline: <span class="font-medium" data-astro-cid-r3n6b353>${new Date(job.deadline).toLocaleDateString("en-US", {
+</a> <div class="text-right text-sm"> <p class="text-gray-600">
+Deadline: <span class="font-medium">${new Date(job.deadline).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric"
-  })}</span> </p> <p class="text-gray-600" data-astro-cid-r3n6b353>
-Type: <span class="font-medium" data-astro-cid-r3n6b353>${job.type}</span> </p> </div> </div> </div> </div>`) : renderTemplate`<div class="text-center text-gray-500 py-8" data-astro-cid-r3n6b353> <h3 class="text-xl font-semibold mb-4" data-astro-cid-r3n6b353>Job Openings Coming Soon</h3> <p data-astro-cid-r3n6b353>We're currently updating our job listings. Please check back later for new opportunities.</p> </div>`} </div> <!-- Job Details Modal --> <div id="job-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" data-astro-cid-r3n6b353> <div class="flex items-center justify-center min-h-screen p-4" data-astro-cid-r3n6b353> <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto" data-astro-cid-r3n6b353> <div class="p-6" data-astro-cid-r3n6b353> <div class="flex justify-between items-start mb-6" data-astro-cid-r3n6b353> <div data-astro-cid-r3n6b353> <h2 id="modal-title" class="text-3xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;" data-astro-cid-r3n6b353></h2> <p id="modal-location" class="text-primary font-medium" data-astro-cid-r3n6b353></p> </div> <button onclick="closeJobModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold" data-astro-cid-r3n6b353>
-×
-</button> </div> <div id="modal-content" class="prose prose-lg max-w-none text-primary" data-astro-cid-r3n6b353> <!-- Markdown content will be inserted here --> </div> <div class="mt-8 flex justify-end space-x-4" data-astro-cid-r3n6b353> <button onclick="closeJobModal()" class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-colors duration-200" data-astro-cid-r3n6b353>
-Close
-</button> <button class="px-6 py-2 bg-primary text-white rounded-full font-medium hover:bg-accent-cyan transition-colors duration-200" data-astro-cid-r3n6b353>
-Apply Now
-</button> </div> </div> </div> </div> </div>  ${renderScript($$result, "/Users/chimitshering/Documents/alife-web/src/components/sections/career/Jobs.astro?astro&type=script&index=0&lang.ts")}`;
+  })}</span> </p> <p class="text-gray-600">
+Type: <span class="font-medium">${job.type}</span> </p> </div> </div> </div> </div>`) : renderTemplate`<div class="text-center text-gray-500 py-8"> <h3 class="text-xl font-semibold mb-4">Job Openings Coming Soon</h3> <p>We're currently updating our job listings. Please check back later for new opportunities.</p> </div>`} </div>`;
 }, "/Users/chimitshering/Documents/alife-web/src/components/sections/career/Jobs.astro", void 0);
 
 const $$Team = createComponent(async ($$result, $$props, $$slots) => {

@@ -1,0 +1,308 @@
+---
+/* eslint-disable indent */
+import '../../styles/global.css';
+import { marked } from 'marked';
+import Header from '../../components/Header.astro';
+import { getJobBySlug, getAllJobs } from '../../utils/jobs.ts';
+
+export async function getStaticPaths() {
+  const jobs = await getAllJobs();
+  return jobs.map((job) => ({
+    params: { slug: job.slug },
+    props: { job },
+  }));
+}
+
+const { job } = Astro.props;
+const urlParams = new URLSearchParams(Astro.url.search);
+const lang = urlParams.get('lang') || 'en';
+const translations = {
+  en: {
+    navigation: {
+      about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
+    },
+    backToJobs: 'Back to Jobs',
+    postedOn: 'Posted on',
+    deadline: 'Application Deadline',
+    location: 'Location',
+    department: 'Department',
+    experience: 'Experience Required',
+    jobType: 'Job Type',
+    applyNow: 'Apply Now'
+  },
+  jp: {
+    navigation: {
+      about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
+    },
+    backToJobs: '求人に戻る',
+    postedOn: '投稿日',
+    deadline: '応募締切',
+    location: '勤務地',
+    department: '部署',
+    experience: '必要経験',
+    jobType: '雇用形態',
+    applyNow: '今すぐ応募'
+  }
+};
+
+const t = translations[lang as keyof typeof translations] || translations.en;
+
+// Convert markdown to HTML
+const htmlContent = job.content ? marked(job.content) : '';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{job.title} - ALIFE Careers</title>
+    <meta name="description" content={`Join our team as a ${job.title} at ${job.location}. ${job.department} position.`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body class="min-h-screen bg-gray-50">
+    <Header lang={lang} />
+
+    <main class="max-w-4xl mx-auto px-4 py-16" style="font-family: 'Inter', sans-serif;">
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/career" class="text-primary hover:text-accent-cyan transition-colors duration-200 flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          {t.backToJobs}
+        </a>
+      </nav>
+
+      <!-- Job Header -->
+      <header class="mb-12">
+        <!-- Category and Meta Info -->
+        <div class="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-600">
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
+            {job.department}
+          </span>
+          <span class="flex items-center">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            {t.postedOn} {new Date(job.pubDate || Date.now()).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </span>
+        </div>
+
+        <!-- Job Title -->
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          {job.title}
+        </h1>
+
+        <!-- Job Meta Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <div>
+                <span class="text-sm text-gray-600">{t.location}</span>
+                <p class="font-medium text-primary">{job.location}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+              <div>
+                <span class="text-sm text-gray-600">{t.department}</span>
+                <p class="font-medium text-primary">{job.department}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <span class="text-sm text-gray-600">{t.experience}</span>
+                <p class="font-medium text-primary">{job.experience}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+              </svg>
+              <div>
+                <span class="text-sm text-gray-600">{t.jobType}</span>
+                <p class="font-medium text-primary">{job.type}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application Deadline -->
+        <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-8">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 mr-2 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+            <div>
+              <p class="text-red-800 font-medium">{t.deadline}</p>
+              <p class="text-red-700">{new Date(job.deadline).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Job Content -->
+      <article class="prose prose-lg max-w-none text-primary mb-12">
+        <div set:html={htmlContent}></div>
+      </article>
+
+      <!-- Apply Now Section -->
+      <div class="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
+        <h3 class="text-2xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
+          Ready to Join Our Team?
+        </h3>
+        <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
+          We're looking for passionate individuals who want to make a difference in the field of artificial life. 
+          If this role excites you, we'd love to hear from you.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={`mailto:careers@alife.ai?subject=Application for ${job.title}&body=Hello,%0D%0A%0D%0AI am interested in applying for the ${job.title} position.%0D%0A%0D%0APlease find my application details below:%0D%0A%0D%0AThank you for your consideration.`}
+            class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-accent-cyan transition-colors duration-200 inline-flex items-center justify-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            {t.applyNow}
+          </a>
+          <a 
+            href="/career" 
+            class="border border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition-colors duration-200 inline-flex items-center justify-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            {t.backToJobs}
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      .prose {
+        color: inherit;
+      }
+
+      .prose h1 {
+        color: #1a365d;
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+      }
+
+      .prose h2 {
+        color: #1a365d;
+        font-size: 1.875rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .prose h3 {
+        color: #1a365d;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .prose h4 {
+        color: #1a365d;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .prose p {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+        color: #374151;
+      }
+
+      .prose ul {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+      }
+
+      .prose ol {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+      }
+
+      .prose li {
+        margin-bottom: 0.5rem;
+        color: #374151;
+      }
+
+      .prose strong {
+        font-weight: 600;
+        color: #1a365d;
+      }
+
+      .prose em {
+        font-style: italic;
+        color: #6b7280;
+      }
+
+      .prose blockquote {
+        border-left: 4px solid #1a365d;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #6b7280;
+      }
+
+      .prose code {
+        background-color: #f3f4f6;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        color: #1a365d;
+      }
+
+      .prose pre {
+        background-color: #1f2937;
+        color: #f9fafb;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+      }
+
+      .prose pre code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+      }
+    </style>
+  </body>
+</html>

@@ -3,8 +3,17 @@
 import '../../styles/global.css';
 import { marked } from 'marked';
 import Header from '../../components/Header.astro';
-import { getBlogBySlug } from '../../utils/blog.ts';
+import { getBlogBySlug, getAllBlogs } from '../../utils/blog.ts';
 
+export async function getStaticPaths() {
+  const blogs = getAllBlogs();
+  return blogs.map((blog) => ({
+    params: { slug: blog.slug },
+    props: { blog },
+  }));
+}
+
+const { blog } = Astro.props;
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
 const translations = {
@@ -28,15 +37,8 @@ const translations = {
 
 const t = translations[lang as keyof typeof translations] || translations.en;
 
-const { slug } = Astro.params;
-const blog = getBlogBySlug(slug || '');
-
-if (!blog) {
-  return Astro.redirect('/blog');
-}
-
 // Convert markdown to HTML
-const htmlContent = marked(blog.content);
+const htmlContent = blog.content ? marked(blog.content) : '';
 ---
 
 <html lang="en">

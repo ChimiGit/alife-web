@@ -1,5 +1,5 @@
 import { c as createComponent, a as createAstro, b as addAttribute, r as renderHead, d as renderComponent, e as renderTemplate } from '../chunks/astro/server_CFq5tQmY.mjs';
-import { $ as $$Header } from '../chunks/Header_BwH-5tJO.mjs';
+import { $ as $$Header } from '../chunks/Header_CWiQ39rs.mjs';
 /* empty css                                 */
 export { renderers } from '../renderers.mjs';
 

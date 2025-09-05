@@ -21,12 +21,12 @@ const jobs = await getAllJobs();
             </p>
           </div>
           <div class="flex flex-col items-end space-y-2">
-            <button
-              class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200"
-              onclick={`showJobDetails('${job.slug}')`}
+            <a
+              href={`/jobs/${job.slug}`}
+              class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200 inline-block"
             >
               View Details
-            </button>
+            </a>
             <div class="text-right text-sm">
               <p class="text-gray-600">
                 Deadline: <span class="font-medium">{new Date(job.deadline).toLocaleDateString('en-US', {
@@ -50,145 +50,3 @@ const jobs = await getAllJobs();
     </div>
   )}
 </div>
-
-<!-- Job Details Modal -->
-<div id="job-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-  <div class="flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-      <div class="p-6">
-        <div class="flex justify-between items-start mb-6">
-          <div>
-            <h2 id="modal-title" class="text-3xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;"></h2>
-            <p id="modal-location" class="text-primary font-medium"></p>
-          </div>
-          <button
-            onclick="closeJobModal()"
-            class="text-gray-500 hover:text-gray-700 text-2xl font-bold"
-          >
-            ×
-          </button>
-        </div>
-        <div id="modal-content" class="prose prose-lg max-w-none text-primary">
-          <!-- Markdown content will be inserted here -->
-        </div>
-        <div class="mt-8 flex justify-end space-x-4">
-          <button
-            onclick="closeJobModal()"
-            class="px-6 py-2 border border-primary text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-colors duration-200"
-          >
-            Close
-          </button>
-          <button
-            class="px-6 py-2 bg-primary text-white rounded-full font-medium hover:bg-accent-cyan transition-colors duration-200"
-          >
-            Apply Now
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  .prose {
-    color: inherit;
-  }
-
-  .prose h1 {
-    color: #1a365d;
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  .prose h2 {
-    color: #1a365d;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .prose h3 {
-    color: #1a365d;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .prose p {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-
-  .prose ul {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-  }
-
-  .prose li {
-    margin-bottom: 0.5rem;
-  }
-
-  .prose strong {
-    font-weight: 600;
-    color: #1a365d;
-  }
-
-  .prose em {
-    font-style: italic;
-    color: #6b7280;
-  }
-</style>
-
-<script>
-  // Job details modal functionality
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function showJobDetails(slug: string) {
-    // Fetch job details from the server
-    fetch(`/api/jobs/${slug}`)
-      .then(response => response.json())
-      .then((job) => {
-        const modalTitle = document.getElementById('modal-title') as HTMLElement;
-        const modalLocation = document.getElementById('modal-location') as HTMLElement;
-        const modalContent = document.getElementById('modal-content') as HTMLElement;
-        const jobModal = document.getElementById('job-modal') as HTMLElement;
-        
-        if (modalTitle) modalTitle.textContent = job.title;
-        if (modalLocation) modalLocation.textContent = job.location;
-        if (modalContent) modalContent.innerHTML = job.htmlContent;
-        if (jobModal) jobModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      })
-      .catch((_error) => {
-        // Error handling - could be replaced with a proper error UI
-        const modalContent = document.getElementById('modal-content') as HTMLElement;
-        if (modalContent) modalContent.innerHTML = '<p class="text-red-500">Error loading job details. Please try again.</p>';
-      });
-  }
-
-  function closeJobModal() {
-    const jobModal = document.getElementById('job-modal') as HTMLElement;
-    if (jobModal) jobModal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  }
-
-  // Close modal when clicking outside
-  const jobModal = document.getElementById('job-modal') as HTMLElement;
-  if (jobModal) {
-    jobModal.addEventListener('click', function (e) {
-      if (e.target === this) {
-        closeJobModal();
-      }
-    });
-  }
-
-  // Close modal with Escape key
-  document.addEventListener('keydown', (e) => {
-    const modal = document.getElementById('job-modal') as HTMLElement;
-    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-      closeJobModal();
-    }
-  });
-</script>

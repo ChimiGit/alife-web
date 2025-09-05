@@ -1,6 +1,6 @@
 import { c as createComponent, a as createAstro, m as maybeRenderHead, f as renderScript, e as renderTemplate, b as addAttribute, d as renderComponent, r as renderHead } from '../chunks/astro/server_CFq5tQmY.mjs';
 /* empty css                                 */
-import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_BwH-5tJO.mjs';
+import { l as loadMarkdownTranslations, $ as $$Header } from '../chunks/Header_CWiQ39rs.mjs';
 /* empty css                                */
 import { a as getAllBlogs, b as getBlogsByCategory } from '../chunks/blog_D2yDjRq0.mjs';
 export { renderers } from '../renderers.mjs';
