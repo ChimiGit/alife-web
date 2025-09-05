@@ -29,41 +29,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: [
-        // Core dependencies
-        'kleur',
-        'picocolors',
-        'clsx',
-        'cookie',
-        'marked',
-        'motion',
-        'tailwind-merge',
-        'base-64',
-        'radix-ui',
-        'react',
-        'react-dom',
-        'es-module-lexer',
-        'devalue',
-        'unstorage',
-        'destr',
-        'path-to-regexp',
-        'path-to-regexp-updated',
-        // Astro and related
-        'astro',
-        '@astrojs/vercel',
-        '@astrojs/react',
-        '@astrojs/markdown-remark',
-        '@vercel/routing-utils',
-        // Build tools
-        'magic-string',
-        'rollup',
-        '@rollup/plugin-commonjs',
-        '@rollup/plugin-node-resolve',
-        'vite',
-        // Markdown and content
-        'remark-gfm',
-        'deterministic-object-hash',
-      ],
+      noExternal: true,
     },
   },
   markdown: {
