@@ -1,12 +1,15 @@
 ---
 import Header from '../components/Header.astro';
 import SupportLoading from '../components/loaders/SupportLoading.astro';
+import TranslationProvider from '../components/TranslationProvider.astro';
+import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
 
 import '../styles/global.css';
 
 // Get language from URL parameters or default to English
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
+const translations = await loadMarkdownTranslations(lang);
 // const translations = {
 //   en: {
 //     navigation: {
@@ -43,21 +46,19 @@ const lang = urlParams.get('lang') || 'en';
     <!-- Main Content (Hidden Initially) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
       <Header lang={lang} />
+      <TranslationProvider lang={lang} />
 
       <!-- Main content -->
       <main class="pt-20 sm:pt-24" style="font-family: 'Inter', sans-serif;">
       <!-- Hero Section -->
-      <section class="bg-white py-12 sm:py-16 md:py-20">
+      <section class="pb-12 sm:py-16 md:py-20">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
             Join the Evolution
           </h1>
         </div>
         <p class="text-sm sm:text-base lg:text-lg text-gray-700 max-w-5xl mx-auto leading-relaxed px-4 sm:px-6" style="line-height: 2">
-                    Science advances through community support. Your contribution helps fund breakthrough research that
-                    wouldn't be possible within traditional academic or corporate constraints. Our diverse team of world-class
-                    researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and
-                    believers in long-term vision.
+                    {translations['Science advances through community support. Your contribution helps fund breakthrough research that wouldn\'t be possible within traditional academic or corporate constraints. Our diverse team of world-class researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and believers in long-term vision.'] || 'Science advances through community support. Your contribution helps fund breakthrough research that wouldn\'t be possible within traditional academic or corporate constraints. Our diverse team of world-class researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and believers in long-term vision.'}
         </p>
       </section>
 
@@ -119,7 +120,7 @@ const lang = urlParams.get('lang') || 'en';
                     name="name"
                     required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500"
-                    placeholder="Your name"
+                    placeholder={translations['Your name'] || 'Your name'}
                     >
                 </div>
 
@@ -148,7 +149,7 @@ const lang = urlParams.get('lang') || 'en';
                     name="message"
                     rows="6"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500 resize-vertical"
-                    placeholder="Tell us about your interest in supporting our research..."
+                    placeholder={translations['Your message'] || 'Tell us about your interest in supporting our research...'}
                   ></textarea>
                 </div>
 
@@ -158,7 +159,7 @@ const lang = urlParams.get('lang') || 'en';
                     type="submit"
                     class="bg-primary text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-accent-cyan transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   >
-                    Submit
+                    {translations['Send Message'] || 'Submit'}
                   </button>
                 </div>
               </form>

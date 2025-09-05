@@ -7,6 +7,9 @@ export default defineConfig({
   output: 'static',
   site: 'https://ChimiGit.github.io',
   base: '/',
+  devToolbar: {
+    enabled: false,
+  },
   vite: {
     plugins: [tailwindcss()],
     server: {
@@ -16,9 +19,12 @@ export default defineConfig({
         '.ngrok-free.app',
         '.ngrok.io',
         '.ngrok.app',
+        '.trycloudflare.com',
+        'americas-municipal-express-philips.trycloudflare.com',
       ],
       headers: {
         'ngrok-skip-browser-warning': 'true',
+        'cf-tunnel-skip-browser-warning': 'true',
       },
     },
   },

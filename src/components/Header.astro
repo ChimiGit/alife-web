@@ -26,19 +26,19 @@ const translations = await loadMarkdownTranslations(lang);
       <nav class="hidden lg:flex items-center gap-8" role="navigation" aria-label="Main navigation">
         <ul class="flex list-none m-0 p-0 gap-8">
           <li class="m-0">
-            <a href={`/?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="home">{translations.Home || 'Home'}</a>
+            <a href="/" class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="home">{translations.Home || 'Home'}</a>
           </li>
           <li class="m-0">
-            <a href={`/about?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="about">{translations['About Us'] || 'About Us'}</a>
+            <a href="/about" class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="about">{translations['About Us'] || 'About Us'}</a>
           </li>
           <li class="m-0">
-            <a href={`/career?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="career">{translations.Career || 'Career'}</a>
+            <a href="/career" class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="career">{translations.Career || 'Career'}</a>
           </li>
           <li class="m-0">
-            <a href={`/blog?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="blog">{translations.Blog || 'Blog'}</a>
+            <a href="/blog" class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="blog">{translations.Blog || 'Blog'}</a>
           </li>
           <li class="m-0">
-            <a href={`/support?lang=${lang}`} class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="support">{translations['Support Us'] || 'Support Us'}</a>
+            <a href="/support" class="nav-link no-underline text-primary font-normal text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="support">{translations['Support Us'] || 'Support Us'}</a>
           </li>
         </ul>
 
@@ -90,31 +90,31 @@ const translations = await loadMarkdownTranslations(lang);
         <nav class="flex-1 p-6" role="navigation" aria-label="Mobile navigation">
           <ul class="space-y-2">
             <li>
-              <a href={`/?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
+              <a href="/" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations.Home || 'Home'}
               </a>
             </li>
             <li>
-              <a href={`/about?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
+              <a href="/about" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations['About Us'] || 'About Us'}
               </a>
             </li>
             <li>
-              <a href={`/career?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
+              <a href="/career" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations.Career || 'Career'}
               </a>
             </li>
             <li>
-              <a href={`/blog?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
+              <a href="/blog" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations.Blog || 'Blog'}
               </a>
             </li>
             <li>
-              <a href={`/support?lang=${lang}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
+              <a href="/support" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {translations['Support Us'] || 'Support Us'}
               </a>
@@ -125,8 +125,8 @@ const translations = await loadMarkdownTranslations(lang);
         <!-- Mobile Language Selector -->
         <div class="p-6">
           <div class="flex items-center justify-center gap-3" id="mobile-language-selector">
-            <a href="?lang=en" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-white/30 text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="English" data-lang="en">English</a>
-            <a href="?lang=jp" class="mobile-lang-link px-6 py-3 rounded-full border-2 border-white/30 text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="Japanese" data-lang="jp">日本語</a>
+            <a href="?lang=en" class="mobile-lang-link px-6 py-3 rounded-full text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="English" data-lang="en">English</a>
+            <a href="?lang=jp" class="mobile-lang-link px-6 py-3 rounded-full text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="Japanese" data-lang="jp">日本語</a>
           </div>
         </div>
       </div>
@@ -156,7 +156,7 @@ const translations = await loadMarkdownTranslations(lang);
   }
 
   .nav-link.active::after {
-    width: 100%;
+    width: 0;
   }
 
   .nav-link.active {
@@ -182,7 +182,6 @@ const translations = await loadMarkdownTranslations(lang);
   .mobile-lang-link.active {
     background-color: rgba(255, 255, 255, 0.2) !important;
     color: #1a365d !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
     backdrop-filter: blur(8px);
   }
@@ -234,6 +233,27 @@ const translations = await loadMarkdownTranslations(lang);
 </style>
 
 <script>
+  // Check for saved language preference and redirect if necessary
+  document.addEventListener('DOMContentLoaded', () => {
+    // Get saved language preference
+    const savedLang = localStorage.getItem('alife-language');
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentLang = urlParams.get('lang') || 'en';
+    
+    // If there's a saved language that's different from current URL language, redirect
+    if (savedLang && savedLang !== currentLang) {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('lang', savedLang);
+      window.location.href = currentUrl.toString();
+      return; // Exit early to prevent other initialization
+    }
+    
+    // Save current language if not already saved
+    if (!savedLang && currentLang) {
+      localStorage.setItem('alife-language', currentLang);
+    }
+  });
+
   // Language switching functionality
   document.addEventListener('DOMContentLoaded', () => {
     const languageSelector = document.getElementById('language-selector');
@@ -289,8 +309,12 @@ const translations = await loadMarkdownTranslations(lang);
         e.preventDefault();
         const newLang = target.getAttribute('data-lang');
         if (newLang) {
+          // Save language preference to localStorage
+          localStorage.setItem('alife-language', newLang);
+          
           const currentUrl = new URL(window.location.href);
           currentUrl.searchParams.set('lang', newLang);
+          // Force page reload to apply translations
           window.location.href = currentUrl.toString();
         }
       }
@@ -389,5 +413,26 @@ const translations = await loadMarkdownTranslations(lang);
         toggleMobileMenu(false);
       });
     });
+
+    // Add language parameter to all internal navigation links
+    const addLanguageToLinks = () => {
+      const savedLang = localStorage.getItem('alife-language') || 'en';
+      const allInternalLinks = document.querySelectorAll('a[href^="/"]');
+      
+      allInternalLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href && !href.includes('lang=') && !href.includes('mailto:') && !href.includes('#')) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', savedLang);
+            window.location.href = url.toString();
+          });
+        }
+      });
+    };
+
+    // Apply language to links after DOM is ready
+    setTimeout(addLanguageToLinks, 100);
   });
 </script>

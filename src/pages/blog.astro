@@ -2,10 +2,13 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import BlogLoading from '../components/loaders/BlogLoading.astro';
+import TranslationProvider from '../components/TranslationProvider.astro';
 import { getAllBlogs, getBlogsByCategory } from '../utils/blog.ts';
+import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
+const translations = await loadMarkdownTranslations(lang);
 
 // Get actual blog posts and categories
 const allBlogs = getAllBlogs();
@@ -81,29 +84,34 @@ const contentData = {
 
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
       <Header lang={lang} />
+      <TranslationProvider lang={lang} />
 
       <main class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
         <div class="text-center mb-12">
-          <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
+          <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">{translations['Sharing Our Journey'] || 'Sharing Our Journey'}</h1>
           <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-            Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI
+            {translations['Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI'] || 'Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI'}
           </p>
         </div>
 
-        <div class="flex justify-center mb-8">
-          <div class="flex bg-gray-100 rounded-full p-1">
-            <button id="overview-tab" class="active-tab px-6 py-2 rounded-full bg-primary text-white font-medium transition-all duration-200">
-              Overview
-            </button>
-            <button id="research-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200">
-              Research
-            </button>
-            <button id="events-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200">
-              Events
-            </button>
-            <button id="news-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200">
-              News
-            </button>
+        <div class="mb-8">
+          <div class="overflow-x-auto">
+            <div class="flex justify-center min-w-max">
+              <div class="flex bg-gray-100 rounded-full p-1">
+                <button id="overview-tab" class="active-tab px-6 py-2 rounded-full bg-primary text-white font-medium transition-all duration-200 whitespace-nowrap">
+                  {translations.Overview || 'Overview'}
+                </button>
+                <button id="research-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200 whitespace-nowrap">
+                  {translations.Research || 'Research'}
+                </button>
+                <button id="events-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200 whitespace-nowrap">
+                  {translations.Events || 'Events'}
+                </button>
+                <button id="news-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 font-medium transition-all duration-200 whitespace-nowrap">
+                  {translations.News || 'News'}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -137,8 +145,8 @@ const contentData = {
                 
                 {contentData.overview.posts.length === 0 && (
                   <div class="col-span-full text-center py-12">
-                    <p class="text-gray-500 text-lg">No blog posts available yet.</p>
-                    <p class="text-gray-400 text-sm mt-2">Check back soon for updates!</p>
+                    <p class="text-gray-500 text-lg">{translations['No blog posts available yet.'] || 'No blog posts available yet.'}</p>
+                    <p class="text-gray-400 text-sm mt-2">{translations['Check back soon for updates!'] || 'Check back soon for updates!'}</p>
                   </div>
                 )}
               </div>
@@ -231,6 +239,28 @@ const contentData = {
         overflow: hidden;
       }
       
+      /* Hide scrollbar for tab navigation */
+      .overflow-x-auto {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+      }
+      
+      .overflow-x-auto::-webkit-scrollbar {
+        display: none; /* WebKit */
+      }
+      
+      /* Smooth scrolling for tabs */
+      .overflow-x-auto {
+        scroll-behavior: smooth;
+      }
+      
+      /* Ensure tabs don't shrink on mobile */
+      @media (max-width: 768px) {
+        .flex.justify-center.min-w-max {
+          justify-content: flex-start;
+          padding: 0 1rem;
+        }
+      }
     </style>
 
     <script is:inline>

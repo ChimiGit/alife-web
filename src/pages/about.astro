@@ -5,6 +5,7 @@ import History from '../components/sections/about/History.astro';
 import Mission from '../components/sections/about/Mission.astro';
 import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
 import AboutUsLoading from '../components/loaders/AboutUsLoading.astro';
+import TranslationProvider from '../components/TranslationProvider.astro';
 
 const urlParams = new URLSearchParams(Astro.url.search);
 const lang = urlParams.get('lang') || 'en';
@@ -43,8 +44,9 @@ const t = translations[lang as keyof typeof translations] || translations.en;
     <!-- Main Content (Hidden Initially) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
       <Header lang={lang} />
+      <TranslationProvider lang={lang} />
       <!-- Main content -->
-      <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12" style="font-family: 'Inter', sans-serif;">
+      <main class="max-w-4xl mx-auto px-4 sm:px-6  sm:pt-10 pb-8 sm:pb-12" style="font-family: 'Inter', sans-serif;">
       <!-- Tabs Section -->
       <div class="mb-4">
         <div class="sticky top-20 bg-gray-50 py-4 z-40">

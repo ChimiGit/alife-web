@@ -77,7 +77,23 @@
     "Date created: May 21, 2025": "Date created: May 21, 2025",
     "This Privacy Policy (\"Policy\") describes how the Artificial Life Institute (hereinafter \"the Institute\") handles personal information in accordance with the Act on the Protection of Personal Information and related laws and guidelines in Japan.": "This Privacy Policy (\"Policy\") describes how the Artificial Life Institute (hereinafter \"the Institute\") handles personal information in accordance with the Act on the Protection of Personal Information and related laws and guidelines in Japan.",
     "Article 1: Compliance with Laws and Regulations": "Article 1: Compliance with Laws and Regulations",
-    "The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter \"Applicable Laws\").": "The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter \"Applicable Laws\")."
+    "The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter \"Applicable Laws\").": "The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter \"Applicable Laws\").",
+    "Sharing Our Journey": "Sharing Our Journey",
+    "Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI": "Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI",
+    "Overview": "Overview",
+    "Research": "Research",
+    "Events": "Events",
+    "News": "News",
+    "No blog posts available yet.": "No blog posts available yet.",
+    "Check back soon for updates!": "Check back soon for updates!",
+    "Ready to Join Our Team?": "Ready to Join Our Team?",
+    "Apply Now": "Apply Now",
+    "Back to Jobs": "Back to Jobs",
+    "Your name": "Your name",
+    "Your email": "Your email",
+    "Your message": "Your message",
+    "Send Message": "Send Message",
+    "Back to Blog": "Back to Blog"
   },
   "jp": {
     "Home": "家",
@@ -157,6 +173,22 @@
     "Date created: May 21, 2025": "作成日：2025 年 5 月 21 日",
     "This Privacy Policy (\"Policy\") describes how the Artificial Life Institute (hereinafter \"the Institute\") handles personal information in accordance with the Act on the Protection of Personal Information and related laws and guidelines in Japan.": "このプライバシーポリシー（以下「本ポリシー」）は、人工生命研究所（以下「当研究所」）が、個人情報の保護に関する法律および日本の関連法規制およびガイドラインに従って、個人情報を取り扱う方法について説明します。",
     "Article 1: Compliance with Laws and Regulations": "第 1 条：法規制の遵守",
-    "The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter \"Applicable Laws\").": "当研究所は、個人情報の保護に関する法律およびその他すべての関連法、規制、ガイドライン（以下「適用法」）を遵守します。"
+    "The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter \"Applicable Laws\").": "当研究所は、個人情報の保護に関する法律およびその他すべての関連法、規制、ガイドライン（以下「適用法」）を遵守します。",
+    "Sharing Our Journey": "私たちの旅路を共有",
+    "Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI": "研究の突破口、今後のイベント、進化的AIの最前線からの最新ニュース",
+    "Overview": "概要",
+    "Research": "研究",
+    "Events": "イベント",
+    "News": "ニュース",
+    "No blog posts available yet.": "まだブログ投稿はありません。",
+    "Check back soon for updates!": "更新をお待ちください！",
+    "Ready to Join Our Team?": "私たちのチームに参加する準備はできていますか？",
+    "Apply Now": "今すぐ応募",
+    "Back to Jobs": "求人に戻る",
+    "Your name": "お名前",
+    "Your email": "メールアドレス",
+    "Your message": "メッセージ",
+    "Send Message": "メッセージを送信",
+    "Back to Blog": "ブログに戻る"
   }
 }
