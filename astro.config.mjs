@@ -5,8 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://ChimiGit.github.io',
-  base: '/',
+  site: 'https://chimigit.github.io',
+  base: '/alife-web/',
   devToolbar: {
     enabled: false,
   },
