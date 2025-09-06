@@ -1,34 +1,4 @@
-// JSON-based translation utility for ALIFE website
-import translationsData from '../translations/translations.json';
-
-interface TranslationMap {
-  [key: string]: string;
-}
-
-export async function loadMarkdownTranslations(
-  lang: string
-): Promise<TranslationMap> {
-  try {
-    const langData = translationsData[lang as keyof typeof translationsData];
-    if (langData) {
-      return langData as TranslationMap;
-    }
-  } catch (error) {
-    // console.warn(`Failed to load translations:`, error);
-  }
-
-  // Fallback to English if language not found
-  return translationsData.en as TranslationMap;
-}
-
-export function getTranslation(
-  translations: TranslationMap,
-  key: string,
-  fallback: string = key
-): string {
-  if (!translations) return fallback;
-  return translations[key] || fallback;
-}
+// Language utility for ALIFE website (translations removed, language switching preserved)
 
 // Helper function to get current language from URL
 export function getCurrentLanguage(): string {

@@ -3,28 +3,7 @@ import Header from '../components/Header.astro';
 import CareerLoading from '../components/loaders/CareerLoading.astro';
 import Jobs from '../components/sections/career/Jobs.astro';
 import Team from '../components/sections/career/Team.astro';
-import TranslationProvider from '../components/TranslationProvider.astro';
-import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
-
 import '../styles/global.css';
-
-// Get language from URL parameters or default to English
-const urlParams = new URLSearchParams(Astro.url.search);
-const lang = urlParams.get('lang') || 'en';
-const translations = await loadMarkdownTranslations(lang);
-// const translations = {
-//   en: {
-//     navigation: {
-//       about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-//     }
-//   },
-//   jp: {
-//     navigation: {
-//       about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-//     }
-//   }
-// };
-// const t = translations[lang as keyof typeof translations] || translations.en;
 ---
 
 <!DOCTYPE html>
@@ -38,23 +17,65 @@ const translations = await loadMarkdownTranslations(lang);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+    /* Slide-in animation styles for back navigation from job pages */
+    .slide-in-from-left {
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
+    }
+
+    .slide-in-from-left.animate {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Staggered animation for child elements */
+    .slide-in-from-left .hero-section,
+    .slide-in-from-left .join-section,
+    .slide-in-from-left .tabs-section {
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out;
+    }
+
+    .slide-in-from-left.animate .hero-section {
+      transition-delay: 0.1s;
+    }
+
+    .slide-in-from-left.animate .join-section {
+      transition-delay: 0.2s;
+    }
+
+    .slide-in-from-left.animate .tabs-section {
+      transition-delay: 0.3s;
+    }
+
+    .slide-in-from-left.animate .hero-section,
+    .slide-in-from-left.animate .join-section,
+    .slide-in-from-left.animate .tabs-section {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    </style>
   </head>
+
   <body class="min-h-screen bg-gray-50">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <CareerLoading lang={lang} />
+      <CareerLoading />
     </div>
 
     <!-- Main Content (Hidden Initially) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} />
-      <TranslationProvider lang={lang} />
+      <Header />
 
       <!-- Main content -->
-      <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12">
 
       <!-- Hero Section -->
-      <section class="text-center mb-8 sm:mb-10">
+      <section class="text-center mb-8 sm:mb-10 hero-section">
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           Where Brilliant<br>
           Minds Explore Together
@@ -68,21 +89,21 @@ const translations = await loadMarkdownTranslations(lang);
       </p>
 
       <!-- Join Us Section with Tabs -->
-      <section class="text-center mb-12 sm:mb-20">
+      <section class="text-center mb-12 sm:mb-20 join-section">
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
-          {translations['Join Us!'] || 'Join Us!'}
+          Join Us!
         </h2>
         <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
           <button id="our-team-tab" class="main-tab active bg-primary text-white px-6 py-2 rounded-full transition-colors duration-200" data-target="#our-team-content">
-            {translations['Our Team'] || 'Our Team'}
+            Our Team
           </button>
           <button id="jobs-tab" class="main-tab border border-primary text-primary px-6 py-2 rounded-full transition-colors duration-200" data-target="#jobs-content">
-            {translations.Jobs || 'Jobs'}
+            Jobs
           </button>
         </div>
 
         <!-- Tab Content -->
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto tabs-section">
           <!-- Our Team Content -->
           <div id="our-team-content" class="main-tab-content">
             <Team />
@@ -91,7 +112,7 @@ const translations = await loadMarkdownTranslations(lang);
           <!-- Jobs Content -->
           <div id="jobs-content" class="main-tab-content hidden">
             <div class="text-left">
-              <Jobs lang={lang} />
+              <Jobs />
             </div>
           </div>
         </div>
@@ -135,32 +156,77 @@ const translations = await loadMarkdownTranslations(lang);
 
         // Note: Team tab functionality is now handled in Team.astro component
 
-        // Loading screen slide-up animation
-        setTimeout(() => {
+        // Check if this is a back navigation
+        const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
+        const isFromJobPage = sessionStorage.getItem('alife-from-job-page') === 'true';
+        
+        if (isBackNavigation && isFromJobPage) {
+          // Show slide animation for back navigation from job pages
           const loadingScreen = document.getElementById('loading-screen');
           const mainContent = document.getElementById('main-content');
-
-          if (loadingScreen && mainContent) {
-            // Slide loading screen upward using CSS class
-            loadingScreen.classList.add('loading-slide-up');
-
+          const careerContent = document.getElementById('career-content');
+          
+          if (loadingScreen && mainContent && careerContent) {
+            // Hide loader immediately
+            loadingScreen.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            mainContent.classList.remove('opacity-0');
+            mainContent.classList.add('opacity-100');
+            
+            // Add slide animation classes
+            careerContent.classList.add('slide-in-from-left');
+            
+            // Trigger animation
             setTimeout(() => {
-              if (loadingScreen && mainContent) {
-                // Hide loading screen and show main content
-                loadingScreen.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-
-                // Fade in main content
-                setTimeout(() => {
-                  if (mainContent) {
-                    mainContent.classList.remove('opacity-0');
-                    mainContent.classList.add('opacity-100');
-                  }
-                }, 50);
-              }
-            }, 700);
+              careerContent.classList.add('animate');
+            }, 50);
           }
-        }, 2500); // Show loading for 2.5 seconds
+          
+          // Clear the navigation flags
+          sessionStorage.removeItem('alife-back-navigation');
+          sessionStorage.removeItem('alife-from-job-page');
+        } else if (isBackNavigation) {
+          // Skip loader for other back navigation
+          const loadingScreen = document.getElementById('loading-screen');
+          const mainContent = document.getElementById('main-content');
+          
+          if (loadingScreen && mainContent) {
+            loadingScreen.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            mainContent.classList.remove('opacity-0');
+            mainContent.classList.add('opacity-100');
+          }
+          
+          // Clear the back navigation flag
+          sessionStorage.removeItem('alife-back-navigation');
+        } else {
+          // Normal loading animation for fresh page loads
+          setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.getElementById('main-content');
+
+            if (loadingScreen && mainContent) {
+              // Slide loading screen upward using CSS class
+              loadingScreen.classList.add('loading-slide-up');
+
+              setTimeout(() => {
+                if (loadingScreen && mainContent) {
+                  // Hide loading screen and show main content
+                  loadingScreen.classList.add('hidden');
+                  mainContent.classList.remove('hidden');
+
+                  // Fade in main content
+                  setTimeout(() => {
+                    if (mainContent) {
+                      mainContent.classList.remove('opacity-0');
+                      mainContent.classList.add('opacity-100');
+                    }
+                  }, 50);
+                }
+              }, 700);
+            }
+          }, 2500); // Show loading for 2.5 seconds
+        }
       });
     </script>
 

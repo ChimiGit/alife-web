@@ -37,10 +37,23 @@ const teamCategoriesCollection = defineCollection({
   }),
 });
 
+const blogCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.string(),
+    author: z.string(),
+    category: z.string(),
+    tags: z.array(z.string()).optional(),
+  }),
+});
+
 const collections = {
   jobs: jobsCollection,
   team: teamCollection,
   'team-categories': teamCategoriesCollection,
+  blog: blogCollection,
 };
 
 export default collections;

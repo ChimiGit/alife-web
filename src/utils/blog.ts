@@ -14,7 +14,7 @@ export interface Blog {
   featuredImage?: string;
 }
 
-export function getAllBlogs(): Blog[] {
+function getAllBlogs(): Blog[] {
   const blogsDirectory = join(process.cwd(), 'src/content/blog');
   const blogFiles = readdirSync(blogsDirectory, { withFileTypes: true })
     .filter(dirent => dirent.isFile() && dirent.name.endsWith('.md'))
@@ -80,3 +80,5 @@ export function getAllCategories(): string[] {
   const categories = [...new Set(allBlogs.map(blog => blog.category))];
   return categories.sort();
 }
+
+export default getAllBlogs;

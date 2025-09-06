@@ -1,13 +1,8 @@
 ---
 // Header component for ALIFE website
-import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
-
 export interface Props {
-  lang?: string;
+  // No props needed
 }
-
-const { lang = 'en' } = Astro.props;
-const translations = await loadMarkdownTranslations(lang);
 ---
 
 <header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] sticky top-0 z-50">
@@ -26,35 +21,28 @@ const translations = await loadMarkdownTranslations(lang);
       <nav class="hidden lg:flex items-center gap-8" role="navigation" aria-label="Main navigation" style="font-family: 'Inter', sans-serif; font-weight: 300;">
         <ul class="flex list-none m-0 p-0 gap-8">
           <li class="m-0">
-            <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="home">{translations.Home || 'Home'}</a>
+            <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="home">Home</a>
           </li>
           <li class="m-0">
-            <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="about">{translations['About Us'] || 'About Us'}</a>
+            <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="about">About Us</a>
           </li>
           <li class="m-0">
-            <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="career">{translations.Career || 'Career'}</a>
+            <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="career">Career</a>
           </li>
           <li class="m-0">
-            <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="blog">{translations.Blog || 'Blog'}</a>
+            <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="blog">Blog</a>
           </li>
           <li class="m-0">
-            <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-accent-cyan relative" data-page="support">{translations['Support Us'] || 'Support Us'}</a>
+            <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="support">Support Us</a>
           </li>
         </ul>
 
-        <!-- Desktop Language selector -->
-        <div class="flex items-center gap-2" id="language-selector">
-          <span class="w-px h-4 bg-gray-300"></span>
-          <a href="?lang=en" class="no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan text-primary" aria-label="English" data-lang="en">EN</a>
-          <span class="w-px h-4 bg-gray-300"></span>
-          <a href="?lang=jp" class="no-underline font-medium text-xs transition-colors duration-200 hover:text-accent-cyan text-primary" aria-label="Japanese" data-lang="jp">JP</a>
-        </div>
       </nav>
 
       <!-- Mobile Hamburger Menu Button -->
       <button 
         id="mobile-menu-button"
-        class="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 text-primary hover:text-accent-cyan transition-colors duration-200"
+        class="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 text-primary hover:primary transition-colors duration-200"
         aria-label="Toggle mobile menu"
         aria-expanded="false"
         style="cursor: pointer; position: relative; z-index: 100;"
@@ -92,43 +80,36 @@ const translations = await loadMarkdownTranslations(lang);
             <li>
               <a href="/" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {translations.Home || 'Home'}
+                Home
               </a>
             </li>
             <li>
               <a href="/about" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {translations['About Us'] || 'About Us'}
+                About Us
               </a>
             </li>
             <li>
               <a href="/career" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {translations.Career || 'Career'}
+                Career
               </a>
             </li>
             <li>
               <a href="/blog" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {translations.Blog || 'Blog'}
+                Blog
               </a>
             </li>
             <li>
               <a href="/support" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {translations['Support Us'] || 'Support Us'}
+                Support Us
               </a>
             </li>
           </ul>
         </nav>
 
-        <!-- Mobile Language Selector -->
-        <div class="p-6">
-          <div class="flex items-center justify-center gap-3" id="mobile-language-selector">
-            <a href="?lang=en" class="mobile-lang-link px-6 py-3 rounded-full text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="English" data-lang="en">English</a>
-            <a href="?lang=jp" class="mobile-lang-link px-6 py-3 rounded-full text-primary font-medium transition-all duration-200 hover:bg-white/20 hover:text-primary hover:shadow-lg" aria-label="Japanese" data-lang="jp">日本語</a>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -179,12 +160,6 @@ const translations = await loadMarkdownTranslations(lang);
     opacity: 1 !important;
   }
 
-  .mobile-lang-link.active {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-    color: #1a365d !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-    backdrop-filter: blur(8px);
-  }
 
   /* Hamburger animation */
   .hamburger-open #hamburger-line-1 {
@@ -219,10 +194,6 @@ const translations = await loadMarkdownTranslations(lang);
     transform: translateX(4px);
   }
 
-  /* Language button hover effects */
-  .mobile-lang-link:hover {
-    transform: translateY(-2px);
-  }
 
   /* Ensure hamburger button is visible and clickable */
   #mobile-menu-button {
@@ -256,79 +227,12 @@ const translations = await loadMarkdownTranslations(lang);
 
   // Language switching functionality
   document.addEventListener('DOMContentLoaded', () => {
-    const languageSelector = document.getElementById('language-selector');
-    const mobileLanguageSelector = document.getElementById('mobile-language-selector');
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuClose = document.getElementById('mobile-menu-close');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
-    // Get current language from URL or default to English
-    const getCurrentLang = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('lang') || 'en';
-    };
 
-    // Update active language styling
-    const updateActiveLanguage = () => {
-      const currentLang = getCurrentLang();
-      
-      // Desktop language selector
-      if (languageSelector) {
-        const langLinks = languageSelector.querySelectorAll('a[data-lang]');
-        langLinks.forEach((link) => {
-          const lang = link.getAttribute('data-lang');
-          if (lang === currentLang) {
-            link.classList.add('text-accent-cyan');
-            link.classList.remove('text-primary');
-          } else {
-            link.classList.remove('text-accent-cyan');
-            link.classList.add('text-primary');
-          }
-        });
-      }
-
-      // Mobile language selector
-      if (mobileLanguageSelector) {
-        const mobileLangLinks = mobileLanguageSelector.querySelectorAll('a[data-lang]');
-        mobileLangLinks.forEach((link) => {
-          const lang = link.getAttribute('data-lang');
-          if (lang === currentLang) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-      }
-    };
-
-    // Handle language switching
-    const handleLanguageSwitch = (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (target && target.tagName === 'A' && target.hasAttribute('data-lang')) {
-        e.preventDefault();
-        const newLang = target.getAttribute('data-lang');
-        if (newLang) {
-          // Save language preference to localStorage
-          localStorage.setItem('alife-language', newLang);
-          
-          const currentUrl = new URL(window.location.href);
-          currentUrl.searchParams.set('lang', newLang);
-          // Force page reload to apply translations
-          window.location.href = currentUrl.toString();
-        }
-      }
-    };
-
-    // Desktop language selector
-    if (languageSelector) {
-      languageSelector.addEventListener('click', handleLanguageSwitch);
-    }
-
-    // Mobile language selector
-    if (mobileLanguageSelector) {
-      mobileLanguageSelector.addEventListener('click', handleLanguageSwitch);
-    }
 
     // Mobile menu functionality
     const toggleMobileMenu = (open: boolean) => {
@@ -400,8 +304,6 @@ const translations = await loadMarkdownTranslations(lang);
       });
     };
 
-    // Initialize active language styling
-    updateActiveLanguage();
 
     // Initialize active navigation styling
     updateActiveNavigation();
@@ -414,25 +316,57 @@ const translations = await loadMarkdownTranslations(lang);
       });
     });
 
-    // Add language parameter to all internal navigation links
-    const addLanguageToLinks = () => {
-      const savedLang = localStorage.getItem('alife-language') || 'en';
+    // Detect individual page navigation for back navigation handling
+    const addNavigationDetection = () => {
       const allInternalLinks = document.querySelectorAll('a[href^="/"]');
-      
+
       allInternalLinks.forEach((link) => {
         const href = link.getAttribute('href');
-        if (href && !href.includes('lang=') && !href.includes('mailto:') && !href.includes('#')) {
+        if (href && !href.includes('mailto:') && !href.includes('#')) {
           link.addEventListener('click', (e) => {
             e.preventDefault();
             const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', savedLang);
+            
+            // Check if this is navigation to an individual page (blog post, job, etc.)
+            const isIndividualPage = url.pathname.includes('/blog/') || url.pathname.includes('/jobs/');
+            const isJobPage = url.pathname.includes('/jobs/');
+            const isBlogPage = url.pathname.includes('/blog/');
+            
+            if (isIndividualPage) {
+              // Set flag for back navigation detection
+              sessionStorage.setItem('alife-back-navigation', 'true');
+              
+              // Set specific flags for different page types
+              if (isJobPage) {
+                sessionStorage.setItem('alife-from-job-page', 'true');
+              } else if (isBlogPage) {
+                sessionStorage.setItem('alife-from-blog-page', 'true');
+              }
+            }
+            
             window.location.href = url.toString();
           });
         }
       });
     };
 
-    // Apply language to links after DOM is ready
-    setTimeout(addLanguageToLinks, 100);
+    // Apply navigation detection after DOM is ready
+    setTimeout(addNavigationDetection, 100);
+
+    // Handle browser back button navigation
+    window.addEventListener('popstate', () => {
+      // Set flag for back navigation detection
+      sessionStorage.setItem('alife-back-navigation', 'true');
+      
+      // Check if we're going back to career or blog page from individual pages
+      const { pathname: currentPath } = window.location;
+      const { referrer } = document;
+      
+      if (currentPath === '/career' && referrer && referrer.includes('/jobs/')) {
+        sessionStorage.setItem('alife-from-job-page', 'true');
+      } else if (currentPath === '/blog' && referrer && referrer.includes('/blog/')) {
+        sessionStorage.setItem('alife-from-blog-page', 'true');
+      }
+    });
   });
 </script>

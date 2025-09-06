@@ -2,13 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import BlogLoading from '../components/loaders/BlogLoading.astro';
-import TranslationProvider from '../components/TranslationProvider.astro';
-import { getAllBlogs, getBlogsByCategory } from '../utils/blog.ts';
-import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
-
-const urlParams = new URLSearchParams(Astro.url.search);
-const lang = urlParams.get('lang') || 'en';
-const translations = await loadMarkdownTranslations(lang);
+import getAllBlogs, { getBlogsByCategory } from '../utils/blog.ts';
 
 // Get actual blog posts and categories
 const allBlogs = getAllBlogs();
@@ -76,39 +70,81 @@ const contentData = {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+    /* Slide-in animation styles for back navigation from blog pages */
+    .slide-in-from-left {
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
+    }
+
+    .slide-in-from-left.animate {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Staggered animation for child elements */
+    .slide-in-from-left .hero-section,
+    .slide-in-from-left .tabs-section,
+    .slide-in-from-left .content-section {
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out;
+    }
+
+    .slide-in-from-left.animate .hero-section {
+      transition-delay: 0.1s;
+    }
+
+    .slide-in-from-left.animate .tabs-section {
+      transition-delay: 0.2s;
+    }
+
+    .slide-in-from-left.animate .content-section {
+      transition-delay: 0.3s;
+    }
+
+    .slide-in-from-left.animate .hero-section,
+    .slide-in-from-left.animate .tabs-section,
+    .slide-in-from-left.animate .content-section {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    </style>
   </head>
+
   <body class="min-h-screen bg-gray-50">
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
       <BlogLoading />
     </div>
 
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} />
-      <TranslationProvider lang={lang} />
+      <Header />
 
-      <main class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
-        <div class="text-center mb-12">
-          <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">{translations['Sharing Our Journey'] || 'Sharing Our Journey'}</h1>
+      <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
+        <div class="text-center mb-12 hero-section">
+          <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
           <p class="text-medium text-gray-600 max-w-3xl mx-auto font-light">
-            {translations['Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI'] || 'Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI'}
+            Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI
           </p>
         </div>
 
-        <div class="mb-8">
+        <div class="mb-8 tabs-section">
           <div class="overflow-x-auto">
             <div class="flex justify-center min-w-max">
               <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
                 <button id="overview-tab" class="active-tab px-6 py-2 rounded-full bg-primary text-white transition-all duration-200 whitespace-nowrap">
-                  {translations.Overview || 'Overview'}
+                  Overview
                 </button>
                 <button id="research-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
-                  {translations.Research || 'Research'}
+                  Research
                 </button>
                 <button id="events-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
-                  {translations.Events || 'Events'}
+                  Events
                 </button>
                 <button id="news-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
-                  {translations.News || 'News'}
+                  News
                 </button>
               </div>
             </div>
@@ -118,7 +154,7 @@ const contentData = {
         <!-- Separator line -->
         <div class="border-b border-gray-200 mb-8"></div>
 
-        <div class="w-full">
+        <div class="w-full content-section">
           <div id="tab-content" class="w-full">
             <!-- Overview content (default) -->
             <div id="overview-content" class="tab-content">
@@ -146,8 +182,8 @@ const contentData = {
                 
                 {contentData.overview.posts.length === 0 && (
                   <div class="col-span-full text-center py-12">
-                    <p class="text-gray-500 text-lg">{translations['No blog posts available yet.'] || 'No blog posts available yet.'}</p>
-                    <p class="text-gray-400 text-sm mt-2">{translations['Check back soon for updates!'] || 'Check back soon for updates!'}</p>
+                    <p class="text-gray-500 text-lg">No blog posts available yet.</p>
+                    <p class="text-gray-400 text-sm mt-2">Check back soon for updates!</p>
                   </div>
                 )}
               </div>
@@ -272,7 +308,44 @@ const contentData = {
         const loadingScreen = document.getElementById('loading-screen');
         const mainContent = document.getElementById('main-content');
 
-        if (loadingScreen && mainContent) {
+        // Check if this is a back navigation
+        const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
+        const isFromBlogPage = sessionStorage.getItem('alife-from-blog-page') === 'true';
+        
+        if (isBackNavigation && isFromBlogPage) {
+          // Show slide animation for back navigation from blog pages
+          const blogContent = document.getElementById('blog-content');
+          
+          if (loadingScreen && mainContent && blogContent) {
+            // Hide loader immediately
+            loadingScreen.style.display = 'none';
+            mainContent.classList.remove('hidden');
+            mainContent.classList.remove('opacity-0');
+            
+            // Add slide animation classes
+            blogContent.classList.add('slide-in-from-left');
+            
+            // Trigger animation
+            setTimeout(() => {
+              blogContent.classList.add('animate');
+            }, 50);
+          }
+          
+          // Clear the navigation flags
+          sessionStorage.removeItem('alife-back-navigation');
+          sessionStorage.removeItem('alife-from-blog-page');
+        } else if (isBackNavigation) {
+          // Skip loader for other back navigation
+          if (loadingScreen && mainContent) {
+            loadingScreen.style.display = 'none';
+            mainContent.classList.remove('hidden');
+            mainContent.classList.remove('opacity-0');
+          }
+          
+          // Clear the back navigation flag
+          sessionStorage.removeItem('alife-back-navigation');
+        } else if (loadingScreen && mainContent) {
+          // Normal loading animation for fresh page loads
           setTimeout(() => {
             loadingScreen.style.transform = 'translateY(-100%)';
             setTimeout(() => {

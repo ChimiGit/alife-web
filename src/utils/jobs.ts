@@ -11,7 +11,7 @@ export interface JobPosting {
   slug: string;
 }
 
-export async function getAllJobs(): Promise<JobPosting[]> {
+async function getAllJobs(): Promise<JobPosting[]> {
   try {
     const jobs = await getCollection('jobs');
     return jobs.map(job => ({
@@ -42,3 +42,5 @@ export async function getJobBySlug(slug: string): Promise<JobPosting | null> {
     return null;
   }
 }
+
+export default getAllJobs;

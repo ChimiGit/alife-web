@@ -1,28 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import SupportLoading from '../components/loaders/SupportLoading.astro';
-import TranslationProvider from '../components/TranslationProvider.astro';
-import { loadMarkdownTranslations } from '../utils/markdown-translations.ts';
-
 import '../styles/global.css';
-
-// Get language from URL parameters or default to English
-const urlParams = new URLSearchParams(Astro.url.search);
-const lang = urlParams.get('lang') || 'en';
-const translations = await loadMarkdownTranslations(lang);
-// const translations = {
-//   en: {
-//     navigation: {
-//       about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-//     }
-//   },
-//   jp: {
-//     navigation: {
-//       about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-//     }
-//   }
-// };
-// const t = translations[lang as keyof typeof translations] || translations.en;
 ---
 
 <!DOCTYPE html>
@@ -40,13 +19,12 @@ const translations = await loadMarkdownTranslations(lang);
   <body class="min-h-screen bg-gray-50">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <SupportLoading lang={lang} />
+      <SupportLoading />
     </div>
 
     <!-- Main Content (Hidden Initially) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header lang={lang} />
-      <TranslationProvider lang={lang} />
+      <Header />
 
       <!-- Main content -->
       <main class="pt-10 sm:pt-10" style="font-family: 'Inter', sans-serif;">
@@ -58,7 +36,7 @@ const translations = await loadMarkdownTranslations(lang);
           </h1>
         </div>
         <p class="text-gray-700 max-w-5xl mx-auto leading-relaxed px-4 sm:px-6 font-light" style="font-family: 'Inter', sans-serif; line-height: 2; font-size: 16px;">
-           {translations['Science advances through community support. Your contribution helps fund breakthrough research that wouldn\'t be possible within traditional academic or corporate constraints. Our diverse team of world-class researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and believers in long-term vision.'] || 'Science advances through community support. Your contribution helps fund breakthrough research that wouldn\'t be possible within traditional academic or corporate constraints. Our diverse team of world-class researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and believers in long-term vision.'}
+           Science advances through community support. Your contribution helps fund breakthrough research that wouldn't be possible within traditional academic or corporate constraints. Our diverse team of world-class researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and believers in long-term vision.
          </p>
       </section>
 
@@ -120,7 +98,7 @@ const translations = await loadMarkdownTranslations(lang);
                     name="name"
                     required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500"
-                    placeholder={translations['Your name'] || 'Your name'}
+                    placeholder="Your name"
                     >
                 </div>
 
@@ -149,7 +127,7 @@ const translations = await loadMarkdownTranslations(lang);
                     name="message"
                     rows="6"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500 resize-vertical"
-                    placeholder={translations['Your message'] || 'Tell us about your interest in supporting our research...'}
+                    placeholder="Tell us about your interest in supporting our research..."
                   ></textarea>
                 </div>
 
@@ -159,7 +137,7 @@ const translations = await loadMarkdownTranslations(lang);
                     type="submit"
                     class="bg-primary text-white px-6 py-2 rounded-full font-normal text-sm hover:bg-accent-cyan transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   >
-                    {translations['Send Message'] || 'Submit'}
+                    Submit
                   </button>
                 </div>
               </form>
@@ -173,32 +151,51 @@ const translations = await loadMarkdownTranslations(lang);
     <!-- Loading screen script -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // Loading screen slide-up animation
-        setTimeout(() => {
+        // Check if this is a back navigation
+        const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
+        
+        if (isBackNavigation) {
+          // Skip loader for back navigation
           const loadingScreen = document.getElementById('loading-screen');
           const mainContent = document.getElementById('main-content');
-
+          
           if (loadingScreen && mainContent) {
-            // Slide loading screen upward using CSS class
-            loadingScreen.classList.add('loading-slide-up');
-
-            setTimeout(() => {
-              if (loadingScreen && mainContent) {
-                // Hide loading screen and show main content
-                loadingScreen.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-
-                // Fade in main content
-                setTimeout(() => {
-                  if (mainContent) {
-                    mainContent.classList.remove('opacity-0');
-                    mainContent.classList.add('opacity-100');
-                  }
-                }, 50);
-              }
-            }, 700);
+            loadingScreen.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            mainContent.classList.remove('opacity-0');
+            mainContent.classList.add('opacity-100');
           }
-        }, 2500); // Show loading for 2.5 seconds
+          
+          // Clear the back navigation flag
+          sessionStorage.removeItem('alife-back-navigation');
+        } else {
+          // Normal loading animation for fresh page loads
+          setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.getElementById('main-content');
+
+            if (loadingScreen && mainContent) {
+              // Slide loading screen upward using CSS class
+              loadingScreen.classList.add('loading-slide-up');
+
+              setTimeout(() => {
+                if (loadingScreen && mainContent) {
+                  // Hide loading screen and show main content
+                  loadingScreen.classList.add('hidden');
+                  mainContent.classList.remove('hidden');
+
+                  // Fade in main content
+                  setTimeout(() => {
+                    if (mainContent) {
+                      mainContent.classList.remove('opacity-0');
+                      mainContent.classList.add('opacity-100');
+                    }
+                  }, 50);
+                }
+              }, 700);
+            }
+          }, 2500); // Show loading for 2.5 seconds
+        }
       });
     </script>
 

@@ -3,8 +3,9 @@
 import '../../styles/global.css';
 import { marked } from 'marked';
 import Header from '../../components/Header.astro';
-import { getBlogBySlug, getAllBlogs } from '../../utils/blog.ts';
+import getAllBlogs from '../../utils/blog.ts';
 
+// eslint-disable-next-line import/prefer-default-export
 export async function getStaticPaths() {
   const blogs = getAllBlogs();
   return blogs.map((blog) => ({
@@ -14,28 +15,6 @@ export async function getStaticPaths() {
 }
 
 const { blog } = Astro.props;
-const urlParams = new URLSearchParams(Astro.url.search);
-const lang = urlParams.get('lang') || 'en';
-const translations = {
-  en: {
-    navigation: {
-      about: 'About', career: 'Career', blog: 'Blog', support: 'Support Us'
-    },
-    backToBlog: 'Back to Blog',
-    publishedOn: 'Published on',
-    by: 'By'
-  },
-  jp: {
-    navigation: {
-      about: '概要', career: 'キャリア', blog: 'ブログ', support: 'サポート'
-    },
-    backToBlog: 'ブログに戻る',
-    publishedOn: '公開日',
-    by: '著者'
-  }
-};
-
-const t = translations[lang as keyof typeof translations] || translations.en;
 
 // Convert markdown to HTML
 const htmlContent = blog.content ? marked(blog.content) : '';
@@ -52,23 +31,66 @@ const htmlContent = blog.content ? marked(blog.content) : '';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body class="min-h-screen bg-gray-50">
-    <Header lang={lang} />
+    
+    <style>
+    /* Slide-in animation styles */
+    .slide-in-right {
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
+    }
 
-    <main class="max-w-4xl mx-auto px-4 py-16" style="font-family: 'Inter', sans-serif;">
+    .slide-in-right.animate {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Staggered animation for child elements */
+    .slide-in-right .blog-header,
+    .slide-in-right .blog-content,
+    .slide-in-right .blog-footer {
+      transform: translateX(50px);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out;
+    }
+
+    .slide-in-right.animate .blog-header {
+      transition-delay: 0.1s;
+    }
+
+    .slide-in-right.animate .blog-content {
+      transition-delay: 0.2s;
+    }
+
+    .slide-in-right.animate .blog-footer {
+      transition-delay: 0.3s;
+    }
+
+    .slide-in-right.animate .blog-header,
+    .slide-in-right.animate .blog-content,
+    .slide-in-right.animate .blog-footer {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-gray-50">
+    <Header />
+
+    <main id="blog-content" class="max-w-4xl mx-auto px-4 py-16 slide-in-right" style="font-family: 'Inter', sans-serif;">
       <!-- Breadcrumb -->
       <nav class="mb-8">
-        <a href="/blog" class="inline-flex items-center text-gray-500 hover:text-primary transition-colors duration-200 text-sm">
+        <a href="/blog" id="back-to-blog-btn" class="inline-flex items-center text-gray-500 hover:text-primary transition-colors duration-200 text-sm">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
-          {t.backToBlog}
+          Back to Blog
         </a>
       </nav>
 
       <!-- Article Header -->
-      <header class="mb-12">
+      <header class="mb-12 blog-header">
         <!-- Category -->
         <div class="mb-4">
           <span class="inline-block text-sm text-primary bg-primary/10 px-3 py-1 rounded-full font-medium">
@@ -131,12 +153,12 @@ const htmlContent = blog.content ? marked(blog.content) : '';
       </div>
 
       <!-- Article Content -->
-      <article class="prose prose-lg prose-gray max-w-none">
+      <article class="prose prose-lg prose-gray max-w-none blog-content">
         <div set:html={htmlContent}></div>
       </article>
 
       <!-- Article Footer -->
-      <footer class="mt-16 pt-8 border-t border-gray-200">
+      <footer class="mt-16 pt-8 border-t border-gray-200 blog-footer">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
@@ -237,5 +259,42 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         text-decoration: underline;
       }
     </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const blogContent = document.getElementById('blog-content');
+        const backToBlogBtn = document.getElementById('back-to-blog-btn');
+        
+        if (blogContent) {
+          // Check if this is a back navigation
+          const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
+          
+          if (isBackNavigation) {
+            // Skip animation for back navigation
+            blogContent.classList.add('animate');
+            sessionStorage.removeItem('alife-back-navigation');
+          } else {
+            // Trigger slide-in animation for fresh navigation
+            setTimeout(() => {
+              blogContent.classList.add('animate');
+            }, 100); // Small delay to ensure DOM is ready
+          }
+        }
+
+        // Handle "Back to Blog" button click
+        if (backToBlogBtn) {
+          backToBlogBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Set flags for blog page to show slide animation instead of loader
+            sessionStorage.setItem('alife-back-navigation', 'true');
+            sessionStorage.setItem('alife-from-blog-page', 'true');
+            
+            // Navigate to blog page
+            window.location.href = '/blog';
+          });
+        }
+      });
+    </script>
   </body>
 </html>

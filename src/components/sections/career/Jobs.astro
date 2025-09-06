@@ -1,12 +1,11 @@
 ---
 import '../../../styles/global.css';
-import { getAllJobs } from '../../../utils/jobs.ts';
+import getAllJobs from '../../../utils/jobs.ts';
 
 export interface Props {
-  lang?: string;
+  // No props needed
 }
 
-const { lang = 'en' } = Astro.props;
 const jobs = await getAllJobs();
 ---
 

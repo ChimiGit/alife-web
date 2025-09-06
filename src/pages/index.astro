@@ -4,14 +4,9 @@ import Header from '../components/Header.astro';
 import Slider1 from '../components/home-slider/slider-1.astro';
 import Slider2 from '../components/home-slider/slider-2.astro';
 import Slider3 from '../components/home-slider/slider-3.astro';
-import TranslationProvider from '../components/TranslationProvider.astro';
-
-// Get language from URL parameters or default to English
-const urlParams = new URLSearchParams(Astro.url.search);
-const lang = urlParams.get('lang') || 'en';
 ---
 
-<html lang={lang}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
@@ -23,26 +18,17 @@ const lang = urlParams.get('lang') || 'en';
     <!-- Preload critical fonts -->
     <link rel="preload" href="/fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Service Worker Registration -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
-        });
-      }
-    </script>
   </head>
   <body class="min-h-screen overflow-x-hidden">
-    <Header lang={lang} />
-    <TranslationProvider lang={lang} />
+    <Header />
     <!-- Backgrounds will be shown/hidden via JavaScript -->
     <div id="gif-background" class="hidden">
-      <Slider1 lang={lang} />
+      <Slider1 />
     </div>
     <div id="slider-2-background" class="hidden">
-      <Slider2 lang={lang} />
+      <Slider2 />
     </div>
-    <div id="slider-3-background" class="hidden"> <Slider3 lang={lang} /> </div>
+    <div id="slider-3-background" class="hidden"> <Slider3 /> </div>
     <script>
       // Randomly choose which background to show on page load
       const backgrounds = ['gif', 'slider-2', 'slider-3'];
