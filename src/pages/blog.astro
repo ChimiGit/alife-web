@@ -69,7 +69,7 @@ const contentData = {
     <title>Blog - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
     /* Slide-in animation styles for back navigation from blog pages */
@@ -111,6 +111,28 @@ const contentData = {
       transform: translateX(0);
       opacity: 1;
     }
+
+    /* Card animation styles for tab switching */
+    .blog-card {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+
+    .blog-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered animation for cards */
+    .blog-card:nth-child(1) { transition-delay: 0.1s; }
+    .blog-card:nth-child(2) { transition-delay: 0.2s; }
+    .blog-card:nth-child(3) { transition-delay: 0.3s; }
+    .blog-card:nth-child(4) { transition-delay: 0.4s; }
+    .blog-card:nth-child(5) { transition-delay: 0.5s; }
+    .blog-card:nth-child(6) { transition-delay: 0.6s; }
+    .blog-card:nth-child(7) { transition-delay: 0.7s; }
+    .blog-card:nth-child(8) { transition-delay: 0.8s; }
     </style>
   </head>
 
@@ -122,7 +144,7 @@ const contentData = {
     <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
       <Header />
 
-      <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
+      <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'DM Sans', sans-serif;">
         <div class="text-center mb-12 hero-section">
           <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
           <p class="text-medium text-gray-600 max-w-3xl mx-auto font-light">
@@ -160,7 +182,7 @@ const contentData = {
             <div id="overview-content" class="tab-content">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.overview.posts.map(post => (
-                  <a href={`/blog/${post.slug}`} class="block group">
+                  <a href={`/blog/${post.slug}`} class="block group blog-card">
                     <div class="mb-6">
                       <img 
                         src="/assets/images/image.png"
@@ -193,7 +215,7 @@ const contentData = {
             <div id="research-content" class="tab-content hidden">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.research.posts.map(post => (
-                  <a href={`/blog/${post.slug}`} class="block group">
+                  <a href={`/blog/${post.slug}`} class="block group blog-card">
                     <div class="mb-6">
                       <img 
                         src="/assets/images/image.png"
@@ -219,7 +241,7 @@ const contentData = {
             <div id="events-content" class="tab-content hidden">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.events.posts.map(post => (
-                  <a href={`/blog/${post.slug}`} class="block group">
+                  <a href={`/blog/${post.slug}`} class="block group blog-card">
                     <div class="mb-6">
                       <img 
                         src="/assets/images/image.png"
@@ -245,7 +267,7 @@ const contentData = {
             <div id="news-content" class="tab-content hidden">
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {contentData.news.posts.map(post => (
-                  <a href={`/blog/${post.slug}`} class="block group">
+                  <a href={`/blog/${post.slug}`} class="block group blog-card">
                     <div class="mb-6">
                       <img 
                         src="/assets/images/image.png"
@@ -366,12 +388,28 @@ const contentData = {
           // Hide all tab contents
           tabContents.forEach((content) => {
             content.classList.add('hidden');
+            // Remove animation classes from cards in hidden tabs
+            const cards = content.querySelectorAll('.blog-card');
+            cards.forEach(card => {
+              card.classList.remove('animate');
+            });
           });
 
           // Show selected tab content
           const selectedContent = document.getElementById(`${tabName}-content`);
           if (selectedContent) {
             selectedContent.classList.remove('hidden');
+            
+            // Animate cards in the selected tab
+            const cards = selectedContent.querySelectorAll('.blog-card');
+            cards.forEach((card, index) => {
+              // Reset animation delay for each card
+              card.style.transitionDelay = `${(index + 1) * 0.1}s`;
+              // Trigger animation
+              setTimeout(() => {
+                card.classList.add('animate');
+              }, 50);
+            });
           }
         }
 
@@ -394,6 +432,20 @@ const contentData = {
 
         // Initialize with overview tab
         showTab('overview');
+        
+        // Animate initial cards after page load
+        setTimeout(() => {
+          const overviewContent = document.getElementById('overview-content');
+          if (overviewContent) {
+            const cards = overviewContent.querySelectorAll('.blog-card');
+            cards.forEach((card, index) => {
+              card.style.transitionDelay = `${(index + 1) * 0.1}s`;
+              setTimeout(() => {
+                card.classList.add('animate');
+              }, 50);
+            });
+          }
+        }, 100);
       });
     </script>
   </body>
