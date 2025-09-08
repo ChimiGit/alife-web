@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   output: 'static',
   site: 'https://ChimiGit.github.io',
-  base: '/',
+  base: '/alife-web/',
   devToolbar: {
     enabled: false,
   },
@@ -15,6 +15,7 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   vite: {
+    // @ts-ignore - Tailwind v4 compatibility issue
     plugins: [tailwindcss()],
     build: {
       cssMinify: true,
