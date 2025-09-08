@@ -16,6 +16,8 @@ import '../styles/global.css';
     <title>Career - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload loader image for faster loading -->
+    <link rel="preload" href="/assets/loader/career-loading.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -181,6 +183,30 @@ import '../styles/global.css';
               careerContent.classList.add('animate');
             }, 50);
           }
+          
+          // Switch to Jobs tab when coming from job page
+          setTimeout(() => {
+            const jobsTab = document.getElementById('jobs-tab');
+            const ourTeamTab = document.getElementById('our-team-tab');
+            const jobsContent = document.getElementById('jobs-content');
+            const ourTeamContent = document.getElementById('our-team-content');
+            
+            if (jobsTab && ourTeamTab && jobsContent && ourTeamContent) {
+              // Remove active state from Our Team tab
+              ourTeamTab.classList.remove('active', 'bg-primary', 'text-white');
+              ourTeamTab.classList.add('border', 'border-primary', 'text-primary');
+              
+              // Hide Our Team content
+              ourTeamContent.classList.add('hidden');
+              
+              // Add active state to Jobs tab
+              jobsTab.classList.add('active', 'bg-primary', 'text-white');
+              jobsTab.classList.remove('border', 'border-primary', 'text-primary');
+              
+              // Show Jobs content
+              jobsContent.classList.remove('hidden');
+            }
+          }, 100);
           
           // Clear the navigation flags
           sessionStorage.removeItem('alife-back-navigation');

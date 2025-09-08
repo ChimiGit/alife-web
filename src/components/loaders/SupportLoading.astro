@@ -7,7 +7,9 @@ export interface Props {
 ---
 
 <!-- Support Loading Page -->
-<div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/loader/support-loading.png');">
+<div class="loader-container min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/loader/support-loading.png');">
+  <!-- Preload background image -->
+  <img src="/assets/loader/support-loading.png" alt="" class="hidden" loading="eager" fetchpriority="high">
   <!-- Animated Background Pattern -->
   <div class="absolute inset-0 opacity-30">
     <div class="dots-pattern animate-pulse"></div>
@@ -84,12 +86,41 @@ export interface Props {
   }
 
   .animate-fade-in {
-    animation: fadeIn 1.5s ease-out forwards;
+    animation: fadeInScale 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+  @keyframes fadeInScale {
+    0% { 
+      opacity: 0; 
+      transform: translateY(30px) scale(0.95); 
+      filter: blur(10px);
+    }
+    50% {
+      opacity: 0.7;
+      transform: translateY(10px) scale(0.98);
+      filter: blur(5px);
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+      filter: blur(0);
+    }
+  }
+
+  /* Enhanced loader container transition */
+  .loader-container {
+    animation: loaderEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes loaderEntrance {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.9); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
   }
 </style>
 

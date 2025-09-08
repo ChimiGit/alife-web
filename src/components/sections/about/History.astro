@@ -8,6 +8,54 @@ export interface Props {
 
 <!-- History Content -->
 <div class="max-w-4xl mx-auto px-4 mt-12">
+  <style>
+    /* Timeline Animation Styles */
+    .timeline-line {
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .timeline-line.animate {
+      transform: scaleY(1);
+    }
+    
+    .timeline-dot {
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .timeline-dot.animate {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .timeline-content {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    
+    .timeline-content.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Staggered animation delays */
+    .timeline-item:nth-child(1) .timeline-content { transition-delay: 0.2s; }
+    .timeline-item:nth-child(2) .timeline-content { transition-delay: 0.4s; }
+    .timeline-item:nth-child(3) .timeline-content { transition-delay: 0.6s; }
+    .timeline-item:nth-child(4) .timeline-content { transition-delay: 0.8s; }
+    .timeline-item:nth-child(5) .timeline-content { transition-delay: 1.0s; }
+    
+    .timeline-item:nth-child(1) .timeline-dot { transition-delay: 0.1s; }
+    .timeline-item:nth-child(2) .timeline-dot { transition-delay: 0.3s; }
+    .timeline-item:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
+    .timeline-item:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
+    .timeline-item:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
+  </style>
+  
   <h2 class="text-5xl text-primary text-center mb-2" style="font-family: 'GT Alpina Fine', serif;">History</h2>
   <div class="text-center mb-15">
     <span class="text-20px text-primary" style="font-family: 'DM Sans', sans-serif; line-height: 2; font-weight: 300;">Why Us ? We are already well positioned to succeed.</span>
@@ -16,11 +64,11 @@ export interface Props {
   <!-- Timeline -->
   <div class="relative max-w-4xl mx-auto">
     <!-- Timeline Line -->
-    <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2"></div>
+    <div class="timeline-line absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2"></div>
     <!-- Item -->
-    <div class="flex items-center mb-8">
+    <div class="timeline-item flex items-start mb-8">
       <!-- Left Content -->
-      <div class="w-1/2 pr-8 text-end">
+      <div class="timeline-content w-1/2 pr-8 text-end">
         <span class="text-3xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Sakana.ai</span>
         <br/>
         <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Jan, 2024</span>
@@ -30,13 +78,13 @@ export interface Props {
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="relative z-10 size-7 flex justify-center items-center">
-        <div class="size-2 rounded-full bg-primary"></div>
+      <div class="relative z-10 size-7 flex justify-center items-start pt-1.5">
+        <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="w-1/2 pl-8">
+      <div class="timeline-content w-1/2 pl-8">
         <img src="/assets/images/We-raised-30M 1.png" alt="Sakana.ai Logo" class="h-25 w-50 mt-5" loading="lazy"/>
       </div>
       <!-- End Right Content -->
@@ -44,21 +92,21 @@ export interface Props {
     <!-- End Item -->
 
     <!-- Item -->
-    <div class="flex items-center mb-8">
+    <div class="timeline-item flex items-center mb-8">
       <!-- Left Content -->
-      <div class="w-1/2 pr-8 flex justify-end">
+      <div class="timeline-content w-1/2 pr-8 flex justify-end">
         <img src="/assets/logo/logo2.png" alt="ALIFE Logo" class="h-15 w-30 mt-5 filter-primary" loading="lazy"/>
       </div>
       <!-- End Left Content -->
 
       <!-- Icon -->
       <div class="relative z-10 size-7 flex justify-center items-center">
-        <div class="size-2 rounded-full bg-primary"></div>
+        <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="w-1/2 pl-8">
+      <div class="timeline-content w-1/2 pl-8">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Alife</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Institute Incorporated</span>
@@ -68,9 +116,9 @@ export interface Props {
     <!-- End Item -->
 
     <!-- Item -->
-    <div class="flex items-center mb-8">
+    <div class="timeline-item flex items-center mb-8">
       <!-- Left Content -->
-      <div class="w-1/2 pr-8 text-end">
+      <div class="timeline-content w-1/2 pr-8 text-end">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Research</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Projects Began</span>
@@ -81,12 +129,12 @@ export interface Props {
 
       <!-- Icon -->
       <div class="relative z-10 size-7 flex justify-center items-center">
-        <div class="size-2 rounded-full bg-primary"></div>
+        <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="w-1/2 pl-8">
+      <div class="timeline-content w-1/2 pl-8">
         <!-- ALife Research Grid -->
         <div class="grid grid-cols-2 gap-4 max-w-md">
           <div class="text-center">
@@ -132,21 +180,21 @@ export interface Props {
     <!-- End Item -->
 
     <!-- Future Items -->
-    <div class="flex items-center mb-8">
+    <div class="timeline-item flex items-center mb-8">
       <!-- Left Content -->
-      <div class="w-1/2 pr-8 text-end">
+      <div class="timeline-content w-1/2 pr-8 text-end">
         <span class="text-xl text-primary">Now</span>
       </div>
       <!-- End Left Content -->
 
       <!-- Icon -->
       <div class="relative z-10 size-7 flex justify-center items-center">
-        <div class="size-2 rounded-full bg-primary"></div>
+        <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="w-1/2 pl-8">
+      <div class="timeline-content w-1/2 pl-8">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Kyoto</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Office Opens</span>
@@ -158,9 +206,9 @@ export interface Props {
     <!-- End Item -->
 
     <!-- Final Item -->
-    <div class="flex items-center mb-8">
+    <div class="timeline-item flex items-center mb-8">
       <!-- Left Content -->
-      <div class="w-1/2 pr-8 text-end">
+      <div class="timeline-content w-1/2 pr-8 text-end">
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Non-Profit</span>
         <br/>
         <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Incorporation</span>
@@ -171,12 +219,12 @@ export interface Props {
 
       <!-- Icon -->
       <div class="relative z-10 size-7 flex justify-center items-center">
-        <div class="size-2 rounded-full bg-primary"></div>
+        <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
 
       <!-- Right Content -->
-      <div class="w-1/2 pl-8">
+      <div class="timeline-content w-1/2 pl-8">
         <!-- Empty for clean layout -->
       </div>
       <!-- End Right Content -->
@@ -185,3 +233,50 @@ export interface Props {
   </div>
   <!-- End Timeline -->
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const timelineLine = document.querySelector('.timeline-line');
+    const timelineDots = document.querySelectorAll('.timeline-dot');
+    const timelineContents = document.querySelectorAll('.timeline-content');
+    
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      return rect.top < windowHeight && rect.bottom > 0;
+    }
+    
+    // Function to trigger animations
+    function triggerAnimations() {
+      if (timelineLine && isInViewport(timelineLine) && !timelineLine.classList.contains('animate')) {
+        // Animate timeline line
+        timelineLine.classList.add('animate');
+        
+        // Animate dots with staggered delay
+        setTimeout(() => {
+          timelineDots.forEach((dot, index) => {
+            setTimeout(() => {
+              dot.classList.add('animate');
+            }, index * 200);
+          });
+        }, 300);
+        
+        // Animate content with staggered delay
+        setTimeout(() => {
+          timelineContents.forEach((content, index) => {
+            setTimeout(() => {
+              content.classList.add('animate');
+            }, index * 150);
+          });
+        }, 500);
+      }
+    }
+    
+    // Trigger animations on scroll
+    window.addEventListener('scroll', triggerAnimations);
+    
+    // Trigger animations immediately if already in viewport
+    setTimeout(triggerAnimations, 100);
+  });
+</script>
