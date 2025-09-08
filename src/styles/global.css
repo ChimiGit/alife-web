@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 
+/* Fixed header body padding */
+body {
+  padding-top: 5rem; /* 80px to account for fixed header height */
+}
+
 /* GT Alpina Fine font */
 @font-face {
   font-family: 'GT Alpina Fine';
