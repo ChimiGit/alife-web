@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   output: 'static',
   site: 'https://ChimiGit.github.io',
-  base: '/alife-web/',
+  base: '/',
   devToolbar: {
     enabled: false,
   },
@@ -37,6 +37,7 @@ export default defineConfig({
         '.ngrok.app',
         '.trycloudflare.com',
         'americas-municipal-express-philips.trycloudflare.com',
+        'https://reservations-poker-trademark-teacher.trycloudflare.com',
       ],
       headers: {
         'ngrok-skip-browser-warning': 'true',

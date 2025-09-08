@@ -54,57 +54,11 @@ export interface Props {
     .timeline-item:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
     .timeline-item:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
     .timeline-item:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
-
-    /* Mobile Responsive Styles */
-    @media (max-width: 768px) {
-      .timeline-line {
-        left: 1.5rem !important;
-        transform: none !important;
-      }
-      
-      .timeline-item {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        padding-left: 3rem !important;
-        margin-bottom: 2rem !important;
-      }
-      
-      .timeline-content {
-        width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        text-align: left !important;
-        margin-bottom: 1rem !important;
-      }
-      
-      .timeline-icon {
-        position: absolute !important;
-        left: -2.5rem !important;
-        top: 0.5rem !important;
-        width: 1rem !important;
-        height: 1rem !important;
-      }
-      
-      .timeline-dot {
-        width: 0.75rem !important;
-        height: 0.75rem !important;
-      }
-      
-      /* Hide right content on mobile for cleaner layout */
-      .timeline-item .timeline-content:last-child {
-        display: none;
-      }
-      
-      /* Show only left content on mobile */
-      .timeline-item .timeline-content:first-child {
-        display: block !important;
-      }
-    }
   </style>
   
   <h2 class="text-5xl text-primary text-center mb-2" style="font-family: 'GT Alpina Fine', serif;">History</h2>
   <div class="text-center mb-15">
-    <span class="text-20px text-primary" style="font-family: 'DM Sans', sans-serif; line-height: 2; font-weight: 300;">Why Us ? We are already well positioned to succeed.</span>
+    <span class="text-20px text-primary" style="font-family: 'Inter', sans-serif; line-height: 2; font-weight: 300;">Why Us ? We are already well positioned to succeed.</span>
   </div>
 
   <!-- Timeline -->
@@ -124,7 +78,7 @@ export interface Props {
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="timeline-icon relative z-10 size-7 flex justify-center items-start">
+      <div class="relative z-10 size-7 flex justify-center items-start">
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
@@ -146,7 +100,7 @@ export interface Props {
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="timeline-icon relative z-10 size-7 flex justify-center items-center">
+      <div class="relative z-10 size-7 flex justify-center items-center">
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
@@ -174,7 +128,7 @@ export interface Props {
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="timeline-icon relative z-10 size-7 flex justify-center items-center">
+      <div class="relative z-10 size-7 flex justify-center items-center">
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
@@ -234,7 +188,7 @@ export interface Props {
       <!-- End Left Content -->
 
       <!-- Icon -->
-      <div class="timeline-icon relative z-10 size-7 flex justify-center items-center">
+      <div class="relative z-10 size-7 flex justify-center items-center">
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
       </div>
       <!-- End Icon -->
