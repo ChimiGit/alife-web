@@ -20,6 +20,51 @@ import AboutUsLoading from '../components/loaders/AboutUsLoading.astro';
     <!-- Preload loader image for faster loading -->
     <link rel="preload" href="/assets/loader/about-loading.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Smooth tab underline animation */
+      [role="tab"] {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+      }
+      
+      [role="tab"]::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #2E3192;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity: 0;
+      }
+      
+      [role="tab"].active::after {
+        transform: scaleX(1);
+        opacity: 1;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-in-out;
+      }
+      
+      /* Smooth color and font transitions */
+      [role="tab"] {
+        transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                   font-weight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                   opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      /* Hover effects for extra smoothness */
+      [role="tab"]:hover {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      /* Smooth scaling for active state */
+      [role="tab"].active {
+        transform: scale(1.02);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+    </style>
   </head>
   <body class="min-h-screen bg-gray-50">
     <!-- Loading Screen -->
@@ -36,15 +81,15 @@ import AboutUsLoading from '../components/loaders/AboutUsLoading.astro';
       <div>
         <div class="sticky top-20 bg-gray-50 z-40">
           <nav class="flex items-center justify-center gap-0" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
-            <button type="button" class="active py-4 px-4 inline-flex items-center gap-x-2 border-b-2 border-primary text-sm whitespace-nowrap text-primary font-semibold hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-1" aria-selected="true" data-hs-tab="#tabs-with-underline-1" aria-controls="tabs-with-underline-1" role="tab">
+            <button type="button" class="active py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-primary font-semibold hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-1" aria-selected="true" data-hs-tab="#tabs-with-underline-1" aria-controls="tabs-with-underline-1" role="tab">
               About
             </button>
             <div class="h-6 w-px bg-gray-300 mx-2"></div>
-            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-2" aria-selected="false" data-hs-tab="#tabs-with-underline-2" aria-controls="tabs-with-underline-2" role="tab">
+            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-2" aria-selected="false" data-hs-tab="#tabs-with-underline-2" aria-controls="tabs-with-underline-2" role="tab">
               History
             </button>
             <div class="h-6 w-px bg-gray-300 mx-2"></div>
-            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-3" aria-selected="false" data-hs-tab="#tabs-with-underline-3" aria-controls="tabs-with-underline-3" role="tab">
+            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-3" aria-selected="false" data-hs-tab="#tabs-with-underline-3" aria-controls="tabs-with-underline-3" role="tab">
               Mission
             </button>
           </nav>
@@ -109,13 +154,13 @@ import AboutUsLoading from '../components/loaders/AboutUsLoading.astro';
             
             if (sectionId === activeSection) {
               // Activate tab
-              tab.classList.add('active', 'font-semibold', 'text-primary', 'border-primary');
-              tab.classList.remove('text-gray-500', 'border-transparent');
+              tab.classList.add('active', 'font-semibold', 'text-primary');
+              tab.classList.remove('text-gray-500');
               tab.setAttribute('aria-selected', 'true');
             } else {
               // Deactivate tab
-              tab.classList.remove('active', 'font-semibold', 'text-primary', 'border-primary');
-              tab.classList.add('text-gray-500', 'border-transparent');
+              tab.classList.remove('active', 'font-semibold', 'text-primary');
+              tab.classList.add('text-gray-500');
               tab.setAttribute('aria-selected', 'false');
             }
           });

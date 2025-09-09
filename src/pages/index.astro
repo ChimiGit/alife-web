@@ -2,8 +2,9 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Slider1 from '../components/home-slider/slider-1.astro';
-import Slider2 from '../components/home-slider/slider-2.astro';
-import Slider3 from '../components/home-slider/slider-3.astro';
+import Slider2 from "../components/home-slider/slider-2.astro";
+// import Slider2 from '../components/home-slider/slider-2.astro';
+// import Slider3 from '../components/home-slider/slider-3.astro';
 ---
 
 <html lang="en">
@@ -27,30 +28,30 @@ import Slider3 from '../components/home-slider/slider-3.astro';
   <body class="min-h-screen overflow-x-hidden">
     <Header />
     <!-- Backgrounds will be shown/hidden via JavaScript -->
-    <div id="gif-background" class="hidden">
-      <Slider1 />
-    </div>
-    <div id="slider-2-background" class="hidden">
+    <div>
       <Slider2 />
     </div>
-    <div id="slider-3-background" class="hidden"> <Slider3 /> </div>
+    <!-- <div id="slider-2-background" class="hidden">
+      <Slider2 />
+    </div>
+    <div id="slider-3-background" class="hidden"> <Slider3 /> </div> -->
     <script>
       // Randomly choose which background to show on page load
-      const backgrounds = ['gif', 'slider-2', 'slider-3'];
-      const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+      // const backgrounds = ['gif', 'slider-2', 'slider-3'];
+      // const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
       
       // Hide all backgrounds first
-      const gifBackground = document.getElementById('gif-background') as HTMLElement;
-      const parallelogramBackground = document.getElementById('slider-2-background') as HTMLElement;
-      const slider3Background = document.getElementById('slider-3-background') as HTMLElement;
+      // const gifBackground = document.getElementById('gif-background') as HTMLElement;
+      // const parallelogramBackground = document.getElementById('slider-2-background') as HTMLElement;
+      // const slider3Background = document.getElementById('slider-3-background') as HTMLElement;
       
-      gifBackground?.classList.add('hidden'); 
-      parallelogramBackground?.classList.add('hidden');
-      slider3Background?.classList.add('hidden');
+      // gifBackground?.classList.add('hidden'); 
+      // parallelogramBackground?.classList.add('hidden');
+      // slider3Background?.classList.add('hidden');
       
       // Show the randomly chosen background
-      const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
-      selectedBackground?.classList.remove('hidden');
+      // const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
+      // selectedBackground?.classList.remove('hidden');
     </script>
   </body>
 </html>

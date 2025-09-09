@@ -4,38 +4,260 @@ export interface Props {
 }
 ---
 
-<div class="relative min-h-screen">
-  <!-- Background GIF -->
-  <div class="fixed inset-0 z-0">
-    <img
-      src="/assets/home-slider/slider-2.gif"
-      alt="ALIFE Background Animation"
-      class="w-full h-full object-cover"
-    />
-  </div>
-
-  <!-- Gradient Overlay for Text Readability -->
-  <div class="fixed inset-0 z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent"></div>
-
+<div class="relative min-h-screen bg-[#29D6E2] overflow-hidden" style="font-family: 'Inter', sans-serif; margin-top: -5rem;">
   <!-- Text Content -->
-  <main class="relative z-20 min-h-screen pt-20 sm:pt-10">
-    <div class="text-left max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+  <main class="relative z-20 h-screen flex items-center">
+    <div class="text-left max-w-7xl pl-8 sm:pl-12 lg:pl-40">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif; line-height: 0.8; margin: 0;">
         Where
       </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif; line-height: 0.8; margin: 0;">
         Evolution Meets
       </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif; line-height: 0.8; margin: 0;">
         Innovation
       </h1>
-      <p class="text-primary max-w-4xl leading-relaxed opacity-90 text-sm sm:text-base md:text-lg font-light" style="font-family: 'Inter', sans-serif;">
-        We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
+      <p class="text-primary max-w-4xl text-sm sm:text-base md:text-lg font-light mt-20" style="font-family: 'Inter', sans-serif;">
+        We're cultivating alternative approaches through evolution itself—creating systems <br/>
+        that don't just optimize, but discover, surprise, and continuously evolve. This is <br/>
+        where we pave a way for a future not engineered, but grown organically through <br/>
+        bottom-up ecosystems where humans and artificial life forms collaborate as <br/>
+        complementary partners.
       </p>
     </div>
   </main>
+
+  <!-- Animated Image Slider -->
+  <div class="image-grid">
+    <div class="grid-container">
+      <!-- First set of all 9 images -->
+      <div class="grid-item" id="image-3">
+        <img src="/assets/home-slider/slider-2/3.svg" alt="Image 3" loading="lazy" id="img-3" />
+      </div>
+      <div class="grid-item" id="image-2">
+        <img src="/assets/home-slider/slider-2/2.svg" alt="Image 2" loading="lazy" id="img-2" />
+      </div>
+      <div class="grid-item" id="image-1">
+        <img src="/assets/home-slider/slider-2/1.svg" alt="Image 1" loading="lazy" id="img-1" />
+      </div>
+    </div>
+  </div>
+  
+  <!-- Zoom Overlay -->
+  <!-- <div class="zoom-overlay" id="zoomOverlay">
+    <button class="close-zoom" id="closeZoom">&times;</button>
+    <img class="zoom-image" id="zoomImage" alt="Zoomed image" />
+  </div> -->
 </div>
 
+<style>
+  .image-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+  }
+  
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    top:10%;
+    height: fit-content;
+    width: fit-content;
+    transform: translateX(-50%);
+  }
+  
+  
+  .grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+  
+  .grid-item:nth-child(1) {
+    width: 100vw;
+    height: 70vh;
+  }
+  
+  .grid-item:nth-child(2) {
+    width: 90vw;
+    height: 50vh;
+  }
+  
+  .grid-item:nth-child(3) {
+    width: 40vw;
+    height: 30vh;
+    position: relative;
+  }
+  
+  .grid-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .grid-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: 100%;
+    image-rendering: high-quality;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    filter: contrast(1.1) brightness(1.05) saturate(1.1);
+  }
+
+  /* Individual image styling */
+  .grid-item:nth-child(1) img {
+    transition: all 0.3s ease;
+    filter: contrast(1.2) brightness(1.1) saturate(1.2);
+  }
+
+  .grid-item:nth-child(1) img:hover {
+    transform: scale(1.05);
+    filter: contrast(1.3) brightness(1.15) saturate(1.3);
+  }
+
+  .grid-item:nth-child(2) img {
+    transition: all 0.3s ease;
+    filter: contrast(1.15) brightness(1.1) saturate(1.15);
+  }
+
+  #img-3 {
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 48%;
+    transform: translateX(-50%);
+    top: 30%;
+  }
+
+  #img-2 {
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 53%;
+    transform: translateX(-50%);
+    top: -60%;
+  }
+
+  #img-1 {
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 120%;
+    transform: translateX(-50%) translateY(20%);
+    top: -222%; 
+    z-index: 100;
+  }
+
+  .grid-item:nth-child(2) img:hover {
+    transform: scale(1.08);
+    filter: contrast(1.25) brightness(1.2) saturate(1.25);
+  }
+
+  .grid-item:nth-child(3) img {
+    transition: all 0.3s ease;
+    filter: contrast(1.1) brightness(1.05) saturate(1.1);
+  }
+
+  .grid-item:nth-child(3) img:hover {
+    transform: scale(1.1);
+    filter: contrast(1.2) brightness(1.1) saturate(1.2);
+  }
+  
+  
+  /* Responsive vertical layout */
+  @media (max-width: 768px) {
+    .grid-container {
+      gap: 1px;
+      padding: 0;
+    }
+    
+    .grid-item:nth-child(1) {
+      width: 100vw;
+      height: 70vh;
+    }
+    
+    .grid-item:nth-child(2) {
+      width: 95vw;
+      height: 50vh;
+    }
+    
+    .grid-item:nth-child(3) {
+      width: 35vw;
+      height: 20vh;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grid-container {
+      gap: 0px;
+      padding: 0;
+    }
+    
+    .grid-item:nth-child(1) {
+      width: 100vw;
+      height: 70vh;
+    }
+    
+    .grid-item:nth-child(2) {
+      width: 95vw;
+      height: 50vh;
+    }
+    
+    .grid-item:nth-child(3) {
+      width: 40vw;
+      height: 20vh;
+    }
+  }
+</style>
+
 <script>
-  // Add any client-side functionality here if needed
+  document.addEventListener('DOMContentLoaded', () => {
+    const gridItems = document.querySelectorAll('.grid-item');
+    
+    if (!gridItems.length) return;
+    
+    // Add staggered loading animation
+    gridItems.forEach((item, index) => {
+      const itemElement = item as HTMLElement;
+      itemElement.style.opacity = '0';
+      itemElement.style.transform = 'scale(0.8)';
+      
+      setTimeout(() => {
+        itemElement.style.opacity = '1';
+        itemElement.style.transform = 'scale(1)';
+      }, index * 100);
+    });
+    
+    // Add focus management for accessibility
+    gridItems.forEach((item, index) => {
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.setAttribute('aria-label', `Image ${index + 1}`);
+      
+      item.addEventListener('focus', () => {
+        // Focus management
+      });
+    });
+  });
 </script>

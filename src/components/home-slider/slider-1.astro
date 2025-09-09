@@ -4,38 +4,362 @@ export interface Props {
 }
 ---
 
-<div class="relative min-h-screen">
-  <!-- Background GIF -->
-  <div class="fixed inset-0 z-0">
-    <img
-      src="/assets/home-slider/slider-1.gif"
-      alt="ALIFE Background Animation"
-      class="w-full h-full object-cover"
-    />
-  </div>
-
-  <!-- Gradient Overlay for Text Readability -->
-  <div class="fixed inset-0 z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent"></div>
-
+<div class="relative min-h-screen bg-[#F9D949] overflow-hidden" style="font-family: 'Inter', sans-serif; margin-top: -5rem;">
   <!-- Text Content -->
-  <main class="relative z-20 min-h-screen pt-20 sm:pt-10">
-    <div class="text-left max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+  <main class="relative z-20 h-screen flex items-center">
+    <div class="text-left max-w-7xl pl-8 sm:pl-12 lg:pl-40">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif; line-height: 0.8; margin: 0;">
         Where
       </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif; line-height: 0.8; margin: 0;">
         Evolution Meets
       </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary" style="font-family: 'GT Alpina Fine', serif; line-height: 0.8; margin: 0;">
         Innovation
       </h1>
-      <p class="text-EEF0EF max-w-4xl leading-relaxed opacity-90 text-sm sm:text-base md:text-lg font-light" style="font-family: 'Inter', sans-serif;">
-        We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
+      <p class="text-primary max-w-4xl text-sm sm:text-base md:text-lg font-light" style="font-family: 'Inter', sans-serif;">
+        We're cultivating alternative approaches through evolution itself—creating systems <br/>
+        that don't just optimize, but discover, surprise, and continuously evolve. This is <br/>
+        where we pave a way for a future not engineered, but grown organically through <br/>
+        bottom-up ecosystems where humans and artificial life forms collaborate as <br/>
+        complementary partners.
       </p>
     </div>
   </main>
+
+  <!-- Animated Image Slider -->
+  <div class="image-grid">
+    <div class="grid-container">
+      <!-- First set of all 9 images -->
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 1.svg" alt="Column 1" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 2.svg" alt="Column 2" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 3.svg" alt="Column 3" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 4.svg" alt="Column 4" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 5.svg" alt="Column 5" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 6.svg" alt="Column 6" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 7.svg" alt="Column 7" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 8.svg" alt="Column 8" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Coulumn 9.svg" alt="Column 9" loading="lazy" />
+      </div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 1.svg" alt="Column 1" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 2.svg" alt="Column 2" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 3.svg" alt="Column 3" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 4.svg" alt="Column 4" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 5.svg" alt="Column 5" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 6.svg" alt="Column 6" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 7.svg" alt="Column 7" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Column 8.svg" alt="Column 8" loading="lazy" />
+      </div>
+      <div class="grid-item">
+        <img src="/assets/home-slider/slider-1/Coulumn 9.svg" alt="Column 9" loading="lazy" />
+      </div>
+    </div>
+  </div>
+  
+  <!-- Zoom Overlay -->
+  <div class="zoom-overlay" id="zoomOverlay">
+    <button class="close-zoom" id="closeZoom">&times;</button>
+    <img class="zoom-image" id="zoomImage" alt="Zoomed image" />
+  </div>
 </div>
 
+<style>
+  .image-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+  }
+  
+  .grid-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0;
+    animation: scrollFromCenter 10s linear infinite;
+    position: absolute;
+    left: 75%;
+    top: 0;
+    height: 100vh;
+    width: fit-content;
+  }
+  
+  @keyframes scrollFromCenter {
+    0% {
+      transform: translateX(-50%) translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%) translateX(75%);
+    }
+  }
+  
+  .grid-container:hover {
+    animation-play-state: paused;
+  }
+  
+  .grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    min-width: 200px;
+    height: 100vh;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+  
+  .grid-item:nth-child(n+3) {
+    min-width: 100px;
+  }
+  
+  .grid-item:nth-child(n+4) {
+    min-width: 75px;
+  }
+
+  .grid-item:nth-child(n+5) {
+    min-width: 60px;
+  }
+
+  .grid-item:nth-child(n+6) {
+    min-width: 45px;
+  }
+
+  .grid-item:nth-child(n+7) {
+    min-width: 30px;
+  }
+
+  .grid-item:nth-child(n+8) {
+    min-width: 15px;
+  }
+
+  .grid-item:nth-child(n+9) {
+    min-width: 0px;
+  }
+  
+  .grid-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .grid-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: 100%;
+  }
+  
+  .zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .zoom-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .zoom-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  
+  .close-zoom {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .close-zoom:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+  
+  /* Responsive horizontal layout */
+  @media (max-width: 768px) {
+    .grid-container {
+      gap: 1px;
+      padding: 5px;
+    }
+    
+    .grid-item {
+      min-width: 150px;
+      height: 100vh;
+    }
+    
+    .grid-item:nth-child(n+3) {
+      min-width: 75px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grid-container {
+      gap: 0px;
+      padding: 5px;
+    }
+    
+    .grid-item {
+      min-width: 120px;
+      height: 100vh;
+    }
+    
+    .grid-item:nth-child(n+3) {
+      min-width: 60px;
+    }
+  }
+</style>
+
 <script>
-  // Add any client-side functionality here if needed
+  document.addEventListener('DOMContentLoaded', () => {
+    const gridItems = document.querySelectorAll('.grid-item');
+    const zoomOverlay = document.getElementById('zoomOverlay') as HTMLElement;
+    const zoomImage = document.getElementById('zoomImage') as HTMLImageElement;
+    const closeZoom = document.getElementById('closeZoom') as HTMLElement;
+    
+    if (!gridItems.length || !zoomOverlay || !zoomImage || !closeZoom) return;
+    
+    // Add click event to each grid item
+    gridItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img') as HTMLImageElement;
+        if (img) {
+          zoomImage.src = img.src;
+          zoomImage.alt = img.alt;
+          zoomOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    
+    // Close zoom overlay
+    function closeZoomOverlay() {
+      zoomOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    closeZoom.addEventListener('click', closeZoomOverlay);
+    
+    // Close on overlay click (but not on image click)
+    zoomOverlay.addEventListener('click', (e) => {
+      if (e.target === zoomOverlay) {
+        closeZoomOverlay();
+      }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && zoomOverlay.classList.contains('active')) {
+        closeZoomOverlay();
+      }
+    });
+    
+    // Add staggered loading animation
+    gridItems.forEach((item, index) => {
+      const itemElement = item as HTMLElement;
+      itemElement.style.opacity = '0';
+      itemElement.style.transform = 'scale(0.8)';
+      
+      setTimeout(() => {
+        itemElement.style.opacity = '1';
+        itemElement.style.transform = 'scale(1)';
+      }, index * 100);
+    });
+    
+    // Add keyboard navigation for grid items
+    let currentIndex = 0;
+    
+    document.addEventListener('keydown', (e) => {
+      if (zoomOverlay && zoomOverlay.classList.contains('active')) return;
+      
+      switch (e.key) {
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          (gridItems[currentIndex] as HTMLElement)?.click();
+          break;
+        default:
+          break;
+      }
+    });
+    
+    // Add focus management for accessibility
+    gridItems.forEach((item, index) => {
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.setAttribute('aria-label', `View image ${index + 1} in full size`);
+      
+      item.addEventListener('focus', () => {
+        currentIndex = index;
+      });
+    });
+  });
 </script>
