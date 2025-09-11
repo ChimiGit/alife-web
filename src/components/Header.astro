@@ -13,7 +13,10 @@ export interface Props {
       <!-- Logo section -->
       <div class="flex items-center">
         <a href="/" class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
-          <img src="/assets/logo/logo.png" alt="ALIFE Logo" class="h-8 w-32"/>
+          <div class="relative w-36 h-8">
+            <img src="/assets/logo/logo1.svg" alt="ALIFE Logo 1" class="h-10 w-18 absolute top-0 left-0 z-10"/>
+            <img src="/assets/logo/logo2.svg" alt="ALIFE Logo 2" class="h-10 w-18 logo-slide absolute top-0 left-19 transition-all duration-500 ease-in-out z-20"/>
+          </div>
         </a>
       </div>
 
@@ -201,6 +204,19 @@ export interface Props {
     z-index: 100;
     pointer-events: auto;
   }
+
+  /* Logo slide animation */
+  .logo-slide {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 20;
+  }
+
+  .logo-slide.scrolled {
+    transform: translateX(-100%);
+    opacity: 0;
+    z-index: 30;
+  }
 </style>
 
 <script>
@@ -352,6 +368,46 @@ export interface Props {
 
     // Apply navigation detection after DOM is ready
     setTimeout(addNavigationDetection, 100);
+
+    // Logo slide animation on scroll - only in sticky header
+    let lastScrollY = window.scrollY;
+    const logoSlide = document.querySelector('.logo-slide');
+    const header = document.querySelector('header');
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Only animate when header is sticky (scrolled down past initial position)
+      if (currentScrollY > 0) {
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          // Scrolling down - slide logo2 into logo1 (sticky state)
+          if (logoSlide) {
+            logoSlide.classList.add('scrolled');
+          }
+        } else if (currentScrollY < lastScrollY || currentScrollY <= 50) {
+          // Scrolling up or near top - slide logo2 back out
+          if (logoSlide) {
+            logoSlide.classList.remove('scrolled');
+          }
+        }
+      } else {
+        // At the very top - ensure logo2 is hidden
+        if (logoSlide) {
+          logoSlide.classList.remove('scrolled');
+        }
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    // Throttle scroll events for better performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(handleScroll, 10);
+    });
 
     // Handle browser back button navigation
     window.addEventListener('popstate', () => {

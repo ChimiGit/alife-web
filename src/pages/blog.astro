@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import BlogLoading from '../components/loaders/BlogLoading.astro';
 import getAllBlogs, { getBlogsByCategory } from '../utils/blog.ts';
 
 // Get actual blog posts and categories
@@ -139,11 +138,7 @@ const contentData = {
   </head>
 
   <body class="min-h-screen bg-gray-50">
-    <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <BlogLoading />
-    </div>
-
-    <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
+    <div id="main-content">
       <Header />
 
       <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
@@ -329,59 +324,6 @@ const contentData = {
 
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
-        const loadingScreen = document.getElementById('loading-screen');
-        const mainContent = document.getElementById('main-content');
-
-        // Check if this is a back navigation
-        const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
-        const isFromBlogPage = sessionStorage.getItem('alife-from-blog-page') === 'true';
-        
-        if (isBackNavigation && isFromBlogPage) {
-          // Show slide animation for back navigation from blog pages
-          const blogContent = document.getElementById('blog-content');
-          
-          if (loadingScreen && mainContent && blogContent) {
-            // Hide loader immediately
-            loadingScreen.style.display = 'none';
-            mainContent.classList.remove('hidden');
-            mainContent.classList.remove('opacity-0');
-            
-            // Add slide animation classes
-            blogContent.classList.add('slide-in-from-left');
-            
-            // Trigger animation
-            setTimeout(() => {
-              blogContent.classList.add('animate');
-            }, 50);
-          }
-          
-          // Clear the navigation flags
-          sessionStorage.removeItem('alife-back-navigation');
-          sessionStorage.removeItem('alife-from-blog-page');
-        } else if (isBackNavigation) {
-          // Skip loader for other back navigation
-          if (loadingScreen && mainContent) {
-            loadingScreen.style.display = 'none';
-            mainContent.classList.remove('hidden');
-            mainContent.classList.remove('opacity-0');
-          }
-          
-          // Clear the back navigation flag
-          sessionStorage.removeItem('alife-back-navigation');
-        } else if (loadingScreen && mainContent) {
-          // Normal loading animation for fresh page loads
-          setTimeout(() => {
-            loadingScreen.style.transform = 'translateY(-100%)';
-            setTimeout(() => {
-              loadingScreen.style.display = 'none';
-              mainContent.classList.remove('hidden');
-              setTimeout(() => {
-                mainContent.classList.remove('opacity-0');
-              }, 50);
-            }, 700);
-          }, 2000);
-        }
-
         // Tab functionality
         const tabs = document.querySelectorAll('.tab, .active-tab');
         const tabContents = document.querySelectorAll('.tab-content');

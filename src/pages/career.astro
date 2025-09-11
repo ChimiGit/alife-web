@@ -1,6 +1,5 @@
 ---
 import Header from '../components/Header.astro';
-import CareerLoading from '../components/loaders/CareerLoading.astro';
 import Jobs from '../components/sections/career/Jobs.astro';
 import Team from '../components/sections/career/Team.astro';
 import '../styles/global.css';
@@ -16,8 +15,6 @@ import '../styles/global.css';
     <title>Career - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload loader image for faster loading -->
-    <link rel="preload" href="/assets/loader/career-loading.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -64,13 +61,8 @@ import '../styles/global.css';
   </head>
 
   <body class="min-h-screen bg-gray-50">
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <CareerLoading />
-    </div>
-
-    <!-- Main Content (Hidden Initially) -->
-    <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
+    <!-- Main Content -->
+    <div id="main-content">
       <Header />
 
       <!-- Main content -->
@@ -158,101 +150,6 @@ import '../styles/global.css';
 
         // Note: Team tab functionality is now handled in Team.astro component
 
-        // Check if this is a back navigation
-        const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
-        const isFromJobPage = sessionStorage.getItem('alife-from-job-page') === 'true';
-        
-        if (isBackNavigation && isFromJobPage) {
-          // Show slide animation for back navigation from job pages
-          const loadingScreen = document.getElementById('loading-screen');
-          const mainContent = document.getElementById('main-content');
-          const careerContent = document.getElementById('career-content');
-          
-          if (loadingScreen && mainContent && careerContent) {
-            // Hide loader immediately
-            loadingScreen.classList.add('hidden');
-            mainContent.classList.remove('hidden');
-            mainContent.classList.remove('opacity-0');
-            mainContent.classList.add('opacity-100');
-            
-            // Add slide animation classes
-            careerContent.classList.add('slide-in-from-left');
-            
-            // Trigger animation
-            setTimeout(() => {
-              careerContent.classList.add('animate');
-            }, 50);
-          }
-          
-          // Switch to Jobs tab when coming from job page
-          setTimeout(() => {
-            const jobsTab = document.getElementById('jobs-tab');
-            const ourTeamTab = document.getElementById('our-team-tab');
-            const jobsContent = document.getElementById('jobs-content');
-            const ourTeamContent = document.getElementById('our-team-content');
-            
-            if (jobsTab && ourTeamTab && jobsContent && ourTeamContent) {
-              // Remove active state from Our Team tab
-              ourTeamTab.classList.remove('active', 'bg-primary', 'text-white');
-              ourTeamTab.classList.add('border', 'border-primary', 'text-primary');
-              
-              // Hide Our Team content
-              ourTeamContent.classList.add('hidden');
-              
-              // Add active state to Jobs tab
-              jobsTab.classList.add('active', 'bg-primary', 'text-white');
-              jobsTab.classList.remove('border', 'border-primary', 'text-primary');
-              
-              // Show Jobs content
-              jobsContent.classList.remove('hidden');
-            }
-          }, 100);
-          
-          // Clear the navigation flags
-          sessionStorage.removeItem('alife-back-navigation');
-          sessionStorage.removeItem('alife-from-job-page');
-        } else if (isBackNavigation) {
-          // Skip loader for other back navigation
-          const loadingScreen = document.getElementById('loading-screen');
-          const mainContent = document.getElementById('main-content');
-          
-          if (loadingScreen && mainContent) {
-            loadingScreen.classList.add('hidden');
-            mainContent.classList.remove('hidden');
-            mainContent.classList.remove('opacity-0');
-            mainContent.classList.add('opacity-100');
-          }
-          
-          // Clear the back navigation flag
-          sessionStorage.removeItem('alife-back-navigation');
-        } else {
-          // Normal loading animation for fresh page loads
-          setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            const mainContent = document.getElementById('main-content');
-
-            if (loadingScreen && mainContent) {
-              // Slide loading screen upward using CSS class
-              loadingScreen.classList.add('loading-slide-up');
-
-              setTimeout(() => {
-                if (loadingScreen && mainContent) {
-                  // Hide loading screen and show main content
-                  loadingScreen.classList.add('hidden');
-                  mainContent.classList.remove('hidden');
-
-                  // Fade in main content
-                  setTimeout(() => {
-                    if (mainContent) {
-                      mainContent.classList.remove('opacity-0');
-                      mainContent.classList.add('opacity-100');
-                    }
-                  }, 50);
-                }
-              }, 700);
-            }
-          }, 2500); // Show loading for 2.5 seconds
-        }
       });
     </script>
 

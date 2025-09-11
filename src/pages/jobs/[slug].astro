@@ -31,339 +31,303 @@ const htmlContent = job.content ? marked(job.content) : '';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-    /* Slide-in animation styles */
-    .slide-in-right {
-      transform: translateX(100%);
-      opacity: 0;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
-    }
-
-    .slide-in-right.animate {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    /* Staggered animation for child elements */
-    .slide-in-right .job-header,
-    .slide-in-right .job-details,
-    .slide-in-right .job-content,
-    .slide-in-right .apply-section {
-      transform: translateX(50px);
-      opacity: 0;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out;
-    }
-
-    .slide-in-right.animate .job-header {
-      transition-delay: 0.1s;
-    }
-
-    .slide-in-right.animate .job-details {
-      transition-delay: 0.2s;
-    }
-
-    .slide-in-right.animate .job-content {
-      transition-delay: 0.3s;
-    }
-
-    .slide-in-right.animate .apply-section {
-      transition-delay: 0.4s;
-    }
-
-    .slide-in-right.animate .job-header,
-    .slide-in-right.animate .job-details,
-    .slide-in-right.animate .job-content,
-    .slide-in-right.animate .apply-section {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    </style>
   </head>
 
-  <body class="min-h-screen bg-gray-50">
+  <body class="min-h-screen bg-white" style="font-family: 'Inter', sans-serif;">
     <Header />
 
-    <main id="job-content" class="max-w-4xl mx-auto px-4 py-16 slide-in-right" style="font-family: 'Inter', sans-serif;">
-      <!-- Breadcrumb -->
-      <nav class="mb-8">
-        <a href="/career" id="back-to-jobs-breadcrumb-btn" class="text-primary hover:primary transition-colors duration-200 flex items-center">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
-          Back to Jobs
-        </a>
-      </nav>
+    <main class="w-full px-4 py-8">
+      <!-- Hero Section -->
+      <section class="text-center mb-8 sm:mb-10">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          Where Brilliant<br>
+          Minds Explore Together
+        </h1>
+      </section>
+      <p class="text-sm sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+        Discover what happens at the intersection of nature and computation, where we're creating something
+        unprecedented. Our team combines world-class researchers and innovative engineers united by a shared
+        fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that
+        grow organically, surprising even their creators.
+      </p>
 
-      <!-- Job Header -->
-      <header class="mb-12 job-header">
-        <!-- Category and Meta Info -->
-        <div class="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-600">
-          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
-            {job.department}
-          </span>
-          <span class="flex items-center">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <!-- Join Us Section with Tabs -->
+      <section class="text-center mb-12 sm:mb-20">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+          Join Us!
+        </h2>
+        <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
+          <a href="/career" class="main-tab border border-primary text-primary px-6 py-2 rounded-full transition-colors duration-200">
+            Our Team
+          </a>
+          <a href="/career" class="main-tab active bg-primary text-white px-6 py-2 rounded-full transition-colors duration-200">
+            Jobs
+          </a>
+        </div>
+      </section>
+
+      <!-- Separator -->
+      <hr class="border-primary mb-8">
+
+      <!-- Job Title & Details -->
+      <section class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
+          {job.title}
+        </h2>
+        <p class="text-lg text-gray-600 mb-6">{job.location}</p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            Posted on {new Date(job.pubDate || Date.now()).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </span>
-        </div>
-
-        <!-- Job Title -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          {job.title}
-        </h1>
-
-        <!-- Job Meta Information -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 job-details">
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              <div>
-                <span class="text-sm text-gray-600">Location</span>
-                <p class="font-medium text-primary">{job.location}</p>
-              </div>
-            </div>
-            
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-              <div>
-                <span class="text-sm text-gray-600">Department</span>
-                <p class="font-medium text-primary">{job.department}</p>
-              </div>
-            </div>
+            <span class="text-gray-600">{new Date(job.deadline).toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric'
+            })}</span>
           </div>
-
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <div>
-                <span class="text-sm text-gray-600">Experience</span>
-                <p class="font-medium text-primary">{job.experience}</p>
-              </div>
-            </div>
-            
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
-              </svg>
-              <div>
-                <span class="text-sm text-gray-600">Job Type</span>
-                <p class="font-medium text-primary">{job.type}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Application Deadline -->
-        <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-8">
           <div class="flex items-center">
-            <svg class="w-5 h-5 mr-2 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <div>
-              <p class="text-red-800 font-medium">Application Deadline</p>
-              <p class="text-red-700">{new Date(job.deadline).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}</p>
-            </div>
+            <span class="text-gray-600">{job.type}</span>
           </div>
         </div>
-      </header>
+      </section>
 
-      <!-- Job Content -->
-      <article class="prose prose-lg max-w-none text-primary mb-12 job-content">
-        <div set:html={htmlContent}></div>
-      </article>
+      <!-- Separator -->
+      <hr class="border-primary mb-12">
 
-      <!-- Apply Now Section -->
-      <div class="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center apply-section">
-        <h3 class="text-2xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
-          Ready to Join Our Team?
-        </h3>
-        <p class="text-gray-700 mb-6 max-w-2xl mx-auto">
-          We're looking for passionate individuals who want to make a difference in the field of artificial life. 
-          If this role excites you, we'd love to hear from you.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href={`mailto:careers@alife.ai?subject=Application for ${job.title}&body=Hello,%0D%0A%0D%0AI am interested in applying for the ${job.title} position.%0D%0A%0D%0APlease find my application details below:%0D%0A%0D%0AThank you for your consideration.`}
-            class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-accent-cyan transition-colors duration-200 inline-flex items-center justify-center"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-            </svg>
-            Apply Now
-          </a>
-          <a 
-            href="/career" 
-            id="back-to-jobs-btn"
-            class="border border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition-colors duration-200 inline-flex items-center justify-center"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            Back to Jobs
-          </a>
-        </div>
+      <!-- Job Content from Markdown -->
+      <div class="job-markdown-content">
+        <div set:html={htmlContent
+          .replace(/<h2>/g, '<h2 style="font-family: \'GT Alpina Fine\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">')
+          .replace(/<h2 style="font-family: \'Inter\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
+          .replace(/<p>/g, '<p style="margin-bottom: 1rem; line-height: 1.7; color: #1a365d; font-family: \'Inter\', sans-serif; font-weight: 300;">')
+          .replace(/<ul>/g, '<ul style="margin-bottom: 3rem; padding-left: 0; list-style: none;">')
+          .replace(/<li>/g, '<li style="margin-bottom: 0.75rem; color: #1a365d; display: flex; align-items: flex-start; font-family: \'Inter\', sans-serif; font-weight: 300;"><span style="width: 8px; height: 8px; background-color: #1a365d; border-radius: 50%; margin-top: 8px; margin-right: 12px; flex-shrink: 0;"></span>')
+          .replace(/<\/li>/g, '</li>')
+        }></div>
       </div>
+
+      <!-- Separator -->
+      <hr class="border-primary mb-12">
+
+      <!-- Application Form -->
+      <section class="mb-12">
+        <h3 class="text-2xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
+          Apply Now.
+        </h3>
+        <p class="text-primary font-light mb-8">
+          Tell us why you'd be a good fit for the {job.title} role.
+        </p>
+
+        <form class="space-y-6" id="job-application-form">
+          <!-- Name Fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="firstName" class="block text-sm font-medium text-primary mb-2">First Name</label>
+              <input 
+                type="text" 
+                id="firstName" 
+                name="firstName" 
+                placeholder="First Name"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              >
+            </div>
+            <div>
+              <label for="lastName" class="block text-sm font-medium text-primary mb-2">Last Name</label>
+              <input 
+                type="text" 
+                id="lastName" 
+                name="lastName" 
+                placeholder="Last Name"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              >
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-primary mb-2">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="example123@gmail.com"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              required
+            >
+          </div>
+
+          <!-- Phone Field -->
+          <div>
+            <label for="phone" class="block text-sm font-medium text-primary mb-2">Phone</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="+0 123 456 789"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            >
+          </div>
+
+          <!-- Resume Upload -->
+          <div>
+            <label for="resume" class="block text-sm font-medium text-primary mb-2">Resume</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
+              <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+              </svg>
+              <p class="text-gray-600 mb-2">Upload your resume</p>
+              <p class="text-sm text-gray-500">Resume should be a PDF under 3.5MB</p>
+              <input 
+                type="file" 
+                id="resume" 
+                name="resume" 
+                accept=".pdf"
+                class="hidden"
+                required
+              >
+              <button 
+                type="button" 
+                onclick="document.getElementById('resume').click()"
+                class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-accent-cyan transition-colors duration-200"
+              >
+                Choose File
+              </button>
+            </div>
+          </div>
+
+          <!-- Checkboxes -->
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <input 
+                type="checkbox" 
+                id="privacy" 
+                name="privacy" 
+                class="mt-1 mr-3 text-primary focus:ring-primary"
+                required
+              >
+              <label for="privacy" class="text-sm text-primary font-light">
+                By submitting my application, I acknowledge that I have read and understand 
+                <a href="/privacy-policy" class="text-primary hover:underline">GMC's Job Applicant Privacy Notice</a>.
+              </label>
+            </div>
+            <div class="flex items-start">
+              <input 
+                type="checkbox" 
+                id="accuracy" 
+                name="accuracy" 
+                class="mt-1 mr-3 text-primary focus:ring-primary"
+                required
+              >
+              <label for="accuracy" class="text-sm text-primary font-light">
+                I have reviewed and confirmed that all the information provided is accurate and complete.
+              </label>
+            </div>
+          </div>
+
+          <!-- Important Note -->
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <p class="text-sm text-primary">
+              <strong>Important:</strong> Please double-check all the information provided above. 
+              Ensuring accuracy is crucial, as any errors or omissions may impact the review of your application.
+            </p>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex justify-end">
+            <button 
+              type="submit" 
+              class="bg-primary text-white text-sm px-8 py-3  font-medium hover:bg-primary transition-colors duration-200" style="border-radius: 100px;"
+            >
+              Submit Application
+            </button>
+          </div>
+        </form>
+      </section>
     </main>
 
-    <style>
-      .prose {
-        color: inherit;
-      }
-
-      .prose h1 {
-        color: #1a365d;
-        font-size: 2.25rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        margin-top: 2rem;
-      }
-
-      .prose h2 {
-        color: #1a365d;
-        font-size: 1.875rem;
-        font-weight: 600;
-        margin-top: 2rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .prose h3 {
-        color: #1a365d;
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .prose h4 {
-        color: #1a365d;
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-top: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .prose p {
-        margin-bottom: 1rem;
-        line-height: 1.7;
-        color: #374151;
-      }
-
-      .prose ul {
-        margin-bottom: 1rem;
-        padding-left: 1.5rem;
-      }
-
-      .prose ol {
-        margin-bottom: 1rem;
-        padding-left: 1.5rem;
-      }
-
-      .prose li {
-        margin-bottom: 0.5rem;
-        color: #374151;
-      }
-
-      .prose strong {
-        font-weight: 600;
-        color: #1a365d;
-      }
-
-      .prose em {
-        font-style: italic;
-        color: #6b7280;
-      }
-
-      .prose blockquote {
-        border-left: 4px solid #1a365d;
-        padding-left: 1rem;
-        margin: 1.5rem 0;
-        font-style: italic;
-        color: #6b7280;
-      }
-
-      .prose code {
-        background-color: #f3f4f6;
-        padding: 0.125rem 0.25rem;
-        border-radius: 0.25rem;
-        font-size: 0.875rem;
-        color: #1a365d;
-      }
-
-      .prose pre {
-        background-color: #1f2937;
-        color: #f9fafb;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        overflow-x: auto;
-        margin: 1rem 0;
-      }
-
-      .prose pre code {
-        background-color: transparent;
-        padding: 0;
-        color: inherit;
-      }
-    </style>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const jobContent = document.getElementById('job-content');
-        const backToJobsBtn = document.getElementById('back-to-jobs-btn');
-        const backToJobsBreadcrumbBtn = document.getElementById('back-to-jobs-breadcrumb-btn');
+        const form = document.getElementById('job-application-form');
+        const fileInput = document.getElementById('resume');
         
-        if (jobContent) {
-          // Check if this is a back navigation
-          const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
-          
-          if (isBackNavigation) {
-            // Skip animation for back navigation
-            jobContent.classList.add('animate');
-            // Don't remove the session storage here - let the career page handle it
-          } else {
-            // Trigger slide-in animation for fresh navigation
-            setTimeout(() => {
-              jobContent.classList.add('animate');
-            }, 100); // Small delay to ensure DOM is ready
-          }
+        // Handle file upload display
+        if (fileInput) {
+          fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+              const uploadArea = fileInput.closest('.border-dashed');
+              const fileName = file.name;
+              const fileSize = (file.size / 1024 / 1024).toFixed(2);
+              
+              uploadArea.innerHTML = `
+                <svg class="w-12 h-12 mx-auto text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <p class="text-gray-600 mb-2">${fileName}</p>
+                <p class="text-sm text-gray-500">${fileSize} MB</p>
+                <button 
+                  type="button" 
+                  onclick="document.getElementById('resume').click()"
+                  class="mt-4 bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-200"
+                >
+                  Change File
+                </button>
+              `;
+            }
+          });
         }
 
-        // Function to handle "Back to Jobs" button clicks
-        function handleBackToJobsClick(e) {
-          e.preventDefault();
-          
-          // Set flags for career page to show slide animation instead of loader
-          sessionStorage.setItem('alife-back-navigation', 'true');
-          sessionStorage.setItem('alife-from-job-page', 'true');
-          
-          // Navigate to career page
-          window.location.href = '/career';
-        }
+        // Handle form submission
+        if (form) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Validate file size
+            const file = fileInput.files[0];
+            if (file && file.size > 3.5 * 1024 * 1024) {
+              alert('File size must be under 3.5MB');
+              return;
+            }
+            
+            // Create email body
+            const emailBody = `
+Application for ${data.firstName} ${data.lastName}
 
-        // Handle both "Back to Jobs" buttons
-        if (backToJobsBtn) {
-          backToJobsBtn.addEventListener('click', handleBackToJobsClick);
-        }
-        
-        if (backToJobsBreadcrumbBtn) {
-          backToJobsBreadcrumbBtn.addEventListener('click', handleBackToJobsClick);
+Position: ${job.title}
+Location: ${job.location}
+
+Contact Information:
+- Email: ${data.email}
+- Phone: ${data.phone}
+
+Resume: ${file ? file.name : 'No file uploaded'}
+
+Please find the attached resume for your review.
+
+Thank you for considering my application.
+
+Best regards,
+${data.firstName} ${data.lastName}
+            `.trim();
+
+            // Create mailto link
+            const mailtoLink = `mailto:careers@alife.ai?subject=Application for ${job.title}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+          });
         }
       });
     </script>
