@@ -29,19 +29,19 @@ body {
 }
 
 .bg-accent-cyan {
-  background-color: #0891b2;
+  background-color: #1a365d;
 }
 
 .text-accent-cyan {
-  color: #0891b2;
+  color: #1a365d;
 }
 
 .hover\:bg-accent-cyan:hover {
-  background-color: #0891b2;
+  background-color: #1a365d;
 }
 
 .hover\:text-accent-cyan:hover {
-  color: #0891b2;
+  color: #1a365d;
 }
 
 .hover\:bg-primary:hover {
@@ -135,7 +135,7 @@ body {
 }
 
 .main-tab.active:hover {
-  background-color: #0891b2 !important; /* accent-cyan color */
+  background-color: #1a365d !important; /* primary color */
   color: white !important;
 }
 

@@ -36,7 +36,7 @@ const htmlContent = job.content ? marked(job.content) : '';
   <body class="min-h-screen bg-white" style="font-family: 'Inter', sans-serif;">
     <Header />
 
-    <main class="w-full px-4 py-8">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <!-- Hero Section -->
       <section class="text-center mb-8 sm:mb-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
@@ -195,7 +195,7 @@ const htmlContent = job.content ? marked(job.content) : '';
               <button 
                 type="button" 
                 onclick="document.getElementById('resume').click()"
-                class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-accent-cyan transition-colors duration-200"
+                class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary transition-colors duration-200"
               >
                 Choose File
               </button>
