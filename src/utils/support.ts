@@ -42,7 +42,6 @@ export async function getAllSupportCategories(): Promise<SupportCategory[]> {
       }))
       .sort((a, b) => a.order - b.order);
   } catch (error) {
-    console.error('Error in getAllSupportCategories:', error);
     return [];
   }
 }
@@ -99,7 +98,6 @@ export async function getAllSupportTeamMembers(): Promise<SupportTeamMember[]> {
       email: member.data.email,
     }));
   } catch (error) {
-    console.error('Error in getAllSupportTeamMembers:', error);
     return [];
   }
 }

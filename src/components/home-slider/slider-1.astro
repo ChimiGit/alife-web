@@ -61,8 +61,8 @@ export interface Props {
       ctx.scale(dpr, dpr);
       
       // Set CSS size
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
       
       lines = []; // Clear and re-initialize lines on resize
       animate();
@@ -71,7 +71,9 @@ export interface Props {
     // Particle class definition
     class Particle {
       relativeX: number;
+
       y: number;
+
       speedY: number;
 
       constructor(relativeX: number, y: number, speedY: number) {
@@ -102,7 +104,7 @@ export interface Props {
       return {
         xOffset: window.innerWidth / 2 + 100, // Start from center shifted more right
         speed: baseLineSpeed * direction, // Direction: 1 for right, -1 for left
-        particles: particles
+        particles
       };
     }
 

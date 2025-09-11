@@ -75,13 +75,13 @@
                         const y = centerY - radius * Math.sin(angle);
                         
                         particles.push({
-                            x: x,
-                            y: y,
+                            x,
+                            y,
                             vx: (Math.random() - 0.5) * 0.2,
                             vy: (Math.random() - 0.5) * 0.2,
                             initialX: x,
                             initialY: y,
-                            radius: radius,
+                            radius,
                             alpha: 0
                         });
                     }
@@ -189,8 +189,8 @@
                 ctx.scale(dpr, dpr);
                 
                 // Set CSS size
-                canvas.style.width = window.innerWidth + 'px';
-                canvas.style.height = window.innerHeight + 'px';
+                canvas.style.width = `${window.innerWidth}px`;
+                canvas.style.height = `${window.innerHeight}px`;
                 
                 generateAllParticles();
                 draw();

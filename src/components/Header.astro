@@ -372,7 +372,6 @@ export interface Props {
     // Logo slide animation on scroll - only in sticky header
     let lastScrollY = window.scrollY;
     const logoSlide = document.querySelector('.logo-slide');
-    const header = document.querySelector('header');
     
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -390,11 +389,9 @@ export interface Props {
             logoSlide.classList.remove('scrolled');
           }
         }
-      } else {
+      } else if (logoSlide) {
         // At the very top - ensure logo2 is hidden
-        if (logoSlide) {
-          logoSlide.classList.remove('scrolled');
-        }
+        logoSlide.classList.remove('scrolled');
       }
       
       lastScrollY = currentScrollY;

@@ -304,6 +304,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
     <script define:vars={{ supportTeamMembers }}>
       // Support member details functionality
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       function showSupportMemberDetails(slug) {
         const member = supportTeamMembers.find(m => m.slug === slug);
         if (!member) return;
@@ -367,6 +368,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
         }
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       function closeSupportModal() {
         const modal = document.getElementById('support-modal');
         if (modal) {

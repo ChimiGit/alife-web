@@ -103,7 +103,7 @@ const htmlContent = job.content ? marked(job.content) : '';
       <div class="job-markdown-content">
         <div set:html={htmlContent
           .replace(/<h2>/g, '<h2 style="font-family: \'GT Alpina Fine\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">')
-          .replace(/<h2 style="font-family: \'Inter\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
+          .replace(/<h2 style="font-family: 'Inter', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
           .replace(/<p>/g, '<p style="margin-bottom: 1rem; line-height: 1.7; color: #1a365d; font-family: \'Inter\', sans-serif; font-weight: 300;">')
           .replace(/<ul>/g, '<ul style="margin-bottom: 3rem; padding-left: 0; list-style: none;">')
           .replace(/<li>/g, '<li style="margin-bottom: 0.75rem; color: #1a365d; display: flex; align-items: flex-start; font-family: \'Inter\', sans-serif; font-weight: 300;"><span style="width: 8px; height: 8px; background-color: #1a365d; border-radius: 50%; margin-top: 8px; margin-right: 12px; flex-shrink: 0;"></span>')
@@ -253,7 +253,7 @@ const htmlContent = job.content ? marked(job.content) : '';
     </main>
 
 
-    <script>
+    <script define:vars={{ job }}>
       document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('job-application-form');
         const fileInput = document.getElementById('resume');
@@ -297,7 +297,12 @@ const htmlContent = job.content ? marked(job.content) : '';
             // Validate file size
             const file = fileInput.files[0];
             if (file && file.size > 3.5 * 1024 * 1024) {
-              alert('File size must be under 3.5MB');
+              // Show error message
+              const errorDiv = document.createElement('div');
+              errorDiv.className = 'text-red-500 text-sm mt-2';
+              errorDiv.textContent = 'File size must be under 3.5MB';
+              fileInput.parentNode.appendChild(errorDiv);
+              setTimeout(() => errorDiv.remove(), 3000);
               return;
             }
             
