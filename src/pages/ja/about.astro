@@ -20,6 +20,34 @@ const currentLocale: Locale = 'ja';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+      /* Noise effect */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        animation: noise 0.2s infinite;
+        mix-blend-mode: overlay;
+      }
+      
+      @keyframes noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(-15%, 10%); }
+        90% { transform: translate(10%, 5%); }
+      }
+      
       /* Smooth tab underline animation */
       [role="tab"] {
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -53,33 +81,25 @@ const currentLocale: Locale = 'ja';
                    background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
       
-      /* Tab content transitions */
-      .section-content {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-      
-      .section-content.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      /* Tab content transitions - removed opacity hiding */
       
       /* Custom main tab hover states */
       .main-tab:not(.active):hover {
-        background-color: #1a365d !important; /* primary color */
+        background-color: #2E3192 !important; /* primary color */
         color: white !important;
-        border-color: #1a365d !important;
+        border-color: #2E3192 !important;
       }
       
       .main-tab.active:hover {
-        background-color: #1a365d !important; /* primary color */
+        background-color: #2E3192 !important; /* primary color */
         color: white !important;
       }
     </style>
   </head>
   <body class="min-h-screen bg-gray-50 font-japanese">
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+    
     <!-- Main Content -->
     <div id="main-content">
       <Header locale={currentLocale} />
@@ -105,17 +125,17 @@ const currentLocale: Locale = 'ja';
 
         <div class="mt-2">
           <!-- About Section -->
-          <section id="tabs-with-underline-1-section" class="section-content pt-8 pb-16 active">
+          <section id="about-section" class="section-content pt-8 pb-16">
             <WhoWeAre locale={currentLocale} />  
           </section>
           
           <!-- History Section -->
-          <section id="tabs-with-underline-2-section" class="section-content pt-8 pb-16">
+          <section id="history-section" class="section-content pt-8 pb-16">
             <History locale={currentLocale} />
           </section>
           
           <!-- Mission Section -->
-          <section id="tabs-with-underline-3-section" class="section-content pt-8 pb-16">
+          <section id="mission-section" class="section-content pt-8 pb-16">
             <Mission locale={currentLocale} />
           </section>
         </div>
@@ -123,28 +143,90 @@ const currentLocale: Locale = 'ja';
       </main>
     </div>
 
+    <!-- Scroll-based tab switching script -->
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Tab functionality
+      document.addEventListener('DOMContentLoaded', function() {
         const tabs = document.querySelectorAll('[role="tab"]');
         const sections = document.querySelectorAll('.section-content');
+        
+        // Map tabs to sections
+        const tabSectionMap: Record<string, string> = {
+          'tabs-with-underline-item-1': 'about-section',
+          'tabs-with-underline-item-2': 'history-section', 
+          'tabs-with-underline-item-3': 'mission-section'
+        };
 
+        // Function to update active tab based on scroll position
+        function updateActiveTab() {
+          const scrollPosition = window.scrollY + window.innerHeight / 2;
+          let activeSection: string | null = null;
+          
+          sections.forEach(section => {
+            const sectionTop = (section as HTMLElement).offsetTop;
+            const sectionBottom = sectionTop + (section as HTMLElement).offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+              activeSection = section.id;
+            }
+          });
+          
+          // If no section is in view, default to first section
+          if (!activeSection) {
+            activeSection = 'about-section';
+          }
+          
+          // Update tab appearance
+          tabs.forEach(tab => {
+            const tabId = tab.getAttribute('id');
+            const sectionId = tabId ? tabSectionMap[tabId] : null;
+            
+            if (sectionId === activeSection) {
+              // Activate tab
+              tab.classList.add('active', 'font-semibold', 'text-primary');
+              tab.classList.remove('text-gray-500');
+              tab.setAttribute('aria-selected', 'true');
+            } else {
+              // Deactivate tab
+              tab.classList.remove('active', 'font-semibold', 'text-primary');
+              tab.classList.add('text-gray-500');
+              tab.setAttribute('aria-selected', 'false');
+            }
+          });
+        }
+
+        // Throttled scroll event listener
+        let scrollTimeout: NodeJS.Timeout | null = null;
+        window.addEventListener('scroll', () => {
+          if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+          }
+          scrollTimeout = setTimeout(updateActiveTab, 10);
+        });
+
+        // Initial call to set correct tab on page load
+        updateActiveTab();
+        
+        // Ensure first tab is active by default
+        const firstTab = tabs[0];
+        if (firstTab) {
+          firstTab.classList.add('active', 'font-semibold', 'text-primary');
+          firstTab.classList.remove('text-gray-500');
+          firstTab.setAttribute('aria-selected', 'true');
+        }
+
+        // Optional: Add click functionality to scroll to sections
         tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
-            // Remove active class from all tabs and sections
-            tabs.forEach(t => t.classList.remove('active'));
-            sections.forEach(s => s.classList.remove('active'));
-
-            // Add active class to clicked tab
-            tab.classList.add('active');
-
-            // Show corresponding section
-            const targetId = tab.getAttribute('data-hs-tab');
-            if (targetId) {
-              const targetSection = document.querySelector(`${targetId}-section`);
-              if (targetSection) {
-                targetSection.classList.add('active');
-              }
+          tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tabId = tab.getAttribute('id');
+            const sectionId = tabId ? tabSectionMap[tabId] : null;
+            const targetSection = sectionId ? document.getElementById(sectionId) : null;
+            
+            if (targetSection) {
+              targetSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
             }
           });
         });
@@ -161,17 +243,17 @@ const currentLocale: Locale = 'ja';
         const storedLocale = localStorage.getItem('alife-locale');
         const currentPath = window.location.pathname;
         
-      // If user has a stored preference, redirect to the appropriate localized path
-      if (storedLocale) {
-        if (storedLocale === 'ja' && !currentPath.startsWith('/alife-web/ja/')) {
-          // Redirect to Japanese version
-          window.location.href = `/alife-web/ja${currentPath.replace('/alife-web', '')}`;
-        } else if (storedLocale === 'en' && currentPath.startsWith('/alife-web/ja/')) {
-          // Redirect to English version (remove /ja prefix)
-          const englishPath = currentPath.replace('/alife-web/ja', '/alife-web');
-          window.location.href = englishPath;
+        // If user has a stored preference, redirect to the appropriate localized path
+        if (storedLocale) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+            // Redirect to Japanese version
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+            // Redirect to English version (remove /ja prefix)
+            const englishPath = currentPath.replace('/ja', '');
+            window.location.href = englishPath;
+          }
         }
-      }
       });
     </script>
   </body>

@@ -49,6 +49,15 @@ const blogCollection = defineCollection({
   }),
 });
 
+const blogCategoriesCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    order: z.number(),
+  }),
+});
+
 const supportCategoriesCollection = defineCollection({
   type: 'content',
   schema: z.object({
@@ -79,6 +88,7 @@ const collections = {
   team: teamCollection,
   'team-categories': teamCategoriesCollection,
   blog: blogCollection,
+  'blog-categories': blogCategoriesCollection,
   'support-categories': supportCategoriesCollection,
   'support-content': supportContentCollection,
 };

@@ -42,17 +42,18 @@ const htmlContent = job.content ? await marked(job.content) : '';
     <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <!-- Hero Section -->
       <section class="text-center mb-8 sm:mb-10">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          {t(currentLocale, 'jobs.title')}
+        <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          Where Brilliant<br />
+          Minds Explore Together
         </h1>
       </section>
-      <p class="text-sm sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+      <p class="text-20px sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
         {t(currentLocale, 'jobs.subtitle')}
       </p>
 
       <!-- Join Us Section with Tabs -->
       <section class="text-center mb-12 sm:mb-20">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+        <h2 class="text-40px sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
           {t(currentLocale, 'jobs.joinUs')}
         </h2>
         <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
@@ -70,30 +71,30 @@ const htmlContent = job.content ? await marked(job.content) : '';
 
       <!-- Job Title & Details -->
       <section class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
+        <h2 class="text-40px md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
           {job.title}
         </h2>
-        <p class="text-lg text-gray-600 mb-6">{job.location}</p>
+        <p class="text-16px text-primary mb-6">{job.location}</p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
           <div class="flex items-center">
-            <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            <span class="text-gray-600">{new Date(job.deadline).toLocaleDateString('en-US', {
+            <span class="text-primary">{new Date(job.deadline).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric'
             })}</span>
           </div>
           <div class="flex items-center">
-            <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <span class="text-gray-600">{job.type}</span>
+            <span class="text-primary">{job.type}</span>
           </div>
         </div>
-      </section>
+      </section>  
 
       <!-- Separator -->
       <hr class="border-primary mb-12">
@@ -101,11 +102,11 @@ const htmlContent = job.content ? await marked(job.content) : '';
       <!-- Job Content from Markdown -->
       <div class="job-markdown-content">
         <div set:html={htmlContent
-          .replace(/<h2>/g, '<h2 style="font-family: \'GT Alpina Fine\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">')
-          .replace(/<h2 style="font-family: 'Inter', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #1a365d; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
-          .replace(/<p>/g, '<p style="margin-bottom: 1rem; line-height: 1.7; color: #1a365d; font-family: \'Inter\', sans-serif; font-weight: 300;">')
+          .replace(/<h2>/g, '<h2 style="font-family: \'GT Alpina Fine\', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">')
+          .replace(/<h2 style="font-family: 'Inter', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem; font-size: '20px'">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
+          .replace(/<p>/g, '<p style="margin-bottom: 1rem; line-height: 1.7; color: #2E3192; font-family: \'Inter\', sans-serif; font-weight: 300;">')
           .replace(/<ul>/g, '<ul style="margin-bottom: 3rem; padding-left: 0; list-style: none;">')
-          .replace(/<li>/g, '<li style="margin-bottom: 0.75rem; color: #1a365d; display: flex; align-items: flex-start; font-family: \'Inter\', sans-serif; font-weight: 300;"><span style="width: 8px; height: 8px; background-color: #1a365d; border-radius: 50%; margin-top: 8px; margin-right: 12px; flex-shrink: 0;"></span>')
+          .replace(/<li>/g, '<li style="margin-bottom: 0.75rem; color: #2E3192; display: flex; align-items: flex-start; font-family: \'Inter\', sans-serif; font-weight: 300;"><span style="width: 8px; height: 8px; background-color: #2E3192; border-radius: 50%; margin-top: 8px; margin-right: 12px; flex-shrink: 0;"></span>')
           .replace(/<\/li>/g, '</li>')
         }></div>
       </div>
@@ -115,10 +116,10 @@ const htmlContent = job.content ? await marked(job.content) : '';
 
       <!-- Application Form -->
       <section class="mb-12">
-        <h3 class="text-2xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
+        <h3 class="text-40px font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
           {t(currentLocale, 'jobs.applyNow')}.
         </h3>
-        <p class="text-primary font-light mb-8">
+        <p class="text-primary text-16px mb-8">
           Tell us why you'd be a good fit for the {job.title} role.
         </p>
 

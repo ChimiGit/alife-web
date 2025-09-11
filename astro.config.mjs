@@ -45,6 +45,7 @@ export default defineConfig({
         '.trycloudflare.com',
         'americas-municipal-express-philips.trycloudflare.com',
         'https://reservations-poker-trademark-teacher.trycloudflare.com',
+        'https://chimigit.github.io/alife-web',
       ],
       headers: {
         'ngrok-skip-browser-warning': 'true',

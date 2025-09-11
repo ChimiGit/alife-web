@@ -2,64 +2,45 @@
 import '../../styles/global.css';
 import Header from '../../components/Header.astro';
 import getAllBlogs, { getBlogsByCategory } from '../../utils/blog.ts';
+import { getBlogCategories } from '../../utils/blog-categories.ts';
 import { t, type Locale } from '../../utils/i18n.ts';
 
 const currentLocale: Locale = 'ja';
 
 // Get actual blog posts and categories
 const allBlogs = getAllBlogs();
+const blogCategories = await getBlogCategories();
 
-// Create content data based on actual blog posts
-const contentData = {
-  overview: {
-    posts: allBlogs.map((blog, index) => ({
-      id: index + 1,
-      title: blog.title,
-      excerpt: blog.description,
-      category: blog.category,
-      slug: blog.slug,
-      pubDate: blog.pubDate,
-      author: blog.author,
-      tags: blog.tags || []
-    })),
-  },
-  research: {
-    posts: getBlogsByCategory('Research').map((blog, index) => ({
-      id: index + 1,
-      title: blog.title,
-      excerpt: blog.description,
-      category: blog.category,
-      slug: blog.slug,
-      pubDate: blog.pubDate,
-      author: blog.author,
-      tags: blog.tags || []
-    })),
-  },
-  events: {
-    posts: getBlogsByCategory('Events').map((blog, index) => ({
-      id: index + 1,
-      title: blog.title,
-      excerpt: blog.description,
-      category: blog.category,
-      slug: blog.slug,
-      pubDate: blog.pubDate,
-      author: blog.author,
-      tags: blog.tags || []
-    })),
-  },
-  news: {
-    posts: getBlogsByCategory('News').map((blog, index) => ({
-      id: index + 1,
-      title: blog.title,
-      excerpt: blog.description,
-      category: blog.category,
-      slug: blog.slug,
-      pubDate: blog.pubDate,
-      author: blog.author,
-      tags: blog.tags || []
-    })),
-  }
-};
+// Create content data based on actual blog posts and categories
+const contentData = Object.fromEntries(
+  blogCategories.map(category => [
+    category.data.title.toLowerCase().replace(/\s+/g, '-'),
+    {
+      posts: category.data.title === 'Overview' 
+        ? allBlogs.map((blog, index) => ({
+            id: index + 1,
+            title: blog.title,
+            excerpt: blog.description,
+            category: blog.category,
+            slug: blog.slug,
+            pubDate: blog.pubDate,
+            author: blog.author,
+            tags: blog.tags || []
+          }))
+        : getBlogsByCategory(category.data.title).map((blog, index) => ({
+            id: index + 1,
+            title: blog.title,
+            excerpt: blog.description,
+            category: blog.category,
+            slug: blog.slug,
+            pubDate: blog.pubDate,
+            author: blog.author,
+            tags: blog.tags || []
+          })),
+      categoryInfo: category.data
+    }
+  ])
+);
 ---
 
 <html lang="ja">
@@ -74,6 +55,33 @@ const contentData = {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+      /* Noise effect */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        animation: noise 0.2s infinite;
+        mix-blend-mode: overlay;
+      }
+      
+      @keyframes noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(-15%, 10%); }
+        90% { transform: translate(10%, 5%); }
+      }
     /* Slide-in animation styles for back navigation from blog pages */
     .slide-in-from-left {
       transform: translateX(-100%);
@@ -139,6 +147,9 @@ const contentData = {
   </head>
 
   <body class="min-h-screen bg-gray-50 font-japanese">
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+    
     <div id="main-content">
       <Header locale={currentLocale} />
 
@@ -154,18 +165,18 @@ const contentData = {
           <div class="overflow-x-auto">
             <div class="flex justify-center min-w-max">
               <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
-                <button id="overview-tab" class="active-tab px-6 py-2 rounded-full bg-primary text-white transition-all duration-200 whitespace-nowrap">
-                  すべて
-                </button>
-                <button id="research-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
-                  研究
-                </button>
-                <button id="events-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
-                  イベント
-                </button>
-                <button id="news-tab" class="tab px-6 py-2 rounded-full text-primary hover:bg-gray-200 transition-all duration-200 whitespace-nowrap">
-                  ニュース
-                </button>
+                {blogCategories.map((category, index) => (
+                  <button 
+                    id={`${category.data.title.toLowerCase().replace(/\s+/g, '-')}-tab`} 
+                    class={`px-6 py-2 rounded-full transition-all duration-200 whitespace-nowrap ${
+                      index === 0 
+                        ? 'active-tab bg-primary text-white' 
+                        : 'tab text-primary hover:bg-gray-200'
+                    }`}
+                  >
+                    {t(currentLocale, `blog.categories.${category.data.title.toLowerCase()}`)}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -176,116 +187,47 @@ const contentData = {
 
         <div class="w-full content-section">
           <div id="tab-content" class="w-full">
-            <!-- Overview content (default) -->
-            <div id="overview-content" class="tab-content">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {contentData.overview.posts.map(post => (
-                  <a href={`/ja/blog/${post.slug}`} class="block group blog-card">
-                    <div class="mb-6">
-                      <img 
-                        src="/assets/images/image.png"
-                        loading="lazy"
-                        alt={post.title}
-                        class="w-full aspect-square object-cover"
-                      />
-                    </div>
-                    <div class="space-y-3">
-                      <h2 class="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
-                        {post.title}
-                      </h2>
-                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 font-light">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-                
-                {contentData.overview.posts.length === 0 && (
-                  <div class="col-span-full text-center py-12">
-                    <p class="text-gray-500 text-lg">ブログ記事はまだありません。</p>
-                    <p class="text-gray-400 text-sm mt-2">更新をお待ちください！</p>
+            <!-- Dynamic category content -->
+            {blogCategories.map((category, index) => {
+              const categoryKey = category.data.title.toLowerCase().replace(/\s+/g, '-');
+              const categoryData = contentData[categoryKey];
+              return (
+                <div 
+                  id={`${categoryKey}-content`} 
+                  class={`tab-content ${index === 0 ? '' : 'hidden'}`}
+                >
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {categoryData?.posts.map((post: any) => (
+                      <a href={`/ja/blog/${post.slug}`} class="block group blog-card">
+                        <div class="mb-6">
+                          <img 
+                            src="/assets/images/image.png"
+                            loading="lazy"
+                            alt={post.title}
+                            class="w-full aspect-square object-cover"
+                          />
+                        </div>
+                        <div class="space-y-3">
+                          <h2 class="text-35px font-bold text-primary leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                            {post.title}
+                          </h2>
+                          <p class="text-primary text-18px leading-relaxed line-clamp-3 font-light">
+                            {post.excerpt}
+                          </p>
+                        </div>
+                      </a>
+                    ))}
+                    
+                    {(!categoryData?.posts || categoryData.posts.length === 0) && (
+                      <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500 text-lg">ブログ記事はまだありません。</p>
+                        <p class="text-gray-400 text-sm mt-2">更新をお待ちください！</p>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
-
-            <!-- Research content -->
-            <div id="research-content" class="tab-content hidden">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {contentData.research.posts.map(post => (
-                  <a href={`/ja/blog/${post.slug}`} class="block group blog-card">
-                    <div class="mb-6">
-                      <img 
-                        src="/assets/images/image.png"
-                        loading="lazy"
-                        alt={post.title}
-                        class="w-full aspect-square object-cover"
-                      />
-                    </div>
-                    <div class="space-y-3">
-                      <h2 class="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
-                        {post.title}
-                      </h2>
-                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <!-- Events content -->
-            <div id="events-content" class="tab-content hidden">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {contentData.events.posts.map(post => (
-                  <a href={`/ja/blog/${post.slug}`} class="block group blog-card">
-                    <div class="mb-6">
-                      <img 
-                        src="/assets/images/image.png"
-                        loading="lazy"
-                        alt={post.title}
-                        class="w-full aspect-square object-cover"
-                      />
-                    </div>
-                    <div class="space-y-3">
-                      <h2 class="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
-                        {post.title}
-                      </h2>
-                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <!-- News content -->
-            <div id="news-content" class="tab-content hidden">
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {contentData.news.posts.map(post => (
-                  <a href={`/ja/blog/${post.slug}`} class="block group blog-card">
-                    <div class="mb-6">
-                      <img 
-                        src="/assets/images/image.png"
-                        loading="lazy"
-                        alt={post.title}
-                        class="w-full aspect-square object-cover"
-                      />
-                    </div>
-                    <div class="space-y-3">
-                      <h2 class="text-xl font-bold text-gray-900 leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
-                        {post.title}
-                      </h2>
-                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </main>
@@ -306,37 +248,70 @@ const contentData = {
         const tabs = document.querySelectorAll('.tab, .active-tab');
         const tabContents = document.querySelectorAll('.tab-content');
 
-        tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            tabs.forEach(t => {
+        function showTab(tabName: string) {
+          // Hide all tab contents
+          tabContents.forEach((content) => {
+            content.classList.add('hidden');
+            // Remove animation classes from cards in hidden tabs
+            const cards = content.querySelectorAll('.blog-card');
+            cards.forEach(card => {
+              card.classList.remove('animate');
+            });
+          });
+
+          // Show selected tab content
+          const selectedContent = document.getElementById(`${tabName}-content`);
+          if (selectedContent) {
+            selectedContent.classList.remove('hidden');
+            
+            // Animate cards in the selected tab
+            const cards = selectedContent.querySelectorAll('.blog-card');
+            cards.forEach((card, index) => {
+              (card as HTMLElement).style.transitionDelay = `${(index + 1) * 0.1}s`;
+              setTimeout(() => {
+                card.classList.add('animate');
+              }, 50);
+            });
+          }
+        }
+
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', function (this: HTMLElement) {
+            // Update tab styling
+            tabs.forEach((t) => {
               t.classList.remove('active-tab', 'bg-primary', 'text-white');
               t.classList.add('tab', 'text-primary');
             });
 
-            // Add active class to clicked tab
-            tab.classList.remove('tab', 'text-primary');
-            tab.classList.add('active-tab', 'bg-primary', 'text-white');
+            this.classList.remove('tab', 'text-primary');
+            this.classList.add('active-tab', 'bg-primary', 'text-white');
 
-            // Hide all tab contents
-            tabContents.forEach(content => content.classList.add('hidden'));
-
-            // Show corresponding content
-            const tabId = tab.id.replace('-tab', '');
-            const targetContent = document.getElementById(`${tabId}-content`);
-            if (targetContent) {
-              targetContent.classList.remove('hidden');
-              
-              // Animate cards
-              const cards = targetContent.querySelectorAll('.blog-card');
-              cards.forEach((card, index) => {
-                setTimeout(() => {
-                  card.classList.add('animate');
-                }, index * 100);
-              });
-            }
+            // Get tab name from ID
+            const tabName = this.id.replace('-tab', '');
+            showTab(tabName);
           });
         });
+
+        // Initialize with first tab (Overview)
+        const firstTab = tabs[0];
+        if (firstTab) {
+          const tabName = firstTab.id.replace('-tab', '');
+          showTab(tabName);
+        }
+        
+        // Animate initial cards after page load
+        setTimeout(() => {
+          const firstTabContent = document.querySelector('.tab-content:not(.hidden)');
+          if (firstTabContent) {
+            const cards = firstTabContent.querySelectorAll('.blog-card');
+            cards.forEach((card, index) => {
+              (card as HTMLElement).style.transitionDelay = `${(index + 1) * 0.1}s`;
+              setTimeout(() => {
+                card.classList.add('animate');
+              }, 50);
+            });
+          }
+        }, 100);
 
         // Initialize content animations
         setTimeout(() => {
@@ -352,12 +327,12 @@ const contentData = {
         
         // If user has a stored preference, redirect to the appropriate localized path
         if (storedLocale) {
-          if (storedLocale === 'ja' && !currentPath.startsWith('/alife-web/ja/')) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
             // Redirect to Japanese version
-            window.location.href = `/alife-web/ja${currentPath.replace('/alife-web', '')}`;
-          } else if (storedLocale === 'en' && currentPath.startsWith('/alife-web/ja/')) {
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
             // Redirect to English version (remove /ja prefix)
-            const englishPath = currentPath.replace('/alife-web/ja', '/alife-web');
+            const englishPath = currentPath.replace('/ja', '');
             window.location.href = englishPath;
           }
         }

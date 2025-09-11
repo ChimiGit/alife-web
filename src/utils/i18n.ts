@@ -86,13 +86,8 @@ export function getEffectiveLocale(pathname: string): Locale {
 }
 
 export function getLocalizedPath(pathname: string, locale: Locale): string {
-  // Clean the pathname - remove any existing locale prefixes and base path
+  // Clean the pathname - remove any existing locale prefixes
   let cleanPath = pathname;
-
-  // Remove base path if present
-  if (cleanPath.startsWith('/alife-web')) {
-    cleanPath = cleanPath.replace('/alife-web', '');
-  }
 
   // Remove any locale prefix
   if (cleanPath.startsWith('/ja/')) {
@@ -107,14 +102,14 @@ export function getLocalizedPath(pathname: string, locale: Locale): string {
 
   // Handle root path
   if (cleanPath === '/') {
-    return locale === 'ja' ? '/alife-web/ja' : '/alife-web';
+    return locale === 'ja' ? '/ja' : '/';
   }
 
   // Add locale prefix if switching to Japanese
   if (locale === 'ja') {
-    return `/alife-web/ja${cleanPath}`;
+    return `/ja${cleanPath}`;
   }
 
-  // For English (default), return clean path with base
-  return `/alife-web${cleanPath}`;
+  // For English (default), return clean path
+  return cleanPath;
 }

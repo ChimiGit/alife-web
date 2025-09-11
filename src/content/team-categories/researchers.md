@@ -1,5 +1,5 @@
 ---
-title: 'Research Team'
+title: 'Researchers'
 description: 'Our research team pushes the boundaries of artificial life, exploring emergent behaviors and evolutionary systems.'
 order: 3
 ---

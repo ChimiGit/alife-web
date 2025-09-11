@@ -23,18 +23,15 @@ const { currentLocale } = Astro.props;
         const currentPathEn = window.location.pathname;
         console.log('Current path:', currentPathEn);
         
-        // Clean the path - remove any locale prefix and base path
+        // Clean the path - remove any locale prefix
         let cleanPathEn = currentPathEn;
-        if (cleanPathEn.startsWith('/alife-web')) {
-          cleanPathEn = cleanPathEn.replace('/alife-web', '');
-        }
         if (cleanPathEn.startsWith('/ja/')) {
           cleanPathEn = cleanPathEn.replace('/ja/', '/');
         } else if (cleanPathEn === '/ja') {
           cleanPathEn = '/';
         }
         
-        const targetUrlEn = cleanPathEn === '/' ? '/alife-web' : `/alife-web${cleanPathEn}`;
+        const targetUrlEn = cleanPathEn === '/' ? '/' : cleanPathEn;
         console.log('Target URL:', targetUrlEn);
         
         localStorage.setItem('alife-locale', 'en');
@@ -60,18 +57,15 @@ const { currentLocale } = Astro.props;
         const currentPathJp = window.location.pathname;
         console.log('Current path:', currentPathJp);
         
-        // Clean the path - remove any locale prefix and base path
+        // Clean the path - remove any locale prefix
         let cleanPathJp = currentPathJp;
-        if (cleanPathJp.startsWith('/alife-web')) {
-          cleanPathJp = cleanPathJp.replace('/alife-web', '');
-        }
         if (cleanPathJp.startsWith('/ja/')) {
           cleanPathJp = cleanPathJp.replace('/ja/', '/');
         } else if (cleanPathJp === '/ja') {
           cleanPathJp = '/';
         }
         
-        const targetUrlJp = cleanPathJp === '/' ? '/alife-web/ja' : `/alife-web/ja${cleanPathJp}`;
+        const targetUrlJp = cleanPathJp === '/' ? '/ja' : '/ja' + cleanPathJp;
         console.log('Target URL:', targetUrlJp);
         
         localStorage.setItem('alife-locale', 'ja');

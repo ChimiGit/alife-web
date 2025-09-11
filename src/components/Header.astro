@@ -19,9 +19,9 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
       <!-- Logo section -->
       <div class="flex items-center">
         <a href="/" class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
-          <div class="relative w-36 h-8">
-            <img src="/assets/logo/logo1.svg" alt="ALIFE Logo 1" class="h-10 w-18 absolute top-0 left-0 z-10"/>
-            <img src="/assets/logo/logo2.svg" alt="ALIFE Logo 2" class="h-10 w-18 logo-slide absolute top-0 left-19 transition-all duration-500 ease-in-out z-20"/>
+          <div class="relative" style="width: 189.92px; height: 27.63px;">
+            <img src="/assets/logo/logo1.svg" alt="ALIFE Logo 1" class="absolute top-0 left-0 z-10" style="width: 189.92px; height: 27.63px;"/>
+            <img src="/assets/logo/logo2.svg" alt="ALIFE Logo 2" class="logo-slide absolute top-0 left-0 transition-all duration-500 ease-in-out z-20" style="width: 189.92px; height: 27.63px;"/>
           </div>
         </a>
       </div>
@@ -151,7 +151,7 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #1a365d; /* primary color */
+    background-color: #2E3192; /* primary color */
     transition: width 0.3s ease;
   }
 
@@ -160,7 +160,7 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
   }
 
   .nav-link.active {
-    color: #1a365d !important; /* primary color */
+    color: #2E3192 !important; /* primary color */
     font-weight: 600;
   }
 
@@ -170,7 +170,7 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 
   /* Mobile menu styles */
   .mobile-nav-link.active {
-    color: #1a365d !important;
+    color: #2E3192 !important;
     font-weight: 600;
     background-color: rgba(255, 255, 255, 0.05) !important;
   }
@@ -223,13 +223,13 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 
   /* Logo slide animation */
   .logo-slide {
-    transform: translateX(0);
+    transform: translateX(100px);
     opacity: 1;
     z-index: 20;
   }
 
   .logo-slide.scrolled {
-    transform: translateX(-100%);
+    transform: translateX(0);
     opacity: 0;
     z-index: 30;
   }
@@ -414,7 +414,7 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
     };
 
     // Throttle scroll events for better performance
-    let scrollTimeout;
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
     window.addEventListener('scroll', () => {
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);

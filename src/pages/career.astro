@@ -21,6 +21,33 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+      /* Noise effect */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        animation: noise 0.2s infinite;
+        mix-blend-mode: overlay;
+      }
+      
+      @keyframes noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(-15%, 10%); }
+        90% { transform: translate(10%, 5%); }
+      }
     /* Slide-in animation styles for back navigation from job pages */
     .slide-in-from-left {
       transform: translateX(-100%);
@@ -64,6 +91,9 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
   </head>
 
   <body class="min-h-screen bg-gray-50">
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+    
     <!-- Main Content -->
     <div id="main-content">
       <Header locale={currentLocale} />
@@ -73,17 +103,18 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
 
       <!-- Hero Section -->
       <section class="text-center mb-8 sm:mb-10 hero-section">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          {t(currentLocale, 'career.title')}
+        <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          Where Brilliant<br />
+          Minds Explore Together
         </h1>
       </section>
-      <p class="text-sm sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+      <p class="text-20px sm:text-20px text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
         {t(currentLocale, 'career.subtitle')}
       </p>
 
       <!-- Join Us Section with Tabs -->
       <section class="text-center mb-12 sm:mb-20 join-section">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+        <h2 class="text-40px font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
           {t(currentLocale, 'career.joinUs')}
         </h2>
         <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
@@ -147,6 +178,43 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           });
         });
 
+        // Handle URL hash for direct tab navigation
+        function handleHashNavigation() {
+          const hash = window.location.hash;
+          if (hash === '#researchers') {
+            // Switch to Our Team tab first
+            const ourTeamTab = document.getElementById('our-team-tab');
+            if (ourTeamTab) {
+              ourTeamTab.click();
+              
+              // Wait for the Team component to load, then activate researchers tab
+              setTimeout(() => {
+                const researchersTab = document.querySelector('[data-target="#researchers-panel"]') as HTMLElement;
+                if (researchersTab) {
+                  researchersTab.click();
+                  
+                  // Scroll to the researchers section
+                  setTimeout(() => {
+                    const researchersPanel = document.getElementById('researchers-panel');
+                    if (researchersPanel) {
+                      researchersPanel.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }, 200);
+                }
+              }, 100);
+            }
+          }
+        }
+
+        // Handle hash on page load
+        handleHashNavigation();
+
+        // Handle hash changes
+        window.addEventListener('hashchange', handleHashNavigation);
+
         // Note: Team tab functionality is now handled in Team.astro component
 
       });
@@ -168,12 +236,12 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         
         // If user has a stored preference, redirect to the appropriate localized path
         if (storedLocale) {
-          if (storedLocale === 'ja' && !currentPath.startsWith('/alife-web/ja/')) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
             // Redirect to Japanese version
-            window.location.href = `/alife-web/ja${currentPath.replace('/alife-web', '')}`;
-          } else if (storedLocale === 'en' && currentPath.startsWith('/alife-web/ja/')) {
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
             // Redirect to English version (remove /ja prefix)
-            const englishPath = currentPath.replace('/alife-web/ja', '/alife-web');
+            const englishPath = currentPath.replace('/ja', '');
             window.location.href = englishPath;
           }
         }

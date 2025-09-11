@@ -44,7 +44,13 @@
     "title": "私たちの旅路を共有",
     "subtitle": "研究の突破口、今後のイベント、進化的AIの最前線からの最新ニュース",
     "readMore": "続きを読む",
-    "publishedOn": "公開日"
+    "publishedOn": "公開日",
+    "categories": {
+      "overview": "すべて",
+      "research": "研究",
+      "events": "イベント",
+      "news": "ニュース"
+    }
   },
   "support": {
     "title": "進化に参加",

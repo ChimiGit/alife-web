@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#2e3192', // Deep blue for ALIFE branding
+        primary: '#2E3192', // Deep blue for ALIFE branding
       },
       fontFamily: {
         sans: [
@@ -22,8 +22,4 @@ export default {
     },
   },
   plugins: [],
-  // Optimize for production
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
 };

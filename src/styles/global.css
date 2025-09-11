@@ -29,35 +29,35 @@ body {
 
 /* Custom ALIFE colors */
 .bg-primary {
-  background-color: #1a365d;
+  background-color: #2e3192;
 }
 
 .text-primary {
-  color: #1a365d;
+  color: #2e3192;
 }
 
 .border-primary {
-  border-color: #1a365d;
+  border-color: #2e3192;
 }
 
 .bg-accent-cyan {
-  background-color: #1a365d;
+  background-color: #2e3192;
 }
 
 .text-accent-cyan {
-  color: #1a365d;
+  color: #2e3192;
 }
 
 .hover\:bg-accent-cyan:hover {
-  background-color: #1a365d;
+  background-color: #2e3192;
 }
 
 .hover\:text-accent-cyan:hover {
-  color: #1a365d;
+  color: #2e3192;
 }
 
 .hover\:bg-primary:hover {
-  background-color: #1a365d;
+  background-color: #2e3192;
 }
 
 /* Primary color filter for images */
@@ -141,20 +141,61 @@ body {
 
 /* Custom main tab hover states */
 .main-tab:not(.active):hover {
-  background-color: #1a365d !important; /* primary color */
+  background-color: #2e3192 !important; /* primary color */
   color: white !important;
-  border-color: #1a365d !important;
+  border-color: #2e3192 !important;
 }
 
 .main-tab.active:hover {
-  background-color: #1a365d !important; /* primary color */
+  background-color: #2e3192 !important; /* primary color */
   color: white !important;
+}
+
+/* Custom 18px font size */
+.text-18px {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* Custom 20px font size */
+.text-20px {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.text-16px {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Custom 32px font size */
+.text-32px {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+/* Custom 35px font size */
+.text-35px {
+  font-size: 35px;
+  line-height: 1.2;
+}
+
+/* Custom 40px font size */
+.text-40px {
+  font-size: 40px;
+  line-height: 1.2;
 }
 
 /* Custom 64px font size */
 .text-64px {
   font-size: 64px;
   line-height: 1.1;
+}
+
+/* Custom 128px font size */
+.text-128px {
+  font-size: 128px;
+  line-height: 100px;
 }
 
 .text-200px {
