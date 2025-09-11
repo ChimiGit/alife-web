@@ -68,8 +68,6 @@ const contentData = {
     <title>Blog - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload loader image for faster loading -->
-    <link rel="preload" href="/assets/loader/blog-loading.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -141,7 +139,7 @@ const contentData = {
     <div id="main-content">
       <Header />
 
-      <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12" style="font-family: 'Inter', sans-serif;">
+      <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12 content-stagger" style="font-family: 'Inter', sans-serif;">
         <div class="text-center mb-12 hero-section">
           <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
           <p class="text-medium text-gray-600 max-w-3xl mx-auto font-light">
@@ -388,6 +386,18 @@ const contentData = {
                 card.classList.add('animate');
               }, 50);
             });
+          }
+        }, 100);
+      });
+    </script>
+
+    <!-- Initialize content animations -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const staggerContainer = document.querySelector('.content-stagger');
+          if (staggerContainer) {
+            staggerContainer.classList.add('loaded');
           }
         }, 100);
       });

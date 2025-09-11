@@ -16,20 +16,15 @@ import Slider2 from "../components/home-slider/slider-2.astro";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Preload critical fonts -->
     <link rel="preload" href="/fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2" as="font" type="font/woff2" crossorigin>
-    <!-- Preload loader images for faster loading -->
-    <link rel="preload" href="/assets/loader/blog-loading.png" as="image">
-    <link rel="preload" href="/assets/loader/career-loading.png" as="image">
-    <link rel="preload" href="/assets/loader/about-loading.png" as="image">
-    <link rel="preload" href="/assets/loader/support-loading.png" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="min-h-screen overflow-x-hidden">
     <Header />
     <!-- Backgrounds will be shown/hidden via JavaScript -->
-    <div id="slider-1-background">
+    <div id="slider-1-background" class="content-fade">
       <Slider1 />
     </div>
-    <div id="slider-2-background" class="hidden">
+    <div id="slider-2-background" class="hidden content-fade">
       <Slider2 />
     </div>
        <!-- <div id="slider-3-background" class="hidden"> <Slider3 /> </div> -->
@@ -48,6 +43,14 @@ import Slider2 from "../components/home-slider/slider-2.astro";
       // Show the randomly chosen background
       const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
       selectedBackground?.classList.remove('hidden');
+      
+      // Initialize content animations
+      setTimeout(() => {
+        const contentElements = document.querySelectorAll('.content-fade');
+        contentElements.forEach(element => {
+          element.classList.add('loaded');
+        });
+      }, 100);
     </script>
   </body>
 </html>

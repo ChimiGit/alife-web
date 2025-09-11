@@ -25,7 +25,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
       <Header />
 
       <!-- Main content -->
-      <main class="pt-10 sm:pt-10" style="font-family: 'Inter', sans-serif;">
+      <main class="pt-10 sm:pt-10 content-stagger" style="font-family: 'Inter', sans-serif;">
         <!-- Hero Section -->
         <section class="pb-12 sm:pb-16 md:py-20">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
@@ -375,6 +375,18 @@ const supportTeamMembers = await getAllSupportTeamMembers();
           modal.classList.add('hidden');
         }
       }
+    </script>
+
+    <!-- Initialize content animations -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const staggerContainer = document.querySelector('.content-stagger');
+          if (staggerContainer) {
+            staggerContainer.classList.add('loaded');
+          }
+        }, 100);
+      });
     </script>
 
   </body>

@@ -66,7 +66,7 @@ import '../styles/global.css';
       <Header />
 
       <!-- Main content -->
-      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 content-stagger">
 
       <!-- Hero Section -->
       <section class="text-center mb-8 sm:mb-10 hero-section">
@@ -150,6 +150,18 @@ import '../styles/global.css';
 
         // Note: Team tab functionality is now handled in Team.astro component
 
+      });
+    </script>
+
+    <!-- Initialize content animations -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const staggerContainer = document.querySelector('.content-stagger');
+          if (staggerContainer) {
+            staggerContainer.classList.add('loaded');
+          }
+        }, 100);
       });
     </script>
 
