@@ -24,9 +24,19 @@ export interface Props {
 </div>
 
 <!-- Mission Content -->
-<div class="w-screen px-8 py-16" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
+<div class="w-screen px-8 py-16 relative" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
+  <!-- Background Frame SVG -->
+  <div class="absolute inset-0 bg-gray-50">
+    <img 
+      src="/assets/images/frame.svg" 
+      alt="Decorative frame background" 
+      class="w-full h-full object-contain opacity-60"
+      style="filter: brightness(0.8) contrast(1.2);"
+    />
+  </div>
+  
   <!-- Flex Container for Mission, Vision, and Values -->
-  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 relative z-10">
     
     <!-- Mission Section -->
     <div class="flex-1">
