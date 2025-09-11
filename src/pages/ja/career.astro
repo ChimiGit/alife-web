@@ -1,21 +1,21 @@
 ---
-import Header from '../components/Header.astro';
-import Jobs from '../components/sections/career/Jobs.astro';
-import Team from '../components/sections/career/Team.astro';
-import '../styles/global.css';
-import { t, getEffectiveLocale } from '../utils/i18n.ts';
+import Header from '../../components/Header.astro';
+import Jobs from '../../components/sections/career/Jobs.astro';
+import Team from '../../components/sections/career/Team.astro';
+import '../../styles/global.css';
+import { t, type Locale } from '../../utils/i18n.ts';
 
-const currentLocale = getEffectiveLocale(Astro.url.pathname);
+const currentLocale: Locale = 'ja';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Career - ALIFE</title>
+    <title>キャリア - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -60,10 +60,22 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
       transform: translateX(0);
       opacity: 1;
     }
+
+    /* Custom main tab hover states */
+    .main-tab:not(.active):hover {
+      background-color: #1a365d !important; /* primary color */
+      color: white !important;
+      border-color: #1a365d !important;
+    }
+
+    .main-tab.active:hover {
+      background-color: #1a365d !important; /* primary color */
+      color: white !important;
+    }
     </style>
   </head>
 
-  <body class="min-h-screen bg-gray-50">
+  <body class="min-h-screen bg-gray-50 font-japanese">
     <!-- Main Content -->
     <div id="main-content">
       <Header locale={currentLocale} />
@@ -113,48 +125,33 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
       </main>
     </div>
 
-    <!-- Tab functionality script -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         // Main tabs (Our Team / Jobs)
         const mainTabs = document.querySelectorAll('.main-tab');
         const mainTabContents = document.querySelectorAll('.main-tab-content');
 
-        mainTabs.forEach((tab) => {
+        mainTabs.forEach(tab => {
           tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            mainTabs.forEach(t => t.classList.remove('active'));
+            mainTabContents.forEach(c => c.classList.add('hidden'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Show corresponding content
             const targetId = tab.getAttribute('data-target');
-            const targetContent = targetId ? document.querySelector(targetId) : null;
-
-            // Remove active state from all main tabs
-            mainTabs.forEach((t) => {
-              t.classList.remove('active', 'bg-primary', 'text-white');
-              t.classList.add('border', 'border-primary', 'text-primary');
-            });
-
-            // Hide all main tab contents
-            mainTabContents.forEach((content) => {
-              content.classList.add('hidden');
-            });
-
-            // Add active state to clicked main tab
-            tab.classList.add('active', 'bg-primary', 'text-white');
-            tab.classList.remove('border', 'border-primary', 'text-primary');
-
-            // Show target content
-            if (targetContent) {
-              targetContent.classList.remove('hidden');
+            if (targetId) {
+              const targetContent = document.querySelector(targetId);
+              if (targetContent) {
+                targetContent.classList.remove('hidden');
+              }
             }
           });
         });
 
-        // Note: Team tab functionality is now handled in Team.astro component
-
-      });
-    </script>
-
-    <!-- Initialize content animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize content animations
         setTimeout(() => {
           const staggerContainer = document.querySelector('.content-stagger');
           if (staggerContainer) {
@@ -179,6 +176,5 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         }
       });
     </script>
-
   </body>
 </html>

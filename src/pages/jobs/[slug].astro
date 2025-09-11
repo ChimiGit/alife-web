@@ -4,6 +4,9 @@ import '../../styles/global.css';
 import { marked } from 'marked';
 import Header from '../../components/Header.astro';
 import getAllJobs from '../../utils/jobs.ts';
+import { t, getEffectiveLocale } from '../../utils/i18n.ts';
+
+const currentLocale = getEffectiveLocale(Astro.url.pathname);
 
 // eslint-disable-next-line import/prefer-default-export
 export async function getStaticPaths() {
@@ -17,7 +20,7 @@ export async function getStaticPaths() {
 const { job } = Astro.props;
 
 // Convert markdown to HTML
-const htmlContent = job.content ? marked(job.content) : '';
+const htmlContent = job.content ? await marked(job.content) : '';
 ---
 
 <html lang="en">
@@ -34,34 +37,30 @@ const htmlContent = job.content ? marked(job.content) : '';
   </head>
 
   <body class="min-h-screen bg-white" style="font-family: 'Inter', sans-serif;">
-    <Header />
+    <Header locale={currentLocale} />
 
     <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <!-- Hero Section -->
       <section class="text-center mb-8 sm:mb-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          Where Brilliant<br>
-          Minds Explore Together
+          {t(currentLocale, 'jobs.title')}
         </h1>
       </section>
       <p class="text-sm sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
-        Discover what happens at the intersection of nature and computation, where we're creating something
-        unprecedented. Our team combines world-class researchers and innovative engineers united by a shared
-        fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that
-        grow organically, surprising even their creators.
+        {t(currentLocale, 'jobs.subtitle')}
       </p>
 
       <!-- Join Us Section with Tabs -->
       <section class="text-center mb-12 sm:mb-20">
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
-          Join Us!
+          {t(currentLocale, 'jobs.joinUs')}
         </h2>
         <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
           <a href="/career" class="main-tab border border-primary text-primary px-6 py-2 rounded-full transition-colors duration-200">
-            Our Team
+            {t(currentLocale, 'jobs.ourTeam')}
           </a>
           <a href="/career" class="main-tab active bg-primary text-white px-6 py-2 rounded-full transition-colors duration-200">
-            Jobs
+            {t(currentLocale, 'jobs.jobs')}
           </a>
         </div>
       </section>
@@ -117,7 +116,7 @@ const htmlContent = job.content ? marked(job.content) : '';
       <!-- Application Form -->
       <section class="mb-12">
         <h3 class="text-2xl font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
-          Apply Now.
+          {t(currentLocale, 'jobs.applyNow')}.
         </h3>
         <p class="text-primary font-light mb-8">
           Tell us why you'd be a good fit for the {job.title} role.
@@ -127,7 +126,7 @@ const htmlContent = job.content ? marked(job.content) : '';
           <!-- Name Fields -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label for="firstName" class="block text-sm font-medium text-primary mb-2">First Name</label>
+              <label for="firstName" class="block text-sm font-medium text-primary mb-2">{t(currentLocale, 'jobs.applicationForm.firstName')}</label>
               <input 
                 type="text" 
                 id="firstName" 
@@ -138,7 +137,7 @@ const htmlContent = job.content ? marked(job.content) : '';
               >
             </div>
             <div>
-              <label for="lastName" class="block text-sm font-medium text-primary mb-2">Last Name</label>
+              <label for="lastName" class="block text-sm font-medium text-primary mb-2">{t(currentLocale, 'jobs.applicationForm.lastName')}</label>
               <input 
                 type="text" 
                 id="lastName" 
@@ -152,7 +151,7 @@ const htmlContent = job.content ? marked(job.content) : '';
 
           <!-- Email Field -->
           <div>
-            <label for="email" class="block text-sm font-medium text-primary mb-2">Email</label>
+            <label for="email" class="block text-sm font-medium text-primary mb-2">{t(currentLocale, 'jobs.applicationForm.email')}</label>
             <input 
               type="email" 
               id="email" 
@@ -165,7 +164,7 @@ const htmlContent = job.content ? marked(job.content) : '';
 
           <!-- Phone Field -->
           <div>
-            <label for="phone" class="block text-sm font-medium text-primary mb-2">Phone</label>
+            <label for="phone" class="block text-sm font-medium text-primary mb-2">{t(currentLocale, 'jobs.applicationForm.phone')}</label>
             <input 
               type="tel" 
               id="phone" 
@@ -177,13 +176,13 @@ const htmlContent = job.content ? marked(job.content) : '';
 
           <!-- Resume Upload -->
           <div>
-            <label for="resume" class="block text-sm font-medium text-primary mb-2">Resume</label>
+            <label for="resume" class="block text-sm font-medium text-primary mb-2">{t(currentLocale, 'jobs.applicationForm.resume')}</label>
             <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
               <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
               </svg>
-              <p class="text-gray-600 mb-2">Upload your resume</p>
-              <p class="text-sm text-gray-500">Resume should be a PDF under 3.5MB</p>
+              <p class="text-gray-600 mb-2">{t(currentLocale, 'jobs.applicationForm.uploadResume')}</p>
+              <p class="text-sm text-gray-500">{t(currentLocale, 'jobs.applicationForm.resumeSize')}</p>
               <input 
                 type="file" 
                 id="resume" 
@@ -197,7 +196,7 @@ const htmlContent = job.content ? marked(job.content) : '';
                 onclick="document.getElementById('resume').click()"
                 class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary transition-colors duration-200"
               >
-                Choose File
+{t(currentLocale, 'jobs.applicationForm.chooseFile')}
               </button>
             </div>
           </div>
@@ -213,8 +212,7 @@ const htmlContent = job.content ? marked(job.content) : '';
                 required
               >
               <label for="privacy" class="text-sm text-primary font-light">
-                By submitting my application, I acknowledge that I have read and understand 
-                <a href="/privacy-policy" class="text-primary hover:underline">GMC's Job Applicant Privacy Notice</a>.
+                {t(currentLocale, 'jobs.applicationForm.privacyNotice')}
               </label>
             </div>
             <div class="flex items-start">
@@ -226,7 +224,7 @@ const htmlContent = job.content ? marked(job.content) : '';
                 required
               >
               <label for="accuracy" class="text-sm text-primary font-light">
-                I have reviewed and confirmed that all the information provided is accurate and complete.
+                {t(currentLocale, 'jobs.applicationForm.accuracyCheck')}
               </label>
             </div>
           </div>
@@ -234,8 +232,7 @@ const htmlContent = job.content ? marked(job.content) : '';
           <!-- Important Note -->
           <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
             <p class="text-sm text-primary">
-              <strong>Important:</strong> Please double-check all the information provided above. 
-              Ensuring accuracy is crucial, as any errors or omissions may impact the review of your application.
+              <strong>{t(currentLocale, 'jobs.applicationForm.importantNote')}</strong>
             </p>
           </div>
 
@@ -245,7 +242,7 @@ const htmlContent = job.content ? marked(job.content) : '';
               type="submit" 
               class="bg-primary text-white text-sm px-8 py-3  font-medium hover:bg-primary transition-colors duration-200" style="border-radius: 100px;"
             >
-              Submit Application
+{t(currentLocale, 'jobs.applicationForm.submitApplication')}
             </button>
           </div>
         </form>

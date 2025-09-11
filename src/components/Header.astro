@@ -1,11 +1,17 @@
 ---
 // Header component for ALIFE website
+import { t, getEffectiveLocale, type Locale } from '../utils/i18n.ts';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
 export interface Props {
-  // No props needed
+  locale?: Locale;
 }
+
+const { locale = 'en' } = Astro.props;
+const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 ---
 
-<header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] fixed top-0 left-0 right-0 z-50">
+<header class={`${currentLocale === 'ja' ? "font-['Noto_Sans_JP',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]" : "font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]"} fixed top-0 left-0 right-0 z-50`}>
 
     <!-- Main  header content -->
     <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
@@ -21,25 +27,31 @@ export interface Props {
       </div>
 
       <!-- Desktop Navigation section -->
-      <nav class="hidden lg:flex items-center gap-8" role="navigation" aria-label="Main navigation" style="font-family: 'Inter', sans-serif; font-weight: 300;">
-        <ul class="flex list-none m-0 p-0 gap-8">
-          <li class="m-0">
-            <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="home">Home</a>
-          </li>
-          <li class="m-0">
-            <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="about">About Us</a>
-          </li>
-          <li class="m-0">
-            <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="career">Career</a>
-          </li>
-          <li class="m-0">
-            <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="blog">Blog</a>
-          </li>
-          <li class="m-0">
-            <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="support">Support Us</a>
-          </li>
-        </ul>
-
+      <nav class="hidden lg:flex items-center" role="navigation" aria-label="Main navigation">
+        <div class="px-6 py-3">
+          <ul class="flex list-none m-0 p-0 gap-8 items-center">
+            <li class="m-0">
+              <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">{t(currentLocale, 'navigation.home')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">{t(currentLocale, 'navigation.about')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">{t(currentLocale, 'navigation.career')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">{t(currentLocale, 'navigation.blog')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">{t(currentLocale, 'navigation.support')}</a>
+            </li>
+            
+            <!-- Language Switcher inside the dashed border -->
+            <li class="m-0 ml-4 pl-4">
+              <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <!-- Mobile Hamburger Menu Button -->
@@ -83,36 +95,40 @@ export interface Props {
             <li>
               <a href="/" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Home
+                {t(currentLocale, 'navigation.home')}
               </a>
             </li>
             <li>
               <a href="/about" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                About Us
+                {t(currentLocale, 'navigation.about')}
               </a>
             </li>
             <li>
               <a href="/career" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Career
+                {t(currentLocale, 'navigation.career')}
               </a>
             </li>
             <li>
               <a href="/blog" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Blog
+                {t(currentLocale, 'navigation.blog')}
               </a>
             </li>
             <li>
               <a href="/support" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Support Us
+                {t(currentLocale, 'navigation.support')}
               </a>
             </li>
           </ul>
+          
+          <!-- Mobile Language Switcher -->
+          <div class="mt-8 px-6">
+            <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
+          </div>
         </nav>
-
       </div>
     </div>
 

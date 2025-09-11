@@ -2,7 +2,9 @@
 import Header from '../components/Header.astro';
 import '../styles/global.css';
 import { getAllSupportCategories, getAllSupportTeamMembers } from '../utils/support.ts';
+import { t, getEffectiveLocale } from '../utils/i18n.ts';
 
+const currentLocale = getEffectiveLocale(Astro.url.pathname);
 const supportCategories = await getAllSupportCategories();
 const supportTeamMembers = await getAllSupportTeamMembers();
 ---
@@ -22,7 +24,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
   <body class="min-h-screen bg-gray-50">
     <!-- Main Content -->
     <div id="main-content">
-      <Header />
+      <Header locale={currentLocale} />
 
       <!-- Main content -->
       <main class="pt-10 sm:pt-10 content-stagger" style="font-family: 'Inter', sans-serif;">
@@ -30,10 +32,10 @@ const supportTeamMembers = await getAllSupportTeamMembers();
         <section class="pb-12 sm:pb-16 md:py-20">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-              Join the Evolution
+              {t(currentLocale, 'support.title')}
             </h1>
             <p class="text-gray-700 max-w-5xl mx-auto leading-relaxed px-4 sm:px-6 font-light" style="font-family: 'Inter', sans-serif; line-height: 2; font-size: 16px;">
-              Science advances through community support. Your contribution helps fund breakthrough research that wouldn't be possible within traditional academic or corporate constraints. Our diverse team of world-class researchers and visionaries are exploring uncharted territory—and that requires resources, patience, and believers in long-term vision.
+              {t(currentLocale, 'support.subtitle')}
             </p>
             <!-- Divider -->
             <div class="h-px w-100% bg-primary mx-auto mt-8"></div>
@@ -386,6 +388,22 @@ const supportTeamMembers = await getAllSupportTeamMembers();
             staggerContainer.classList.add('loaded');
           }
         }, 100);
+
+        // Language preference handling
+        const storedLocale = localStorage.getItem('alife-locale');
+        const currentPath = window.location.pathname;
+        
+        // If user has a stored preference, redirect to the appropriate localized path
+        if (storedLocale) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+            // Redirect to Japanese version
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+            // Redirect to English version (remove /ja prefix)
+            const englishPath = currentPath.replace('/ja', '');
+            window.location.href = englishPath;
+          }
+        }
       });
     </script>
 

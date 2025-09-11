@@ -1,0 +1,92 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "career": "Career",
+    "blog": "Blog",
+    "support": "Support Us"
+  },
+  "home": {
+    "title": "Where Brilliant Minds Explore Together",
+    "subtitle": "Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.",
+    "slider": {
+      "line1": "Where",
+      "line2": "Evolution Meets",
+      "line3": "Innovation",
+      "description": "We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners."
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "mission": "Mission",
+    "vision": "Vision",
+    "values": "Values",
+    "history": "History",
+    "whoWeAre": "Who We Are",
+    "missionText": "To cultivate symbiotic relationships between humans and artificial life through open-ended evolutionary systems that continuously generate novel solutions to complex real-world challenges.",
+    "visionText": "A future where artificial life forms serve as creative partners to humanity, where evolution and intelligence work together to solve problems we cannot yet imagine, and where the boundary between natural and artificial creativity dissolves into collaborative innovation.",
+    "valuesText": "Open-Endedness: We believe in systems that explore without predetermined goals, discovering paths no one planned"
+  },
+  "career": {
+    "title": "Where Brilliant Minds Explore Together",
+    "subtitle": "Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.",
+    "joinUs": "Join Us!",
+    "ourTeam": "Our Team",
+    "jobs": "Jobs",
+    "viewJob": "View Job",
+    "applyNow": "Apply Now"
+  },
+  "blog": {
+    "title": "Sharing Our Journey",
+    "subtitle": "Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI",
+    "readMore": "Read More",
+    "publishedOn": "Published on"
+  },
+  "support": {
+    "title": "Join the Evolution",
+    "subtitle": "Support our mission to advance artificial life research and development",
+    "contact": "Contact",
+    "supportTeam": "Support Team",
+    "donors": "Donors",
+    "supporters": "Supporters",
+    "donationPlan": "Donation Plan",
+    "donorsList": "Donors List"
+  },
+  "jobs": {
+    "title": "Where Brilliant Minds Explore Together",
+    "subtitle": "Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.",
+    "joinUs": "Join Us!",
+    "ourTeam": "Our Team",
+    "jobs": "Jobs",
+    "applyNow": "Apply Now",
+    "applicationForm": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "resume": "Resume",
+      "uploadResume": "Upload your resume",
+      "resumeSize": "Resume should be a PDF under 3.5MB",
+      "chooseFile": "Choose File",
+      "changeFile": "Change File",
+      "privacyNotice": "By submitting my application, I acknowledge that I have read and understand GMC's Job Applicant Privacy Notice.",
+      "accuracyCheck": "I have reviewed and confirmed that all the information provided is accurate and complete.",
+      "importantNote": "Important: Please double-check all the information provided above. Ensuring accuracy is crucial, as any errors or omissions may impact the review of your application.",
+      "submitApplication": "Submit Application"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us"
+  }
+}

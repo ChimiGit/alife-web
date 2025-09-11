@@ -1,0 +1,178 @@
+---
+import '../../styles/global.css';
+import Header from '../../components/Header.astro';
+import History from '../../components/sections/about/History.astro';
+import Mission from '../../components/sections/about/Mission.astro';
+import WhoWeAre from '../../components/sections/about/WhoWeAre.astro';
+import { t, type Locale } from '../../utils/i18n.ts';
+
+const currentLocale: Locale = 'ja';
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />  
+    <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>私たちについて - ALIFE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Smooth tab underline animation */
+      [role="tab"] {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+      }
+      
+      [role="tab"]::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #2E3192;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity: 0;
+      }
+      
+      [role="tab"].active::after {
+        transform: scaleX(1);
+        opacity: 1;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-in-out;
+      }
+      
+      /* Smooth color and font transitions */
+      [role="tab"] {
+        transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                   font-weight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                   background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      /* Tab content transitions */
+      .section-content {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .section-content.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Custom main tab hover states */
+      .main-tab:not(.active):hover {
+        background-color: #1a365d !important; /* primary color */
+        color: white !important;
+        border-color: #1a365d !important;
+      }
+      
+      .main-tab.active:hover {
+        background-color: #1a365d !important; /* primary color */
+        color: white !important;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gray-50 font-japanese">
+    <!-- Main Content -->
+    <div id="main-content">
+      <Header locale={currentLocale} />
+      <!-- Main content -->
+      <main class="max-w-4xl mx-auto px-4 sm:px-6 sm:pt-10 pb-8 sm:pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
+      <!-- Tabs Section -->
+      <div>
+        <div class="sticky top-20 bg-gray-50 z-40">
+          <nav class="flex items-center justify-center gap-0" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+            <button type="button" class="active py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-primary font-semibold hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-1" aria-selected="true" data-hs-tab="#tabs-with-underline-1" aria-controls="tabs-with-underline-1" role="tab">
+              {t(currentLocale, 'about.whoWeAre')}
+            </button>
+            <div class="h-6 w-px bg-gray-300 mx-2"></div>
+            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-2" aria-selected="false" data-hs-tab="#tabs-with-underline-2" aria-controls="tabs-with-underline-2" role="tab">
+              {t(currentLocale, 'about.history')}
+            </button>
+            <div class="h-6 w-px bg-gray-300 mx-2"></div>
+            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-3" aria-selected="false" data-hs-tab="#tabs-with-underline-3" aria-controls="tabs-with-underline-3" role="tab">
+              {t(currentLocale, 'about.mission')}
+            </button>
+          </nav>
+        </div>
+
+        <div class="mt-2">
+          <!-- About Section -->
+          <section id="tabs-with-underline-1-section" class="section-content pt-8 pb-16 active">
+            <WhoWeAre locale={currentLocale} />  
+          </section>
+          
+          <!-- History Section -->
+          <section id="tabs-with-underline-2-section" class="section-content pt-8 pb-16">
+            <History />
+          </section>
+          
+          <!-- Mission Section -->
+          <section id="tabs-with-underline-3-section" class="section-content pt-8 pb-16">
+            <Mission locale={currentLocale} />
+          </section>
+        </div>
+      </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Tab functionality
+        const tabs = document.querySelectorAll('[role="tab"]');
+        const sections = document.querySelectorAll('.section-content');
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // Remove active class from all tabs and sections
+            tabs.forEach(t => t.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Show corresponding section
+            const targetId = tab.getAttribute('data-hs-tab');
+            if (targetId) {
+              const targetSection = document.querySelector(`${targetId}-section`);
+              if (targetSection) {
+                targetSection.classList.add('active');
+              }
+            }
+          });
+        });
+
+        // Initialize content animations
+        setTimeout(() => {
+          const staggerContainer = document.querySelector('.content-stagger');
+          if (staggerContainer) {
+            staggerContainer.classList.add('loaded');
+          }
+        }, 100);
+
+        // Language preference handling
+        const storedLocale = localStorage.getItem('alife-locale');
+        const currentPath = window.location.pathname;
+        
+        // If user has a stored preference, redirect to the appropriate localized path
+        if (storedLocale) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+            // Redirect to Japanese version
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+            // Redirect to English version (remove /ja prefix)
+            const englishPath = currentPath.replace('/ja', '');
+            window.location.href = englishPath;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

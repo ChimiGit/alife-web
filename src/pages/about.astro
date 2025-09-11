@@ -4,7 +4,9 @@ import Header from '../components/Header.astro';
 import History from '../components/sections/about/History.astro';
 import Mission from '../components/sections/about/Mission.astro';
 import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
+import { t, getEffectiveLocale, type Locale } from '../utils/i18n.ts';
 
+const currentLocale = getEffectiveLocale(Astro.url.pathname);
 ---
 
 <html lang="en">
@@ -66,7 +68,7 @@ import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
   <body class="min-h-screen bg-gray-50">
     <!-- Main Content -->
     <div id="main-content">
-      <Header />
+      <Header locale={currentLocale} />
       <!-- Main content -->
       <main class="max-w-4xl mx-auto px-4 sm:px-6 sm:pt-10 pb-8 sm:pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
       <!-- Tabs Section -->
@@ -74,15 +76,15 @@ import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
         <div class="sticky top-20 bg-gray-50 z-40">
           <nav class="flex items-center justify-center gap-0" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
             <button type="button" class="active py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-primary font-semibold hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-1" aria-selected="true" data-hs-tab="#tabs-with-underline-1" aria-controls="tabs-with-underline-1" role="tab">
-              About
+              {t(currentLocale, 'about.whoWeAre')}
             </button>
             <div class="h-6 w-px bg-gray-300 mx-2"></div>
             <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-2" aria-selected="false" data-hs-tab="#tabs-with-underline-2" aria-controls="tabs-with-underline-2" role="tab">
-              History
+              {t(currentLocale, 'about.history')}
             </button>
             <div class="h-6 w-px bg-gray-300 mx-2"></div>
             <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap text-gray-500 hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-3" aria-selected="false" data-hs-tab="#tabs-with-underline-3" aria-controls="tabs-with-underline-3" role="tab">
-              Mission
+              {t(currentLocale, 'about.mission')}
             </button>
           </nav>
         </div>
@@ -90,7 +92,7 @@ import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
         <div class="mt-2">
           <!-- About Section -->
           <section id="about-section" class="section-content pt-8 pb-16">
-            <WhoWeAre />  
+            <WhoWeAre locale={currentLocale} />  
           </section>
           
           <!-- History Section -->
@@ -100,7 +102,7 @@ import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
           
           <!-- Mission Section -->
           <section id="mission-section" class="section-content pt-8 pb-16">
-            <Mission />
+            <Mission locale={currentLocale} />
           </section>
         </div>
       </div>
@@ -201,6 +203,22 @@ import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
             staggerContainer.classList.add('loaded');
           }
         }, 100);
+
+      // Language preference handling - temporarily disabled for debugging
+      // const storedLocale = localStorage.getItem('alife-locale');
+      // const currentPath = window.location.pathname;
+      
+      // // If user has a stored preference, redirect to the appropriate localized path
+      // if (storedLocale) {
+      //   if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+      //     // Redirect to Japanese version
+      //     window.location.href = '/ja' + currentPath;
+      //   } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+      //     // Redirect to English version (remove /ja prefix)
+      //     const englishPath = currentPath.replace('/ja', '');
+      //     window.location.href = englishPath;
+      //   }
+      // }
       });
     </script>
   </body>

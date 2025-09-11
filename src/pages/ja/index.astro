@@ -1,27 +1,27 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Slider1 from '../components/home-slider/slider-1.astro';
-import Slider2 from "../components/home-slider/slider-2.astro";
-import { getEffectiveLocale } from '../utils/i18n.ts';
+import '../../styles/global.css';
+import Header from '../../components/Header.astro';
+import Slider1 from '../../components/home-slider/slider-1.astro';
+import Slider2 from "../../components/home-slider/slider-2.astro";
+import { type Locale } from '../../utils/i18n.ts';
 
-const currentLocale = getEffectiveLocale(Astro.url.pathname);
+const currentLocale: Locale = 'ja';
 ---
 
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>ALIFE - Artificial Life Institute</title>
+    <title>ALIFE - 人工生命研究所</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Preload critical fonts -->
     <link rel="preload" href="/fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="min-h-screen overflow-x-hidden">
+  <body class="min-h-screen overflow-x-hidden font-japanese">
     <Header locale={currentLocale} />
     <!-- Backgrounds will be shown/hidden via JavaScript -->
     <div id="slider-1-background" class="content-fade">
@@ -55,21 +55,21 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         });
       }, 100);
 
-      // Language preference handling - temporarily disabled for debugging
-      // const storedLocale = localStorage.getItem('alife-locale');
-      // const currentPath = window.location.pathname;
+      // Language preference handling
+      const storedLocale = localStorage.getItem('alife-locale');
+      const currentPath = window.location.pathname;
       
-      // // If user has a stored preference, redirect to the appropriate localized path
-      // if (storedLocale) {
-      //   if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
-      //     // Redirect to Japanese version
-      //     window.location.href = '/ja' + currentPath;
-      //   } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
-      //     // Redirect to English version (remove /ja prefix)
-      //     const englishPath = currentPath.replace('/ja', '');
-      //     window.location.href = englishPath;
-      //   }
-      // }
+      // If user has a stored preference, redirect to the appropriate localized path
+      if (storedLocale) {
+        if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+          // Redirect to Japanese version
+            window.location.href = `/ja${currentPath}`;
+        } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+          // Redirect to English version (remove /ja prefix)
+          const englishPath = currentPath.replace('/ja', '');
+          window.location.href = englishPath;
+        }
+      }
     </script>
   </body>
 </html>

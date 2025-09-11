@@ -7,6 +7,13 @@ export default defineConfig({
   output: 'static',
   site: 'https://ChimiGit.github.io',
   base: '/',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ja'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   devToolbar: {
     enabled: false,
   },
