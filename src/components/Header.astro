@@ -18,7 +18,7 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
       <div class="max-w-6xl mx-auto px-4 flex justify-between items-center min-h-20">
       <!-- Logo section -->
       <div class="flex items-center">
-        <a href="/" class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
+        <a href={`${import.meta.env.BASE_URL}`} class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
           <div class="relative" style="width: 189.92px; height: 27.63px;">
             <img src={`${import.meta.env.BASE_URL}assets/logo/logo1.svg`} alt="ALIFE Logo 1" class="absolute top-0 left-0 z-10" style="width: 189.92px; height: 27.63px;"/>
             <img src={`${import.meta.env.BASE_URL}assets/logo/logo2.svg`} alt="ALIFE Logo 2" class="logo-slide absolute top-0 left-0 transition-all duration-500 ease-in-out z-20" style="width: 189.92px; height: 27.63px;"/>
@@ -31,19 +31,19 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
         <div class="px-6 py-3">
           <ul class="flex list-none m-0 p-0 gap-8 items-center">
             <li class="m-0">
-              <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">{t(currentLocale, 'navigation.home')}</a>
+              <a href={`${import.meta.env.BASE_URL}`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">{t(currentLocale, 'navigation.home')}</a>
             </li>
             <li class="m-0">
-              <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">{t(currentLocale, 'navigation.about')}</a>
+              <a href={`${import.meta.env.BASE_URL}about`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">{t(currentLocale, 'navigation.about')}</a>
             </li>
             <li class="m-0">
-              <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">{t(currentLocale, 'navigation.career')}</a>
+              <a href={`${import.meta.env.BASE_URL}career`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">{t(currentLocale, 'navigation.career')}</a>
             </li>
             <li class="m-0">
-              <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">{t(currentLocale, 'navigation.blog')}</a>
+              <a href={`${import.meta.env.BASE_URL}blog`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">{t(currentLocale, 'navigation.blog')}</a>
             </li>
             <li class="m-0">
-              <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">{t(currentLocale, 'navigation.support')}</a>
+              <a href={`${import.meta.env.BASE_URL}support`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">{t(currentLocale, 'navigation.support')}</a>
             </li>
             
             <!-- Language Switcher inside the dashed border -->
@@ -93,31 +93,31 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
         <nav class="flex-1 p-6" role="navigation" aria-label="Mobile navigation">
           <ul class="space-y-2">
             <li>
-              <a href="/" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
+              <a href={`${import.meta.env.BASE_URL}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {t(currentLocale, 'navigation.home')}
               </a>
             </li>
             <li>
-              <a href="/about" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
+              <a href={`${import.meta.env.BASE_URL}about`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {t(currentLocale, 'navigation.about')}
               </a>
             </li>
             <li>
-              <a href="/career" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
+              <a href={`${import.meta.env.BASE_URL}career`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {t(currentLocale, 'navigation.career')}
               </a>
             </li>
             <li>
-              <a href="/blog" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
+              <a href={`${import.meta.env.BASE_URL}blog`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {t(currentLocale, 'navigation.blog')}
               </a>
             </li>
             <li>
-              <a href="/support" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
+              <a href={`${import.meta.env.BASE_URL}support`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 {t(currentLocale, 'navigation.support')}
               </a>
