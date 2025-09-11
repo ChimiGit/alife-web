@@ -180,7 +180,7 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
 
         // Handle URL hash for direct tab navigation
         function handleHashNavigation() {
-          const hash = window.location.hash;
+          const { hash } = window.location;
           if (hash === '#researchers') {
             // Switch to Our Team tab first
             const ourTeamTab = document.getElementById('our-team-tab');

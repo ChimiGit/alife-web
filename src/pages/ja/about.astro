@@ -145,7 +145,7 @@ const currentLocale: Locale = 'ja';
 
     <!-- Scroll-based tab switching script -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', () => {
         const tabs = document.querySelectorAll('[role="tab"]');
         const sections = document.querySelectorAll('.section-content');
         
@@ -195,7 +195,7 @@ const currentLocale: Locale = 'ja';
         }
 
         // Throttled scroll event listener
-        let scrollTimeout: NodeJS.Timeout | null = null;
+        let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
         window.addEventListener('scroll', () => {
           if (scrollTimeout) {
             clearTimeout(scrollTimeout);
@@ -216,7 +216,7 @@ const currentLocale: Locale = 'ja';
 
         // Optional: Add click functionality to scroll to sections
         tabs.forEach(tab => {
-          tab.addEventListener('click', function(e) {
+          tab.addEventListener('click', (e) => {
             e.preventDefault();
             const tabId = tab.getAttribute('id');
             const sectionId = tabId ? tabSectionMap[tabId] : null;

@@ -292,7 +292,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
 
         // Handle URL hash for direct tab navigation
         function handleHashNavigation() {
-          const hash = window.location.hash;
+          const { hash } = window.location;
           if (hash === '#supporters') {
             // Find and click the supporters tab
             const supportersTab = document.querySelector('[data-target="#supporters-panel"]') as HTMLElement;
