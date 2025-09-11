@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   output: 'static',
   site: 'https://ChimiGit.github.io',
-  base: '/',
+  base: '/alife-web',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],

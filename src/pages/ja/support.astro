@@ -289,12 +289,12 @@ const supportTeamMembers = await getAllSupportTeamMembers();
         
         // If user has a stored preference, redirect to the appropriate localized path
         if (storedLocale) {
-          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/alife-web/ja/')) {
             // Redirect to Japanese version
-            window.location.href = `/ja${currentPath}`;
-          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+            window.location.href = `/alife-web/ja${currentPath.replace('/alife-web', '')}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/alife-web/ja/')) {
             // Redirect to English version (remove /ja prefix)
-            const englishPath = currentPath.replace('/ja', '');
+            const englishPath = currentPath.replace('/alife-web/ja', '/alife-web');
             window.location.href = englishPath;
           }
         }

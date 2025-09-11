@@ -97,7 +97,7 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           
           <!-- History Section -->
           <section id="history-section" class="section-content pt-8 pb-16">
-            <History />
+            <History locale={currentLocale} />
           </section>
           
           <!-- Mission Section -->
@@ -116,7 +116,7 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         const sections = document.querySelectorAll('.section-content');
         
         // Map tabs to sections
-        const tabSectionMap = {
+        const tabSectionMap: Record<string, string> = {
           'tabs-with-underline-item-1': 'about-section',
           'tabs-with-underline-item-2': 'history-section', 
           'tabs-with-underline-item-3': 'mission-section'
@@ -125,11 +125,11 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         // Function to update active tab based on scroll position
         function updateActiveTab() {
           const scrollPosition = window.scrollY + window.innerHeight / 2;
-          let activeSection = null;
+          let activeSection: string | null = null;
           
           sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionTop = (section as HTMLElement).offsetTop;
+            const sectionBottom = sectionTop + (section as HTMLElement).offsetHeight;
             
             if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
               activeSection = section.id;
@@ -144,7 +144,7 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           // Update tab appearance
           tabs.forEach(tab => {
             const tabId = tab.getAttribute('id');
-            const sectionId = tabSectionMap[tabId];
+            const sectionId = tabId ? tabSectionMap[tabId] : null;
             
             if (sectionId === activeSection) {
               // Activate tab
@@ -161,7 +161,7 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         }
 
         // Add scroll event listener
-        let scrollTimeout;
+        let scrollTimeout: NodeJS.Timeout | null = null;
         window.addEventListener('scroll', function() {
           // Throttle scroll events for better performance
           if (scrollTimeout) {
@@ -178,8 +178,8 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           tab.addEventListener('click', function(e) {
             e.preventDefault();
             const tabId = tab.getAttribute('id');
-            const sectionId = tabSectionMap[tabId];
-            const targetSection = document.getElementById(sectionId);
+            const sectionId = tabId ? tabSectionMap[tabId] : null;
+            const targetSection = sectionId ? document.getElementById(sectionId) : null;
             
             if (targetSection) {
               const offsetTop = targetSection.offsetTop - 100; // Account for sticky header
@@ -204,21 +204,21 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           }
         }, 100);
 
-      // Language preference handling - temporarily disabled for debugging
-      // const storedLocale = localStorage.getItem('alife-locale');
-      // const currentPath = window.location.pathname;
+      // Language preference handling
+      const storedLocale = localStorage.getItem('alife-locale');
+      const currentPath = window.location.pathname;
       
-      // // If user has a stored preference, redirect to the appropriate localized path
-      // if (storedLocale) {
-      //   if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
-      //     // Redirect to Japanese version
-      //     window.location.href = '/ja' + currentPath;
-      //   } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
-      //     // Redirect to English version (remove /ja prefix)
-      //     const englishPath = currentPath.replace('/ja', '');
-      //     window.location.href = englishPath;
-      //   }
-      // }
+      // If user has a stored preference, redirect to the appropriate localized path
+      if (storedLocale) {
+        if (storedLocale === 'ja' && !currentPath.startsWith('/alife-web/ja/')) {
+          // Redirect to Japanese version
+          window.location.href = `/alife-web/ja${currentPath.replace('/alife-web', '')}`;
+        } else if (storedLocale === 'en' && currentPath.startsWith('/alife-web/ja/')) {
+          // Redirect to English version (remove /ja prefix)
+          const englishPath = currentPath.replace('/alife-web/ja', '/alife-web');
+          window.location.href = englishPath;
+        }
+      }
       });
     </script>
   </body>

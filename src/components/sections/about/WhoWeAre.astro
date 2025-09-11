@@ -1,6 +1,6 @@
 ---
 import '../../../styles/global.css';
-import { type Locale } from '../../../utils/i18n.ts';
+import { t, type Locale } from '../../../utils/i18n.ts';
 
 export interface Props {
   locale?: Locale;
@@ -13,19 +13,11 @@ const { locale = 'en' } = Astro.props;
 <div class="max-w-4xl mx-auto px-4 mt-12">
   <!-- Who We Are Section -->
   <div class="mb-10">
-    <h2 class="text-5xl text-primary mb-8 text-center" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"};`}>Who We Are</h2>
+    <h2 class="text-5xl text-primary mb-8 text-center" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"};`}>{t(locale, 'about.whoWeAre')}</h2>
 
     <div class="space-y-6 text-primary leading-relaxed">
       <p class="text-20px font-light" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 2;`}>
-        The Artificial Life Institute stands at the intersection of cutting-edge computer science and nature's most profound creative force: evolution. We don't follow predetermined paths like most traditional AIs. Instead, we harness open-endedness—nature's grandest achievement that created a path from single cells to intelligent life, from the discovery of fire to exploring outer space, from primitive tools to artificial intelligence.
-      </p>
-
-      <p class="text-20px font-light" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 2;`}>
-        Founded by world-class researchers and business leaders, we are dedicated to advancing research and driving business innovations. Our work spans from microscopic digital organisms to complex evolutionary simulations that could reshape how we understand intelligence itself.
-      </p>
-
-      <p class="text-20px font-light" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 2;`}>
-        Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither could achieve alone. For complete transparency about our operations and commitment to your privacy, please see our fiscal report and privacy policy.
+        {t(locale, 'about.whoWeAreText')}
       </p>
     </div>
   </div>

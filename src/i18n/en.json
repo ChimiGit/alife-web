@@ -22,7 +22,11 @@
     "vision": "Vision",
     "values": "Values",
     "history": "History",
+    "historyText": "Why Us? We are already well positioned to succeed.",
+    "historyNote": "*These are the labours of passionate researchers volunteering part-time.",
+    "historyCallToAction": "Imagine what we could do with a full time team!",
     "whoWeAre": "Who We Are",
+    "whoWeAreText": "The Artificial Life Institute stands at the intersection of cutting-edge computer science and nature's most profound creative force: evolution. We don't follow predetermined paths like most traditional AIs. Instead, we harness open-endedness—nature's grandest achievement that created a path from single cells to intelligent life, from the discovery of fire to exploring outer space, from primitive tools to artificial intelligence. Founded by world-class researchers and business leaders, we are dedicated to advancing research and driving business innovations. Our work spans from microscopic digital organisms to complex evolutionary simulations that could reshape how we understand intelligence itself. Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither could achieve alone. For complete transparency about our operations and commitment to your privacy, please see our fiscal report and privacy policy.",
     "missionText": "To cultivate symbiotic relationships between humans and artificial life through open-ended evolutionary systems that continuously generate novel solutions to complex real-world challenges.",
     "visionText": "A future where artificial life forms serve as creative partners to humanity, where evolution and intelligence work together to solve problems we cannot yet imagine, and where the boundary between natural and artificial creativity dissolves into collaborative innovation.",
     "valuesText": "Open-Endedness: We believe in systems that explore without predetermined goals, discovering paths no one planned"

@@ -70,7 +70,12 @@ export function setStoredLocale(locale: Locale): void {
 }
 
 export function getEffectiveLocale(pathname: string): Locale {
-  // First check if there's a stored preference
+  // On server side, always use path-based detection
+  if (typeof window === 'undefined') {
+    return getLocaleFromPath(pathname);
+  }
+
+  // On client side, check stored preference first
   const storedLocale = getStoredLocale();
   if (storedLocale && locales.includes(storedLocale)) {
     return storedLocale;
@@ -81,8 +86,13 @@ export function getEffectiveLocale(pathname: string): Locale {
 }
 
 export function getLocalizedPath(pathname: string, locale: Locale): string {
-  // Clean the pathname - remove any existing locale prefixes
+  // Clean the pathname - remove any existing locale prefixes and base path
   let cleanPath = pathname;
+
+  // Remove base path if present
+  if (cleanPath.startsWith('/alife-web')) {
+    cleanPath = cleanPath.replace('/alife-web', '');
+  }
 
   // Remove any locale prefix
   if (cleanPath.startsWith('/ja/')) {
@@ -97,14 +107,14 @@ export function getLocalizedPath(pathname: string, locale: Locale): string {
 
   // Handle root path
   if (cleanPath === '/') {
-    return locale === 'ja' ? '/ja' : '/';
+    return locale === 'ja' ? '/alife-web/ja' : '/alife-web';
   }
 
   // Add locale prefix if switching to Japanese
   if (locale === 'ja') {
-    return `/ja${cleanPath}`;
+    return `/alife-web/ja${cleanPath}`;
   }
 
-  // For English (default), return clean path
-  return cleanPath;
+  // For English (default), return clean path with base
+  return `/alife-web${cleanPath}`;
 }

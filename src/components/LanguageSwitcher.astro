@@ -23,19 +23,22 @@ const { currentLocale } = Astro.props;
         const currentPathEn = window.location.pathname;
         console.log('Current path:', currentPathEn);
         
-        // Clean the path - remove any locale prefix
+        // Clean the path - remove any locale prefix and base path
         let cleanPathEn = currentPathEn;
+        if (cleanPathEn.startsWith('/alife-web')) {
+          cleanPathEn = cleanPathEn.replace('/alife-web', '');
+        }
         if (cleanPathEn.startsWith('/ja/')) {
           cleanPathEn = cleanPathEn.replace('/ja/', '/');
         } else if (cleanPathEn === '/ja') {
           cleanPathEn = '/';
         }
         
-        const targetUrlEn = cleanPathEn === '/' ? '/' : cleanPathEn;
+        const targetUrlEn = cleanPathEn === '/' ? '/alife-web' : `/alife-web${cleanPathEn}`;
         console.log('Target URL:', targetUrlEn);
         
-        localStorage.removeItem('alife-locale');
-        console.log('Cleared stored locale');
+        localStorage.setItem('alife-locale', 'en');
+        console.log('Set stored locale to English');
         window.location.href = targetUrlEn;
         return false;
       "
@@ -57,19 +60,22 @@ const { currentLocale } = Astro.props;
         const currentPathJp = window.location.pathname;
         console.log('Current path:', currentPathJp);
         
-        // Clean the path - remove any locale prefix
+        // Clean the path - remove any locale prefix and base path
         let cleanPathJp = currentPathJp;
+        if (cleanPathJp.startsWith('/alife-web')) {
+          cleanPathJp = cleanPathJp.replace('/alife-web', '');
+        }
         if (cleanPathJp.startsWith('/ja/')) {
           cleanPathJp = cleanPathJp.replace('/ja/', '/');
         } else if (cleanPathJp === '/ja') {
           cleanPathJp = '/';
         }
         
-        const targetUrlJp = cleanPathJp === '/' ? '/ja' : '/ja' + cleanPathJp;
+        const targetUrlJp = cleanPathJp === '/' ? '/alife-web/ja' : `/alife-web/ja${cleanPathJp}`;
         console.log('Target URL:', targetUrlJp);
         
-        localStorage.removeItem('alife-locale');
-        console.log('Cleared stored locale');
+        localStorage.setItem('alife-locale', 'ja');
+        console.log('Set stored locale to Japanese');
         window.location.href = targetUrlJp;
         return false;
       "

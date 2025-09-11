@@ -111,7 +111,7 @@ const currentLocale: Locale = 'ja';
           
           <!-- History Section -->
           <section id="tabs-with-underline-2-section" class="section-content pt-8 pb-16">
-            <History />
+            <History locale={currentLocale} />
           </section>
           
           <!-- Mission Section -->
@@ -161,17 +161,17 @@ const currentLocale: Locale = 'ja';
         const storedLocale = localStorage.getItem('alife-locale');
         const currentPath = window.location.pathname;
         
-        // If user has a stored preference, redirect to the appropriate localized path
-        if (storedLocale) {
-          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
-            // Redirect to Japanese version
-            window.location.href = `/ja${currentPath}`;
-          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
-            // Redirect to English version (remove /ja prefix)
-            const englishPath = currentPath.replace('/ja', '');
-            window.location.href = englishPath;
-          }
+      // If user has a stored preference, redirect to the appropriate localized path
+      if (storedLocale) {
+        if (storedLocale === 'ja' && !currentPath.startsWith('/alife-web/ja/')) {
+          // Redirect to Japanese version
+          window.location.href = `/alife-web/ja${currentPath.replace('/alife-web', '')}`;
+        } else if (storedLocale === 'en' && currentPath.startsWith('/alife-web/ja/')) {
+          // Redirect to English version (remove /ja prefix)
+          const englishPath = currentPath.replace('/alife-web/ja', '/alife-web');
+          window.location.href = englishPath;
         }
+      }
       });
     </script>
   </body>

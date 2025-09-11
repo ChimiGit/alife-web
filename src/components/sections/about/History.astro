@@ -1,9 +1,12 @@
 ---
 import '../../../styles/global.css';
+import { t, type Locale } from '../../../utils/i18n.ts';
 
 export interface Props {
-  // No props needed
+  locale?: Locale;
 }
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <!-- History Content -->
@@ -143,9 +146,9 @@ export interface Props {
     }
   </style>
   
-  <h2 class="text-5xl text-primary text-center mb-2" style="font-family: 'GT Alpina Fine', serif;">History</h2>
+  <h2 class="text-5xl text-primary text-center mb-2" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"};`}>{t(locale, 'about.history')}</h2>
   <div class="text-center mb-15">
-    <span class="text-20px text-primary" style="font-family: 'Inter', sans-serif; line-height: 2; font-weight: 300;">Why Us ? We are already well positioned to succeed.</span>
+    <span class="text-20px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 2; font-weight: 300;`}>{t(locale, 'about.historyText')}</span>
   </div>
 
   <!-- Timeline -->
@@ -314,10 +317,10 @@ export interface Props {
   </div>
 
   <div class="flex justify-center mt-10">
-    <p class="text-sm" style="color: #FFAC3F;">*These are the labours of passionate researchers volunteering part-time.</p><br />
+    <p class="text-sm" style={`color: #FFAC3F; font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"};`}>{t(locale, 'about.historyNote')}</p><br />
   </div>  
   <div class="flex justify-center">
-    <p class="text-sm text-primary">Imagine what we could do with a full time team!</p>
+    <p class="text-sm text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"};`}>{t(locale, 'about.historyCallToAction')}</p>
   </div> 
   <!-- End Timeline -->
 </div>
