@@ -2,7 +2,7 @@
 name: 'Banjo Yamauchi'
 title: 'CTO & Co-Founder'
 image: '/assets/team/Banjo Yamauchi.png'
-bio: 'Leading technical innovation and research direction at ALIFE'
+bio: 'Yamauchi No.10 Family Office'
 location: 'Kyoto, Japan'
 linkedin: 'https://linkedin.com/in/banjo-yamauchi'
 twitter: 'https://twitter.com/banjoyamauchi'

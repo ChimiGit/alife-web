@@ -49,11 +49,48 @@ const blogCollection = defineCollection({
   }),
 });
 
+const blogCategoriesCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    order: z.number(),
+  }),
+});
+
+const supportCategoriesCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    order: z.number(),
+    description: z.string(),
+  }),
+});
+
+const supportContentCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    title: z.string(),
+    bio: z.string(),
+    location: z.string(),
+    image: z.string(),
+    category: z.string(),
+    order: z.number(),
+    linkedin: z.string().optional(),
+    twitter: z.string().optional(),
+    email: z.string().optional(),
+  }),
+});
+
 const collections = {
   jobs: jobsCollection,
   team: teamCollection,
   'team-categories': teamCategoriesCollection,
   blog: blogCollection,
+  'blog-categories': blogCategoriesCollection,
+  'support-categories': supportCategoriesCollection,
+  'support-content': supportContentCollection,
 };
 
 export default collections;

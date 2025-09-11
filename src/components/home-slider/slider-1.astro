@@ -1,41 +1,168 @@
 ---
+import { t, type Locale } from '../../utils/i18n.ts';
+
 export interface Props {
-  // No props needed
+  locale?: Locale;
 }
+
+const { locale = 'en' } = Astro.props;
 ---
 
-<div class="relative min-h-screen">
-  <!-- Background GIF -->
-  <div class="fixed inset-0 z-0">
-    <img
-      src="/assets/home-slider/slider-1.gif"
-      alt="ALIFE Background Animation"
-      class="w-full h-full object-cover"
-    />
-  </div>
-
-  <!-- Gradient Overlay for Text Readability -->
-  <div class="fixed inset-0 z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent"></div>
+<div class="relative min-h-screen overflow-hidden bg-[#FBEC61]" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; margin-top: -5rem`}>
+  <!-- Particle Animation Canvas -->
+  <canvas id="particleCanvas" class="fixed inset-0 z-5" style="touch-action: none; background-color: transparent; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"></canvas>
 
   <!-- Text Content -->
-  <main class="relative z-20 min-h-screen pt-20 sm:pt-10">
-    <div class="text-left max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-        Where
+  <main class="relative z-20 h-screen flex items-center">
+    <div class="text-left max-w-7xl pl-8 sm:pl-12 lg:pl-40">
+      <h1 class="text-128px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"}; margin: 0;`}>
+        {t(locale, 'home.slider.line1')}
       </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-        Evolution Meets
+      <h1 class="text-128px text-primary mt-4" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"}; margin: 0;`}>
+        {t(locale, 'home.slider.line2')}
       </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-        Innovation
+      <h1 class="text-128px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"}; margin: 0;`}>
+        {t(locale, 'home.slider.line3')}
       </h1>
-      <p class="text-EEF0EF max-w-4xl leading-relaxed opacity-90 text-sm sm:text-base md:text-lg font-light" style="font-family: 'DM Sans', sans-serif;">
-        We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
+      <p class="text-primary max-w-4xl font-light mt-10" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; font-size: 16px; line-height: 150%;`}>
+        {t(locale, 'home.slider.description')}
       </p>
     </div>
   </main>
 </div>
 
 <script>
-  // Add any client-side functionality here if needed
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set up the canvas and other variables
+    const canvas = document.getElementById('particleCanvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+    
+    if (!ctx) return; // Exit if canvas context is not available
+    
+    let lines: any[] = [];
+    const particleRadius = 2.0;
+    const baseLineSpeed = 2;
+    const baseLineSpread = 200;
+    const baseDensity = 1500;
+    const lineSeparation = 200;
+
+    // Adjust the canvas size and re-initialize particles on window resize
+    function resizeCanvas() {
+      if (!ctx) return;
+      
+      // Get device pixel ratio for crisp rendering
+      const dpr = window.devicePixelRatio || 1;
+      
+      // Set canvas size
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      
+      // Scale context to match device pixel ratio
+      ctx.scale(dpr, dpr);
+      
+      // Set CSS size
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      
+      lines = []; // Clear and re-initialize lines on resize
+      animate();
+    }
+    
+    // Particle class definition
+    class Particle {
+      relativeX: number;
+
+      y: number;
+
+      speedY: number;
+
+      constructor(relativeX: number, y: number, speedY: number) {
+        this.relativeX = relativeX;
+        this.y = y;
+        this.speedY = speedY;
+      }
+
+      // Update particle's position with gentle vertical movement
+      update() {
+        this.y += this.speedY;
+        if (this.y < 0 || this.y > canvas.height) {
+          this.speedY *= -1;
+        }
+      }
+    }
+    
+    // Helper function to create a single line of particles with a random speed
+    function createLine(direction: number = 1) {
+      const particles: Particle[] = [];
+      for (let j = 0; j < baseDensity; j++) {
+        const randomX = Math.pow(Math.random(), 0.5);
+        const y = Math.random() * window.innerHeight;
+        const speedY = (Math.random() - 0.5) * 1.0;
+        particles.push(new Particle(randomX, y, speedY));
+      }
+
+      return {
+        xOffset: window.innerWidth / 2 + 100, // Start from center shifted more right
+        speed: baseLineSpeed * direction, // Direction: 1 for right, -1 for left
+        particles
+      };
+    }
+
+    // Main animation loop
+    function animate() {
+      if (!ctx) return;
+      
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Add new line when the last line has moved a specific distance
+      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - (window.innerWidth / 2 + 100))) % lineSeparation === 0) {
+        lines.push(createLine(1)); // Moving right only
+      }
+
+      // Update and draw each line
+      for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i];
+        line.xOffset += line.speed;
+
+        // Calculate current spread and density based on distance from shifted center
+        const centerX = window.innerWidth / 2 + 100;
+        const distanceFromCenter = Math.abs(line.xOffset - centerX);
+        const maxDistance = window.innerWidth / 2;
+        const progress = distanceFromCenter / maxDistance;
+        const currentLineSpread = baseLineSpread * (1 - progress);
+        
+        // Make right side denser by adjusting density calculation
+        const isRightSide = line.xOffset > centerX;
+        const densityMultiplier = isRightSide ? 2.5 : 0.6; // 150% denser on right, 40% less dense on left
+        const currentDensity = baseDensity * (1 - progress) * densityMultiplier;
+
+        const particlesToDraw = Math.floor(currentDensity);
+        
+        line.particles.slice(0, particlesToDraw).forEach((p: Particle) => {
+          p.update();
+          
+          const xOffset = (p.relativeX * currentLineSpread) - (currentLineSpread / 2);
+          const opacity = Math.max(0.8, (xOffset + (currentLineSpread / 2)) / currentLineSpread * 1.0);
+          
+          ctx.beginPath();
+          ctx.arc(xOffset + line.xOffset, p.y, particleRadius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(28, 165, 0, ${opacity})`;
+          ctx.fill();
+        });
+
+        // Remove lines that have moved off-screen to the right
+        if (line.xOffset > window.innerWidth + baseLineSpread) {
+          lines.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // Listen for window resize to make the canvas responsive
+    window.addEventListener('resize', resizeCanvas);
+
+    // Initial setup
+    resizeCanvas();
+  });
 </script>
