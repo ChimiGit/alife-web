@@ -7,6 +7,13 @@ export default defineConfig({
   output: 'static',
   site: 'https://ChimiGit.github.io',
   base: '/alife-web/',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ja'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   devToolbar: {
     enabled: false,
   },
@@ -37,6 +44,8 @@ export default defineConfig({
         '.ngrok.app',
         '.trycloudflare.com',
         'americas-municipal-express-philips.trycloudflare.com',
+        'https://reservations-poker-trademark-teacher.trycloudflare.com',
+        'https://chimigit.github.io/alife-web',
       ],
       headers: {
         'ngrok-skip-browser-warning': 'true',

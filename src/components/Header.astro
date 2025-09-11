@@ -1,11 +1,17 @@
 ---
 // Header component for ALIFE website
+import { t, getEffectiveLocale, type Locale } from '../utils/i18n.ts';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
 export interface Props {
-  // No props needed
+  locale?: Locale;
 }
+
+const { locale = 'en' } = Astro.props;
+const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 ---
 
-<header class="font-['DM Sans',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] sticky top-0 z-50">
+<header class={`${currentLocale === 'ja' ? "font-['Noto_Sans_JP',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]" : "font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]"} fixed top-0 left-0 right-0 z-50`}>
 
     <!-- Main  header content -->
     <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
@@ -13,30 +19,39 @@ export interface Props {
       <!-- Logo section -->
       <div class="flex items-center">
         <a href="/" class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
-          <img src="/assets/logo/logo.png" alt="ALIFE Logo" class="h-8 w-32"/>
+          <div class="relative" style="width: 189.92px; height: 27.63px;">
+            <img src="/assets/logo/logo1.svg" alt="ALIFE Logo 1" class="absolute top-0 left-0 z-10" style="width: 189.92px; height: 27.63px;"/>
+            <img src="/assets/logo/logo2.svg" alt="ALIFE Logo 2" class="logo-slide absolute top-0 left-0 transition-all duration-500 ease-in-out z-20" style="width: 189.92px; height: 27.63px;"/>
+          </div>
         </a>
       </div>
 
       <!-- Desktop Navigation section -->
-      <nav class="hidden lg:flex items-center gap-8" role="navigation" aria-label="Main navigation" style="font-family: 'DM Sans', sans-serif; font-weight: 300;">
-        <ul class="flex list-none m-0 p-0 gap-8">
-          <li class="m-0">
-            <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="home">Home</a>
-          </li>
-          <li class="m-0">
-            <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="about">About Us</a>
-          </li>
-          <li class="m-0">
-            <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="career">Career</a>
-          </li>
-          <li class="m-0">
-            <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="blog">Blog</a>
-          </li>
-          <li class="m-0">
-            <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:primary relative" data-page="support">Support Us</a>
-          </li>
-        </ul>
-
+      <nav class="hidden lg:flex items-center" role="navigation" aria-label="Main navigation">
+        <div class="px-6 py-3">
+          <ul class="flex list-none m-0 p-0 gap-8 items-center">
+            <li class="m-0">
+              <a href="/" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">{t(currentLocale, 'navigation.home')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/about" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">{t(currentLocale, 'navigation.about')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/career" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">{t(currentLocale, 'navigation.career')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/blog" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">{t(currentLocale, 'navigation.blog')}</a>
+            </li>
+            <li class="m-0">
+              <a href="/support" class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">{t(currentLocale, 'navigation.support')}</a>
+            </li>
+            
+            <!-- Language Switcher inside the dashed border -->
+            <li class="m-0 ml-4 pl-4">
+              <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <!-- Mobile Hamburger Menu Button -->
@@ -80,36 +95,40 @@ export interface Props {
             <li>
               <a href="/" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Home
+                {t(currentLocale, 'navigation.home')}
               </a>
             </li>
             <li>
               <a href="/about" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                About Us
+                {t(currentLocale, 'navigation.about')}
               </a>
             </li>
             <li>
               <a href="/career" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Career
+                {t(currentLocale, 'navigation.career')}
               </a>
             </li>
             <li>
               <a href="/blog" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Blog
+                {t(currentLocale, 'navigation.blog')}
               </a>
             </li>
             <li>
               <a href="/support" class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Support Us
+                {t(currentLocale, 'navigation.support')}
               </a>
             </li>
           </ul>
+          
+          <!-- Mobile Language Switcher -->
+          <div class="mt-8 px-6">
+            <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
+          </div>
         </nav>
-
       </div>
     </div>
 
@@ -132,7 +151,7 @@ export interface Props {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #1a365d; /* primary color */
+    background-color: #2E3192; /* primary color */
     transition: width 0.3s ease;
   }
 
@@ -141,7 +160,7 @@ export interface Props {
   }
 
   .nav-link.active {
-    color: #1a365d !important; /* primary color */
+    color: #2E3192 !important; /* primary color */
     font-weight: 600;
   }
 
@@ -151,7 +170,7 @@ export interface Props {
 
   /* Mobile menu styles */
   .mobile-nav-link.active {
-    color: #1a365d !important;
+    color: #2E3192 !important;
     font-weight: 600;
     background-color: rgba(255, 255, 255, 0.05) !important;
   }
@@ -200,6 +219,19 @@ export interface Props {
     position: relative;
     z-index: 100;
     pointer-events: auto;
+  }
+
+  /* Logo slide animation */
+  .logo-slide {
+    transform: translateX(100px);
+    opacity: 1;
+    z-index: 20;
+  }
+
+  .logo-slide.scrolled {
+    transform: translateX(0);
+    opacity: 0;
+    z-index: 30;
   }
 </style>
 
@@ -352,6 +384,43 @@ export interface Props {
 
     // Apply navigation detection after DOM is ready
     setTimeout(addNavigationDetection, 100);
+
+    // Logo slide animation on scroll - only in sticky header
+    let lastScrollY = window.scrollY;
+    const logoSlide = document.querySelector('.logo-slide');
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Only animate when header is sticky (scrolled down past initial position)
+      if (currentScrollY > 0) {
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          // Scrolling down - slide logo2 into logo1 (sticky state)
+          if (logoSlide) {
+            logoSlide.classList.add('scrolled');
+          }
+        } else if (currentScrollY < lastScrollY || currentScrollY <= 50) {
+          // Scrolling up or near top - slide logo2 back out
+          if (logoSlide) {
+            logoSlide.classList.remove('scrolled');
+          }
+        }
+      } else if (logoSlide) {
+        // At the very top - ensure logo2 is hidden
+        logoSlide.classList.remove('scrolled');
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    // Throttle scroll events for better performance
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(handleScroll, 10);
+    });
 
     // Handle browser back button navigation
     window.addEventListener('popstate', () => {

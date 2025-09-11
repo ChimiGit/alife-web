@@ -1,41 +1,190 @@
 ---
+import { t, type Locale } from '../../utils/i18n.ts';
+
 export interface Props {
-  // No props needed
+  locale?: Locale;
 }
+
+const { locale = 'en' } = Astro.props;
 ---
 
-<div class="relative min-h-screen">
-  <!-- Background GIF -->
-  <div class="fixed inset-0 z-0">
-    <img
-      src="/assets/home-slider/slider-2.gif"
-      alt="ALIFE Background Animation"
-      class="w-full h-full object-cover"
-    />
-  </div>
+<div class="relative min-h-screen overflow-hidden bg-[#FBEC61]" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; margin-top: -5rem`}>
+    <canvas id="canvas"></canvas>
 
-  <!-- Gradient Overlay for Text Readability -->
-  <div class="fixed inset-0 z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent"></div>
-
-  <!-- Text Content -->
-  <main class="relative z-20 min-h-screen pt-20 sm:pt-10">
-    <div class="text-left max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-        Where
-      </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-        Evolution Meets
-      </h1>
-      <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-primary leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-        Innovation
-      </h1>
-      <p class="text-primary max-w-4xl leading-relaxed opacity-90 text-sm sm:text-base md:text-lg font-light" style="font-family: 'DM Sans', sans-serif;">
-        We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
-      </p>
-    </div>
-  </main>
+      <!-- Text Content -->
+    <main class="absolute top-0 left-0 w-full h-full z-10 flex items-center">
+        <div class="text-left max-w-7xl pl-8 sm:pl-12 lg:pl-40">
+        <h1 class="text-128px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"}; margin: 0;`}>
+            {t(locale, 'home.slider.line1')}
+        </h1>
+        <h1 class="text-128px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"}; margin: 0;`}>
+            {t(locale, 'home.slider.line2')}
+        </h1>
+        <h1 class="text-128px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"}; margin: 0;`}>
+            {t(locale, 'home.slider.line3')}
+        </h1>
+        <p class="text-primary max-w-4xl font-light mt-10" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; font-size: 16px; line-height: 150%;`}>
+            {t(locale, 'home.slider.description')}
+        </p>
+        </div>
+    </main>
 </div>
 
 <script>
-  // Add any client-side functionality here if needed
+        window.onload = function() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const PARTICLE_RADIUS = 2; // Increased particle radius
+
+            let ripples = [];
+            let rippleInterval = 1000;
+            let lastRippleTime = Date.now();
+            const rippleEffectZone = 30;
+
+            const ringRadii = [
+                { min: 120, max: 250, count: 1500 },
+                { min: 300, max: 450, count: 2000 },
+                { min: 500, max: 650, count: 2500 }
+            ];
+
+            function generateAllParticles() {
+                particles = [];
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight;
+
+                ringRadii.forEach(ring => {
+                    for (let i = 0; i < ring.count; i++) {
+                        const radius = ring.min + Math.random() * (ring.max - ring.min);
+                        const angle = Math.PI * (Math.random() - 0.5) + Math.PI / 2;
+                        
+                        const x = centerX + radius * Math.cos(angle);
+                        const y = centerY - radius * Math.sin(angle);
+                        
+                        particles.push({
+                            x,
+                            y,
+                            vx: (Math.random() - 0.5) * 0.2,
+                            vy: (Math.random() - 0.5) * 0.2,
+                            initialX: x,
+                            initialY: y,
+                            radius,
+                            alpha: 0
+                        });
+                    }
+                });
+            }
+
+            function draw() {
+                ctx.fillStyle = '#29D6E2'; 
+                ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+                particles.forEach(p => {
+                    // Draw with a purple color with dynamic opacity
+                    if (p.alpha > 0) {
+                        ctx.fillStyle = `white`;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, PARTICLE_RADIUS, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+            }
+            
+            function update() {
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight;
+                const now = Date.now();
+
+                // Generate new ripple if interval has passed
+                if (now - lastRippleTime > rippleInterval) {
+                    ripples.push({
+                        radius: 0,
+                        speed: 3,
+                        force: 5.0 // Increased force for more dramatic movement
+                    });
+                    lastRippleTime = now;
+                }
+
+                // Update and filter ripples
+                ripples = ripples.filter(r => {
+                    r.radius += r.speed;
+                    return r.radius < Math.max(canvas.width, canvas.height);
+                });
+
+                particles.forEach(p => {
+                    // Update position with current velocities
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    let maxAlpha = 0;
+                    ripples.forEach(r => {
+                        const dx = p.x - centerX;
+                        const dy = p.y - centerY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        // If the particle is within the ripple's effect zone
+                        if (Math.abs(distance - r.radius) < rippleEffectZone) {
+                            const angle = Math.atan2(dy, dx);
+                            p.vx += Math.cos(angle) * r.force;
+                            p.vy += Math.sin(angle) * r.force;
+
+                            // Calculate alpha based on distance from the ripple's center
+                            const currentAlpha = 1 - (Math.abs(distance - r.radius) / rippleEffectZone);
+                            if (currentAlpha > maxAlpha) {
+                                maxAlpha = currentAlpha;
+                            }
+                        }
+                    });
+                    
+                    if (maxAlpha > 0) {
+                        p.alpha = maxAlpha;
+                    } else {
+                        p.alpha -= 0.1;
+                    }
+                    if (p.alpha < 0) {
+                        p.alpha = 0;
+                    }
+
+                    // Dampen the velocity to bring particles back to their original position
+                    const returnForce = 0.05;
+                    const dxToInitial = p.initialX - p.x;
+                    const dyToInitial = p.initialY - p.y;
+
+                    p.vx += dxToInitial * returnForce;
+                    p.vy += dyToInitial * returnForce;
+
+                    p.vx *= 0.90; // Reduced dampening for more sustained movement
+                    p.vy *= 0.90;
+                });
+            }
+            
+            function animate() {
+                update();
+                draw();
+                requestAnimationFrame(animate);
+            }
+
+            function resizeCanvas() {
+                // Get device pixel ratio for crisp rendering
+                const dpr = window.devicePixelRatio || 1;
+                
+                // Set canvas size
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                
+                // Scale context to match device pixel ratio
+                ctx.scale(dpr, dpr);
+                
+                // Set CSS size
+                canvas.style.width = `${window.innerWidth}px`;
+                canvas.style.height = `${window.innerHeight}px`;
+                
+                generateAllParticles();
+                draw();
+            }
+            
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animate();
+        };
 </script>

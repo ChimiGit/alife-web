@@ -1,9 +1,12 @@
 ---
 import '../../../styles/global.css';
+import { t, type Locale } from '../../../utils/i18n.ts';
 
 export interface Props {
-  // No props needed
+  locale?: Locale;
 }
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <!-- History Content -->
@@ -54,183 +57,282 @@ export interface Props {
     .timeline-item:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
     .timeline-item:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
     .timeline-item:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
+    
+    /* Desktop horizontal timeline dot positioning */
+    @media (min-width: 768px) {
+      .timeline-item .timeline-dot {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+        opacity: 1 !important;
+        display: block !important;
+        visibility: visible !important;
+      }
+      
+      /* Ensure first and last dots connect to line tips */
+      .timeline-item:first-child .timeline-dot {
+        left: 1.5rem;
+        transform: translate(-50%, -50%);
+      }
+      
+      .timeline-item:last-child .timeline-dot {
+        right: 1.5rem;
+        left: auto;
+        transform: translate(50%, -50%);
+      }
+    }
+    
+    /* Mobile timeline specific styling */
+    @media (max-width: 767px) {
+      .mobile-timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 1px;
+        background-color: #2E3192;
+        transform: translateX(-50%);
+        z-index: 1;
+      }
+      
+      .mobile-timeline-dot {
+        width: 12px !important;
+        height: 12px !important;
+        background-color: #2E3192 !important;
+        border: 2px solid white !important;
+        border-radius: 50% !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        position: relative !important;
+        z-index: 10 !important;
+        flex-shrink: 0 !important;
+      }
+      
+      .timeline-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      
+      .timeline-line {
+        transform: scaleY(1) !important;
+      }
+      
+      /* Ensure mobile timeline dots are visible and properly positioned */
+      .md\\:hidden .mobile-timeline-dot {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 10 !important;
+      }
+      
+      /* Override any conflicting styles for mobile dots */
+      .md\\:hidden .timeline-item .mobile-timeline-dot {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        width: 12px !important;
+        height: 12px !important;
+        background-color: #2E3192 !important;
+        border: 2px solid white !important;
+        border-radius: 50% !important;
+      }
+      
+      /* Force mobile dots to be visible */
+      .md\\:hidden .mobile-timeline-dot {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 12px !important;
+        height: 12px !important;
+        background-color: #2E3192 !important;
+        border: 2px solid white !important;
+        border-radius: 50% !important;
+        position: relative !important;
+        z-index: 10 !important;
+      }
+    }
   </style>
   
-  <h2 class="text-5xl text-primary text-center mb-2" style="font-family: 'GT Alpina Fine', serif;">History</h2>
+  <h2 class="text-64px text-primary text-center mb-2" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"};`}>{t(locale, 'about.history')}</h2>
   <div class="text-center mb-15">
-    <span class="text-20px text-primary" style="font-family: 'DM Sans', sans-serif; line-height: 2; font-weight: 300;">Why Us ? We are already well positioned to succeed.</span>
+    <span class="text-20px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 2; font-weight: 300;`}>{t(locale, 'about.historyText')}</span>
   </div>
 
   <!-- Timeline -->
-  <div class="relative max-w-4xl mx-auto">
-    <!-- Timeline Line -->
-    <div class="timeline-line absolute left-1/2 top-0 w-px bg-gray-200 transform -translate-x-1/2" style="height: calc(100% - 0.75rem);"></div>
-    <!-- Item -->
-    <div class="timeline-item flex items-start mb-8">
-      <!-- Left Content -->
-      <div class="timeline-content w-1/2 pr-8 text-end">
-        <span class="text-3xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Sakana.ai</span>
-        <br/>
-        <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Jan, 2024</span>
-        <br/>
-        <span class="text-xs text-primary mt-2 block">1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.</span>
-      </div>
-      <!-- End Left Content -->
-
-      <!-- Icon -->
-      <div class="relative z-10 size-7 flex justify-center items-start">
+  <div class="relative max-w-6xl mx-auto">
+    <!-- Desktop Timeline Line (Horizontal) -->
+    <div class="timeline-line absolute top-1/2 h-px transform -translate-y-1/2 hidden md:block" style="left: 50%; transform: translateX(-50%) translateY(-50%); width: calc(100% - 3rem); background-color: #2E3192;"></div>
+    <!-- Mobile Timeline Line (Vertical) -->
+    <div class="mobile-timeline-line md:hidden" style="height: calc(100% - 0.75rem);"></div>
+    <!-- Desktop Horizontal Layout -->
+    <div class="hidden md:flex items-center justify-between py-16">
+      <!-- Item 1 -->
+      <div class="timeline-item flex flex-col items-center text-center relative w-1/3">
+        <div class="timeline-content mb-12">
+          <span class="text-40px text-primary block" style="font-family: 'GT Alpina Fine', serif;">Sakana.ai</span>
+          <span class="inline-flex items-center gap-x-1.5 py-1 px-3 rounded-full text-xs bg-primary text-white mt-2">Jan, 2024</span>
+          <p class="text-20px text-primary mt-2 max-w-100">1st Japanese company with a focus on ALife. $30M seed round.</p>
+        </div>
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
+        <div class="timeline-content mt-12">
+          <img src="/assets/images/We-raised-30M 1.svg" alt="Sakana.ai Logo" class="h-55 w-47 mx-auto" loading="lazy"/>
+        </div>
       </div>
-      <!-- End Icon -->
 
-      <!-- Right Content -->
-      <div class="timeline-content w-1/2 pl-8">
-        <img src="/assets/images/We-raised-30M 1.png" alt="Sakana.ai Logo" class="h-25 w-50 mt-5" loading="lazy"/>
-      </div>
-      <!-- End Right Content -->
-    </div>
-    <!-- End Item -->
-
-    <!-- Item -->
-    <div class="timeline-item flex items-center mb-8">
-      <!-- Left Content -->
-      <div class="timeline-content w-1/2 pr-8 flex justify-end">
-        <img src="/assets/logo/logo2.png" alt="ALIFE Logo" class="h-15 w-30 mt-5 filter-primary" loading="lazy"/>
-      </div>
-      <!-- End Left Content -->
-
-      <!-- Icon -->
-      <div class="relative z-10 size-7 flex justify-center items-center">
+      <!-- Item 2 -->
+      <div class="timeline-item flex flex-col items-center text-center relative w-1/3">
+        <div class="timeline-content mb-12">
+          <img src="/assets/logo/logo3.svg" alt="ALIFE Logo" class="h-30 w-42  filter-primary" loading="lazy"/>
+        </div>
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
+        <div class="timeline-content mt-10">
+          <span class="text-40px text-primary block" style="font-family: 'GT Alpina Fine', serif;">ALIFE Institute Incorporated</span>
+        </div>
       </div>
-      <!-- End Icon -->
 
-      <!-- Right Content -->
-      <div class="timeline-content w-1/2 pl-8">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Alife</span>
-        <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Institute Incorporated</span>
-      </div>
-      <!-- End Right Content -->
-    </div>
-    <!-- End Item -->
-
-    <!-- Item -->
-    <div class="timeline-item flex items-center mb-8">
-      <!-- Left Content -->
-      <div class="timeline-content w-1/2 pr-8 text-end">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Research</span>
-        <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Projects Began</span>
-        <br/>
-        <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Dec, 2024</span>
-      </div>
-      <!-- End Left Content -->
-
-      <!-- Icon -->
-      <div class="relative z-10 size-7 flex justify-center items-center">
+      <div class="timeline-item flex flex-col items-center text-center relative w-1/3">
+        <div class="timeline-content mb-12">
+          <span class="text-40px text-primary block" style="font-family: 'GT Alpina Fine', serif;">Research Projects Began</span>
+          <span class="inline-flex items-center gap-x-1.5 py-1 px-3 rounded-full text-xs bg-primary text-white mt-2">Dec, 2024</span>
+        </div>
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
-      </div>
-      <!-- End Icon -->
-
-      <!-- Right Content -->
-      <div class="timeline-content w-1/2 pl-8">
-        <!-- ALife Research Grid -->
-        <div class="grid grid-cols-2 gap-4 max-w-md">
-          <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">primordial soup</p>
-            <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
-              <img src="/assets/images/primordial soup.png" alt="Primordial Soup" class="w-full h-24 object-cover" loading="lazy"/>
-            </div>
-          </div>
-          <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">structure</p>
-            <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
-              <img src="/assets/images/primordial soup.png" alt="Structure" class="w-full h-24 object-cover"/>
-            </div>
-          </div>
-          <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">locomotion</p>
-            <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
-              <img src="/assets/images/primordial soup.png" alt="Locomotion" class="w-full h-24 object-cover"/>
-            </div>
-          </div>
-          <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">coevolution</p>
-            <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
-              <img src="/assets/images/primordial soup.png" alt="Coevolution" class="w-full h-24 object-cover"/>
-            </div>
-          </div>
-          <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">complexification</p>
-            <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
-              <img src="/assets/images/primordial soup.png" alt="Complexification" class="w-full h-24 object-cover"/>
-            </div>
-          </div>
-          <div class="text-center">
-            <p class="text-sm font-medium text-orange-400 mb-2">disordered structures</p>
-            <div class="border-2 border-orange-400 rounded-lg overflow-hidden">
-              <img src="/assets/images/primordial soup.png" alt="Disordered Structures" class="w-full h-24 object-cover"/>
-            </div>
+        <div class="timeline-content mt-12">
+          <div class="grid grid-cols-3 gap-2">
+              <img src="/assets/research-project/Ellipse 314.svg" alt="Primordial Soup" class="w-full h-12 object-cover" loading="lazy" style="border-radius: 10px;"/>
+              <img src="/assets/research-project/Ellipse 315.svg" alt="Structure" class="w-full h-12 object-cover"/>
+              <img src="/assets/research-project/Ellipse 316.svg" alt="Locomotion" class="w-full h-12 object-cover"/>
+              <img src="/assets/research-project/Ellipse 317.svg" alt="Coevolution" class="w-full h-12 object-cover"/>
+              <img src="/assets/research-project/Ellipse 318.svg" alt="Coevolution" class="w-full h-12 object-cover"/>
+              <img src="/assets/research-project/Ellipse 319.svg" alt="Coevolution" class="w-full h-12 object-cover"/>
           </div>
         </div>
       </div>
-      <!-- End Right Content -->
     </div>
-    <!-- End Item -->
 
-    <!-- Future Items -->
-    <div class="timeline-item flex items-center mb-8">
-      <!-- Left Content -->
-      <div class="timeline-content w-1/2 pr-8 text-end">
-        <span class="text-xl text-primary">Now</span>
-      </div>
-      <!-- End Left Content -->
+    <!-- Mobile Vertical Layout -->
+    <div class="md:hidden">
+      <!-- Item -->
+      <div class="timeline-item flex items-start mb-8">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-8 text-end">
+          <span class="text-3xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Sakana.ai</span>
+          <br/>
+          <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Jan, 2024</span>
+          <br/>
+          <span class="text-xs text-primary mt-2 block">1st Japanese company with a focus on ALife.<br/>$30M seed round Jan, 2024.</span>
+        </div>
+        <!-- End Left Content -->
 
-      <!-- Icon -->
-      <div class="relative z-10 size-7 flex justify-center items-center">
+          <!-- Icon -->
+          <div class="relative z-10 size-7 flex justify-center items-start">
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
-      </div>
-      <!-- End Icon -->
+          </div>
+        <!-- End Icon -->
 
-      <!-- Right Content -->
-      <div class="timeline-content w-1/2 pl-8">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Kyoto</span>
-        <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Office Opens</span>
-        <br/>
-        <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Oct, 2025</span>
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-8">
+          <img src="/assets/images/We-raised-30M 1.svg" alt="Sakana.ai Logo" class="h-25 w-50 mt-5" loading="lazy"/>
+        </div>
+        <!-- End Right Content -->
       </div>
-      <!-- End Right Content -->
-    </div>
-    <!-- End Item -->
+      <!-- End Item -->
 
-    <!-- Final Item -->
-    <div class="timeline-item flex items-end mb-8">
-      <!-- Left Content -->
-      <div class="timeline-content w-1/2 pr-8 text-end">
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Non-Profit</span>
-        <br/>
-        <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Incorporation</span>
-        <br/>
-        <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Dec, 2025</span>
-      </div>
-      <!-- End Left Content -->
+      <!-- Item -->
+      <div class="timeline-item flex items-center mb-8">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-8 flex justify-end">
+          <img src="/assets/logo/logo3.svg" alt="ALIFE Logo" class="h-15 w-30 mt-5 filter-primary" loading="lazy"/>
+        </div>
+        <!-- End Left Content -->
 
-      <!-- Icon -->
-      <div class="relative z-10 size-7 flex justify-center items-end">
+        <!-- Icon -->
+        <div class="relative z-10 size-7 flex justify-center items-center">
         <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
-      </div>
-      <!-- End Icon -->
+        </div>
+        <!-- End Icon -->
 
-      <!-- Right Content -->
-      <div class="timeline-content w-1/2 pl-8">
-        <!-- Empty for clean layout -->
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-8">
+          <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Alife</span>
+          <br/>
+          <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Institute Incorporated</span>
+        </div>
+        <!-- End Right Content -->
       </div>
-      <!-- End Right Content -->
+      <!-- End Item -->
+
+      <!-- Item -->
+      <div class="timeline-item flex items-center mb-8">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-8 text-end">
+          <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Research</span>
+          <br/>
+          <span class="text-2xl text-primary" style="font-family: 'GT Alpina Fine', serif;">Projects Began</span>
+          <br/>
+          <span class="inline-flex items-center gap-x-1.5 py-1 px-5 rounded-full text-xs bg-primary text-white">Dec, 2024</span>
+        </div>
+        <!-- End Left Content -->
+
+        <!-- Icon -->
+        <div class="relative z-10 size-7 flex justify-center items-center">
+        <div class="timeline-dot size-3 rounded-full bg-primary border-2 border-white"></div>
+        </div>
+        <!-- End Icon -->
+
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-8">
+          <!-- ALife Research Grid -->
+          <div class="grid grid-cols-2 gap-2 max-w-md">
+            <div class="text-center">
+              <div class="overflow-hidden">
+                <img src="/assets/research-project/Ellipse 314.svg" alt="Primordial Soup" class="w-full h-21 object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden">
+                <img src="/assets/research-project/Ellipse 315.svg" alt="Structure" class="w-full h-21 object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden">
+                <img src="/assets/research-project/Ellipse 316.svg" alt="Locomotion" class="w-full h-21 object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden">
+                <img src="/assets/research-project/Ellipse 317.svg" alt="Coevolution" class="w-full h-21 object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden">
+                <img src="/assets/research-project/Ellipse 318.svg" alt="Complexification" class="w-full h-21 object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden">
+                <img src="/assets/research-project/Ellipse 319.svg" alt="Disordered Structures" class="w-full h-21 object-cover" loading="lazy"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Right Content -->
+      </div>
+      <!-- End Item -->
     </div>
-    <!-- End Item -->
+    <!-- End Mobile Layout -->
   </div>
+
+  <div class="flex justify-center mt-10">
+    <p class="text-20px" style={`color: #FFAC3F; font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"};`}>{t(locale, 'about.historyNote')}</p><br />
+  </div>  
+  <div class="flex justify-center">
+    <p class="text-20px text-primary" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"};`}>{t(locale, 'about.historyCallToAction')}</p>
+  </div> 
   <!-- End Timeline -->
 </div>
 

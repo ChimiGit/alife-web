@@ -1,9 +1,11 @@
 ---
 import Header from '../components/Header.astro';
-import CareerLoading from '../components/loaders/CareerLoading.astro';
 import Jobs from '../components/sections/career/Jobs.astro';
 import Team from '../components/sections/career/Team.astro';
 import '../styles/global.css';
+import { t, getEffectiveLocale } from '../utils/i18n.ts';
+
+const currentLocale = getEffectiveLocale(Astro.url.pathname);
 ---
 
 <!DOCTYPE html>
@@ -16,11 +18,36 @@ import '../styles/global.css';
     <title>Career - ALIFE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload loader image for faster loading -->
-    <link rel="preload" href="/assets/loader/career-loading.png" as="image">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+      /* Noise effect */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        animation: noise 0.2s infinite;
+        mix-blend-mode: overlay;
+      }
+      
+      @keyframes noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(-15%, 10%); }
+        90% { transform: translate(10%, 5%); }
+      }
     /* Slide-in animation styles for back navigation from job pages */
     .slide-in-from-left {
       transform: translateX(-100%);
@@ -64,43 +91,38 @@ import '../styles/global.css';
   </head>
 
   <body class="min-h-screen bg-gray-50">
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 z-50 transition-all duration-700 ease-in-out">
-      <CareerLoading />
-    </div>
-
-    <!-- Main Content (Hidden Initially) -->
-    <div id="main-content" class="opacity-0 transition-opacity duration-500 ease-in hidden">
-      <Header />
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+    
+    <!-- Main Content -->
+    <div id="main-content">
+      <Header locale={currentLocale} />
 
       <!-- Main content -->
-      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 content-stagger">
 
       <!-- Hero Section -->
       <section class="text-center mb-8 sm:mb-10 hero-section">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          Where Brilliant<br>
+        <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          Where Brilliant<br />
           Minds Explore Together
         </h1>
       </section>
-      <p class="text-sm sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'DM Sans', sans-serif; line-height: 2;">
-        Discover what happens at the intersection of nature and computation, where we're creating something
-        unprecedented. Our team combines world-class researchers and innovative engineers united by a shared
-        fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that
-        grow organically, surprising even their creators.
+      <p class="text-20px sm:text-20px text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+        {t(currentLocale, 'career.subtitle')}
       </p>
 
       <!-- Join Us Section with Tabs -->
       <section class="text-center mb-12 sm:mb-20 join-section">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
-          Join Us!
+        <h2 class="text-40px font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+          {t(currentLocale, 'career.joinUs')}
         </h2>
         <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
           <button id="our-team-tab" class="main-tab active bg-primary text-white px-6 py-2 rounded-full transition-colors duration-200" data-target="#our-team-content">
-            Our Team
+            {t(currentLocale, 'career.ourTeam')}
           </button>
           <button id="jobs-tab" class="main-tab border border-primary text-primary px-6 py-2 rounded-full transition-colors duration-200" data-target="#jobs-content">
-            Jobs
+            {t(currentLocale, 'career.jobs')}
           </button>
         </div>
 
@@ -156,102 +178,72 @@ import '../styles/global.css';
           });
         });
 
+        // Handle URL hash for direct tab navigation
+        function handleHashNavigation() {
+          const { hash } = window.location;
+          if (hash === '#researchers') {
+            // Switch to Our Team tab first
+            const ourTeamTab = document.getElementById('our-team-tab');
+            if (ourTeamTab) {
+              ourTeamTab.click();
+              
+              // Wait for the Team component to load, then activate researchers tab
+              setTimeout(() => {
+                const researchersTab = document.querySelector('[data-target="#researchers-panel"]') as HTMLElement;
+                if (researchersTab) {
+                  researchersTab.click();
+                  
+                  // Scroll to the researchers section
+                  setTimeout(() => {
+                    const researchersPanel = document.getElementById('researchers-panel');
+                    if (researchersPanel) {
+                      researchersPanel.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }, 200);
+                }
+              }, 100);
+            }
+          }
+        }
+
+        // Handle hash on page load
+        handleHashNavigation();
+
+        // Handle hash changes
+        window.addEventListener('hashchange', handleHashNavigation);
+
         // Note: Team tab functionality is now handled in Team.astro component
 
-        // Check if this is a back navigation
-        const isBackNavigation = sessionStorage.getItem('alife-back-navigation') === 'true';
-        const isFromJobPage = sessionStorage.getItem('alife-from-job-page') === 'true';
+      });
+    </script>
+
+    <!-- Initialize content animations -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const staggerContainer = document.querySelector('.content-stagger');
+          if (staggerContainer) {
+            staggerContainer.classList.add('loaded');
+          }
+        }, 100);
+
+        // Language preference handling
+        const storedLocale = localStorage.getItem('alife-locale');
+        const currentPath = window.location.pathname;
         
-        if (isBackNavigation && isFromJobPage) {
-          // Show slide animation for back navigation from job pages
-          const loadingScreen = document.getElementById('loading-screen');
-          const mainContent = document.getElementById('main-content');
-          const careerContent = document.getElementById('career-content');
-          
-          if (loadingScreen && mainContent && careerContent) {
-            // Hide loader immediately
-            loadingScreen.classList.add('hidden');
-            mainContent.classList.remove('hidden');
-            mainContent.classList.remove('opacity-0');
-            mainContent.classList.add('opacity-100');
-            
-            // Add slide animation classes
-            careerContent.classList.add('slide-in-from-left');
-            
-            // Trigger animation
-            setTimeout(() => {
-              careerContent.classList.add('animate');
-            }, 50);
+        // If user has a stored preference, redirect to the appropriate localized path
+        if (storedLocale) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+            // Redirect to Japanese version
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+            // Redirect to English version (remove /ja prefix)
+            const englishPath = currentPath.replace('/ja', '');
+            window.location.href = englishPath;
           }
-          
-          // Switch to Jobs tab when coming from job page
-          setTimeout(() => {
-            const jobsTab = document.getElementById('jobs-tab');
-            const ourTeamTab = document.getElementById('our-team-tab');
-            const jobsContent = document.getElementById('jobs-content');
-            const ourTeamContent = document.getElementById('our-team-content');
-            
-            if (jobsTab && ourTeamTab && jobsContent && ourTeamContent) {
-              // Remove active state from Our Team tab
-              ourTeamTab.classList.remove('active', 'bg-primary', 'text-white');
-              ourTeamTab.classList.add('border', 'border-primary', 'text-primary');
-              
-              // Hide Our Team content
-              ourTeamContent.classList.add('hidden');
-              
-              // Add active state to Jobs tab
-              jobsTab.classList.add('active', 'bg-primary', 'text-white');
-              jobsTab.classList.remove('border', 'border-primary', 'text-primary');
-              
-              // Show Jobs content
-              jobsContent.classList.remove('hidden');
-            }
-          }, 100);
-          
-          // Clear the navigation flags
-          sessionStorage.removeItem('alife-back-navigation');
-          sessionStorage.removeItem('alife-from-job-page');
-        } else if (isBackNavigation) {
-          // Skip loader for other back navigation
-          const loadingScreen = document.getElementById('loading-screen');
-          const mainContent = document.getElementById('main-content');
-          
-          if (loadingScreen && mainContent) {
-            loadingScreen.classList.add('hidden');
-            mainContent.classList.remove('hidden');
-            mainContent.classList.remove('opacity-0');
-            mainContent.classList.add('opacity-100');
-          }
-          
-          // Clear the back navigation flag
-          sessionStorage.removeItem('alife-back-navigation');
-        } else {
-          // Normal loading animation for fresh page loads
-          setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            const mainContent = document.getElementById('main-content');
-
-            if (loadingScreen && mainContent) {
-              // Slide loading screen upward using CSS class
-              loadingScreen.classList.add('loading-slide-up');
-
-              setTimeout(() => {
-                if (loadingScreen && mainContent) {
-                  // Hide loading screen and show main content
-                  loadingScreen.classList.add('hidden');
-                  mainContent.classList.remove('hidden');
-
-                  // Fade in main content
-                  setTimeout(() => {
-                    if (mainContent) {
-                      mainContent.classList.remove('opacity-0');
-                      mainContent.classList.add('opacity-100');
-                    }
-                  }, 50);
-                }
-              }, 700);
-            }
-          }, 2500); // Show loading for 2.5 seconds
         }
       });
     </script>

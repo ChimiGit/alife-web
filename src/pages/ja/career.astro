@@ -1,0 +1,247 @@
+---
+import Header from '../../components/Header.astro';
+import Jobs from '../../components/sections/career/Jobs.astro';
+import Team from '../../components/sections/career/Team.astro';
+import '../../styles/global.css';
+import { t, type Locale } from '../../utils/i18n.ts';
+
+const currentLocale: Locale = 'ja';
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>キャリア - ALIFE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Noise effect */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        animation: noise 0.2s infinite;
+        mix-blend-mode: overlay;
+      }
+      
+      @keyframes noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(-15%, 10%); }
+        90% { transform: translate(10%, 5%); }
+      }
+    /* Slide-in animation styles for back navigation from job pages */
+    .slide-in-from-left {
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
+    }
+
+    .slide-in-from-left.animate {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Staggered animation for child elements */
+    .slide-in-from-left .hero-section,
+    .slide-in-from-left .join-section,
+    .slide-in-from-left .tabs-section {
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out;
+    }
+
+    .slide-in-from-left.animate .hero-section {
+      transition-delay: 0.1s;
+    }
+
+    .slide-in-from-left.animate .join-section {
+      transition-delay: 0.2s;
+    }
+
+    .slide-in-from-left.animate .tabs-section {
+      transition-delay: 0.3s;
+    }
+
+    .slide-in-from-left.animate .hero-section,
+    .slide-in-from-left.animate .join-section,
+    .slide-in-from-left.animate .tabs-section {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Custom main tab hover states */
+    .main-tab:not(.active):hover {
+      background-color: #2E3192 !important; /* primary color */
+      color: white !important;
+      border-color: #2E3192 !important;
+    }
+
+    .main-tab.active:hover {
+      background-color: #2E3192 !important; /* primary color */
+      color: white !important;
+    }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-gray-50 font-japanese">
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+    
+    <!-- Main Content -->
+    <div id="main-content">
+      <Header locale={currentLocale} />
+
+      <!-- Main content -->
+      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 content-stagger">
+
+      <!-- Hero Section -->
+      <section class="text-center mb-8 sm:mb-10 hero-section">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          {t(currentLocale, 'career.title')}
+        </h1>
+      </section>
+      <p class="text-sm sm:text-base text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+        {t(currentLocale, 'career.subtitle')}
+      </p>
+
+      <!-- Join Us Section with Tabs -->
+      <section class="text-center mb-12 sm:mb-20 join-section">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+          {t(currentLocale, 'career.joinUs')}
+        </h2>
+        <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
+          <button id="our-team-tab" class="main-tab active bg-primary text-white px-6 py-2 rounded-full transition-colors duration-200" data-target="#our-team-content">
+            {t(currentLocale, 'career.ourTeam')}
+          </button>
+          <button id="jobs-tab" class="main-tab border border-primary text-primary px-6 py-2 rounded-full transition-colors duration-200" data-target="#jobs-content">
+            {t(currentLocale, 'career.jobs')}
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="max-w-6xl mx-auto tabs-section">
+          <!-- Our Team Content -->
+          <div id="our-team-content" class="main-tab-content">
+            <Team />
+          </div>
+
+          <!-- Jobs Content -->
+          <div id="jobs-content" class="main-tab-content hidden">
+            <div class="text-left">
+              <Jobs />
+            </div>
+          </div>
+        </div>
+      </section>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Main tabs (Our Team / Jobs)
+        const mainTabs = document.querySelectorAll('.main-tab');
+        const mainTabContents = document.querySelectorAll('.main-tab-content');
+
+        mainTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            mainTabs.forEach(t => t.classList.remove('active'));
+            mainTabContents.forEach(c => c.classList.add('hidden'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Show corresponding content
+            const targetId = tab.getAttribute('data-target');
+            if (targetId) {
+              const targetContent = document.querySelector(targetId);
+              if (targetContent) {
+                targetContent.classList.remove('hidden');
+              }
+            }
+          });
+        });
+
+        // Handle URL hash for direct tab navigation
+        function handleHashNavigation() {
+          const { hash } = window.location;
+          if (hash === '#researchers') {
+            // Switch to Our Team tab first
+            const ourTeamTab = document.getElementById('our-team-tab');
+            if (ourTeamTab) {
+              ourTeamTab.click();
+              
+              // Wait for the Team component to load, then activate researchers tab
+              setTimeout(() => {
+                const researchersTab = document.querySelector('[data-target="#researchers-panel"]') as HTMLElement;
+                if (researchersTab) {
+                  researchersTab.click();
+                  
+                  // Scroll to the researchers section
+                  setTimeout(() => {
+                    const researchersPanel = document.getElementById('researchers-panel');
+                    if (researchersPanel) {
+                      researchersPanel.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }, 200);
+                }
+              }, 100);
+            }
+          }
+        }
+
+        // Handle hash on page load
+        handleHashNavigation();
+
+        // Handle hash changes
+        window.addEventListener('hashchange', handleHashNavigation);
+
+        // Initialize content animations
+        setTimeout(() => {
+          const staggerContainer = document.querySelector('.content-stagger');
+          if (staggerContainer) {
+            staggerContainer.classList.add('loaded');
+          }
+        }, 100);
+
+        // Language preference handling
+        const storedLocale = localStorage.getItem('alife-locale');
+        const currentPath = window.location.pathname;
+        
+        // If user has a stored preference, redirect to the appropriate localized path
+        if (storedLocale) {
+          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
+            // Redirect to Japanese version
+            window.location.href = `/ja${currentPath}`;
+          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
+            // Redirect to English version (remove /ja prefix)
+            const englishPath = currentPath.replace('/ja', '');
+            window.location.href = englishPath;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -4,8 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#2e3192', // Deep blue for ALIFE branding
-        'accent-cyan': '#2e3192', // Cyan accent for hover states
+        primary: '#2E3192', // Deep blue for ALIFE branding
       },
       fontFamily: {
         sans: [
