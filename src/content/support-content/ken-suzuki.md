@@ -1,7 +1,7 @@
 ---
 name: 'Ken Suzuki'
 title: 'CEO & Co-Founder'
-image: '/assets/team/Ken Suzuki.png'
+image: '/alife-web/assets/team/Ken Suzuki.png'
 bio: "Former CEO of Sakana.ai, leading ALIFE's mission to advance artificial life research"
 location: 'Kyoto, Japan'
 linkedin: 'https://linkedin.com/in/ken-suzuki'
