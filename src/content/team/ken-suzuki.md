@@ -1,7 +1,7 @@
 ---
 name: 'Ken Suzuki'
 title: 'CEO & Co-Founder'
-image: '/assets/team/Ken Suzuki.png'
+image: '/alife-web/assets/team/Ken Suzuki.png'
 bio: 'Founder/ Executive Chair of SmartNews'
 location: 'Kyoto, Japan'
 linkedin: 'https://linkedin.com/in/ken-suzuki'

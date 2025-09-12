@@ -1,7 +1,7 @@
 ---
 name: 'Banjo Yamauchi'
 title: 'CTO & Co-Founder'
-image: '/assets/team/Banjo Yamauchi.png'
+image: '/alife-web/assets/team/Banjo Yamauchi.png'
 bio: 'Yamauchi No.10 Family Office'
 location: 'Kyoto, Japan'
 linkedin: 'https://linkedin.com/in/banjo-yamauchi'

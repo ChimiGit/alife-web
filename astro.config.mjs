@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://ChimiGit.github.io',
+  site: 'https://ChimiGit.github.io/alife-web',
   base: '/alife-web/',
   i18n: {
     defaultLocale: 'en',
@@ -20,6 +20,7 @@ export default defineConfig({
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
+    assets: 'assets',
   },
   vite: {
     // @ts-ignore - Tailwind v4 compatibility issue

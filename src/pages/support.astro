@@ -13,7 +13,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/assets/logo/thumbnail-logo.png" />
+    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/logo/thumbnail-logo.png`} />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Support Us - ALIFE</title>
@@ -105,7 +105,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
                     aria-selected="false"
                     data-target="#contact-panel"
                     role="tab"
-                    style="font-family: 'GT Alpina Fine', sans-serif;"
+                    style = "font-family: 'GT Alpina Fine', sans-serif;"
                   >
                     Contact
                   </button>
@@ -159,7 +159,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
                       <!-- Email -->
                       <div class="flex items-start space-x-3 sm:space-x-4">
                         <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
-                          <img src="/assets/images/email.svg" alt="Email" class="w-4 h-4 sm:w-5 sm:h-5" />
+                          <img src={`${import.meta.env.BASE_URL}assets/images/email.svg`} alt="Email" class="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
                         <div>
                           <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">example@teamwebflow.com</p>
@@ -169,7 +169,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
                       <!-- Location -->
                       <div class="flex items-start space-x-3 sm:space-x-4">
                         <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
-                          <img src="/assets/images/property-location.svg" alt="Location" class="w-4 h-4 sm:w-5 sm:h-5" />
+                          <img src={`${import.meta.env.BASE_URL}assets/images/property-location.svg`} alt="Location" class="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
                         <div>
                           <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">Kyoto HQ, Japan</p>
@@ -179,7 +179,7 @@ const supportTeamMembers = await getAllSupportTeamMembers();
                       <!-- Phone -->
                       <div class="flex items-start space-x-3 sm:space-x-4">
                         <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
-                          <img src="/assets/images/mobile-chat.svg" alt="Phone" class="w-4 h-4 sm:w-5 sm:h-5" />
+                          <img src={`${import.meta.env.BASE_URL}assets/images/mobile-chat.svg`} alt="Phone" class="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
                         <div>
                           <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">+44 123 654 7890</p>

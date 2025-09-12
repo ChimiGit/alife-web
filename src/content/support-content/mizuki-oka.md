@@ -1,7 +1,7 @@
 ---
 name: 'Mizuki Oka'
 title: 'Research Director'
-image: '/assets/team/Mizuki Oka.png'
+image: '/alife-web/assets/team/Mizuki Oka.png'
 bio: 'Leading breakthrough research in artificial life and emergent systems'
 location: 'Kyoto, Japan'
 linkedin: 'https://linkedin.com/in/mizuki-oka'
