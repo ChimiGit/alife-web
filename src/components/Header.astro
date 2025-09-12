@@ -17,14 +17,32 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
     <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
       <div class="max-w-6xl mx-auto pr-4 flex justify-between items-center min-h-20">
       <!-- Logo section -->
-      <div class="flex ">
-        <a href={`${import.meta.env.BASE_URL}`} class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
-          <div class="relative" style="width: 189.92px; height: 27.63px;">
-            <img src={`${import.meta.env.BASE_URL}assets/logo/logo1.svg`} alt="ALIFE Logo 1" class="absolute top-0 left-0 z-10" style="width: 189.92px; height: 27.63px;"/>
-            <img src={`${import.meta.env.BASE_URL}assets/logo/logo2.svg`} alt="ALIFE Logo 2" class="logo-slide absolute top-0 left-0 transition-all duration-500 ease-in-out z-20" style="width: 189.92px; height: 25.63px;"/>
+      <div class="flex items-center">
+        <a 
+          href={`${import.meta.env.BASE_URL}`} 
+          class="flex items-center" 
+          aria-label="ALIFE - Artificial Life Institute"
+        >
+          <!-- Responsive wrapper -->
+          <div class="relative sm:w-[190px] sm:h-[28px] w-28 h-6">
+            <!-- Logo 1 -->
+            <img 
+              src={`${import.meta.env.BASE_URL}assets/logo/logo1.svg`} 
+              alt="ALIFE Logo 1" 
+              class="absolute top-0 left-0 z-10 w-full h-auto object-left"
+              style="width: 189.92px; height: 27.63px;"
+            />
+            <!-- Logo 2 (animated overlay) -->
+            <img 
+              src={`${import.meta.env.BASE_URL}assets/logo/logo2.svg`} 
+              alt="ALIFE Logo 2" 
+              class="logo-slide absolute top-0 left-0 z-20 w-full h-auto object-left transition-all duration-500 ease-in-out"
+              style="width: 189.92px; height: 27.63px;"
+            />
           </div>
         </a>
       </div>
+      
 
       <!-- Desktop Navigation section -->
       <nav class="hidden lg:flex items-center" role="navigation" aria-label="Main navigation">
