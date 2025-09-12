@@ -1,7 +1,7 @@
 ---
 // Header component for ALIFE website
 import { t, getEffectiveLocale, type Locale } from '../utils/i18n.ts';
-import LanguageSwitcher from './LanguageSwitcher.astro';
+// import LanguageSwitcher from './LanguageSwitcher.astro';
 
 export interface Props {
   locale?: Locale;
@@ -15,7 +15,7 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 
     <!-- Main  header content -->
     <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
-      <div class="max-w-6xl mx-auto px-4 flex justify-between items-center min-h-20">
+      <div class="max-w-6xl mx-auto flex justify-between items-center min-h-20">
       <!-- Logo section -->
       <div class="flex items-center">
         <a href={`${import.meta.env.BASE_URL}`} class="flex items-center" aria-label="ALIFE - Artificial Life Institute">
@@ -47,9 +47,9 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
             </li>
             
             <!-- Language Switcher inside the dashed border -->
-            <li class="m-0 ml-4 pl-4">
+            <!-- <li class="m-0 ml-4 pl-4">
               <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>
@@ -125,9 +125,9 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
           </ul>
           
           <!-- Mobile Language Switcher -->
-          <div class="mt-8 px-6">
+          <!-- <div class="mt-8 px-6">
             <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
-          </div>
+          </div> -->
         </nav>
       </div>
     </div>
