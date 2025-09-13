@@ -117,6 +117,8 @@
   let showControls = false;
   let sharpness = 0.7; // 0..1
   let useAdditive = true;
+  const MIN_VISIBLE_SIZE_PX = 3; // skip tiny particles
+  const MIN_WAVE_OFFSET = 0.15; // skip very faint phase
 
   const canvas = document.getElementById('halftone-canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
@@ -197,6 +199,11 @@
       const waveOffset = Math.sin(normalizedDistance * 22.5 - time) * 0.5 + 0.5;
       const size = particleSize * waveOffset * 0.8;
 
+      // Skip tiny/faint particles to remove small fading dots
+      if (waveOffset < MIN_WAVE_OFFSET || size < MIN_VISIBLE_SIZE_PX) {
+        return;
+      }
+
       // Solid core for crispness
       const coreRadius = (size / 2) * (0.3 + 0.55 * sharpness); // 30%..85% of radius
       const baseAlpha = Math.min(1, waveOffset * (0.55 + 0.45 * sharpness));
@@ -207,18 +214,16 @@
         ctx!.fill();
       }
 
-      // Tight halo for contrast
+      // Crisp outline ring instead of soft fading halo
       const outerRadius = size / 2;
       if (outerRadius > coreRadius) {
-        const gradient = ctx!.createRadialGradient(centerX, centerY, coreRadius, centerX, centerY, outerRadius);
-        gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${baseAlpha})`);
-        gradient.addColorStop(0.85, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${baseAlpha * 0.35})`);
-        gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
-
+        const lineWidth = Math.max(1, outerRadius * (0.12 + 0.18 * sharpness));
+        const outlineAlpha = Math.min(1, baseAlpha * (0.85 + 0.15 * sharpness));
         ctx!.beginPath();
-        ctx!.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
-        ctx!.fillStyle = gradient;
-        ctx!.fill();
+        ctx!.arc(centerX, centerY, outerRadius - lineWidth * 0.5, 0, Math.PI * 2);
+        ctx!.lineWidth = lineWidth;
+        ctx!.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${outlineAlpha})`;
+        ctx!.stroke();
       }
     });
   };
