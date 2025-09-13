@@ -1,0 +1,57 @@
+---
+
+import Wave from "../animations/Wave.astro";
+import { t, type Locale } from "../../utils/i18n.ts";
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+---
+
+<div class="relative min-h-screen overflow-hidden bg-[#29D6E2]" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; margin-top: -5rem`}>
+  <!-- Ripple Particles Background -->
+  <div class="fixed inset-0 z-[99999]" aria-hidden="true">
+   <Wave />
+  </div>
+
+  <!-- Text Content (same as slider-1) -->
+  <main class="absolute top-0 left-0 w-full h-full z-10 flex items-center">
+    <div class="text-left max-w-7xl pl-4 sm:pl-8 lg:pl-40">
+      <h1
+        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
+        style={`font-family: ${
+          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"
+        }; margin: 0; line-height: 0.8;`}
+      >
+        {t(locale, 'home.slider.line1')}
+      </h1>
+      <h1
+        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
+        style={`font-family: ${
+          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"
+        }; margin: 0; line-height: 0.8;`}
+      >
+        {t(locale, 'home.slider.line2')}
+      </h1>
+      <h1
+        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
+        style={`font-family: ${
+          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"
+        }; margin: 0; line-height: 0.8;`}
+      >
+        {t(locale, 'home.slider.line3')}
+      </h1>
+      <p
+        class="text-primary max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl font-light mt-6 sm:mt-8 lg:mt-10 text-sm sm:text-base md:text-lg"
+        style={`font-family: ${
+          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"
+        }; font-size: 16px; line-height: 150%;`}
+      >
+        {t(locale, 'home.slider.description')}
+      </p>
+    </div>
+  </main>
+ 
+

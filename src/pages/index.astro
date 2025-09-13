@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Slider1 from '../components/home-slider/slider-1.astro';
 import Slider2 from "../components/home-slider/slider-2.astro";
+import Slider3 from '@/components/home-slider/slider-3.astro';
 import { getEffectiveLocale } from '../utils/i18n.ts';
 
 const currentLocale = getEffectiveLocale(Astro.url.pathname);
@@ -63,18 +64,22 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
     <div id="slider-2-background" class="hidden content-fade">
       <Slider2 locale={currentLocale} />
     </div>
-       <!-- <div id="slider-3-background" class="hidden"> <Slider3 /> </div> -->
+    <div id="slider-3-background" class="hidden content-fade">
+      <Slider3 locale={currentLocale} />
+    </div>
     <script>
       // Randomly choose which background to show on page load
-      const backgrounds = ['slider-1', 'slider-2'];
+  const backgrounds = ['slider-1', 'slider-2', 'slider-3'];
       const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
       
       // Hide all backgrounds first
-      const slider1 = document.getElementById('slider-1-background') as HTMLElement;
-      const slider2 = document.getElementById('slider-2-background') as HTMLElement;
+  const slider1 = document.getElementById('slider-1-background') as HTMLElement;
+  const slider2 = document.getElementById('slider-2-background') as HTMLElement;
+  const slider3 = document.getElementById('slider-3-background') as HTMLElement;
       
       slider1?.classList.add('hidden'); 
       slider2?.classList.add('hidden');
+      slider3?.classList.add('hidden');
       
       // Show the randomly chosen background
       const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
