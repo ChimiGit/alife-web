@@ -1,0 +1,300 @@
+---
+// Astro component - no props needed for this standalone component
+---
+
+<div class="relative w-full h-screen">
+  <canvas id="halftone-canvas" class="w-full h-screen"></canvas>
+
+  <div class="absolute bottom-4 right-4 z-10">
+    <button
+      id="toggle-controls"
+      class="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/30 hover:bg-black/70 transition-colors shadow-lg"
+    >
+      Show Controls
+    </button>
+
+    <div id="controls-panel" class="mt-4 bg-black/50 backdrop-blur-sm p-6 rounded-lg border border-white/20 space-y-4 min-w-[280px] hidden">
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">Particle Size: <span id="size-value">20</span>px</label>
+        <input
+          type="range"
+          id="particle-size"
+          min="5"
+          max="50"
+          value="20"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Particle Count: <span id="count-value">0</span>
+        </label>
+        <input
+          type="range"
+          id="particle-density"
+          min="10"
+          max="60"
+          value="20"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+        <div class="text-xs text-white/60 mt-1">Lower values = more particles</div>
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">Particle Color</label>
+        <input
+          type="color"
+          id="particle-color"
+          value="#ffffff"
+          class="w-full h-10 bg-transparent border border-white/20 rounded cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Sharpness: <span id="sharpness-value">70</span>%
+        </label>
+        <input
+          type="range"
+          id="particle-sharpness"
+          min="0"
+          max="100"
+          value="70"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+        <div class="text-xs text-white/60 mt-1">Higher = crisper core and tighter halo</div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input id="additive-blend" type="checkbox" class="h-4 w-4" checked />
+        <label for="additive-blend" class="text-white text-sm">Additive blend (brighter overlaps)</label>
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Animation Speed: <span id="speed-value">100</span>%
+        </label>
+        <input
+          type="range"
+          id="animation-speed"
+          min="1"
+          max="150"
+          value="100"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+</style>
+
+<script>
+  let particleSize = 20;
+  let particleColor = "#ffffff";
+  let animationSpeed = 0.05;
+  let particleDensity = 20;
+  let showControls = false;
+  let sharpness = 0.7; // 0..1
+  let useAdditive = true;
+
+  const canvas = document.getElementById('halftone-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d');
+  
+  let animationFrameId: number;
+  let time = 0;
+
+  const particles: Array<{
+    baseX: number;
+    baseY: number;
+    offsetX: number;
+    offsetY: number;
+    randomPhase: number;
+  }> = [];
+
+  const initializeParticles = () => {
+    particles.length = 0;
+    const gridSize = particleDensity;
+    const rows = Math.ceil(canvas.height / gridSize);
+    const cols = Math.ceil(canvas.width / gridSize);
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        particles.push({
+          baseX: x * gridSize,
+          baseY: y * gridSize,
+          offsetX: (Math.random() - 0.5) * 10,
+          offsetY: (Math.random() - 0.5) * 10,
+          randomPhase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+    updateParticleCount();
+  };
+
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initializeParticles();
+  };
+
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : { r: 255, g: 255, b: 255 };
+  };
+
+  const drawParticleWave = () => {
+    const rgb = hexToRgb(particleColor);
+    // Shift wave center 50% downward relative to canvas height
+    const centerXRef = canvas.width / 2;
+    const centerYOffsetPercent = 0.5; // 50% downward
+    const centerYRef = canvas.height / 2 + canvas.height * centerYOffsetPercent;
+
+    // Compute max distance from shifted center to any canvas corner for normalization
+    const maxDistance = Math.max(
+      Math.hypot(centerXRef - 0, centerYRef - 0),
+      Math.hypot(centerXRef - canvas.width, centerYRef - 0),
+      Math.hypot(centerXRef - 0, centerYRef - canvas.height),
+      Math.hypot(centerXRef - canvas.width, centerYRef - canvas.height)
+    );
+
+    // Set blending mode for clearer/brighter overlaps
+    ctx!.globalCompositeOperation = useAdditive ? 'lighter' : 'source-over';
+
+    particles.forEach((particle) => {
+      const centerX = particle.baseX + particle.offsetX + Math.sin(time + particle.randomPhase) * 3;
+      const centerY = particle.baseY + particle.offsetY + Math.cos(time * 0.7 + particle.randomPhase) * 2;
+
+      const distanceFromCenter = Math.hypot(centerX - centerXRef, centerY - centerYRef);
+      const normalizedDistance = distanceFromCenter / maxDistance;
+
+      const waveOffset = Math.sin(normalizedDistance * 22.5 - time) * 0.5 + 0.5;
+      const size = particleSize * waveOffset * 0.8;
+
+      // Solid core for crispness
+      const coreRadius = (size / 2) * (0.3 + 0.55 * sharpness); // 30%..85% of radius
+      const baseAlpha = Math.min(1, waveOffset * (0.55 + 0.45 * sharpness));
+      if (coreRadius > 0) {
+        ctx!.beginPath();
+        ctx!.arc(centerX, centerY, coreRadius, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${baseAlpha})`;
+        ctx!.fill();
+      }
+
+      // Tight halo for contrast
+      const outerRadius = size / 2;
+      if (outerRadius > coreRadius) {
+        const gradient = ctx!.createRadialGradient(centerX, centerY, coreRadius, centerX, centerY, outerRadius);
+        gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${baseAlpha})`);
+        gradient.addColorStop(0.85, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${baseAlpha * 0.35})`);
+        gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+
+        ctx!.beginPath();
+        ctx!.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
+        ctx!.fillStyle = gradient;
+        ctx!.fill();
+      }
+    });
+  };
+
+  const animate = () => {
+    ctx!.clearRect(0, 0, canvas.width, canvas.height);
+    drawParticleWave();
+    time += animationSpeed;
+    animationFrameId = requestAnimationFrame(animate);
+  };
+
+  const updateParticleCount = () => {
+    const count = Math.ceil(canvas.width / particleDensity) * Math.ceil(canvas.height / particleDensity);
+    document.getElementById('count-value')!.textContent = count.toString();
+  };
+
+  const setupControls = () => {
+    const toggleBtn = document.getElementById('toggle-controls')!;
+    const controlsPanel = document.getElementById('controls-panel')!;
+    
+    toggleBtn.addEventListener('click', () => {
+      showControls = !showControls;
+      controlsPanel.classList.toggle('hidden');
+      toggleBtn.textContent = showControls ? 'Hide Controls' : 'Show Controls';
+    });
+
+    // Particle size control
+    const sizeSlider = document.getElementById('particle-size') as HTMLInputElement;
+    const sizeValue = document.getElementById('size-value')!;
+    sizeSlider.addEventListener('input', (e) => {
+      particleSize = parseInt((e.target as HTMLInputElement).value);
+      sizeValue.textContent = particleSize.toString();
+    });
+
+    // Particle density control
+    const densitySlider = document.getElementById('particle-density') as HTMLInputElement;
+    densitySlider.addEventListener('input', (e) => {
+      particleDensity = parseInt((e.target as HTMLInputElement).value);
+      initializeParticles();
+    });
+
+    // Particle color control
+    const colorPicker = document.getElementById('particle-color') as HTMLInputElement;
+    colorPicker.addEventListener('input', (e) => {
+      particleColor = (e.target as HTMLInputElement).value;
+    });
+
+    // Sharpness control
+    const sharpnessSlider = document.getElementById('particle-sharpness') as HTMLInputElement;
+    const sharpnessValue = document.getElementById('sharpness-value')!;
+    sharpnessSlider.addEventListener('input', (e) => {
+      const percent = parseInt((e.target as HTMLInputElement).value);
+      sharpness = Math.min(1, Math.max(0, percent / 100));
+      sharpnessValue.textContent = percent.toString();
+    });
+
+    // Additive blend toggle
+    const additiveBlend = document.getElementById('additive-blend') as HTMLInputElement;
+    additiveBlend.addEventListener('change', (e) => {
+      useAdditive = (e.target as HTMLInputElement).checked;
+    });
+
+    // Animation speed control
+    const speedSlider = document.getElementById('animation-speed') as HTMLInputElement;
+    const speedValue = document.getElementById('speed-value')!;
+    speedSlider.addEventListener('input', (e) => {
+      const speedPercent = parseInt((e.target as HTMLInputElement).value);
+      animationSpeed = (speedPercent / 100) * 0.05;
+      speedValue.textContent = speedPercent.toString();
+    });
+  };
+
+  if (canvas && ctx) {
+    resizeCanvas();
+    setupControls();
+    window.addEventListener('resize', resizeCanvas);
+    animate();
+  }
+</script>
