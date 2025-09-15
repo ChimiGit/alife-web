@@ -4,9 +4,6 @@ import Header from '../components/Header.astro';
 import History from '../components/sections/about/History.astro';
 import Mission from '../components/sections/about/Mission.astro';
 import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
-import { t, getEffectiveLocale, type Locale } from '../utils/i18n.ts';
-
-const currentLocale = getEffectiveLocale(Astro.url.pathname);
 ---
 
 <html lang="en">
@@ -49,49 +46,6 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         90% { transform: translate(10%, 5%); }
       }
       
-      /* Smooth tab underline animation */
-      [role="tab"] {
-        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        position: relative;
-      }
-      
-      [role="tab"]::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #2E3192;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        opacity: 0;
-      }
-      
-      [role="tab"].active::after {
-        transform: scaleX(1);
-        opacity: 1;
-        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-in-out;
-      }
-      
-      /* Smooth color and font transitions */
-      [role="tab"] {
-        transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                   font-weight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                   opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-      
-      /* Hover effects for extra smoothness */
-      [role="tab"]:hover {
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-      
-      /* Smooth scaling for active state */
-      [role="tab"].active {
-        transform: scale(1.02);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
     </style>
   </head>
   <body class="min-h-screen bg-gray-50">
@@ -100,131 +54,29 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
     
     <!-- Main Content -->
     <div id="main-content">
-      <Header locale={currentLocale} />
+      <Header />
       <!-- Main content -->
       <main class="max-w-4xl mx-auto px-4 sm:px-6 sm:pt-10 pb-8 sm:pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
-      <!-- Tabs Section -->
       <div>
-        <div class="sticky top-20 bg-gray-50 z-40">
-          <nav class="flex items-center justify-center gap-0" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
-            <button type="button" class="active py-4 px-4 inline-flex items-center gap-x-2 text-20px whitespace-nowrap text-primary font-light hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-1" aria-selected="true" data-hs-tab="#tabs-with-underline-1" aria-controls="tabs-with-underline-1" role="tab">
-              {t(currentLocale, 'about.whoWeAre')}
-            </button>
-            <div class="h-6 w-px bg-gray-300 mx-2"></div>
-            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-20px whitespace-nowrap text-primary font-light hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-2" aria-selected="false" data-hs-tab="#tabs-with-underline-2" aria-controls="tabs-with-underline-2" role="tab">
-              {t(currentLocale, 'about.history')}
-            </button>
-            <div class="h-6 w-px bg-gray-300 mx-2"></div>
-            <button type="button" class="py-4 px-4 inline-flex items-center gap-x-2 text-20px whitespace-nowrap text-primary font-light hover:text-primary focus:outline-hidden focus:text-primary disabled:opacity-50 disabled:pointer-events-none" id="tabs-with-underline-item-3" aria-selected="false" data-hs-tab="#tabs-with-underline-3" aria-controls="tabs-with-underline-3" role="tab">
-              {t(currentLocale, 'about.mission')}
-            </button>
-          </nav>  
-        </div>
-
-        <div class="mt-2">
           <!-- About Section -->
           <section id="about-section" class="section-content pt-8 pb-16">
-            <WhoWeAre locale={currentLocale} />  
+            <WhoWeAre />  
           </section>
           
           <!-- History Section -->
           <section id="history-section" class="section-content pt-8 pb-16">
-            <History locale={currentLocale} />
+            <History />
           </section>
           
           <!-- Mission Section -->
           <section id="mission-section" class="section-content pt-8 pb-16">
-            <Mission locale={currentLocale} />
+            <Mission />
           </section>
         </div>
       </div>
     </main>
     </div>
 
-    <!-- Scroll-based tab switching script -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const tabs = document.querySelectorAll('[role="tab"]');
-        const sections = document.querySelectorAll('.section-content');
-        
-        // Map tabs to sections
-        const tabSectionMap: Record<string, string> = {
-          'tabs-with-underline-item-1': 'about-section',
-          'tabs-with-underline-item-2': 'history-section', 
-          'tabs-with-underline-item-3': 'mission-section'
-        };
-
-        // Function to update active tab based on scroll position
-        function updateActiveTab() {
-          const scrollPosition = window.scrollY + window.innerHeight / 2;
-          let activeSection: string | null = null;
-          
-          sections.forEach(section => {
-            const sectionTop = (section as HTMLElement).offsetTop;
-            const sectionBottom = sectionTop + (section as HTMLElement).offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-              activeSection = section.id;
-            }
-          });
-          
-          // If we're at the very top, activate the first section
-          if (window.scrollY < 100) {
-            activeSection = 'about-section';
-          }
-          
-          // Update tab appearance
-          tabs.forEach(tab => {
-            const tabId = tab.getAttribute('id');
-            const sectionId = tabId ? tabSectionMap[tabId] : null;
-            
-            if (sectionId === activeSection) {
-              // Activate tab
-              tab.classList.add('active', 'font-semibold', 'text-primary');
-              tab.classList.remove('text-gray-500');
-              tab.setAttribute('aria-selected', 'true');
-            } else {
-              // Deactivate tab
-              tab.classList.remove('active', 'font-semibold', 'text-primary');
-              tab.classList.add('text-gray-500');
-              tab.setAttribute('aria-selected', 'false');
-            }
-          });
-        }
-
-        // Add scroll event listener
-        let scrollTimeout: NodeJS.Timeout | null = null;
-        window.addEventListener('scroll', function() {
-          // Throttle scroll events for better performance
-          if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-          }
-          scrollTimeout = setTimeout(updateActiveTab, 10);
-        });
-
-        // Initial call to set correct tab on page load
-        updateActiveTab();
-
-        // Optional: Add click functionality to scroll to sections
-        tabs.forEach(tab => {
-          tab.addEventListener('click', function(e) {
-            e.preventDefault();
-            const tabId = tab.getAttribute('id');
-            const sectionId = tabId ? tabSectionMap[tabId] : null;
-            const targetSection = sectionId ? document.getElementById(sectionId) : null;
-            
-            if (targetSection) {
-              const offsetTop = targetSection.offsetTop - 100; // Account for sticky header
-              window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-              });
-            }
-          });
-        });
-
-      });
-    </script>
 
     <!-- Initialize content animations -->
     <script>
@@ -236,21 +88,6 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           }
         }, 100);
 
-      // Language preference handling
-      const storedLocale = localStorage.getItem('alife-locale');
-      const currentPath = window.location.pathname;
-      
-      // If user has a stored preference, redirect to the appropriate localized path
-      if (storedLocale) {
-        if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
-          // Redirect to Japanese version
-          window.location.href = `/ja${currentPath}`;
-        } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
-          // Redirect to English version (remove /ja prefix)
-          const englishPath = currentPath.replace('/ja', '');
-          window.location.href = englishPath;
-        }
-      }
       });
     </script>
   </body>

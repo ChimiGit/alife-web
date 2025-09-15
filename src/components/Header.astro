@@ -1,17 +1,8 @@
 ---
 // Header component for ALIFE website
-import { t, getEffectiveLocale, type Locale } from '../utils/i18n.ts';
-// import LanguageSwitcher from './LanguageSwitcher.astro';
-
-export interface Props {
-  locale?: Locale;
-}
-
-const { locale = 'en' } = Astro.props;
-const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 ---
 
-<header class={`${currentLocale === 'ja' ? "font-['Noto_Sans_JP',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]" : "font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]"} fixed top-0 left-0 right-0 z-50`}>
+<header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] fixed top-0 left-0 right-0 z-50">
 
     <!-- Main  header content -->
     <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
@@ -49,25 +40,24 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
         <div class="px-6 py-3">
           <ul class="flex list-none m-0 p-0 gap-8 items-center">
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">{t(currentLocale, 'navigation.home')}</a>
+              <a href={`${import.meta.env.BASE_URL}`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">Home</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}about`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">{t(currentLocale, 'navigation.about')}</a>
+              <a href={`${import.meta.env.BASE_URL}about`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">About Us</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}career`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">{t(currentLocale, 'navigation.career')}</a>
+              <a href={`${import.meta.env.BASE_URL}people`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="people">People</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}blog`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">{t(currentLocale, 'navigation.blog')}</a>
+              <a href={`${import.meta.env.BASE_URL}career`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">Career</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}support`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">{t(currentLocale, 'navigation.support')}</a>
+              <a href={`${import.meta.env.BASE_URL}blog`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">Blog</a>
+            </li>
+            <li class="m-0">
+              <a href={`${import.meta.env.BASE_URL}support`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">Support Us</a>
             </li>
             
-            <!-- Language Switcher inside the dashed border -->
-            <!-- <li class="m-0 ml-4 pl-4">
-              <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
-            </li> -->
           </ul>
         </div>
       </nav>
@@ -113,39 +103,41 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
             <li>
               <a href={`${import.meta.env.BASE_URL}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {t(currentLocale, 'navigation.home')}
+                Home
               </a>
             </li>
             <li>
               <a href={`${import.meta.env.BASE_URL}about`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {t(currentLocale, 'navigation.about')}
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href={`${import.meta.env.BASE_URL}people`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="people">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                People
               </a>
             </li>
             <li>
               <a href={`${import.meta.env.BASE_URL}career`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {t(currentLocale, 'navigation.career')}
+                Career
               </a>
             </li>
             <li>
               <a href={`${import.meta.env.BASE_URL}blog`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {t(currentLocale, 'navigation.blog')}
+                Blog
               </a>
             </li>
             <li>
               <a href={`${import.meta.env.BASE_URL}support`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                {t(currentLocale, 'navigation.support')}
+                Support Us
               </a>
             </li>
           </ul>
           
-          <!-- Mobile Language Switcher -->
-          <!-- <div class="mt-8 px-6">
-            <LanguageSwitcher currentLocale={currentLocale} currentPath={Astro.url.pathname} />
-          </div> -->
         </nav>
       </div>
     </div>
@@ -254,26 +246,6 @@ const currentLocale = locale || getEffectiveLocale(Astro.url.pathname);
 </style>
 
 <script>
-  // Check for saved language preference and redirect if necessary
-  document.addEventListener('DOMContentLoaded', () => {
-    // Get saved language preference
-    const savedLang = localStorage.getItem('alife-language');
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentLang = urlParams.get('lang') || 'en';
-    
-    // If there's a saved language that's different from current URL language, redirect
-    if (savedLang && savedLang !== currentLang) {
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('lang', savedLang);
-      window.location.href = currentUrl.toString();
-      return; // Exit early to prevent other initialization
-    }
-    
-    // Save current language if not already saved
-    if (!savedLang && currentLang) {
-      localStorage.setItem('alife-language', currentLang);
-    }
-  });
 
   // Language switching functionality
   document.addEventListener('DOMContentLoaded', () => {

@@ -1,16 +1,9 @@
 ---
 
 import Wave from "../animations/Wave.astro";
-import { t, type Locale } from "../../utils/i18n.ts";
-
-export interface Props {
-  locale?: Locale;
-}
-
-const { locale = "en" } = Astro.props;
 ---
 
-<div class="relative min-h-screen overflow-hidden bg-[#29D6E2]" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; margin-top: -5rem`}>
+<div class="relative min-h-screen overflow-hidden bg-[#29D6E2]" style="font-family: 'Inter', sans-serif; margin-top: -5rem">
   <!-- Ripple Particles Background -->
   <div class="fixed inset-0 z-[99999]" aria-hidden="true">
    <Wave />
@@ -22,34 +15,34 @@ const { locale = "en" } = Astro.props;
       <h1
         class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
         style={`font-family: ${
-          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"
+          "'GT Alpina Fine', serif"
         }; margin: 0; line-height: 0.8;`}
       >
-        {t(locale, 'home.slider.line1')}
+        Where
       </h1>
       <h1
         class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
         style={`font-family: ${
-          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"
+          "'GT Alpina Fine', serif"
         }; margin: 0; line-height: 0.8;`}
       >
-        {t(locale, 'home.slider.line2')}
+        Evolution Meets
       </h1>
       <h1
         class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
         style={`font-family: ${
-          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"
+          "'GT Alpina Fine', serif"
         }; margin: 0; line-height: 0.8;`}
       >
-        {t(locale, 'home.slider.line3')}
+        Innovation
       </h1>
       <p
         class="text-primary max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl font-light mt-6 sm:mt-8 lg:mt-10 text-sm sm:text-base md:text-lg"
         style={`font-family: ${
-          locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"
+          "'Inter', sans-serif"
         }; font-size: 16px; line-height: 150%;`}
       >
-        {t(locale, 'home.slider.description')}
+        We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
       </p>
     </div>
   </main>
