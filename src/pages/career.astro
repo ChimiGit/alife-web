@@ -1,11 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Jobs from '../components/sections/career/Jobs.astro';
-import Team from '../components/sections/career/Team.astro';
 import '../styles/global.css';
-import { t, getEffectiveLocale } from '../utils/i18n.ts';
-
-const currentLocale = getEffectiveLocale(Astro.url.pathname);
 ---
 
 <!DOCTYPE html>
@@ -48,45 +44,6 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
         80% { transform: translate(-15%, 10%); }
         90% { transform: translate(10%, 5%); }
       }
-    /* Slide-in animation styles for back navigation from job pages */
-    .slide-in-from-left {
-      transform: translateX(-100%);
-      opacity: 0;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
-    }
-
-    .slide-in-from-left.animate {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    /* Staggered animation for child elements */
-    .slide-in-from-left .hero-section,
-    .slide-in-from-left .join-section,
-    .slide-in-from-left .tabs-section {
-      transform: translateX(-50px);
-      opacity: 0;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out;
-    }
-
-    .slide-in-from-left.animate .hero-section {
-      transition-delay: 0.1s;
-    }
-
-    .slide-in-from-left.animate .join-section {
-      transition-delay: 0.2s;
-    }
-
-    .slide-in-from-left.animate .tabs-section {
-      transition-delay: 0.3s;
-    }
-
-    .slide-in-from-left.animate .hero-section,
-    .slide-in-from-left.animate .join-section,
-    .slide-in-from-left.animate .tabs-section {
-      transform: translateX(0);
-      opacity: 1;
-    }
     </style>
   </head>
 
@@ -96,129 +53,81 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
     
     <!-- Main Content -->
     <div id="main-content">
-      <Header locale={currentLocale} />
+      <Header />
 
       <!-- Main content -->
-      <main id="career-content" class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 content-stagger">
+      <main id="career-content" class="pt-20 sm:pt-24 pb-8 sm:pb-12 content-stagger">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          
+          <!-- Hero Section -->
+          <section class="mb-16">
+            <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+              Where Brilliant<br />
+              Minds Explore Together
+            </h1>
+            <p class="text-xl text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+              We believe in systems that explore without predetermined goals, discovering paths no one planned.
+            </p>
+          </section>
 
-      <!-- Hero Section -->
-      <section class="text-center mb-8 sm:mb-10 hero-section">
-        <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          Where Brilliant<br />
-          Minds Explore Together
-        </h1>
-      </section>
-      <p class="text-20px sm:text-20px text-primary max-w-4xl mx-auto leading-relaxed mb-12 sm:mb-20 px-4 sm:px-0 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
-        {t(currentLocale, 'career.subtitle')}
-      </p>
-
-      <!-- Join Us Section with Tabs -->
-      <section class="text-center mb-12 sm:mb-20 join-section">
-        <h2 class="text-40px font-bold text-primary mb-6 sm:mb-8" style="font-family: 'GT Alpina Fine', serif;">
-          {t(currentLocale, 'career.joinUs')}
-        </h2>
-        <div class="flex flex-row justify-center gap-4 mb-12 font-light text-sm">
-          <button id="our-team-tab" class="main-tab active bg-primary text-white px-6 py-2 rounded-full transition-colors duration-200" data-target="#our-team-content">
-            {t(currentLocale, 'career.ourTeam')}
-          </button>
-          <button id="jobs-tab" class="main-tab border border-primary text-primary px-6 py-2 rounded-full transition-colors duration-200" data-target="#jobs-content">
-            {t(currentLocale, 'career.jobs')}
-          </button>
-        </div>
-
-        <!-- Tab Content -->
-        <div class="max-w-6xl mx-auto tabs-section">
-          <!-- Our Team Content -->
-          <div id="our-team-content" class="main-tab-content">
-            <Team />
-          </div>
-
-          <!-- Jobs Content -->
-          <div id="jobs-content" class="main-tab-content hidden">
-            <div class="text-left">
-              <Jobs />
+          <!-- Symbiosis Philosophy Section -->
+          <section class="mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div>
+                <h3 class="text-lg font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+                <p class="text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+                  Rather than replacement,<br />
+                  we seek harmonious<br />
+                  coexistence between<br />
+                  human and artificial<br />
+                  intelligence
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+                <p class="text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+                  Rather than replacement,<br />
+                  we seek harmonious<br />
+                  coexistence between<br />
+                  human and artificial<br />
+                  intelligence
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+                <p class="text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+                  Rather than replacement,<br />
+                  we seek harmonious<br />
+                  coexistence between<br />
+                  human and artificial<br />
+                  intelligence
+                </p>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+                <p class="text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+                  Rather than replacement,<br />
+                  we seek harmonious<br />
+                  coexistence between<br />
+                  human and artificial<br />
+                  intelligence
+                </p>
+              </div>
             </div>
-          </div>
+          </section>
+
+          <!-- Divider Line -->
+          <div class="border-b border-gray-200 mb-16"></div>
+
+          <!-- Jobs Section -->
+          <section>
+            <Jobs />
+          </section>
+
         </div>
-      </section>
       </main>
     </div>
 
-    <!-- Tab functionality script -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Main tabs (Our Team / Jobs)
-        const mainTabs = document.querySelectorAll('.main-tab');
-        const mainTabContents = document.querySelectorAll('.main-tab-content');
-
-        mainTabs.forEach((tab) => {
-          tab.addEventListener('click', () => {
-            const targetId = tab.getAttribute('data-target');
-            const targetContent = targetId ? document.querySelector(targetId) : null;
-
-            // Remove active state from all main tabs
-            mainTabs.forEach((t) => {
-              t.classList.remove('active', 'bg-primary', 'text-white');
-              t.classList.add('border', 'border-primary', 'text-primary');
-            });
-
-            // Hide all main tab contents
-            mainTabContents.forEach((content) => {
-              content.classList.add('hidden');
-            });
-
-            // Add active state to clicked main tab
-            tab.classList.add('active', 'bg-primary', 'text-white');
-            tab.classList.remove('border', 'border-primary', 'text-primary');
-
-            // Show target content
-            if (targetContent) {
-              targetContent.classList.remove('hidden');
-            }
-          });
-        });
-
-        // Handle URL hash for direct tab navigation
-        function handleHashNavigation() {
-          const { hash } = window.location;
-          if (hash === '#researchers') {
-            // Switch to Our Team tab first
-            const ourTeamTab = document.getElementById('our-team-tab');
-            if (ourTeamTab) {
-              ourTeamTab.click();
-              
-              // Wait for the Team component to load, then activate researchers tab
-              setTimeout(() => {
-                const researchersTab = document.querySelector('[data-target="#researchers-panel"]') as HTMLElement;
-                if (researchersTab) {
-                  researchersTab.click();
-                  
-                  // Scroll to the researchers section
-                  setTimeout(() => {
-                    const researchersPanel = document.getElementById('researchers-panel');
-                    if (researchersPanel) {
-                      researchersPanel.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                      });
-                    }
-                  }, 200);
-                }
-              }, 100);
-            }
-          }
-        }
-
-        // Handle hash on page load
-        handleHashNavigation();
-
-        // Handle hash changes
-        window.addEventListener('hashchange', handleHashNavigation);
-
-        // Note: Team tab functionality is now handled in Team.astro component
-
-      });
-    </script>
 
     <!-- Initialize content animations -->
     <script>
@@ -230,21 +139,6 @@ const currentLocale = getEffectiveLocale(Astro.url.pathname);
           }
         }, 100);
 
-        // Language preference handling
-        const storedLocale = localStorage.getItem('alife-locale');
-        const currentPath = window.location.pathname;
-        
-        // If user has a stored preference, redirect to the appropriate localized path
-        if (storedLocale) {
-          if (storedLocale === 'ja' && !currentPath.startsWith('/ja/')) {
-            // Redirect to Japanese version
-            window.location.href = `/ja${currentPath}`;
-          } else if (storedLocale === 'en' && currentPath.startsWith('/ja/')) {
-            // Redirect to English version (remove /ja prefix)
-            const englishPath = currentPath.replace('/ja', '');
-            window.location.href = englishPath;
-          }
-        }
       });
     </script>
 

@@ -3,9 +3,6 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import getAllBlogs, { getBlogsByCategory } from '../utils/blog.ts';
 import { getBlogCategories } from '../utils/blog-categories.ts';
-import { t, getEffectiveLocale } from '../utils/i18n.ts';
-
-const currentLocale = getEffectiveLocale(Astro.url.pathname);
 
 // Get actual blog posts and categories
 const allBlogs = getAllBlogs();
@@ -151,19 +148,19 @@ const contentData = Object.fromEntries(
     <div class="noise-overlay"></div>
     
     <div id="main-content">
-      <Header locale={currentLocale} />
+      <Header />
 
       <main id="blog-content" class="max-w-7xl mx-auto px-4 py-12 content-stagger" style="font-family: 'Inter', sans-serif;">
-        <div class="text-center mb-12 hero-section">
-          <h1 class="text-64px text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">{t(currentLocale, 'blog.title')}</h1>
-          <p class="text-20px text-primary max-w-3xl mx-auto font-light">
-            {t(currentLocale, 'blog.subtitle')}
+        <div class="mb-12">
+          <h1 class="text-64px text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h1>
+          <p class="text-20px text-primary max-w-3xl font-light">
+            Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI
           </p>
         </div>
 
         <div class="mb-8 tabs-section">
           <div class="overflow-x-auto">
-            <div class="flex justify-center min-w-max">
+            <div class="flex min-w-max">
               <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
                 {blogCategories.map((category, index) => (
                   <button 

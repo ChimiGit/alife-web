@@ -1,31 +1,24 @@
 ---
 import '../../../styles/global.css';
-import { t, type Locale } from '../../../utils/i18n.ts';
-
-export interface Props {
-  locale?: Locale;
-}
-
-const { locale = 'en' } = Astro.props;
 ---
 
 <!-- Who We Are Section -->
 <div class="max-w-4xl mx-auto px-4 mt-12">
   <!-- Who We Are Section -->
   <div class="mb-10">
-    <h2 class="text-64px text-primary mb-8 text-center" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'GT Alpina Fine', serif"};`}>{t(locale, 'about.whoWeAre')}</h2>
+    <h2 class="text-64px text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">Who We Are</h2>
 
     <div class="space-y-6 text-primary leading-relaxed">
-      <p class="text-20px font-light" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 1.5;`}>
+      <p class="text-20px font-light" style="font-family: 'Inter', sans-serif; line-height: 1.5;">
         The Artificial Life Institute stands at the intersection of cutting-edge computer science and nature's most profound creative force: evolution. We don't follow predetermined paths like most traditional AIs. Instead, we harness open-endedness—nature's grandest achievement that created a path from single cells to intelligent life, from the discovery of fire to exploring outer space, from primitive tools to artificial intelligence.
       </p>
       
-      <p class="text-20px font-light" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 1.5;`}>
-        Founded by <strong><a href={`${locale === 'ja' ? '/ja' : ''}${import.meta.env.BASE_URL}career#researchers`} class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-4 transition-colors duration-200">world-class researchers</a></strong> and <strong><a href={`${locale === 'ja' ? '/ja' : ''}${import.meta.env.BASE_URL}support#supporters`} class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-4 transition-colors duration-200">business leaders</a></strong>, we are dedicated to advancing research and driving business innovations. Our work spans from microscopic digital organisms to complex evolutionary simulations that could reshape how we understand intelligence itself.
+      <p class="text-20px font-light" style="font-family: 'Inter', sans-serif; line-height: 1.5;">
+        Founded by <strong><a href={`${import.meta.env.BASE_URL}career#researchers`} class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-4 transition-colors duration-200">world-class researchers</a></strong> and <strong><a href={`${import.meta.env.BASE_URL}support#supporters`} class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-4 transition-colors duration-200">business leaders</a></strong>, we are dedicated to advancing research and driving business innovations. Our work spans from microscopic digital organisms to complex evolutionary simulations that could reshape how we understand intelligence itself.
       </p>
       
-      <p class="text-20px font-light" style={`font-family: ${locale === 'ja' ? "'Noto Sans JP', sans-serif" : "'Inter', sans-serif"}; line-height: 1.5;`}>
-        Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither could achieve alone. For complete transparency about our operations and commitment to your privacy, please see our <strong>fiscal report</strong> and <strong><a href={`${locale === 'ja' ? '/ja' : ''}${import.meta.env.BASE_URL}privacy-policy`} class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-4 transition-colors duration-200">privacy policy</a></strong>.
+      <p class="text-20px font-light" style="font-family: 'Inter', sans-serif; line-height: 1.5;">
+        Based in Kyoto, we bring together brilliant minds who see beyond the current AI paradigm, building the foundation for a world where humans and artificial life forms co-evolve, creating possibilities neither could achieve alone. For complete transparency about our operations and commitment to your privacy, please see our <strong>fiscal report</strong> and <strong><a href={`${import.meta.env.BASE_URL}privacy-policy`} class="text-primary hover:text-primary/80 underline decoration-2 underline-offset-4 transition-colors duration-200">privacy policy</a></strong>.
       </p>
     </div>
   </div>
