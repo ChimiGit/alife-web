@@ -38,14 +38,14 @@ export default function TeamSection({ title, members }: TeamSectionProps) {
 
   return (
     <HeroUIProvider>
-      <div className="mb-16">
+      <div className="mb-8 sm:mb-12 md:mb-16">
         <h2
-          className="text-40px font-medium text-primary mb-8"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-40px font-medium text-primary mb-4 sm:mb-6 md:mb-8"
           style={{ fontFamily: "'GT Alpina Fine', serif" }}
         >
           {title}
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {members.map(member => (
             <TeamMemberCard
               key={member.slug}
