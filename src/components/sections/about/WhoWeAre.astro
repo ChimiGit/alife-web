@@ -3,10 +3,10 @@ import '../../../styles/global.css';
 ---
 
 <!-- Who We Are Section -->
-<div class="w-full mt-8 sm:mt-10 md:mt-12">
+<div class="w-full sm:mt-10">
   <!-- Who We Are Section -->
   <div class="mb-8 sm:mb-10">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Who We Are</h2>
+    <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Who We Are</h2>
 
     <div class="space-y-4 sm:space-y-5 md:space-y-6 text-primary leading-relaxed">
       <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px font-light" style="font-family: 'Inter', sans-serif; line-height: 1.5;">
@@ -30,16 +30,16 @@ import '../../../styles/global.css';
         src={`${import.meta.env.BASE_URL}assets/office-map/Office Map.svg`} 
         alt="Office Map - ALIFE Headquarters in Kyoto" 
         class="office-map-image max-w-full h-auto rounded-lg"
-        style="max-height: 300px; sm:max-height: 400px; md:max-height: 500px; lg:max-height: 600px;"
+        style="max-height: 500px; sm:max-height: 600px; md:max-height: 700px; lg:max-height: 800px;"
       />
     </div>
   </div>
 
   <style>
     .office-map-image {
-      transform: scale(0.8);
+      transform: scale(0.3);
       opacity: 0;
-      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease-out;
+      transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s ease-out;
     }
     
     .office-map-image.animate {

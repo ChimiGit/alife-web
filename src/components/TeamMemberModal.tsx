@@ -77,7 +77,7 @@ export default function TeamMemberModal({
                 {/* Fixed Header */}
                 <div className="text-center mb-6">
                   {/* Profile Picture */}
-                  <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden bg-gray-200">
+                  <div className="w-32 h-32 mx-auto mb-6 rounded-lg overflow-hidden bg-gray-200">
                     <img
                       src={member.image}
                       alt={member.name}
