@@ -3,25 +3,27 @@
 ---
 
 <div class="relative w-full h-screen">
-  <canvas id="halftone-canvas" class="w-full h-screen"></canvas>
+  <canvas id="halftone-canvas" class="w-full h-screen" style="pointer-events: none;"></canvas>
 
-  <div class="absolute bottom-4 right-4 z-10">
+  <div class="absolute bottom-4 right-4" style="pointer-events: auto; z-index: 1000;">
     <button
       id="toggle-controls"
-      class="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/30 hover:bg-black/70 transition-colors shadow-lg"
+      class="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/30 hover:bg-black/70 transition-colors shadow-lg cursor-pointer"
+      style="pointer-events: auto; z-index: 1001; position: relative;"
+      type="button"
     >
       Show Controls
     </button>
 
     <div id="controls-panel" class="mt-4 bg-black/50 backdrop-blur-sm p-6 rounded-lg border border-white/20 space-y-4 min-w-[280px] hidden">
       <div>
-        <label class="block text-white text-sm font-medium mb-2">Particle Size: <span id="size-value">20</span>px</label>
+        <label class="block text-white text-sm font-medium mb-2">Particle Size: <span id="size-value">10</span>px</label>
         <input
           type="range"
           id="particle-size"
           min="5"
           max="50"
-          value="20"
+          value="10"
           class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
         />
       </div>
@@ -33,9 +35,9 @@
         <input
           type="range"
           id="particle-density"
-          min="10"
+          min="5"
           max="60"
-          value="20"
+          value="16"
           class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
         />
         <div class="text-xs text-white/60 mt-1">Lower values = more particles</div>
@@ -53,14 +55,14 @@
 
       <div>
         <label class="block text-white text-sm font-medium mb-2">
-          Sharpness: <span id="sharpness-value">70</span>%
+          Sharpness: <span id="sharpness-value">100</span>%
         </label>
         <input
           type="range"
           id="particle-sharpness"
           min="0"
           max="100"
-          value="70"
+          value="100"
           class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
         />
         <div class="text-xs text-white/60 mt-1">Higher = crisper core and tighter halo</div>
@@ -107,15 +109,26 @@
     cursor: pointer;
     border: 2px solid rgba(255, 255, 255, 0.3);
   }
+
+  #toggle-controls {
+    pointer-events: auto !important;
+    z-index: 1001 !important;
+    position: relative !important;
+  }
+
+  #controls-panel {
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+  }
 </style>
 
 <script>
-  let particleSize = 20;
+  let particleSize = 10;
   let particleColor = "#ffffff";
   let animationSpeed = 0.05;
-  let particleDensity = 20;
+  let particleDensity = 16;
   let showControls = false;
-  let sharpness = 0.7; // 0..1
+  let sharpness = 1.0; // 0..1
   let useAdditive = true;
   const MIN_VISIBLE_SIZE_PX = 3; // skip tiny particles
   const MIN_WAVE_OFFSET = 0.15; // skip very faint phase
@@ -245,11 +258,20 @@
     const toggleBtn = document.getElementById('toggle-controls')!;
     const controlsPanel = document.getElementById('controls-panel')!;
     
-    toggleBtn.addEventListener('click', () => {
+    // Add multiple event listeners to ensure it works
+    const handleToggle = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Button clicked, showControls:', showControls);
       showControls = !showControls;
       controlsPanel.classList.toggle('hidden');
       toggleBtn.textContent = showControls ? 'Hide Controls' : 'Show Controls';
-    });
+      console.log('After toggle, showControls:', showControls, 'Panel hidden:', controlsPanel.classList.contains('hidden'));
+    };
+    
+    toggleBtn.addEventListener('click', handleToggle);
+    toggleBtn.addEventListener('mousedown', handleToggle);
+    toggleBtn.addEventListener('touchstart', handleToggle);
 
     // Particle size control
     const sizeSlider = document.getElementById('particle-size') as HTMLInputElement;
