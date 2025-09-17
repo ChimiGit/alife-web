@@ -84,7 +84,7 @@
         <div class="flex justify-end items-center p-6">
           <button 
             id="mobile-menu-close"
-            class="w-10 h-10 rounded-full hover:bg-white/20 flex items-center justify-center text-gray-800 hover:text-primary transition-all duration-200 cursor-pointer"
+            class="w-10 h-10 rounded-full hover:bg-white/20 flex items-center justify-center text-primary hover:text-primary transition-all duration-200 cursor-pointer"
             aria-label="Close mobile menu"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,39 +97,33 @@
         <nav class="flex-1 p-6" role="navigation" aria-label="Mobile navigation">
           <ul class="space-y-2">
             <li>
-              <a href={`${import.meta.env.BASE_URL}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="home">
-                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Home
-              </a>
-            </li>
-            <li>
-              <a href={`${import.meta.env.BASE_URL}about`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="about">
+              <a href={`${import.meta.env.BASE_URL}about`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-primary hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 About Us
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}people`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="people">
-                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                People
-              </a>
-            </li>
-            <li>
-              <a href={`${import.meta.env.BASE_URL}career`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="career">
-                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                Career
-              </a>
-            </li>
-            <li>
-              <a href={`${import.meta.env.BASE_URL}blog`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="blog">
+              <a href={`${import.meta.env.BASE_URL}blog`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-primary hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 Blog
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}support`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="support">
+              <a href={`${import.meta.env.BASE_URL}people`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-primary hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="people">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                People
+              </a>
+            </li>
+            <li>
+              <a href={`${import.meta.env.BASE_URL}support`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-primary hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 Support Us
+              </a>
+            </li>
+            <li>
+              <a href={`${import.meta.env.BASE_URL}career`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-primary hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="career">
+                <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                Career
               </a>
             </li>
           </ul>

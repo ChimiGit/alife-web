@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import { getAllTeamMembers } from '../utils/team.ts';
 import TeamSection from '../components/TeamSection.tsx';
+import SupporterSection from '../components/SupporterSection.tsx';
 import '../styles/global.css';
 
 const teamMembers = await getAllTeamMembers();
@@ -66,7 +67,7 @@ const researchers = teamMembers.filter(member => member.category === 'researcher
       <!-- Hero Section -->
       <section class="mb-6 sm:mb-8 md:mb-10 px-3 sm:px-4 md:px-6">
         <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
-          <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
             Where Brilliant<br />
             Minds Explore Together
           </h1>
@@ -87,7 +88,7 @@ const researchers = teamMembers.filter(member => member.category === 'researcher
       <!-- Meet our supporters Section -->
       <div class="w-full py-6 sm:py-8 min-h-screen flex flex-col" style="background-color: #F5F6E3;">
         <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-          <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           Meet<br />
           our Supporters
         </h1>
@@ -97,49 +98,10 @@ const researchers = teamMembers.filter(member => member.category === 'researcher
         </div>
 
         <!-- Supporters Section -->
-        <div class="mb-8 sm:mb-12 md:mb-16">
-          <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-40px font-medium text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Supporters</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-              {executives.map((member) => (
-                <div class="text-center sm:text-left">
-                  <div class="w-full max-w-48 mb-3 sm:mb-4 rounded-sm overflow-hidden bg-gray-200 mx-auto sm:mx-0">
-                    <img src={member.image} alt={member.name} class="w-full h-auto object-cover">
-                  </div>
-                  <h4 class="text-base sm:text-lg font-medium text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-xs sm:text-sm text-primary">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <SupporterSection title="Supporters" members={executives} client:load />
 
         <!-- Donors Section -->
-        <div class="mb-8 sm:mb-12 md:mb-16">
-          <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-40px font-medium text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Donors</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-              {executives.map((member) => (
-                <div class="text-center sm:text-left">
-                  <div class="w-full max-w-48 mb-3 sm:mb-4 rounded-sm overflow-hidden bg-gray-200 mx-auto sm:mx-0">
-                    <img src={member.image} alt={member.name} class="w-full h-auto object-cover">
-                  </div>
-                  <h4 class="text-base sm:text-lg font-medium text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-xs sm:text-sm text-primary">{member.bio}</p>
-                </div>
-              ))}
-              {executives.map((member) => (
-                <div class="text-center sm:text-left">
-                  <div class="w-full max-w-48 mb-3 sm:mb-4 rounded-sm overflow-hidden bg-gray-200 mx-auto sm:mx-0">
-                    <img src={member.image} alt={member.name} class="w-full h-auto object-cover">
-                  </div>
-                  <h4 class="text-base sm:text-lg font-medium text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-xs sm:text-sm text-primary">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <SupporterSection title="Donors" members={[...executives, ...executives]} client:load />
       </div>
       </main>
     </div>
