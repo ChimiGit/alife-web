@@ -3,12 +3,14 @@
 ---
 
 <div class="relative w-full h-screen">
-  <canvas id="halftone-canvas" class="w-full h-screen"></canvas>
+  <canvas id="halftone-canvas" class="w-full h-screen" style="pointer-events: none;"></canvas>
 
-  <div class="absolute bottom-4 right-4 z-10">
+  <div class="absolute bottom-4 right-4" style="pointer-events: auto; z-index: 1000;">
     <button
       id="toggle-controls"
-      class="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/30 hover:bg-black/70 transition-colors shadow-lg"
+      class="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/30 hover:bg-black/70 transition-colors shadow-lg cursor-pointer"
+      style="pointer-events: auto; z-index: 1001; position: relative;"
+      type="button"
     >
       Show Controls
     </button>
@@ -35,7 +37,7 @@
           id="particle-density"
           min="5"
           max="60"
-          value="8"
+          value="16"
           class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
         />
         <div class="text-xs text-white/60 mt-1">Lower values = more particles</div>
@@ -107,13 +109,24 @@
     cursor: pointer;
     border: 2px solid rgba(255, 255, 255, 0.3);
   }
+
+  #toggle-controls {
+    pointer-events: auto !important;
+    z-index: 1001 !important;
+    position: relative !important;
+  }
+
+  #controls-panel {
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+  }
 </style>
 
 <script>
   let particleSize = 10;
   let particleColor = "#ffffff";
   let animationSpeed = 0.05;
-  let particleDensity = 8;
+  let particleDensity = 16;
   let showControls = false;
   let sharpness = 1.0; // 0..1
   let useAdditive = true;
@@ -240,11 +253,20 @@
     const toggleBtn = document.getElementById('toggle-controls')!;
     const controlsPanel = document.getElementById('controls-panel')!;
     
-    toggleBtn.addEventListener('click', () => {
+    // Add multiple event listeners to ensure it works
+    const handleToggle = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Button clicked, showControls:', showControls);
       showControls = !showControls;
       controlsPanel.classList.toggle('hidden');
       toggleBtn.textContent = showControls ? 'Hide Controls' : 'Show Controls';
-    });
+      console.log('After toggle, showControls:', showControls, 'Panel hidden:', controlsPanel.classList.contains('hidden'));
+    };
+    
+    toggleBtn.addEventListener('click', handleToggle);
+    toggleBtn.addEventListener('mousedown', handleToggle);
+    toggleBtn.addEventListener('touchstart', handleToggle);
 
     // Particle size control
     const sizeSlider = document.getElementById('particle-size') as HTMLInputElement;

@@ -108,7 +108,7 @@ const htmlContent = blog.content ? marked(blog.content) : '';
     
     <Header />
 
-    <main id="blog-content" class="max-w-4xl mx-auto px-4 py-16 slide-in-right" style="font-family: 'Inter', sans-serif;">
+    <main id="blog-content" class="max-w-6xl mx-auto px-4 sm:px-6 py-16 slide-in-right" style="font-family: 'Inter', sans-serif;">
       <!-- Breadcrumb -->
       <nav class="mb-8">
         <a href={`${import.meta.env.BASE_URL}blog`} id="back-to-blog-btn" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors duration-200 text-sm">
@@ -129,7 +129,7 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         </div>
 
         <!-- Title -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-medium text-primary mb-6 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           {blog.title}
         </h1>
 

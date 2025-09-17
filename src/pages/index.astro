@@ -66,30 +66,27 @@ import Slider3 from '../components/home-slider/slider-3.astro';
     </div>
     <script>
       // Randomly choose which background to show on page load
-  const backgrounds = ['slider-1', 'slider-3'];
+      const backgrounds = ['slider-1', 'slider-3'];
       const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
       
-      // Hide all backgrounds first
-  const slider1 = document.getElementById('slider-1-background') as HTMLElement;
-  // const slider2 = document.getElementById('slider-2-background') as HTMLElement;
-  const slider3 = document.getElementById('slider-3-background') as HTMLElement;
+      // Get background elements
+      const slider1 = document.getElementById('slider-1-background') as HTMLElement;
+      const slider3 = document.getElementById('slider-3-background') as HTMLElement;
       
-      slider1?.classList.add('hidden'); 
-      // slider2?.classList.add('hidden');
-      slider3?.classList.add('hidden');
+      // Only hide backgrounds that are NOT selected to avoid flashing
+      if (randomBackground === 'slider-1') {
+        slider3?.classList.add('hidden');
+        slider1?.classList.remove('hidden');
+      } else {
+        slider1?.classList.add('hidden'); 
+        slider3?.classList.remove('hidden');
+      }
       
-      // Show the randomly chosen background
-      const selectedBackground = document.getElementById(`${randomBackground}-background`) as HTMLElement;
-      selectedBackground?.classList.remove('hidden');
-      
-      // Initialize content animations
-      setTimeout(() => {
-        const contentElements = document.querySelectorAll('.content-fade');
-        contentElements.forEach(element => {
-          element.classList.add('loaded');
-        });
-      }, 100);
-
+      // Initialize content animations immediately to prevent flash
+      const contentElements = document.querySelectorAll('.content-fade');
+      contentElements.forEach(element => {
+        element.classList.add('loaded');
+      });
     </script>
   </body>
 </html>

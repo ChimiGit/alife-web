@@ -1,0 +1,66 @@
+import React, { useState } from 'react';
+import TeamMemberCard from './TeamMemberCard';
+import TeamMemberModal from './TeamMemberModal';
+import HeroUIProvider from './HeroUIProvider';
+
+interface TeamMember {
+  name: string;
+  title: string;
+  bio: string;
+  description?: string;
+  location: string;
+  image: string;
+  category: string;
+  slug: string;
+  linkedin?: string;
+  twitter?: string;
+  email?: string;
+}
+
+interface TeamSectionProps {
+  title: string;
+  members: TeamMember[];
+}
+
+export default function TeamSection({ title, members }: TeamSectionProps) {
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleMemberClick = (member: TeamMember) => {
+    setSelectedMember(member);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedMember(null);
+  };
+
+  return (
+    <HeroUIProvider>
+      <div className="mb-16">
+        <h2
+          className="text-40px font-medium text-primary mb-8"
+          style={{ fontFamily: "'GT Alpina Fine', serif" }}
+        >
+          {title}
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {members.map(member => (
+            <TeamMemberCard
+              key={member.slug}
+              member={member}
+              onClick={handleMemberClick}
+            />
+          ))}
+        </div>
+      </div>
+
+      <TeamMemberModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        member={selectedMember}
+      />
+    </HeroUIProvider>
+  );
+}

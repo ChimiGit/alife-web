@@ -5,29 +5,29 @@
 <header class="font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] fixed top-0 left-0 right-0 z-50">
 
     <!-- Main  header content -->
-    <div class="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
-      <div class="max-w-6xl mx-auto pr-4 flex justify-between items-center min-h-20">
+    <div class="bg-white/20 backdrop-blur-md ">
+      <div class="max-w-6xl mx-auto pr-4 flex justify-between items-center min-h-12">
       <!-- Logo section -->
       <div class="flex items-center">
         <a 
           href={`${import.meta.env.BASE_URL}`} 
-          class="flex items-center" 
+          class="flex items-center cursor-pointer" 
           aria-label="ALIFE - Artificial Life Institute"
         >
           <!-- Responsive wrapper -->
-          <div class="relative sm:w-[190px] sm:h-[28px] w-28 h-6">
+          <div class="relative sm:w-[190px] sm:h-[28px] w-28 h-6 -pl-8">
             <!-- Logo 1 -->
             <img 
               src={`${import.meta.env.BASE_URL}assets/logo/logo1.svg`} 
               alt="ALIFE Logo 1" 
-              class="absolute top-0 left-0 z-10 w-full h-auto object-left"
+              class="absolute top-0 -left-7 z-10 w-full h-auto object-left"
               style="width: 189.92px; height: 27.63px;"
             />
             <!-- Logo 2 (animated overlay) -->
             <img 
               src={`${import.meta.env.BASE_URL}assets/logo/logo2.svg`} 
               alt="ALIFE Logo 2" 
-              class="logo-slide absolute top-0 left-0 z-20 w-full h-auto object-left transition-all duration-500 ease-in-out"
+              class="logo-slide absolute top-0 -left-7 z-20 w-full h-auto object-left transition-all duration-500 ease-in-out"
               style="width: 189.92px; height: 27.63px;"
             />
           </div>
@@ -40,24 +40,20 @@
         <div class="px-6 py-3">
           <ul class="flex list-none m-0 p-0 gap-8 items-center">
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="home">Home</a>
+              <a href={`${import.meta.env.BASE_URL}about`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative cursor-pointer" data-page="about">About Us</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}about`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="about">About Us</a>
+              <a href={`${import.meta.env.BASE_URL}blog`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative cursor-pointer" data-page="blog">Blog</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}people`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="people">People</a>
+              <a href={`${import.meta.env.BASE_URL}people`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative cursor-pointer" data-page="people">People</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}career`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="career">Career</a>
+              <a href={`${import.meta.env.BASE_URL}support`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative cursor-pointer" data-page="support">Support Us</a>
             </li>
             <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}blog`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="blog">Blog</a>
+              <a href={`${import.meta.env.BASE_URL}career`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative cursor-pointer" data-page="career">Career</a>
             </li>
-            <li class="m-0">
-              <a href={`${import.meta.env.BASE_URL}support`} class="nav-link no-underline text-primary font-light text-sm transition-all duration-200 hover:text-primary/70 relative" data-page="support">Support Us</a>
-            </li>
-            
           </ul>
         </div>
       </nav>
@@ -65,10 +61,10 @@
       <!-- Mobile Hamburger Menu Button -->
       <button 
         id="mobile-menu-button"
-        class="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 text-primary hover:primary transition-colors duration-200"
+        class="lg:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 text-primary hover:primary transition-colors duration-200 cursor-pointer"
         aria-label="Toggle mobile menu"
         aria-expanded="false"
-        style="cursor: pointer; position: relative; z-index: 100;"
+        style="position: relative; z-index: 100;"
       >
         <span class="block w-6 h-0.5 bg-current transition-all duration-300 transform" id="hamburger-line-1"></span>
         <span class="block w-6 h-0.5 bg-current transition-all duration-300 transform" id="hamburger-line-2"></span>
@@ -88,7 +84,7 @@
         <div class="flex justify-end items-center p-6">
           <button 
             id="mobile-menu-close"
-            class="w-10 h-10 rounded-full hover:bg-white/20 flex items-center justify-center text-gray-800 hover:text-primary transition-all duration-200"
+            class="w-10 h-10 rounded-full hover:bg-white/20 flex items-center justify-center text-gray-800 hover:text-primary transition-all duration-200 cursor-pointer"
             aria-label="Close mobile menu"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,37 +97,37 @@
         <nav class="flex-1 p-6" role="navigation" aria-label="Mobile navigation">
           <ul class="space-y-2">
             <li>
-              <a href={`${import.meta.env.BASE_URL}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="home">
+              <a href={`${import.meta.env.BASE_URL}`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="home">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 Home
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}about`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="about">
+              <a href={`${import.meta.env.BASE_URL}about`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="about">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 About Us
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}people`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="people">
+              <a href={`${import.meta.env.BASE_URL}people`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="people">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 People
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}career`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="career">
+              <a href={`${import.meta.env.BASE_URL}career`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="career">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 Career
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}blog`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="blog">
+              <a href={`${import.meta.env.BASE_URL}blog`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="blog">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 Blog
               </a>
             </li>
             <li>
-              <a href={`${import.meta.env.BASE_URL}support`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200" data-page="support">
+              <a href={`${import.meta.env.BASE_URL}support`} class="mobile-nav-link group flex items-center px-4 py-3 text-lg font-medium text-gray-900 hover:text-primary hover:bg-white/5 transition-all duration-200 cursor-pointer" data-page="support">
                 <span class="w-2 h-2 bg-primary rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
                 Support Us
               </a>
@@ -389,8 +385,8 @@
           if (logoSlide) {
             logoSlide.classList.add('scrolled');
           }
-        } else if (currentScrollY < lastScrollY || currentScrollY <= 50) {
-          // Scrolling up or near top - slide logo2 back out
+        } else if (currentScrollY === 0) {
+          // Only at the very top - slide logo2 back out
           if (logoSlide) {
             logoSlide.classList.remove('scrolled');
           }

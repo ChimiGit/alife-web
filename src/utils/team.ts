@@ -4,6 +4,7 @@ export interface TeamMember {
   name: string;
   title: string;
   bio: string;
+  description?: string;
   location: string;
   image: string;
   category: string;
