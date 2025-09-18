@@ -1,0 +1,419 @@
+---
+// Astro component - no props needed for this standalone component
+---
+
+<div class="relative w-full h-screen particle-component">
+  <canvas id="particle-canvas-2" class="w-full h-screen" style="pointer-events: none;"></canvas>
+
+  <div class="absolute bottom-4 right-4 z-[50]" >
+    <button
+      id="toggle-controls-2"
+      class="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg border border-white/30 hover:bg-black/70 transition-colors shadow-lg"
+    >
+      Show Controls
+    </button>
+
+    <div id="controls-panel-2" class="mt-4 bg-black/50 backdrop-blur-sm p-6 rounded-lg border border-white/20 space-y-4 min-w-[280px] hidden">
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">Particle Size: <span id="size-value">1.7</span>px</label>
+        <input
+          type="range"
+          id="particle-size"
+          min="0.5"
+          max="5"
+          step="0.1"
+          value="1.7"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Particle Density: <span id="count-value">3000</span>
+        </label>
+        <input
+          type="range"
+          id="particle-density"
+          min="500"
+          max="8000"
+          value="3000"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+        <div class="text-xs text-white/60 mt-1">Particles per line</div>
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">Particle Color</label>
+        <input
+          type="color"
+          id="particle-color"
+          value="#1ca500"
+          class="w-full h-10 bg-transparent border border-white/20 rounded cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Line Spread: <span id="sharpness-value">200</span>px
+        </label>
+        <input
+          type="range"
+          id="particle-sharpness"
+          min="50"
+          max="500"
+          value="200"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+        <div class="text-xs text-white/60 mt-1">Width of particle streams</div>
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Line Separation: <span id="separation-value">210</span>px
+        </label>
+        <input
+          type="range"
+          id="line-separation"
+          min="0"
+          max="400"
+          value="210"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+        <div class="text-xs text-white/60 mt-1">Distance between particle lines</div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input id="additive-blend" type="checkbox" class="h-4 w-4" checked />
+        <label for="additive-blend" class="text-white text-sm">Additive blend (brighter overlaps)</label>
+      </div>
+
+      <div>
+        <label class="block text-white text-sm font-medium mb-2">
+          Animation Speed: <span id="speed-value">100</span>%
+        </label>
+        <input
+          type="range"
+          id="animation-speed"
+          min="10"
+          max="300"
+          value="100"
+          class="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  #particle-canvas-2 {
+    pointer-events: none;
+  }
+
+  #toggle-controls-2,
+  #controls-panel-2 {
+    pointer-events: auto;
+    z-index: 20; /* or a value above the canvas but below the text */
+  }
+</style>
+
+<script>
+  // Wrap everything in a per-instance function so multiple component instances don't
+  // redeclare top-level variables and collide.
+  (function initParticle() {
+    // Configuration variables (scoped to this IIFE)
+    let particleRadius = 1.7;
+    let baseLineSpeed = 1.5;
+    let baseLineSpread = 200;
+    let baseDensity = 3000;
+    let lineSeparation = 210;
+    let particleColor = "#1ca500";
+    let useAdditive = false;
+    let speedMultiplier = 1;
+    let showControls = false;
+
+    const fadeInDistance = 100;
+
+    // Find the component root for this script instance
+    const currentScript = document.currentScript as HTMLScriptElement | null;
+    const ROOT = (currentScript && currentScript.parentElement) || document.querySelector('.particle-component');
+
+    // Prefer canvas inside the component root; fallback to global ID for backwards compatibility
+    const canvas = (ROOT && ROOT.querySelector('#particle-canvas-2')) as HTMLCanvasElement
+      || document.getElementById('particle-canvas-2') as HTMLCanvasElement;
+    const ctx = canvas?.getContext('2d');
+    
+    let animationFrameId: number;
+  let lines: any[] = [];
+  // track previous multiplier so we can scale existing speeds when user changes it
+  let prevSpeedMultiplier = 1;
+
+    if (!canvas || !ctx) return;
+
+    class Particle {
+      relativeX: number;
+      y: number;
+      speedY: number;
+
+      constructor(relativeX: number, y: number, speedY: number) {
+        this.relativeX = relativeX;
+        this.y = y;
+        this.speedY = speedY;
+      }
+
+      update() {
+        this.y += this.speedY;
+        if (this.y < 0 || this.y > canvas.height) {
+          this.speedY *= -1;
+        }
+      }
+    }
+
+    const hexToRgb = (hex: string) => {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+          }
+        : { r: 28, g: 165, b: 0 };
+    };
+
+    // Recreate / reposition lines immediately using current lineSeparation
+    const repopulateLines = () => {
+      const centerX = window.innerWidth / 2 + 40;
+      const numInitialLines = Math.ceil(window.innerWidth / lineSeparation) + 2;
+      lines = [];
+      for (let i = 0; i < numInitialLines; i++) {
+        const line = createLine(1);
+        line.xOffset = centerX + i * lineSeparation;
+        lines.push(line);
+      }
+    };
+
+    const createLine = (direction: number = 1) => {
+      const particles: Particle[] = [];
+      for (let j = 0; j < baseDensity; j++) {
+        const randomX = Math.pow(Math.random(), 0.5);
+        const y = Math.random() * window.innerHeight;
+        const speedY = (Math.random() - 0.5) * 1.0;
+        particles.push(new Particle(randomX, y, speedY));
+      }
+
+      return {
+        xOffset: window.innerWidth / 2 + 40,
+        speed: baseLineSpeed * direction * speedMultiplier,
+        particles,
+        opacity: 0,
+        startX: window.innerWidth / 2 + 40,
+      };
+    };
+
+    const resizeCanvas = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx!.scale(dpr, dpr);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      lines = [];
+
+      // Pre-populate lines across the screen
+      const centerX = window.innerWidth / 2 + 40;
+      const numInitialLines = Math.ceil(window.innerWidth / lineSeparation) + 2;
+
+      for (let i = 0; i < numInitialLines; i++) {
+        const line = createLine(1);
+        line.xOffset = centerX + i * lineSeparation;
+        lines.push(line);
+      }
+    };
+
+    const animate = () => {
+      if (!ctx) return;
+      
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Set blending mode
+      ctx.globalCompositeOperation = useAdditive ? 'lighter' : 'source-over';
+
+      // Add new line when the last line has moved at least one separation step from center
+      const lastLine = lines[lines.length - 1];
+      if (!lastLine || Math.abs(lastLine.xOffset - (window.innerWidth / 2 + 40)) >= lineSeparation) {
+        lines.push(createLine(1));
+      }
+
+      const rgb = hexToRgb(particleColor);
+
+      // Update and draw each line
+      for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i];
+        line.xOffset += line.speed;
+
+        // Calculate current spread and density based on distance from center
+        const centerX = window.innerWidth / 2 + 40;
+        const distanceFromCenter = Math.abs(line.xOffset - centerX);
+        const maxDistance = window.innerWidth / 2;
+        const progress = distanceFromCenter / maxDistance;
+        const currentLineSpread = baseLineSpread;
+        
+        // Make right side denser
+        const isRightSide = line.xOffset > centerX;
+        const densityMultiplier = isRightSide ? 1.5 : 0.4;
+        const currentDensity = baseDensity * (1 - progress) * densityMultiplier;
+
+        const particlesToDraw = Math.floor(currentDensity);
+        
+        // Update fade-in opacity
+        const traveled = Math.abs(line.xOffset - (line.startX ?? (window.innerWidth / 2 + 40)));
+        line.opacity = Math.min(1, traveled / fadeInDistance);
+
+        line.particles.slice(0, particlesToDraw).forEach((p: Particle) => {
+          p.update();
+
+          const xOffset = (p.relativeX * currentLineSpread) - (currentLineSpread / 2);
+          const baseAlpha = Math.max(0.2, (xOffset + (currentLineSpread / 2)) / currentLineSpread);
+          const finalAlpha = baseAlpha * (line.opacity ?? 1);
+
+          ctx.beginPath();
+          ctx.arc(xOffset + line.xOffset, p.y, particleRadius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${finalAlpha})`;
+          ctx.fill();
+        });
+
+        // Remove lines that have moved off-screen
+        if (line.xOffset > window.innerWidth + baseLineSpread) {
+          lines.splice(i, 1);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    const setupControls = () => {
+      if (!ROOT) return;
+
+      // Query within this component instance first, fall back to global IDs if necessary
+      const toggleBtn = (ROOT.querySelector('#toggle-controls-2') || ROOT.querySelector('.toggle-controls') || document.getElementById('toggle-controls-2')) as HTMLElement | null;
+      const controlsPanel = (ROOT.querySelector('#controls-panel-2') || ROOT.querySelector('.controls-panel') || document.getElementById('controls-panel-2')) as HTMLElement | null;
+      if (!toggleBtn || !controlsPanel) return;
+
+      toggleBtn.addEventListener('click', () => {
+        showControls = !showControls;
+        controlsPanel.classList.toggle('hidden');
+        toggleBtn.textContent = showControls ? 'Hide Controls' : 'Show Controls';
+      });
+
+      // Particle size control
+      const sizeSlider = (ROOT.querySelector('#particle-size') || document.getElementById('particle-size')) as HTMLInputElement | null;
+      const sizeValue = (ROOT.querySelector('#size-value') || document.getElementById('size-value')) as HTMLElement | null;
+      if (sizeSlider && sizeValue) {
+        sizeSlider.addEventListener('input', (e) => {
+          particleRadius = parseFloat((e.target as HTMLInputElement).value);
+          sizeValue.textContent = particleRadius.toString();
+        });
+      }
+
+      // Particle density control
+      const densitySlider = (ROOT.querySelector('#particle-density') || document.getElementById('particle-density')) as HTMLInputElement | null;
+      const countValue = (ROOT.querySelector('#count-value') || document.getElementById('count-value')) as HTMLElement | null;
+      if (densitySlider && countValue) {
+        densitySlider.addEventListener('input', (e) => {
+          baseDensity = parseInt((e.target as HTMLInputElement).value);
+          countValue.textContent = baseDensity.toString();
+        });
+      }
+
+      // Particle color control
+      const colorPicker = (ROOT.querySelector('#particle-color') || document.getElementById('particle-color')) as HTMLInputElement | null;
+      if (colorPicker) {
+        colorPicker.addEventListener('input', (e) => {
+          particleColor = (e.target as HTMLInputElement).value;
+        });
+      }
+
+      // Line spread control (replaces sharpness)
+      const sharpnessSlider = (ROOT.querySelector('#particle-sharpness') || document.getElementById('particle-sharpness')) as HTMLInputElement | null;
+      const sharpnessValue = (ROOT.querySelector('#sharpness-value') || document.getElementById('sharpness-value')) as HTMLElement | null;
+      if (sharpnessSlider && sharpnessValue) {
+        sharpnessSlider.addEventListener('input', (e) => {
+          baseLineSpread = parseInt((e.target as HTMLInputElement).value);
+          sharpnessValue.textContent = baseLineSpread.toString();
+        });
+      }
+
+      // Line separation control
+      const separationSlider = (ROOT.querySelector('#line-separation') || document.getElementById('line-separation')) as HTMLInputElement | null;
+      const separationValue = (ROOT.querySelector('#separation-value') || document.getElementById('separation-value')) as HTMLElement | null;
+      if (separationSlider && separationValue) {
+        separationSlider.addEventListener('input', (e) => {
+          lineSeparation = parseInt((e.target as HTMLInputElement).value);
+          separationValue.textContent = lineSeparation.toString();
+          // Immediately reposition/recreate lines so change is visible right away
+          repopulateLines();
+        });
+      }
+
+      // Additive blend toggle
+      const additiveBlend = (ROOT.querySelector('#additive-blend') || document.getElementById('additive-blend')) as HTMLInputElement | null;
+      if (additiveBlend) {
+        additiveBlend.addEventListener('change', (e) => {
+          useAdditive = (e.target as HTMLInputElement).checked;
+        });
+      }
+
+      // Animation speed control
+      const speedSlider = (ROOT.querySelector('#animation-speed') || document.getElementById('animation-speed')) as HTMLInputElement | null;
+      const speedValue = (ROOT.querySelector('#speed-value') || document.getElementById('speed-value')) as HTMLElement | null;
+      if (speedSlider && speedValue) {
+        speedSlider.addEventListener('input', (e) => {
+          const speedPercent = parseInt((e.target as HTMLInputElement).value);
+          const newMultiplier = speedPercent / 100;
+
+          // compute ratio and scale existing line speeds and particle vertical speeds
+          const ratio = prevSpeedMultiplier > 0 ? newMultiplier / prevSpeedMultiplier : newMultiplier;
+          if (lines && lines.length) {
+            lines.forEach((line) => {
+              if (typeof line.speed === 'number') line.speed = line.speed * ratio;
+              if (Array.isArray(line.particles)) {
+                line.particles.forEach((p: any) => {
+                  if (typeof p.speedY === 'number') p.speedY = p.speedY * ratio;
+                });
+              }
+            });
+          }
+
+          speedMultiplier = newMultiplier;
+          prevSpeedMultiplier = newMultiplier;
+          speedValue.textContent = speedPercent.toString();
+        });
+      }
+    };
+
+    // Initialize
+    resizeCanvas();
+    setupControls();
+    window.addEventListener('resize', resizeCanvas);
+    animate();
+  })();
+</script>
