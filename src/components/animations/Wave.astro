@@ -14,7 +14,11 @@
   let particleDensity = 12;
   let sharpness = 1.0; // 0..1
   let useAdditive = true;
-  const MIN_VISIBLE_SIZE_PX = 3; // skip tiny particles
+  
+  // Mobile responsive adjustments
+  const isMobile = () => window.innerWidth <= 768;
+  const getMobileMultiplier = () => isMobile() ? 0.6 : 1; // 60% size on mobile
+  const getMinVisibleSize = () => 3 * getMobileMultiplier(); // skip tiny particles
   const MIN_WAVE_OFFSET = 0.15; // skip very faint phase
 
   const canvas = document.getElementById('halftone-canvas') as HTMLCanvasElement;
@@ -34,7 +38,8 @@
 
   const initializeParticles = () => {
     particles.length = 0;
-    const gridSize = particleDensity;
+    const mobileMultiplier = getMobileMultiplier();
+    const gridSize = particleDensity * mobileMultiplier;
     const rows = Math.ceil(canvas.height / gridSize);
     const cols = Math.ceil(canvas.width / gridSize);
 
@@ -70,6 +75,7 @@
 
   const drawParticleWave = () => {
     const rgb = hexToRgb(particleColor);
+    const mobileMultiplier = getMobileMultiplier();
     // Shift wave center 50% downward relative to canvas height
     const centerXRef = canvas.width / 2;
     const centerYOffsetPercent = 0.5; // 50% downward
@@ -94,10 +100,10 @@
       const normalizedDistance = distanceFromCenter / maxDistance;
 
       const waveOffset = Math.sin(normalizedDistance * 22.5 - time) * 0.5 + 0.5;
-      const size = particleSize * waveOffset * 0.8;
+      const size = particleSize * waveOffset * 0.8 * mobileMultiplier;
 
       // Skip tiny/faint particles to remove small fading dots
-      if (waveOffset < MIN_WAVE_OFFSET || size < MIN_VISIBLE_SIZE_PX) {
+      if (waveOffset < MIN_WAVE_OFFSET || size < getMinVisibleSize()) {
         return;
       }
 

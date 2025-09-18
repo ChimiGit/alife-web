@@ -6,36 +6,42 @@
   <canvas id="particleCanvas" class="fixed inset-0 z-5" style="touch-action: none; background-color: transparent; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"></canvas>
 
   <!-- Text Content -->
-  <main class="absolute top-0 left-0 w-full h-full z-10 flex items-center">
-    <div class="text-left max-w-7xl pl-4 sm:pl-8 lg:pl-40">
+  <section class="absolute bottom-32 left-0 right-0 mb-8 sm:mb-10 px-4 sm:px-6 z-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <h1
-        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
-        style="font-family: 'GT Alpina Fine', serif; margin: 0; line-height: 0.8;"
-      >
-        Where
-      </h1>
-      <h1
-        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
-        style="font-family: 'GT Alpina Fine', serif; margin: 0; line-height: 0.8;"
-      >
-        Evolution Meets
-      </h1>
-      <h1
-        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
-        style="font-family: 'GT Alpina Fine', serif; margin: 0; line-height: 0.8;"
-      >
-        Innovation
-      </h1>
-      <p
-      class="text-primary max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl font-light mt-6 sm:mt-8 lg:mt-10 text-sm sm:text-base md:text-lg"
+      class="text-6xl sm:text-6xl md:text-64px lg:text-[128px] text-primary"
       style={`font-family: ${
-        "'Inter', sans-serif"
-      }; font-size: 16px; line-height: 150%;`}
+        "'GT Alpina Fine', serif"
+      }; margin: 0; line-height: 1.1;`}
     >
-      We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
-    </p>
+      Where
+    </h1>
+    <h1
+    class="text-6xl sm:text-6xl md:text-64px lg:text-[128px] text-primary"
+    style={`font-family: ${
+      "'GT Alpina Fine', serif"
+    }; margin: 0; line-height: 1.1;`}
+  >
+    Evolution Meets
+  </h1>
+  <h1
+  class="text-6xl sm:text-6xl md:text-64px lg:text-[128px] text-primary"
+  style={`font-family: ${
+    "'GT Alpina Fine', serif"
+  }; margin: 0; line-height: 1.1;`}
+>
+  Innovation
+</h1>
+  <p
+  class="text-primary max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl font-light mt-6 sm:mt-8 lg:mt-10 text-sm sm:text-base md:text-lg"
+  style={`font-family: ${
+    "'Inter', sans-serif"
+  }; font-size: 20px; line-height: 150%;`}
+>
+  We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
+</p>
     </div>
-  </main>
+  </section>
 </div>
 
 <script>
@@ -53,6 +59,10 @@
     const baseDensity = 3000;
     const lineSeparation = 210;
     const fadeInDistance = 100;
+    
+    // Mobile responsive adjustments
+    const isMobile = () => window.innerWidth <= 768;
+    const getMobileMultiplier = () => isMobile() ? 0.6 : 1; // 60% size on mobile
 
     function resizeCanvas() {
         if (!ctx) return;
@@ -68,11 +78,13 @@
 
         // Pre-populate lines across the screen (simulate ongoing animation)
         const centerX = window.innerWidth / 2 + 40;
-        const numInitialLines = Math.ceil(window.innerWidth / lineSeparation) + 2;
+        const mobileMultiplier = getMobileMultiplier();
+        const adjustedLineSeparation = lineSeparation * mobileMultiplier;
+        const numInitialLines = Math.ceil(window.innerWidth / adjustedLineSeparation) + 2;
 
         for (let i = -2; i < numInitialLines; i++) {
           const line = createLine(1);
-          line.xOffset = centerX + i * lineSeparation; // position as if already moved
+          line.xOffset = centerX + i * adjustedLineSeparation; // position as if already moved
           lines.push(line);
         }
 
@@ -104,7 +116,9 @@
     // Helper function to create a single line of particles with a random speed
     function createLine(direction: number = 1) {
       const particles: Particle[] = [];
-      for (let j = 0; j < baseDensity; j++) {
+      const mobileMultiplier = getMobileMultiplier();
+      const adjustedDensity = Math.floor(baseDensity * mobileMultiplier);
+      for (let j = 0; j < adjustedDensity; j++) {
         const randomX = Math.pow(Math.random(), 0.5);
         const y = Math.random() * window.innerHeight;
         const speedY = (Math.random() - 0.5) * 1.0;
@@ -128,14 +142,16 @@
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       // Add new line when the last line has moved a specific distance
-      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - (window.innerWidth / 2 + 40))) % lineSeparation === 0) {
+      const mobileMultiplier = getMobileMultiplier();
+      const adjustedLineSeparation = lineSeparation * mobileMultiplier;
+      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - (window.innerWidth / 2 + 40))) % adjustedLineSeparation === 0) {
         lines.push(createLine(1)); // Moving right only
       }
 
       // Update and draw each line
       for (let i = lines.length - 1; i >= 0; i--) {
         const line = lines[i];
-        line.xOffset += line.speed;
+        line.xOffset += line.speed * mobileMultiplier; // Slower movement on mobile
 
         // Calculate current spread and density based on distance from shifted center
         const centerX = window.innerWidth / 2 + 40;
@@ -143,7 +159,7 @@
         const maxDistance = window.innerWidth / 2;
         const progress = distanceFromCenter / maxDistance;
         // const currentLineSpread = baseLineSpread * (1 - progress);
-        const currentLineSpread= baseLineSpread;
+        const currentLineSpread = baseLineSpread * mobileMultiplier;
         
         // Make right side denser by adjusting density calculation
         const isRightSide = line.xOffset > centerX;
@@ -165,13 +181,13 @@
           const finalAlpha = baseAlpha * (line.opacity ?? 1);
 
           ctx.beginPath();
-          ctx.arc(xOffset + line.xOffset, p.y, particleRadius, 0, Math.PI * 2);
+          ctx.arc(xOffset + line.xOffset, p.y, particleRadius * mobileMultiplier, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(28, 165, 0, ${finalAlpha})`;
           ctx.fill();
         });
 
         // Remove lines that have moved off-screen to the right
-        if (line.xOffset > window.innerWidth + baseLineSpread) {
+        if (line.xOffset > window.innerWidth + currentLineSpread) {
           lines.splice(i, 1);
         }
       }
