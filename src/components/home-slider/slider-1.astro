@@ -6,10 +6,10 @@
   <canvas id="particleCanvas" class="fixed inset-0 z-5" style="touch-action: none; background-color: transparent; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"></canvas>
 
   <!-- Text Content -->
-  <section class="absolute bottom-32 left-0 right-0 mb-8 sm:mb-10 px-4 sm:px-6 z-10">
+  <section class="absolute bottom-32 md:bottom-16 left-0 right-0 mb-8 sm:mb-10 px-4 sm:px-6 z-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <h1
-      class="text-6xl sm:text-6xl md:text-64px lg:text-[128px] text-primary"
+      class="text-6xl sm:text-64px md:text-64px lg:text-[128px] text-primary"
       style={`font-family: ${
         "'GT Alpina Fine', serif"
       }; margin: 0; line-height: 1.1;`}
@@ -77,7 +77,7 @@
         lines = [];
 
         // Pre-populate lines across the screen (simulate ongoing animation)
-        const centerX = window.innerWidth / 2 + 40;
+        const centerX = isMobile() ? 0 : window.innerWidth / 2 + 40; // Start from left on mobile, center on desktop
         const mobileMultiplier = getMobileMultiplier();
         const adjustedLineSeparation = lineSeparation * mobileMultiplier;
         const numInitialLines = Math.ceil(window.innerWidth / adjustedLineSeparation) + 2;
@@ -126,12 +126,12 @@
       }
 
       return {
-      xOffset: window.innerWidth / 2 + 40, // Start from center shifted more right
+      xOffset: isMobile() ? 0 : window.innerWidth / 2 + 40, // Start from left on mobile, center on desktop
       speed: baseLineSpeed * direction, // Direction: 1 for right, -1 for left
       particles,
       // track fade-in state and reference start position
       opacity: 0,
-      startX: window.innerWidth / 2 + 40,
+      startX: isMobile() ? 0 : window.innerWidth / 2 + 40,
       };
     }
 
@@ -144,7 +144,8 @@
       // Add new line when the last line has moved a specific distance
       const mobileMultiplier = getMobileMultiplier();
       const adjustedLineSeparation = lineSeparation * mobileMultiplier;
-      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - (window.innerWidth / 2 + 40))) % adjustedLineSeparation === 0) {
+      const startX = isMobile() ? 0 : window.innerWidth / 2 + 40; // Start from left on mobile, center on desktop
+      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - startX)) % adjustedLineSeparation === 0) {
         lines.push(createLine(1)); // Moving right only
       }
 
@@ -153,23 +154,29 @@
         const line = lines[i];
         line.xOffset += line.speed * mobileMultiplier; // Slower movement on mobile
 
-        // Calculate current spread and density based on distance from shifted center
-        const centerX = window.innerWidth / 2 + 40;
+        // Calculate current spread and density based on distance from start position
+        const centerX = isMobile() ? 0 : window.innerWidth / 2 + 40; // Use left edge on mobile, center on desktop
         const distanceFromCenter = Math.abs(line.xOffset - centerX);
-        const maxDistance = window.innerWidth / 2;
+        const maxDistance = isMobile() ? window.innerWidth : window.innerWidth / 2; // Full width on mobile, half on desktop
         const progress = distanceFromCenter / maxDistance;
         // const currentLineSpread = baseLineSpread * (1 - progress);
         const currentLineSpread = baseLineSpread * mobileMultiplier;
         
-        // Make right side denser by adjusting density calculation
+        // Make right side denser by adjusting density calculation (only on desktop)
         const isRightSide = line.xOffset > centerX;
-        const densityMultiplier = isRightSide ? 150 : 0; // 150% denser on right, 40% less dense on left
-        const currentDensity = baseDensity * (1 - progress) * densityMultiplier;
+        let densityMultiplier;
+        if (isMobile()) {
+          densityMultiplier = 1; // Full density on mobile
+        } else {
+          densityMultiplier = isRightSide ? 150 : 0; // Right-side bias on desktop
+        }
+        const currentDensity = isMobile() ? baseDensity * mobileMultiplier : baseDensity * (1 - progress) * densityMultiplier;
 
         const particlesToDraw = Math.floor(currentDensity);
         
         // update fade-in opacity based on how far the line has traveled from its start
-        const traveled = Math.abs(line.xOffset - (line.startX ?? (window.innerWidth / 2 + 40)));
+        const defaultStartX = isMobile() ? 0 : window.innerWidth / 2 + 40;
+        const traveled = Math.abs(line.xOffset - (line.startX ?? defaultStartX));
         line.opacity = Math.min(1, traveled / fadeInDistance);
 
         line.particles.slice(0, particlesToDraw).forEach((p: Particle) => {
