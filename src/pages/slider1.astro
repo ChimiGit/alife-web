@@ -1,0 +1,407 @@
+---
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Row Slider - 1, 2, 3 SVG Display</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Arial', sans-serif;
+				background: #FFB5A7;
+				height: 100vh;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.slider-container {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				background: transparent;
+				overflow: visible;
+				pointer-events: none;
+			}
+
+			.slider-container2 {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				background: transparent;
+				overflow: visible;
+				pointer-events: none;
+			}
+
+			.slider-container3 {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				background: transparent;
+				overflow: visible;
+				pointer-events: none;
+			}
+
+			.slider-container4 {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				background: transparent;
+				overflow: visible;
+				pointer-events: none;
+			}
+			
+			.image-item {
+				flex: 1;
+				height: 100%;
+				display: flex;
+				border: none;
+				position: relative;
+			}
+			
+			.image-item img {
+				width: 100%;
+				height: 100%;
+				border: none;
+				display: block;
+				object-fit: contain;
+				border-radius: 50px 0 0 50px; /* Curved left side */
+			}
+			
+			/* Individual styling for each image with absolute positioning */
+			.image-1 {
+				position: absolute;
+				top: 10%;
+				left: 10%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-1 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			
+			.image-2 {
+				position: absolute;
+				top: 20%;
+				left: 33%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-2 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			
+			.image-3 {
+				position: absolute;
+				top: 10%;
+				left: 60%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-3 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+            .image-4 {
+				position: absolute;
+				top: -63.3%;
+				left: 5.2%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-4 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.image-5 {
+				position: absolute;
+				top: -55%;
+				left: 29%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-5 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.image-6 {
+				position: absolute;
+				top: -63.3%;
+				left: 56.5%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-6 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			/* Third set of images */
+			.image-7 {
+				position: absolute;
+                top: -138%;
+				left: 1.6%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-7 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.image-8 {
+				position: absolute;
+                top: -130%;
+				left: 27%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-8 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.image-9 {
+				position: absolute;
+                top: -138%;
+				left: 53.5%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-9 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			/* Fourth set of images */
+			.image-10 {
+				position: absolute;
+				top: -213%;
+				left: -0.65%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-10 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.image-11 {
+				position: absolute;
+				top: -205%;
+				left: 25.5%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-11 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.image-12 {
+				position: absolute;
+				top: -213%;
+				left: 53%;
+				width: 400px;
+				height: 400px;
+				animation: infiniteScrollDownward 10s linear infinite;
+			}
+			.image-12 img {
+				border-radius: 50px 0 0 50px;
+				opacity: 1;
+				filter: brightness(1);
+				transition: all 0.3s ease;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			/* Smooth downward animation */
+			@keyframes moveDownward {
+				0% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(200px);
+				}
+				100% {
+					transform: translateY(0);
+				}
+			}
+
+			/* Continuous infinite scrolling upward */
+			@keyframes infiniteScrollDown {
+				0% {
+					transform: translateY(100vh);
+				}
+				100% {
+					transform: translateY(-100vh);
+				}
+			}
+
+			/* Smooth upward animation */
+			@keyframes moveUpward {
+				0% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-200px);
+				}
+				100% {
+					transform: translateY(0);
+				}
+			}
+
+			/* Subtle curved upward animation - mostly straight with gentle curve */
+			@keyframes subtleCurvedUpward {
+				0% {
+					transform: translateY(120vh) translateX(0);
+				}
+				25% {
+					transform: translateY(60vh) translateX(30px);
+				}
+				50% {
+					transform: translateY(0vh) translateX(50px);
+				}
+				75% {
+					transform: translateY(-60vh) translateX(30px);
+				}
+				100% {
+					transform: translateY(-120vh) translateX(0);
+				}
+			}
+
+			/* Continuous infinite scrolling upward */
+			@keyframes infiniteScrollDownward {
+				0% {
+					transform: translateY(100vh);
+				}
+				100% {
+					transform: translateY(-100vh);
+				}
+			}
+
+			/* Main wrapper to shift all images */
+			.images-wrapper {
+				transform: translateX(30%);
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="images-wrapper">
+			<div class="slider-container">
+				<div class="image-item image-1">
+					<img src="assets/images/1.svg" alt="Image 1" />
+				</div>
+				<div class="image-item image-2">
+					<img src="assets/images/2.svg" alt="Image 2" />
+				</div>
+				<div class="image-item image-3">
+					<img src="assets/images/3.svg" alt="Image 3" />
+				</div>
+			</div>
+			<div class="slider-container2">
+				<div class="image-item image-4">
+					<img src="assets/images/4.svg" alt="Image 1" />
+				</div>
+				<div class="image-item image-5">
+					<img src="assets/images/5.svg" alt="Image 2" />
+				</div>
+				<div class="image-item image-6">
+					<img src="assets/images/6.svg" alt="Image 3" />
+				</div>
+			</div>
+			<div class="slider-container3">
+				<div class="image-item image-7">
+					<img src="assets/images/7.svg" alt="Image 1" />
+				</div>
+				<div class="image-item image-8">
+					<img src="assets/images/8.svg" alt="Image 2" />
+				</div>
+				<div class="image-item image-9">
+					<img src="assets/images/9.svg" alt="Image 3" />
+				</div>
+			</div>
+			<div class="slider-container4">
+				<div class="image-item image-10">
+					<img src="assets/images/10.svg" alt="Image 10" />
+				</div>
+				<div class="image-item image-11">
+					<img src="assets/images/11.svg" alt="Image 11" />
+				</div>
+				<div class="image-item image-12">
+					<img src="assets/images/12.svg" alt="Image 12" />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
