@@ -65,7 +65,7 @@ const teamCategories = await getAllTeamCategories();
         ))
       ) : (
         <div class="text-center text-gray-500 py-8">
-          <h3 class="text-xl font-semibold mb-4">Team Information Coming Soon</h3>
+          <h3 class="text-xl font-medium mb-4">Team Information Coming Soon</h3>
           <p>Our team profiles are being updated. Please check back later.</p>
         </div>
       )}
@@ -84,7 +84,7 @@ const teamCategories = await getAllTeamCategories();
               <img id="modal-image" src="" alt="" class="w-full h-full object-cover">
             </div>
             <div>
-              <h2 id="modal-name" class="text-3xl font-bold text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;"></h2>
+              <h2 id="modal-name" class="text-3xl font-medium text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;"></h2>
               <p id="modal-title" class="text-xl text-primary font-medium mb-1"></p>
               <p id="modal-location" class="text-gray-600 mb-3"></p>
               <div id="modal-social" class="flex space-x-4">
@@ -129,7 +129,7 @@ const teamCategories = await getAllTeamCategories();
 
         // Remove active state from all team tabs
         teamTabs.forEach((t) => {
-          t.classList.remove('active', 'font-semibold', 'text-primary', 'border-primary', 'bg-gray-100');
+          t.classList.remove('active', 'font-medium', 'text-primary', 'border-primary', 'bg-gray-100');
           t.classList.add('text-gray-500', 'border-transparent');
           t.setAttribute('aria-selected', 'false');
         });
@@ -140,7 +140,7 @@ const teamCategories = await getAllTeamCategories();
         });
 
         // Add active state to clicked team tab
-        tab.classList.add('active', 'font-semibold', 'text-primary', 'border-primary', 'bg-gray-100');
+        tab.classList.add('active', 'font-medium', 'text-primary', 'border-primary', 'bg-gray-100');
         tab.classList.remove('text-gray-500', 'border-transparent');
         tab.setAttribute('aria-selected', 'true');
 
@@ -214,11 +214,11 @@ const teamCategories = await getAllTeamCategories();
           });
 
           tempDiv.querySelectorAll('h2').forEach((h2) => {
-            h2.className = 'text-2xl font-semibold text-primary mt-8 mb-3';
+            h2.className = 'text-2xl font-medium text-primary mt-8 mb-3';
           });
 
           tempDiv.querySelectorAll('h3').forEach((h3) => {
-            h3.className = 'text-xl font-semibold text-primary mt-6 mb-2';
+            h3.className = 'text-xl font-medium text-primary mt-6 mb-2';
           });
 
           // Apply Tailwind classes to paragraphs
@@ -242,7 +242,7 @@ const teamCategories = await getAllTeamCategories();
 
           // Apply Tailwind classes to strong elements
           tempDiv.querySelectorAll('strong').forEach((strong) => {
-            strong.className = 'font-semibold text-primary';
+            strong.className = 'font-medium text-primary';
           });
 
           // Apply Tailwind classes to em elements

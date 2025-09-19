@@ -192,12 +192,12 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
           <div class="flex items-center gap-3 sm:gap-4">
             <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-primary font-semibold text-sm sm:text-lg">
+              <span class="text-primary font-medium text-sm sm:text-lg">
                 {blog.author.split(' ').map(n => n[0]).join('')}
               </span>
             </div>
             <div>
-              <p class="font-semibold text-primary text-sm sm:text-base">{blog.author}</p>
+              <p class="font-medium text-primary text-sm sm:text-base">{blog.author}</p>
               <p class="text-xs sm:text-sm text-primary">{blog.category} Expert</p>
             </div>
           </div>
