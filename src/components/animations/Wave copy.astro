@@ -254,14 +254,12 @@
     const controlsPanel = document.getElementById('controls-panel')!;
     
     // Add multiple event listeners to ensure it works
-    const handleToggle = (e) => {
+    const handleToggle = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log('Button clicked, showControls:', showControls);
       showControls = !showControls;
       controlsPanel.classList.toggle('hidden');
       toggleBtn.textContent = showControls ? 'Hide Controls' : 'Show Controls';
-      console.log('After toggle, showControls:', showControls, 'Panel hidden:', controlsPanel.classList.contains('hidden'));
     };
     
     toggleBtn.addEventListener('click', handleToggle);
