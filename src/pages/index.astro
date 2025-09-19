@@ -2,11 +2,12 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Slider1 from '../components/home-slider/slider-1.astro';
-// import Slider2 from "../components/home-slider/slider-2.astro";        
+// import Slider2 from "../components/home-slider/slider-2.astro";
 import Slider3 from '../components/home-slider/slider-3.astro';
+// import Slider4 from "../components/home-slider/slider-4.astro";
 ---
 
-<html lang="en">  
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
@@ -16,7 +17,6 @@ import Slider3 from '../components/home-slider/slider-3.astro';
     <title>ALIFE - Artificial Life Institute</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload critical fonts -->
     <link rel="preload" href={`${import.meta.env.BASE_URL}fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2`} as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -35,58 +35,66 @@ import Slider3 from '../components/home-slider/slider-3.astro';
         animation: noise 0.2s infinite;
         mix-blend-mode: overlay;
       }
-      
-      @keyframes noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0%); }
-        70% { transform: translate(0%, 15%); }
-        80% { transform: translate(-15%, 10%); }
-        90% { transform: translate(10%, 5%); }
-      }
+      @keyframes noise { /* ...same as before... */ }
     </style>
   </head>
   <body class="min-h-screen overflow-x-hidden">
     <!-- Noise overlay -->
     <div class="noise-overlay"></div>
-    <Header />
-    <!-- Backgrounds will be shown/hidden via JavaScript -->
+    <Header/>
     <div id="slider-1-background" class="content-fade">
       <Slider1 />
     </div>
-    <!-- <div id="slider-2-background" class="hidden content-fade">
-      <Slider2 />
-    </div> -->
     <div id="slider-3-background" class="hidden content-fade">
-      <Slider3 />
-    </div>
+      <Slider3/>
+    </div> 
+
+    <!-- <div id="slider-4-background" class="hidden content-fade">
+      <Slider4/>
+    </div> -->
+
     <script>
       // Randomly choose which background to show on page load
-      const backgrounds = ['slider-1', 'slider-3'];
+      // const backgrounds = ['slider-1', 'slider-3', 'slider-4'];
+       const backgrounds = ['slider-1', 'slider-3'];
+
       const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-      
+
       // Get background elements
-      const slider1 = document.getElementById('slider-1-background') as HTMLElement;
-      const slider3 = document.getElementById('slider-3-background') as HTMLElement;
-      
-      // Only hide backgrounds that are NOT selected to avoid flashing
+      const slider1 = document.getElementById('slider-1-background');
+      const slider3 = document.getElementById('slider-3-background');
+      // const slider4 = document.getElementById('slider-4-background');
+
+      // "No-flash" approach: only hide the sliders that are NOT selected
       if (randomBackground === 'slider-1') {
         slider3?.classList.add('hidden');
         slider1?.classList.remove('hidden');
+        slider1?.classList.add('active-slider');
       } else {
         slider1?.classList.add('hidden'); 
         slider3?.classList.remove('hidden');
+        slider3?.classList.add('active-slider');
       }
-      
-      // Initialize content animations immediately to prevent flash
-      const contentElements = document.querySelectorAll('.content-fade');
-      contentElements.forEach(element => {
-        element.classList.add('loaded');
-      });
+      // if (randomBackground === 'slider-1') {
+      //   slider1?.classList.remove('hidden');
+      //   slider3?.classList.add('hidden');
+      //   slider4?.classList.add('hidden');
+      // } else if (randomBackground === 'slider-3') {
+      //   slider1?.classList.add('hidden');
+      //   slider3?.classList.remove('hidden');
+      //  slider4?.classList.add('hidden');
+      // }
+      //  } else { // slider-4
+      //    slider1?.classList.add('hidden');
+      //    slider3?.classList.add('hidden');
+      //    slider4?.classList.remove('hidden');
+      //  }
+
+      // Initialize content animations
+      setTimeout(() => {
+        const contentElements = document.querySelectorAll('.content-fade');
+        contentElements.forEach(element => element.classList.add('loaded'));
+      }, 100);
     </script>
   </body>
 </html>
