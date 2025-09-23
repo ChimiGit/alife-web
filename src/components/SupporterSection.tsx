@@ -49,7 +49,7 @@ export default function SupporterSection({
           >
             {title}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {members.map(member => (
               <TeamMemberCard
                 key={member.slug}

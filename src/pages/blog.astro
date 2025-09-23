@@ -150,7 +150,7 @@ const contentData = Object.fromEntries(
     <div id="main-content">
       <Header />
 
-      <main id="blog-content" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 content-stagger" style="font-family: 'Inter', sans-serif;">
+      <main id="blog-content" class="max-w-6xl mx-auto px-4 sm:px-6 pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
         <div class="mb-12">
           <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h2>
           <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary max-w-3xl font-light">
@@ -193,7 +193,7 @@ const contentData = Object.fromEntries(
                   id={`${categoryKey}-content`} 
                   class={`tab-content ${index === 0 ? '' : 'hidden'}`}
                 >
-                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {categoryData?.posts.map((post: any) => (
                       <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block group blog-card cursor-pointer">
                         <div class="mb-6">
@@ -205,10 +205,10 @@ const contentData = Object.fromEntries(
                           />
                         </div>
                         <div class="space-y-3">
-                          <h2 class="text-35px font-medium leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                          <h2 class="text-25px font-medium leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
                             {post.title}
                           </h2>
-                          <p class="text-18px leading-relaxed line-clamp-3 font-light">
+                          <p class="text-12px leading-relaxed line-clamp-3 font-light">
                             {post.excerpt}
                           </p>
                         </div>
