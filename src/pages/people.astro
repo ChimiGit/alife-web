@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import { getAllTeamMembers } from '../utils/team.ts';
+import { getAllSupportTeamMembers } from '../utils/support.ts';
 import TeamSection from '../components/TeamSection.tsx';
 import SupporterSection from '../components/SupporterSection.tsx';
 import '../styles/global.css';
@@ -8,6 +9,9 @@ import '../styles/global.css';
 const teamMembers = await getAllTeamMembers();
 const executives = teamMembers.filter(member => member.category === 'executives');
 const researchers = teamMembers.filter(member => member.category === 'researchers');
+const supportMembers = await getAllSupportTeamMembers();
+const supporters = supportMembers.filter(member => member.category === 'supporters');
+const donors = supportMembers.filter(member => member.category === 'donors');
 ---
 
 <!DOCTYPE html>
@@ -98,10 +102,10 @@ const researchers = teamMembers.filter(member => member.category === 'researcher
         </div>
 
         <!-- Supporters Section -->
-        <SupporterSection title="Supporters" members={executives} client:load />
+        <SupporterSection title="Supporters" members={supporters} client:load />
 
         <!-- Donors Section -->
-        <SupporterSection title="Donors" members={[...executives, ...executives]} client:load />
+        <SupporterSection title="Donors" members={donors} client:load />
       </div>
       </main>
     </div>
