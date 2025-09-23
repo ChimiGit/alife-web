@@ -139,6 +139,12 @@ body {
   color: white !important;
 }
 
+/* Custom 12px font size */
+.text-12px {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
 /* Custom 18px font size */
 .text-18px {
   font-size: 18px;
@@ -159,6 +165,12 @@ body {
 /* Custom 32px font size */
 .text-32px {
   font-size: 32px;
+  line-height: 1.2;
+}
+
+/* Custom 25px font size */
+.text-17px {
+  font-size: 17px;
   line-height: 1.2;
 }
 

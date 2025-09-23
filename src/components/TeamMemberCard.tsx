@@ -28,7 +28,7 @@ export default function TeamMemberCard({
       className="text-center sm:text-left cursor-pointer hover:opacity-80 transition-opacity duration-200"
       onClick={() => onClick(member)}
     >
-      <div className="w-full max-w-48 mb-3 sm:mb-4 rounded-sm overflow-hidden bg-gray-200 mx-auto sm:mx-0">
+      <div className="w-full max-w-48 mb-3 sm:mb-4 overflow-hidden bg-gray-200 mx-auto sm:mx-0">
         <img
           src={member.image}
           alt={member.name}
@@ -36,12 +36,12 @@ export default function TeamMemberCard({
         />
       </div>
       <h4
-        className="text-base sm:text-lg font-medium text-primary mb-1"
+        className="text-25px sm:text-lg font-medium text-primary mb-1"
         style={{ fontFamily: "'GT Alpina Fine', serif" }}
       >
         {member.name}
       </h4>
-      <p className="text-xs sm:text-sm text-primary">{member.title}</p>
+      <p className="text-12px sm:text-sm text-primary">{member.title}</p>
     </div>
   );
 }
