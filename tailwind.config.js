@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -19,7 +20,10 @@ export default {
       spacing: {
         21: '5.25rem', // Custom width for logo
       },
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

@@ -3,7 +3,7 @@ import '../../../styles/global.css';
 ---
 
 <!-- SVG Header -->
-<div class="w-screen mb-12 flex justify-center lg:justify-start lg:-ml-[18.5rem] overflow-hidden relative" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
+<div class="w-screen flex justify-center lg:justify-start lg:-ml-[18.5rem] overflow-hidden relative" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
   <img 
     src={`${import.meta.env.BASE_URL}assets/images/ALife Slide Template-03 1.svg`} 
     alt="ALife Mission Header" 
@@ -14,40 +14,40 @@ import '../../../styles/global.css';
     <img 
       src={`${import.meta.env.BASE_URL}assets/logo/logo.svg`} 
       alt="ALIFE Logo" 
-      class="h-18 w-auto opacity-90"
+      class="h-8 sm:h-12 md:h-16 lg:h-18 w-auto opacity-90"
     />
   </div>
 </div>
 
 <!-- Mission Content -->
-<div class="w-screen px-8 py-16 relative" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
+<div class="w-screen px-4 sm:px-8 md:px-16 lg:px-100 pt-6 sm:pt-8 md:pt-10 pb-8 sm:pb-12 md:pb-16 relative" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
   <!-- Background Frame SVG -->
-  <div class="absolute inset-0 bg-gray-50">
-    <img 
-      src={`${import.meta.env.BASE_URL}assets/images/frame.svg`} 
-      alt="Decorative frame background" 
-      class="w-full h-full object-contain opacity-60"
-      style="filter: brightness(0.8) contrast(1.2);"
-    />
-  </div>
-  
+    <div class="absolute inset-0 bg-gray-50">
+      <img 
+        src={`${import.meta.env.BASE_URL}assets/images/frame.svg`} 
+        alt="Decorative frame background" 
+        class="w-full h-full object-contain opacity-60"
+        style="filter: brightness(0.8) contrast(1.2);"
+      />
+    </div>
+    
   <!-- Flex Container for Mission, Vision, and Values -->
-  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 relative z-10">
+  <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 relative z-10 justify-center max-w-6xl mx-auto">
     
     <!-- Mission Section -->
     <div class="flex-1">
-      <h2 class="text-64px lg:text-5xl text-primary mb-5 text-center" style="font-family: 'GT Alpina Fine', serif;">Mission</h2>
-      <div class="h-0.5 w-50 bg-primary mb-8 mx-auto"></div>
-      <p class="text-20px lg:text-20px text-primary leading-relaxed text-left" style="font-family: 'Inter', sans-serif; line-height: 2; font-weight: 300; text-align: left;">
+      <h2 class="text-4xl sm:text-4xl md:text-5xl lg:text-5xl text-primary mb-3 sm:mb-4 md:mb-5" style="font-family: 'GT Alpina Fine', serif;">Mission</h2>
+      <div class="h-0.5 w-20 sm:w-24 md:w-132 bg-primary mb-4 sm:mb-6 md:mb-8"></div>
+      <p class="text-base sm:text-lg md:text-xl lg:text-20px text-primary leading-relaxed text-left" style="font-family: 'Inter', sans-serif; line-height: 1.6 sm:line-height-1.8 md:line-height-2; font-weight: 300; text-align: left;">
         To cultivate symbiotic relationships between humans and artificial life through open-ended evolutionary systems that continuously generate novel solutions to complex real-world challenges.
       </p>  
     </div>
 
     <!-- Vision Section -->
     <div class="flex-1">
-      <h2 class="text-64px lg:text-5xl text-primary mb-5 text-center" style="font-family: 'GT Alpina Fine', serif;">Vision</h2>
-      <div class="h-0.5 w-50 bg-primary mb-8 mx-auto"></div>
-      <p class="text-20px lg:text-20px text-primary leading-relaxed text-left" style="font-family: 'Inter', sans-serif; line-height: 2; font-weight: 300; text-align: left;">
+      <h2 class="text-4xl sm:text-4xl md:text-5xl lg:text-5xl text-primary mb-3 sm:mb-4 md:mb-5" style="font-family: 'GT Alpina Fine', serif;">Vision</h2>
+      <div class="h-0.5 w-16 sm:w-20 md:w-130 bg-primary mb-4 sm:mb-6 md:mb-8"></div>
+      <p class="text-base sm:text-lg md:text-xl lg:text-20px text-primary leading-relaxed text-left" style="font-family: 'Inter', sans-serif; line-height: 1.6 sm:line-height-1.8 md:line-height-2; font-weight: 300; text-align: left;">
         A future where artificial life forms serve as creative partners to humanity, where evolution and intelligence work together to solve problems we cannot yet imagine, and where the boundary between natural and artificial creativity dissolves into collaborative innovation.
       </p>
     </div>

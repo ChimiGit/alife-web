@@ -6,42 +6,42 @@
   <canvas id="particleCanvas" class="fixed inset-0 z-5" style="touch-action: none; background-color: transparent; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"></canvas>
 
   <!-- Text Content -->
-  <main class="absolute top-0 left-0 w-full h-full z-10 flex items-center">
-    <div class="text-left max-w-7xl pl-4 sm:pl-8 lg:pl-40">
+  <section class="absolute bottom-20 md:bottom-16 left-0 right-0 mb-8 sm:mb-10 px-4 sm:px-6 z-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <h1
-        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
-        style={`font-family: ${
-          "'GT Alpina Fine', serif"
-        }; margin: 0; line-height: 0.8;`}
-      >
-        Where
-      </h1>
-      <h1
-        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
-        style={`font-family: ${
-          "'GT Alpina Fine', serif"
-        }; margin: 0; line-height: 0.8;`}
-      >
-        Evolution Meets
-      </h1>
-      <h1
-        class="text-4xl sm:text-6xl md:text-8xl lg:text-[128px] text-primary"
-        style={`font-family: ${
-          "'GT Alpina Fine', serif"
-        }; margin: 0; line-height: 0.8;`}
-      >
-        Innovation
-      </h1>
-      <p
-        class="text-primary max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl font-light mt-6 sm:mt-8 lg:mt-10 text-sm sm:text-base md:text-lg"
-        style={`font-family: ${
-          "'Inter', sans-serif"
-        }; font-size: 16px; line-height: 150%;`}
-      >
-        We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
-      </p>
+      class="text-6xl sm:text-64px md:text-64px lg:text-[128px] text-primary"
+      style={`font-family: ${
+        "'GT Alpina Fine', serif"
+      }; margin: 0; line-height: 1.1;`}
+    >
+      Where
+    </h1>
+    <h1
+    class="text-6xl sm:text-6xl md:text-64px lg:text-[128px] text-primary"
+    style={`font-family: ${
+      "'GT Alpina Fine', serif"
+    }; margin: 0; line-height: 1.1;`}
+  >
+    Evolution Meets
+  </h1>
+  <h1
+  class="text-6xl sm:text-6xl md:text-64px lg:text-[128px] text-primary"
+  style={`font-family: ${
+    "'GT Alpina Fine', serif"
+  }; margin: 0; line-height: 1.1;`}
+>
+  Innovation
+</h1>
+  <p
+  class="text-primary max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl font-light mt-6 sm:mt-8 lg:mt-10 text-sm sm:text-base md:text-lg"
+  style={`font-family: ${
+    "'Inter', sans-serif"
+  }; font-size: 20px; line-height: 150%;`}
+>
+  We're cultivating alternative approaches through evolution itself—creating systems that don't just optimize, but discover, surprise, and continuously evolve. This is where we pave a way for a future not engineered, but grown organically through bottom-up ecosystems where humans and artificial life forms collaborate as complementary partners.
+</p>
     </div>
-  </main>
+  </section>
 </div>
 
 <script>
@@ -53,35 +53,44 @@
     if (!ctx) return; // Exit if canvas context is not available
     
     let lines: any[] = [];
-    const particleRadius = 2.0;
-    const baseLineSpeed = 2;
+    const particleRadius = 1.7;
+    const baseLineSpeed = 2.0;
     const baseLineSpread = 200;
-    const baseDensity = 1500;
-    const lineSeparation = 200;
-
-    // Adjust the canvas size and re-initialize particles on window resize
-    function resizeCanvas() {
-      if (!ctx) return;
-      
-      // Get device pixel ratio for crisp rendering
-      const dpr = window.devicePixelRatio || 1;
-      
-      // Set canvas size
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      
-      // Scale context to match device pixel ratio
-      ctx.scale(dpr, dpr);
-      
-      // Set CSS size
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      
-      lines = []; // Clear and re-initialize lines on resize
-      animate();
-    }
+    const baseDensity = 3000;
+    const lineSeparation = 210;
+    const fadeInDistance = 100;
     
-    // Particle class definition
+    // Mobile responsive adjustments
+    const isMobile = () => window.innerWidth <= 768;
+    const getMobileMultiplier = () => isMobile() ? 0.6 : 1; // 60% size on mobile
+
+    function resizeCanvas() {
+        if (!ctx) return;
+        
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+
+        lines = [];
+
+        // Pre-populate lines across the screen (simulate ongoing animation)
+        const centerX = isMobile() ? 0 : window.innerWidth / 2 + 40; // Start from left on mobile, center on desktop
+        const mobileMultiplier = getMobileMultiplier();
+        const adjustedLineSeparation = lineSeparation * mobileMultiplier;
+        const numInitialLines = Math.ceil(window.innerWidth / adjustedLineSeparation) + 2;
+
+        for (let i = -2; i < numInitialLines; i++) {
+          const line = createLine(1);
+          line.xOffset = centerX + i * adjustedLineSeparation; // position as if already moved
+          lines.push(line);
+        }
+
+        animate();
+    }
+
     class Particle {
       relativeX: number;
 
@@ -107,7 +116,9 @@
     // Helper function to create a single line of particles with a random speed
     function createLine(direction: number = 1) {
       const particles: Particle[] = [];
-      for (let j = 0; j < baseDensity; j++) {
+      const mobileMultiplier = getMobileMultiplier();
+      const adjustedDensity = Math.floor(baseDensity * mobileMultiplier);
+      for (let j = 0; j < adjustedDensity; j++) {
         const randomX = Math.pow(Math.random(), 0.5);
         const y = Math.random() * window.innerHeight;
         const speedY = (Math.random() - 0.5) * 1.0;
@@ -115,9 +126,12 @@
       }
 
       return {
-        xOffset: window.innerWidth / 2 + 100, // Start from center shifted more right
-        speed: baseLineSpeed * direction, // Direction: 1 for right, -1 for left
-        particles
+      xOffset: isMobile() ? 0 : window.innerWidth / 2 + 40, // Start from left on mobile, center on desktop
+      speed: baseLineSpeed * direction, // Direction: 1 for right, -1 for left
+      particles,
+      // track fade-in state and reference start position
+      opacity: 0,
+      startX: isMobile() ? 0 : window.innerWidth / 2 + 40,
       };
     }
 
@@ -128,43 +142,59 @@
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       // Add new line when the last line has moved a specific distance
-      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - (window.innerWidth / 2 + 100))) % lineSeparation === 0) {
+      const mobileMultiplier = getMobileMultiplier();
+      const adjustedLineSeparation = lineSeparation * mobileMultiplier;
+      const startX = isMobile() ? 0 : window.innerWidth / 2 + 40; // Start from left on mobile, center on desktop
+      if (lines.length === 0 || Math.floor(Math.abs(lines[lines.length - 1].xOffset - startX)) % adjustedLineSeparation === 0) {
         lines.push(createLine(1)); // Moving right only
       }
 
       // Update and draw each line
       for (let i = lines.length - 1; i >= 0; i--) {
         const line = lines[i];
-        line.xOffset += line.speed;
+        line.xOffset += line.speed * mobileMultiplier; // Slower movement on mobile
 
-        // Calculate current spread and density based on distance from shifted center
-        const centerX = window.innerWidth / 2 + 100;
+        // Calculate current spread and density based on distance from start position
+        const centerX = isMobile() ? 0 : window.innerWidth / 2 + 40; // Use left edge on mobile, center on desktop
         const distanceFromCenter = Math.abs(line.xOffset - centerX);
-        const maxDistance = window.innerWidth / 2;
+        const maxDistance = isMobile() ? window.innerWidth : window.innerWidth / 2; // Full width on mobile, half on desktop
         const progress = distanceFromCenter / maxDistance;
-        const currentLineSpread = baseLineSpread * (1 - progress);
+        // const currentLineSpread = baseLineSpread * (1 - progress);
+        const currentLineSpread = baseLineSpread * mobileMultiplier;
         
-        // Make right side denser by adjusting density calculation
+        // Make right side denser by adjusting density calculation (only on desktop)
         const isRightSide = line.xOffset > centerX;
-        const densityMultiplier = isRightSide ? 2.5 : 0.6; // 150% denser on right, 40% less dense on left
-        const currentDensity = baseDensity * (1 - progress) * densityMultiplier;
+        let densityMultiplier;
+        if (isMobile()) {
+          densityMultiplier = 1; // Full density on mobile
+        } else {
+          densityMultiplier = isRightSide ? 150 : 0; // Right-side bias on desktop
+        }
+        const currentDensity = isMobile() ? baseDensity * mobileMultiplier : baseDensity * (1 - progress) * densityMultiplier;
 
         const particlesToDraw = Math.floor(currentDensity);
         
+        // update fade-in opacity based on how far the line has traveled from its start
+        const defaultStartX = isMobile() ? 0 : window.innerWidth / 2 + 40;
+        const traveled = Math.abs(line.xOffset - (line.startX ?? defaultStartX));
+        line.opacity = Math.min(1, traveled / fadeInDistance);
+
         line.particles.slice(0, particlesToDraw).forEach((p: Particle) => {
           p.update();
-          
+
           const xOffset = (p.relativeX * currentLineSpread) - (currentLineSpread / 2);
-          const opacity = Math.max(0.8, (xOffset + (currentLineSpread / 2)) / currentLineSpread * 1.0);
-          
+          // baseAlpha varies across the spread (0..1), keep a small minimum so particles remain visible
+          const baseAlpha = Math.max(0.2, (xOffset + (currentLineSpread / 2)) / currentLineSpread);
+          const finalAlpha = baseAlpha * (line.opacity ?? 1);
+
           ctx.beginPath();
-          ctx.arc(xOffset + line.xOffset, p.y, particleRadius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(28, 165, 0, ${opacity})`;
+          ctx.arc(xOffset + line.xOffset, p.y, particleRadius * mobileMultiplier, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(28, 165, 0, ${finalAlpha})`;
           ctx.fill();
         });
 
         // Remove lines that have moved off-screen to the right
-        if (line.xOffset > window.innerWidth + baseLineSpread) {
+        if (line.xOffset > window.innerWidth + currentLineSpread) {
           lines.splice(i, 1);
         }
       }

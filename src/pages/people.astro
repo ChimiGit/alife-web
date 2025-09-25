@@ -1,11 +1,17 @@
 ---
 import Header from '../components/Header.astro';
 import { getAllTeamMembers } from '../utils/team.ts';
+import { getAllSupportTeamMembers } from '../utils/support.ts';
+import TeamSection from '../components/TeamSection.tsx';
+import SupporterSection from '../components/SupporterSection.tsx';
 import '../styles/global.css';
 
 const teamMembers = await getAllTeamMembers();
 const executives = teamMembers.filter(member => member.category === 'executives');
 const researchers = teamMembers.filter(member => member.category === 'researchers');
+const supportMembers = await getAllSupportTeamMembers();
+const supporters = supportMembers.filter(member => member.category === 'supporters');
+const donors = supportMembers.filter(member => member.category === 'donors');
 ---
 
 <!DOCTYPE html>
@@ -60,114 +66,46 @@ const researchers = teamMembers.filter(member => member.category === 'researcher
       <Header />
 
       <!-- Main content -->
-      <main id="people-content" class="pt-20 sm:pt-24 pb-8 sm:pb-12 content-stagger">
+      <main id="people-content" class="pt-10 sm:pt-10 md:pt-24 pb-6 sm:pb-8 md:pb-12 content-stagger">
 
       <!-- Hero Section -->
-      <section class="mb-8 sm:mb-10 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
-          <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <section class="mb-6 sm:mb-8 md:mb-10 px-3 sm:px-4 md:px-6">
+        <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
+          <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">
             Where Brilliant<br />
             Minds Explore Together
-          </h1>
-          <p class="text-20px sm:text-20px text-primary leading-relaxed mb-12 sm:mb-20 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+          </h2>
+          <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary leading-relaxed mb-8 sm:mb-12 md:mb-20 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
             Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
           </p>
         </div>
       </section>
 
       <!-- Team Sections -->
-      <section class="mb-12 sm:mb-20 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
-          <!-- Executives Section -->
-          <div class="mb-16">
-            <h2 class="text-40px font-bold text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">Executives</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {executives.map((member) => (
-                <div class="text-center">
-                  <div class="w-48 h-48 mx-auto mb-4 rounded-sm overflow-hidden bg-gray-200">
-                    <img src={member.image} alt={member.name} class="w-full h-full object-cover">
-                  </div>
-                  <h4 class="text-lg font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-sm text-primary">{member.title}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <!-- Researchers Section -->
-          <div class="mb-16">
-            <h2 class="text-40px font-bold text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">Researchers</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {researchers.map((member) => (
-                <div class="text-center">
-                  <div class="w-48 h-48 mx-auto mb-4 rounded-sm overflow-hidden bg-gray-200">
-                    <img src={member.image} alt={member.name} class="w-full h-full object-cover">
-                  </div>
-                  <h4 class="text-lg font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-sm text-primary">{member.title}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section class="mb-8 sm:mb-12 md:mb-20 px-3 sm:px-4 md:px-6">
+        <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
+          <TeamSection title="Executives" members={executives} client:load />
+          <TeamSection title="Researchers" members={researchers} client:load />
         </div>
       </section>
 
       <!-- Meet our supporters Section -->
-      <div class="mb-16 w-full py-8" style="background-color: #F5F6E3;">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <h1 class="text-64px sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-primary mb-6 sm:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+      <div class="w-full py-6 sm:py-8 min-h-screen flex flex-col" style="background-color: #F5F6E3;">
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
+          <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           Meet<br />
           our Supporters
         </h1>
-          <p class="text-20px text-primary w-full leading-relaxed mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 2;">
+          <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary w-full leading-relaxed mb-8 sm:mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
             Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
           </p>
         </div>
 
         <!-- Supporters Section -->
-        <div class="mb-16">
-          <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 class="text-40px font-bold text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">Supporters</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {executives.map((member) => (
-                <div class="text-center">
-                  <div class="w-48 h-48 mx-auto mb-4 rounded-sm overflow-hidden bg-gray-200">
-                    <img src={member.image} alt={member.name} class="w-full h-full object-cover">
-                  </div>
-                  <h4 class="text-lg font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-sm text-primary">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <SupporterSection title="Supporters" members={supporters} client:load />
 
         <!-- Donors Section -->
-        <div class="mb-16">
-          <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 class="text-40px font-bold text-primary mb-8" style="font-family: 'GT Alpina Fine', serif;">Donors</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {executives.map((member) => (
-                <div class="text-center">
-                  <div class="w-48 h-48 mx-auto mb-4 rounded-sm overflow-hidden bg-gray-200">
-                    <img src={member.image} alt={member.name} class="w-full h-full object-cover">
-                  </div>
-                  <h4 class="text-lg font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-sm text-primary">{member.bio}</p>
-                </div>
-              ))}
-              {executives.map((member) => (
-                <div class="text-center">
-                  <div class="w-48 h-48 mx-auto mb-4 rounded-sm overflow-hidden bg-gray-200">
-                    <img src={member.image} alt={member.name} class="w-full h-full object-cover">
-                  </div>
-                  <h4 class="text-lg font-bold text-primary mb-1" style="font-family: 'GT Alpina Fine', serif;">{member.name}</h4>
-                  <p class="text-sm text-primary">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <SupporterSection title="Donors" members={donors} client:load />
       </div>
       </main>
     </div>
