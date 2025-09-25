@@ -1,16 +1,25 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import { getAllTeamMembers } from '../utils/team.ts';
-import { getAllSupportTeamMembers } from '../utils/support.ts';
 import TeamSection from '../components/TeamSection.tsx';
-import SupporterSection from '../components/SupporterSection.tsx';
 
+// Get all team members
 const teamMembers = await getAllTeamMembers();
-const executives = teamMembers.filter(member => member.category === 'executives');
-const researchers = teamMembers.filter(member => member.category === 'researchers');
-const supportMembers = await getAllSupportTeamMembers();
-const supporters = supportMembers.filter(member => member.category === 'supporters');
-const donors = supportMembers.filter(member => member.category === 'donors');
+
+// Get all team categories dynamically
+const teamCategories = await getCollection('team-categories');
+const sortedCategories = teamCategories.sort((a, b) => (a.data.order || 999) - (b.data.order || 999));
+
+// Group team members by category
+const membersByCategory = sortedCategories.map(category => {
+  const members = teamMembers.filter(member => member.category === category.id);
+  return {
+    ...category.data,
+    slug: category.id,
+    members
+  };
+}).filter(category => category.members.length > 0); // Only show categories that have members
 ---
 
 <Layout title="People - ALIFE" description="Meet the brilliant minds at ALIFE - world-class researchers and innovative engineers exploring the intersection of nature and computation.">
@@ -31,29 +40,11 @@ const donors = supportMembers.filter(member => member.category === 'donors');
     <!-- Team Sections -->
     <section class="mb-8 sm:mb-12 md:mb-20 px-3 sm:px-4 md:px-6">
       <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
-        <TeamSection title="Executives" members={executives} client:load />
-        <TeamSection title="Researchers" members={researchers} client:load />
+        {membersByCategory.map(category => (
+          <TeamSection title={category.title} members={category.members} client:load />
+        ))}
       </div>
     </section>
-
-    <!-- Meet our supporters Section -->
-    <div class="w-full py-6 sm:py-8 min-h-screen flex flex-col" style="background-color: #F5F6E3;">
-      <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-        <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-          Meet<br />
-          our Supporters
-        </h1>
-        <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary w-full leading-relaxed mb-8 sm:mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
-          Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
-        </p>
-      </div>
-
-      <!-- Supporters Section -->
-      <SupporterSection title="Supporters" members={supporters} client:load />
-
-      <!-- Donors Section -->
-      <SupporterSection title="Donors" members={donors} client:load />
-    </div>
   </main>
 
   <!-- Initialize content animations -->
