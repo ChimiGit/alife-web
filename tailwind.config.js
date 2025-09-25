@@ -22,6 +22,18 @@ export default {
       },
       animation: {
         'spin-slow': 'spin 20s linear infinite',
+        'rotate-cw': 'rotateCW 50s linear infinite',
+        'rotate-ccw': 'rotateCCW 50s linear infinite',
+      },
+      keyframes: {
+        rotateCW: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        rotateCCW: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(-360deg)' },
+        },
       },
     },
   },
