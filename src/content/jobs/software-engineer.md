@@ -13,24 +13,25 @@ The Artificial Life Institute is at the forefront of cutting-edge computer scien
 
 ## About the Role
 
-As the Head Researcher, you will lead groundbreaking research projects, ensure accuracy and quality in all research activities, set methodologies and standards, and align research efforts with organizational goals. You'll be responsible for driving innovation and maintaining the highest standards of scientific excellence.
+As a Software Engineer specializing in AI Systems at ALIFE, you will build and maintain the infrastructure that powers our cutting-edge artificial life research. You'll develop scalable systems, implement evolutionary algorithms, and create tools that enable our researchers to push the boundaries of what's possible in AI.
 
 ## What You Will Do
 
-- Manage and oversee research projects from conception to completion
-- Define research methodologies and ensure scientific rigor
-- Guide and mentor research team members
-- Analyze research findings and present insights to stakeholders
-- Collaborate with cross-functional teams on research initiatives
-- Stay updated on latest trends and developments in artificial life research
+- Design and implement scalable AI system architectures
+- Develop and optimize evolutionary algorithms and neural networks
+- Build tools and platforms for artificial life simulation and experimentation
+- Collaborate with research teams to implement novel AI approaches
+- Maintain and improve existing AI systems and infrastructure
+- Contribute to open-source projects and research publications
 
 ## About You
 
-- Detail-oriented and analytical with strong problem-solving skills
-- Curious and passionate about artificial life and evolutionary algorithms
-- Strong leadership skills with experience managing research teams
-- Ability to turn complex data into actionable insights
-- Collaborative spirit and passion for advancing the field
+- Strong programming skills in Python, C++, or similar languages
+- Experience with machine learning frameworks (PyTorch, TensorFlow, etc.)
+- Knowledge of evolutionary algorithms, neural networks, or AI systems
+- Experience with distributed systems and cloud computing
+- Passion for artificial life and emergent intelligence
+- Strong problem-solving and debugging skills
 
 ## Benefits
 
