@@ -13,10 +13,12 @@ const sortedCategories = teamCategories.sort((a, b) => (a.data.order || 999) - (
 
 // Group team members by category
 const membersByCategory = sortedCategories.map(category => {
-  const members = teamMembers.filter(member => member.category === category.id);
+  // Remove .md extension from category ID to match team member categories
+  const categoryId = category.id.replace('.md', '');
+  const members = teamMembers.filter(member => member.category === categoryId);
   return {
     ...category.data,
-    slug: category.id,
+    slug: categoryId,
     members
   };
 }).filter(category => category.members.length > 0); // Only show categories that have members
