@@ -1,5 +1,5 @@
 ---
 title: Donors
-order: 2
+order: 1
 description: Details about our donors and their generous contributions
 ---

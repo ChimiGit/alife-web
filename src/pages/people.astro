@@ -37,10 +37,12 @@ const supportMembersByCategory = supportCategories.map(category => {
     members
   };
 }).filter(category => category.members.length > 0); // Only show categories that have members
+
+
 ---
 
 <Layout title="People - ALIFE" description="Meet the brilliant minds at ALIFE - world-class researchers and innovative engineers exploring the intersection of nature and computation.">
-  <main id="people-content" class="pt-10 sm:pt-10 md:pt-24 pb-6 sm:pb-8 md:pb-12 content-stagger">
+  <main id="people-content" class="pt-10 sm:pt-10 md:pt-10 content-stagger" style="min-height: 100vh;">
     <!-- Hero Section -->
     <section class="mb-6 sm:mb-8 md:mb-10 px-3 sm:px-4 md:px-6">
       <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
@@ -64,24 +66,22 @@ const supportMembersByCategory = supportCategories.map(category => {
     </section>
 
     <!-- Meet our supporters Section -->
-    {supportMembersByCategory.length > 0 && (
-      <div class="w-full py-6 sm:py-8 min-h-screen flex flex-col" style="background-color: #F5F6E3;">
-        <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-          <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
-            Meet<br />
-            our Supporters
-          </h1>
-          <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary w-full leading-relaxed mb-8 sm:mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
-            Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
-          </p>
-        </div>
-
-        <!-- Dynamic Support Sections -->
-        {supportMembersByCategory.map(category => (
-          <SupporterSection title={category.title} members={category.members} client:load />
-        ))}
+    <div class="w-full py-6 sm:py-8 flex flex-col flex-1" style="background-color: #F5F6E3;">
+      <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
+        <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+          Meet<br />
+          our Supporters
+        </h1>
+        <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary w-full leading-relaxed mb-8 sm:mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
+          Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
+        </p>
       </div>
-    )}
+
+      <!-- Dynamic Support Sections -->
+      {supportMembersByCategory.map(category => (
+        <SupporterSection title={category.title} members={category.members} client:load />
+      ))}
+    </div>
   </main>
 
   <!-- Initialize content animations -->
