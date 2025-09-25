@@ -290,14 +290,46 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         word-break: break-word;
       }
       
-      .prose pre {
-        background-color: #1f2937;
-        color: #f9fafb;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        overflow-x: auto;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
+      .prose blockquote {
+        border-left: 4px solid #e5e7eb;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #6b7280;
+      }
+      
+      .prose table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+      }
+      
+      .prose th, .prose td {
+        border: 1px solid #e5e7eb;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      
+      .prose th {
+        background-color: #f9fafb;
+        font-weight: 600;
+      }
+      
+      .prose hr {
+        border: none;
+        border-top: 1px solid #e5e7eb;
+        margin: 2rem 0;
+      }
+      
+      .prose a {
+        color: #3b82f6;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        transition: text-decoration-color 0.2s;
+      }
+      
+      .prose a:hover {
+        text-decoration-color: #3b82f6;
       }
       
       /* Responsive code styling for larger screens */
