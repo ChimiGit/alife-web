@@ -1,10 +1,10 @@
 ---
-title: "Workshop: Introduction to Digital Evolution"
-description: "Hands-on workshop covering the fundamentals of digital evolution, simulation environments, and practical applications in research and industry."
+title: 'Workshop: Introduction to Digital Evolution'
+description: 'Hands-on workshop covering the fundamentals of digital evolution, simulation environments, and practical applications in research and industry.'
 pubDate: 2024-03-10
-author: "Workshop Team"
-category: "Events"
-tags: ["workshop", "digital-evolution", "hands-on", "tutorial", "education"]
+author: 'Workshop Team'
+category: 'Events'
+tags: ['workshop', 'digital-evolution', 'hands-on', 'tutorial', 'education']
 ---
 
 # Workshop: Introduction to Digital Evolution
@@ -20,7 +20,6 @@ This comprehensive workshop covers the fundamental concepts and practical applic
 ### Day 1: Foundations
 
 - **Introduction to Digital Evolution**
-
   - Basic concepts and terminology
   - Historical development and key milestones
   - Current state of the field
@@ -34,7 +33,6 @@ This comprehensive workshop covers the fundamental concepts and practical applic
 ### Day 2: Implementation
 
 - **Simulation Environments**
-
   - Setting up development environments
   - Popular frameworks and libraries
   - Best practices for simulation design
@@ -47,7 +45,6 @@ This comprehensive workshop covers the fundamental concepts and practical applic
 ### Day 3: Applications
 
 - **Real-world Applications**
-
   - Engineering optimization
   - Machine learning and neural networks
   - Game AI and procedural generation

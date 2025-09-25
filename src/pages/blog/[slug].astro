@@ -16,8 +16,14 @@ export async function getStaticPaths() {
 
 const { blog } = Astro.props;
 
-// Convert markdown to HTML
-const htmlContent = blog.content ? marked(blog.content) : '';
+// Convert markdown to HTML and remove first H1 (duplicate title)
+let processedContent = blog.content || '';
+if (processedContent.startsWith('# ')) {
+  const firstLineEnd = processedContent.indexOf('\n');
+  // Remove the first H1 line and the following newline
+  processedContent = processedContent.substring(firstLineEnd + 1);
+}
+const htmlContent = processedContent ? marked(processedContent) : '';
 ---
 
 <html lang="en">
@@ -129,7 +135,7 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         </div>
 
         <!-- Title -->
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-primary mb-6 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary mb-6 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           {blog.title}
         </h1>
 
@@ -216,6 +222,7 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         font-family: 'GT Alpina Fine', serif;
         margin-top: 1.5rem;
         margin-bottom: 0.75rem;
+        font-weight: 700;
       }
       
       .prose h1 {
@@ -225,12 +232,12 @@ const htmlContent = blog.content ? marked(blog.content) : '';
       
       .prose h2 {
         font-size: 1.5rem;
-        font-weight: 600;
+        font-weight: 700;
       }
       
       .prose h3 {
         font-size: 1.25rem;
-        font-weight: 600;
+        font-weight: 700;
       }
       
       /* Responsive typography for larger screens */
@@ -238,18 +245,22 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
           margin-top: 2rem;
           margin-bottom: 1rem;
+          font-weight: 700;
         }
         
         .prose h1 {
           font-size: 2.5rem;
+          font-weight: 700;
         }
         
         .prose h2 {
           font-size: 2rem;
+          font-weight: 700;
         }
         
         .prose h3 {
           font-size: 1.5rem;
+          font-weight: 700;
         }
       }
       
@@ -290,14 +301,46 @@ const htmlContent = blog.content ? marked(blog.content) : '';
         word-break: break-word;
       }
       
-      .prose pre {
-        background-color: #1f2937;
-        color: #f9fafb;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        overflow-x: auto;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
+      .prose blockquote {
+        border-left: 4px solid #e5e7eb;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #6b7280;
+      }
+      
+      .prose table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+      }
+      
+      .prose th, .prose td {
+        border: 1px solid #e5e7eb;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      
+      .prose th {
+        background-color: #f9fafb;
+        font-weight: 600;
+      }
+      
+      .prose hr {
+        border: none;
+        border-top: 1px solid #e5e7eb;
+        margin: 2rem 0;
+      }
+      
+      .prose a {
+        color: #3b82f6;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        transition: text-decoration-color 0.2s;
+      }
+      
+      .prose a:hover {
+        text-decoration-color: #3b82f6;
       }
       
       /* Responsive code styling for larger screens */

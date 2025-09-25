@@ -17,6 +17,9 @@ export default {
           'sans-serif',
         ],
       },
+      fontSize: {
+        '20px': '20px',
+      },
       spacing: {
         21: '5.25rem', // Custom width for logo
       },

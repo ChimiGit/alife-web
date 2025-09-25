@@ -1,6 +1,5 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 import getAllBlogs, { getBlogsByCategory } from '../utils/blog.ts';
 import { getBlogCategories } from '../utils/blog-categories.ts';
 
@@ -40,45 +39,117 @@ const contentData = Object.fromEntries(
 );
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Blog - ALIFE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<Layout title="Blog - ALIFE" description="Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI">
+  <main id="blog-content" class="max-w-6xl mx-auto px-4 sm:px-6 pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
+    <div class="mb-12 pt-10 sm:pt-10 md:pt-10">
+      <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h2>
+      <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary max-w-3xl font-light">
+        Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI
+      </p>
+    </div>
+
+    <div class="mb-8 tabs-section">
+      <div class="overflow-x-auto">
+        <div class="flex min-w-max">
+          <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
+            {blogCategories.map((category, index) => (
+              <button 
+                id={`${category.data.title.toLowerCase().replace(/\s+/g, '-')}-tab`} 
+                class={`px-6 py-2 rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                  index === 0 
+                    ? 'active-tab bg-primary text-white' 
+                    : 'tab text-primary hover:bg-gray-200'
+                }`}
+              >
+                {category.data.title}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Separator line -->
+    <div class="border-b border-gray-200 mb-8"></div>
+
+    <div class="w-full content-section">
+      <div id="tab-content" class="w-full">
+        <!-- Dynamic category content -->
+        {blogCategories.map((category, index) => {
+          const categoryKey = category.data.title.toLowerCase().replace(/\s+/g, '-');
+          const categoryData = contentData[categoryKey];
+          return (
+            <div 
+              id={`${categoryKey}-content`} 
+              class={`tab-content ${index === 0 ? '' : 'hidden'}`}
+            >
+              <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {categoryData?.posts.map((post: any) => (
+                  <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block group blog-card cursor-pointer">
+                    <div class="mb-6">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}assets/images/image.png`}
+                        loading="lazy"
+                        alt={post.title}
+                        class="w-full aspect-square object-cover "
+                      />
+                    </div>
+                    <div class="space-y-3">
+                      <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
+                        {post.title}
+                      </h2>
+                      <p class="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed line-clamp-3 font-light">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+                
+                {(!categoryData?.posts || categoryData.posts.length === 0) && (
+                  <div class="col-span-full text-center py-12">
+                    <p class="text-gray-500 text-lg">No blog posts available yet.</p>
+                    <p class="text-gray-400 text-sm mt-2">Check back soon for updates!</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
     
-    <style>
-      /* Noise effect */
-      .noise-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.15;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        animation: noise 0.2s infinite;
-        mix-blend-mode: overlay;
+    /* Hide scrollbar for tab navigation */
+    .overflow-x-auto {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+    
+    .overflow-x-auto::-webkit-scrollbar {
+      display: none; /* WebKit */
+    }
+    
+    /* Smooth scrolling for tabs */
+    .overflow-x-auto {
+      scroll-behavior: smooth;
+    }
+    
+    /* Ensure tabs don't shrink on mobile */
+    @media (max-width: 768px) {
+      .flex.justify-center.min-w-max {
+        justify-content: flex-start;
+        padding: 0 1rem;
       }
-      
-      @keyframes noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0%); }
-        70% { transform: translate(0%, 15%); }
-        80% { transform: translate(-15%, 10%); }
-        90% { transform: translate(10%, 5%); }
-      }
+    }
+
     /* Slide-in animation styles for back navigation from blog pages */
     .slide-in-from-left {
       transform: translateX(-100%);
@@ -140,214 +211,92 @@ const contentData = Object.fromEntries(
     .blog-card:nth-child(6) { transition-delay: 0.6s; }
     .blog-card:nth-child(7) { transition-delay: 0.7s; }
     .blog-card:nth-child(8) { transition-delay: 0.8s; }
-    </style>
-  </head>
+  </style>
 
-  <body class="min-h-screen bg-gray-50">
-    <!-- Noise overlay -->
-    <div class="noise-overlay"></div>
-    
-    <div id="main-content">
-      <Header />
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tab functionality
+      const tabs = document.querySelectorAll('.tab, .active-tab');
+      const tabContents = document.querySelectorAll('.tab-content');
 
-      <main id="blog-content" class="max-w-6xl mx-auto px-4 sm:px-6 pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
-        <div class="mb-12">
-          <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h2>
-          <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary max-w-3xl font-light">
-            Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI
-          </p>
-        </div>
-
-        <div class="mb-8 tabs-section">
-          <div class="overflow-x-auto">
-            <div class="flex min-w-max">
-              <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
-                {blogCategories.map((category, index) => (
-                  <button 
-                    id={`${category.data.title.toLowerCase().replace(/\s+/g, '-')}-tab`} 
-                    class={`px-6 py-2 rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
-                      index === 0 
-                        ? 'active-tab bg-primary text-white' 
-                        : 'tab text-primary hover:bg-gray-200'
-                    }`}
-                  >
-                    {category.data.title}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Separator line -->
-        <div class="border-b border-gray-200 mb-8"></div>
-
-        <div class="w-full content-section">
-          <div id="tab-content" class="w-full">
-            <!-- Dynamic category content -->
-            {blogCategories.map((category, index) => {
-              const categoryKey = category.data.title.toLowerCase().replace(/\s+/g, '-');
-              const categoryData = contentData[categoryKey];
-              return (
-                <div 
-                  id={`${categoryKey}-content`} 
-                  class={`tab-content ${index === 0 ? '' : 'hidden'}`}
-                >
-                  <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {categoryData?.posts.map((post: any) => (
-                      <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block group blog-card cursor-pointer">
-                        <div class="mb-6">
-                          <img 
-                            src={`${import.meta.env.BASE_URL}assets/images/image.png`}
-                            loading="lazy"
-                            alt={post.title}
-                            class="w-full aspect-square object-cover"
-                          />
-                        </div>
-                        <div class="space-y-3">
-                          <h2 class="text-25px font-medium leading-snug group-hover:text-primary transition-colors duration-200" style="font-family: 'GT Alpina Fine', serif;">
-                            {post.title}
-                          </h2>
-                          <p class="text-12px leading-relaxed line-clamp-3 font-light">
-                            {post.excerpt}
-                          </p>
-                        </div>
-                      </a>
-                    ))}
-                    
-                    {(!categoryData?.posts || categoryData.posts.length === 0) && (
-                      <div class="col-span-full text-center py-12">
-                        <p class="text-gray-500 text-lg">No blog posts available yet.</p>
-                        <p class="text-gray-400 text-sm mt-2">Check back soon for updates!</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </main>
-    </div>
-
-    <style>
-      .line-clamp-3 {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      
-      /* Hide scrollbar for tab navigation */
-      .overflow-x-auto {
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* Internet Explorer 10+ */
-      }
-      
-      .overflow-x-auto::-webkit-scrollbar {
-        display: none; /* WebKit */
-      }
-      
-      /* Smooth scrolling for tabs */
-      .overflow-x-auto {
-        scroll-behavior: smooth;
-      }
-      
-      /* Ensure tabs don't shrink on mobile */
-      @media (max-width: 768px) {
-        .flex.justify-center.min-w-max {
-          justify-content: flex-start;
-          padding: 0 1rem;
-        }
-      }
-    </style>
-
-    <script is:inline>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Tab functionality
-        const tabs = document.querySelectorAll('.tab, .active-tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        function showTab(tabName) {
-          // Hide all tab contents
-          tabContents.forEach((content) => {
-            content.classList.add('hidden');
-            // Remove animation classes from cards in hidden tabs
-            const cards = content.querySelectorAll('.blog-card');
-            cards.forEach(card => {
-              card.classList.remove('animate');
-            });
-          });
-
-          // Show selected tab content
-          const selectedContent = document.getElementById(`${tabName}-content`);
-          if (selectedContent) {
-            selectedContent.classList.remove('hidden');
-            
-            // Animate cards in the selected tab
-            const cards = selectedContent.querySelectorAll('.blog-card');
-            cards.forEach((card, index) => {
-              // Reset animation delay for each card
-              card.style.transitionDelay = `${(index + 1) * 0.1}s`;
-              // Trigger animation
-              setTimeout(() => {
-                card.classList.add('animate');
-              }, 50);
-            });
-          }
-        }
-
-        tabs.forEach((tab) => {
-          tab.addEventListener('click', function () {
-            // Update tab styling
-            tabs.forEach((t) => {
-              t.classList.remove('active-tab', 'bg-primary', 'text-white');
-              t.classList.add('tab', 'text-primary');
-            });
-
-            this.classList.remove('tab', 'text-primary');
-            this.classList.add('active-tab', 'bg-primary', 'text-white');
-
-            // Get tab name from ID
-            const tabName = this.id.replace('-tab', '');
-            showTab(tabName);
+      function showTab(tabName) {
+        // Hide all tab contents
+        tabContents.forEach((content) => {
+          content.classList.add('hidden');
+          // Remove animation classes from cards in hidden tabs
+          const cards = content.querySelectorAll('.blog-card');
+          cards.forEach(card => {
+            card.classList.remove('animate');
           });
         });
 
-        // Initialize with first tab (Overview)
-        const firstTab = tabs[0];
-        if (firstTab) {
-          const tabName = firstTab.id.replace('-tab', '');
-          showTab(tabName);
+        // Show selected tab content
+        const selectedContent = document.getElementById(`${tabName}-content`);
+        if (selectedContent) {
+          selectedContent.classList.remove('hidden');
+          
+          // Animate cards in the selected tab
+          const cards = selectedContent.querySelectorAll('.blog-card');
+          cards.forEach((card, index) => {
+            // Reset animation delay for each card
+            card.style.transitionDelay = `${(index + 1) * 0.1}s`;
+            // Trigger animation
+            setTimeout(() => {
+              card.classList.add('animate');
+            }, 50);
+          });
         }
-        
-        // Animate initial cards after page load
-        setTimeout(() => {
-          const firstTabContent = document.querySelector('.tab-content:not(.hidden)');
-          if (firstTabContent) {
-            const cards = firstTabContent.querySelectorAll('.blog-card');
-            cards.forEach((card, index) => {
-              card.style.transitionDelay = `${(index + 1) * 0.1}s`;
-              setTimeout(() => {
-                card.classList.add('animate');
-              }, 50);
-            });
-          }
-        }, 100);
-      });
-    </script>
+      }
 
-    <!-- Initialize content animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const staggerContainer = document.querySelector('.content-stagger');
-          if (staggerContainer) {
-            staggerContainer.classList.add('loaded');
-          }
-        }, 100);
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', function () {
+          // Update tab styling
+          tabs.forEach((t) => {
+            t.classList.remove('active-tab', 'bg-primary', 'text-white');
+            t.classList.add('tab', 'text-primary');
+          });
 
+          this.classList.remove('tab', 'text-primary');
+          this.classList.add('active-tab', 'bg-primary', 'text-white');
+
+          // Get tab name from ID
+          const tabName = this.id.replace('-tab', '');
+          showTab(tabName);
+        });
       });
-    </script>
-  </body>
-</html>
+
+      // Initialize with first tab (Overview)
+      const firstTab = tabs[0];
+      if (firstTab) {
+        const tabName = firstTab.id.replace('-tab', '');
+        showTab(tabName);
+      }
+      
+      // Animate initial cards after page load
+      setTimeout(() => {
+        const firstTabContent = document.querySelector('.tab-content:not(.hidden)');
+        if (firstTabContent) {
+          const cards = firstTabContent.querySelectorAll('.blog-card');
+          cards.forEach((card, index) => {
+            card.style.transitionDelay = `${(index + 1) * 0.1}s`;
+            setTimeout(() => {
+              card.classList.add('animate');
+            }, 50);
+          });
+        }
+      }, 100);
+    });
+  </script>
+
+  <!-- Initialize content animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const staggerContainer = document.querySelector('.content-stagger');
+        if (staggerContainer) {
+          staggerContainer.classList.add('loaded');
+        }
+      }, 100);
+    });
+  </script>
+</Layout>

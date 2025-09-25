@@ -13,24 +13,25 @@ The Artificial Life Institute is at the forefront of cutting-edge computer scien
 
 ## About the Role
 
-As the Head Researcher, you will lead groundbreaking research projects, ensure accuracy and quality in all research activities, set methodologies and standards, and align research efforts with organizational goals. You'll be responsible for driving innovation and maintaining the highest standards of scientific excellence.
+As a Business Analyst at ALIFE, you will bridge the gap between our cutting-edge AI research and real-world business applications. You'll analyze market opportunities, define business requirements, and help translate our innovative artificial life technologies into viable products and services that create meaningful impact.
 
 ## What You Will Do
 
-- Manage and oversee research projects from conception to completion
-- Define research methodologies and ensure scientific rigor
-- Guide and mentor research team members
-- Analyze research findings and present insights to stakeholders
-- Collaborate with cross-functional teams on research initiatives
-- Stay updated on latest trends and developments in artificial life research
+- Analyze market trends and identify business opportunities for AI technologies
+- Define and document business requirements for new products and features
+- Collaborate with research and engineering teams to align technical capabilities with business needs
+- Conduct stakeholder interviews and gather requirements for AI-powered solutions
+- Create business cases and ROI analyses for new initiatives
+- Support product development by providing business context and market insights
 
 ## About You
 
-- Detail-oriented and analytical with strong problem-solving skills
-- Curious and passionate about artificial life and evolutionary algorithms
-- Strong leadership skills with experience managing research teams
-- Ability to turn complex data into actionable insights
-- Collaborative spirit and passion for advancing the field
+- Strong analytical and problem-solving skills with business acumen
+- Experience in business analysis, product management, or consulting
+- Ability to translate complex technical concepts into business value
+- Excellent communication skills for stakeholder management
+- Passion for AI and emerging technologies
+- Experience with data analysis and market research
 
 ## Benefits
 

@@ -1,177 +1,51 @@
 ---
-import Header from '../components/Header.astro';
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/logo/thumbnail-logo.png`} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Privacy Policy - ALIFE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body class="min-h-screen bg-gray-50">
-    <Header />
+<Layout title="Privacy Policy - ALIFE" description="ALIFE Privacy Policy - Learn how we protect your privacy and handle your data.">
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 content-stagger" style="font-family: 'Inter', sans-serif;">
+    <div class="mb-8 sm:mb-12">
+      <h1 class="text-4xl sm:text-5xl font-medium text-primary mb-4 sm:mb-6" style="font-family: 'GT Alpina Fine', serif;">Privacy Policy</h1>
+      <p class="text-sm sm:text-base text-gray-600">Last updated: {new Date().toLocaleDateString()}</p>
+    </div>
 
-    <!-- Main content -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-12" style="font-family: 'Inter', sans-serif;">
-      <!-- Header Section -->
-      <div class="mb-12">
-        <h1 class="text-44px md:text-5xl font-medium text-primary mb-6" style="font-family: 'GT Alpina Fine', serif;">
-          Privacy Policy
-        </h1>
-      </div>
+    <div class="prose prose-lg max-w-none text-gray-700">
+      <h2 class="text-2xl font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Information We Collect</h2>
+      <p class="mb-6 leading-relaxed">
+        We collect information you provide directly to us, such as when you contact us, subscribe to our newsletter, or interact with our website.
+      </p>
 
-      <!-- Introduction -->
-      <div class="mb-8">
-        <div class="mb-8 space-y-2">
-          <h2 class="text-32px font-medium text-primary">Artificial Life Institute</h2>
-          <p class="text-primary">Date created: May 21, 2025</p>
-        </div>
-        <p class="text-primary font-light leading-relaxed text-20px" style="line-height: 2">
-          This Privacy Policy ("Policy") describes how the Artificial Life Institute (hereinafter "the Institute") handles personal information in accordance with the Act on the Protection of Personal Information and related laws and guidelines in Japan.
-          (hereinafter "the Institute") handles personal information in accordance
-          with the Act on the Protection of Personal Information and related laws
-          and guidelines in Japan.
-        </p>
-      </div>
+      <h2 class="text-2xl font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">How We Use Your Information</h2>
+      <p class="mb-6 leading-relaxed">
+        We use the information we collect to provide, maintain, and improve our services, communicate with you, and conduct research.
+      </p>
 
-      <!-- Articles -->
-      <div class="space-y-8">
-        <!-- Article 1 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 1: Compliance with Laws and Regulations
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            The Institute complies with the Act on the Protection of Personal Information and all other relevant laws, regulations, and guidelines (hereinafter "Applicable Laws").
-          </p>
-        </article>
+      <h2 class="text-2xl font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Information Sharing</h2>
+      <p class="mb-6 leading-relaxed">
+        We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.
+      </p>
 
-        <!-- Article 2 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 2: Management System
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            The Institute shall take necessary and appropriate measures to prevent
-            leakage, loss, or damage of personal data as defined in Article 2(6)
-            of the Act, and shall ensure safe management of such data. The Institute
-            shall also appropriately supervise its staff and contractors handling
-            personal data.
-          </p>
-        </article>
+      <h2 class="text-2xl font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Data Security</h2>
+      <p class="mb-6 leading-relaxed">
+        We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+      </p>
 
-        <!-- Article 3 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 3: Acquisition of Personal Information
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            The Institute shall acquire personal information by lawful and appropriate means to the extent necessary for achieving the purposes defined in the next article.
-          </p>
-        </article>
+      <h2 class="text-2xl font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">Contact Us</h2>
+      <p class="mb-6 leading-relaxed">
+        If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@alife.org" class="text-primary hover:underline">privacy@alife.org</a>.
+      </p>
+    </div>
+  </main>
 
-        <!-- Article 4 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 4: Purpose of Use
-          </h3>
-          <p class="text-primary leading-relaxed mb-4 text-20px font-light" style="line-height: 2">
-            The Institute will use personal information only within the scope necessary for the following purposes:
-          </p>
-          <ul class="text-primary leading-relaxed space-y-2 ml-4 text-20px mb-2 font-light">
-            <li>- Operation, implementation, and management of the Institute's various programs</li>
-            <li>- Stakeholder management, including donors, supporters, and members</li>
-            <li>- Billing and payment processing</li>
-            <li>- Responses to inquiries and communications related to the Institute</li>
-            <li>- Notifications regarding amendments to the Institute's policies, rules, or other important matters</li>
-            <li>- Providing information about products or services related to the Institute or its affiliates</li>
-            <li>- Publication in the Institute's website or promotional materials</li>
-            <li>- Survey and analysis of the Institute's activities</li>
-          </ul>
-          <p class="text-primary leading-relaxed mt-4 text-20px font-light" style="line-height: 2">
-            The Institute may revise the purpose of use when reasonably related to the original purpose. In such cases, the Institute shall notify the individual or publicly announce the change on its website or other accessible means.
-          </p>
-        </article>
-
-        <!-- Article 5 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 5: Anonymized Information
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            The Institute may process personal information into anonymized or statistical information in accordance with Applicable Laws and use such data.
-          </p>
-        </article>
-
-        <!-- Article 6 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 6: Provision to Third Parties
-          </h3>
-          <p class="text-primary leading-relaxed mb-4 text-20px font-light" style="line-height: 2">
-            The Institute will not provide personal data to third parties without the individual's consent, except in the following cases:
-          </p>
-          <ul class="text-primary leading-relaxed space-y-2 ml-4 text-20px font-light">
-            <li>- When outsourcing all or part of the handling of personal data within the scope necessary to achieve the stated purposes</li>
-            <li>- In case of business succession due to merger or other reasons</li>
-            <li>- When personal data is used jointly with a specified party, and such information (scope, purpose, responsible party) is notified to the individual or made easily accessible</li>
-            <li>- As otherwise permitted by the Act or other Applicable Laws</li>
-          </ul>
-        </article>
-
-        <!-- Article 7 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 7: Joint Use
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            When jointly using personal data with third parties, the Institute will ensure appropriate management in accordance with Applicable Laws.
-          </p>
-        </article>
-
-        <!-- Article 8 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 8: Rights of the Individual
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            If an individual requests notification of purpose, disclosure, correction, addition, deletion, suspension of use, or erasure (hereinafter "disclosure, etc.") of their personal data held by the Institute, we will respond without delay after confirming the identity of the individual. However, if the Institute is not legally obligated to comply, the request may be denied.
-          </p>
-        </article>
-
-        <!-- Article 9 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 9: Policy Revision
-          </h3>
-          <p class="text-primary leading-relaxed text-20px font-light" style="line-height: 2">
-            The Institute shall continuously review and improve its handling of personal information and may revise this Policy as necessary. Any changes will be announced via the Institute's website, email, or other appropriate methods.
-          </p>
-        </article>
-
-        <!-- Article 10 -->
-        <article class="mb-8">
-          <h3 class="text-20px font-normal text-primary mb-4">
-            Article 10: Contact
-          </h3>
-          <p class="text-primary leading-relaxed mb-4 text-20px font-light" style="line-height: 2  ">
-            For inquiries regarding the handling of personal information, requests for disclosure, or complaints, please contact:
-          </p>
-          <div>
-            <p class="text-primary font-normal text-20px">Artificial Life Institute</p>
-            <p class="text-primary font-normal text-20px">Secretariat</p>
-            <p class="text-primary font-normal text-20px">Email: <a href="mailto:staff@alife.institute" class="text-primary hover:primary transition-colors duration-200">staff@alife.institute</a></p>
-          </div>
-        </article>
-      </div>
-    </main>
-
-  </body>
-</html>
+  <!-- Initialize content animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const staggerContainer = document.querySelector('.content-stagger');
+        if (staggerContainer) {
+          staggerContainer.classList.add('loaded');
+        }
+      }, 100);
+    });
+  </script>
+</Layout>

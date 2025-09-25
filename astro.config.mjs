@@ -5,7 +5,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  integrations: [
+    react({
+      jsxRuntime: 'automatic',
+    }),
+  ],
   output: 'static',
   site: 'https://ChimiGit.github.io/alife-web',
   base: '/alife-web/',
