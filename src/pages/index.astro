@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
-import Slider1 from '../components/home-slider/slider-1.astro';   
+import Slider1 from '../components/home-slider/slider-1.astro';  
+import Slider2 from '../components/home-slider/slider-2.astro';
 import Slider3 from '../components/home-slider/slider-3.astro';
 import '../styles/global.css';
 ---
@@ -23,8 +24,46 @@ import '../styles/global.css';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href={`${import.meta.env.BASE_URL}fonts/gt-alpina-fine/GT-Alpina-Fine-Standard-Medium.woff2`} as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Global Styles - Imported via Astro -->
+    <style>
+      /* Noise effect */
+      .noise-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.15;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        animation: noise 0.2s infinite;
+        mix-blend-mode: overlay;
+      }
+      
+      @keyframes noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0%); }
+        70% { transform: translate(0%, 15%); }
+        80% { transform: translate(-15%, 10%); }
+        90% { transform: translate(10%, 5%); }
+      }
+
+      @keyframes rotateCW {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @keyframes rotateCCW {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(-360deg); }
+      }
+
+    </style>
   </head>
 
   <body class="min-h-screen overflow-x-hidden">
@@ -37,26 +76,37 @@ import '../styles/global.css';
     <div id="slider-1-background" class="content-fade">
       <Slider1 />
     </div>
+    <div id="slider-2-background" class="hidden content-fade">
+      <Slider2 />
+    </div>
     <div id="slider-3-background" class="hidden content-fade">
       <Slider3 />
     </div>
     
     <script>
       // Randomly choose which background to show on page load
-      const backgrounds = ['slider-1', 'slider-3'];
+      const backgrounds = ['slider-1', 'slider-2', 'slider-3'];
       const randomIndex = Math.floor(Math.random() * backgrounds.length);
       const randomBackground = backgrounds[randomIndex];
 
       // Get background elements
       const slider1 = document.getElementById('slider-1-background') as HTMLElement;
+      const slider2 = document.getElementById('slider-2-background') as HTMLElement;
       const slider3 = document.getElementById('slider-3-background') as HTMLElement;
       
       // Show the selected background and hide the others
       if (randomBackground === 'slider-1') {
         slider1?.classList.add('active-slider');
+        slider2?.classList.add('hidden');
+        slider3?.classList.add('hidden');
+      } else if (randomBackground === 'slider-2') {
+        slider1?.classList.add('hidden');
+        slider2?.classList.remove('hidden');
+        slider2?.classList.add('active-slider');
         slider3?.classList.add('hidden');
       } else {
         slider1?.classList.add('hidden');
+        slider2?.classList.add('hidden');
         slider3?.classList.remove('hidden');
         slider3?.classList.add('active-slider');
       }
