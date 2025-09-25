@@ -16,8 +16,14 @@ export async function getStaticPaths() {
 
 const { blog } = Astro.props;
 
-// Convert markdown to HTML
-const htmlContent = blog.content ? marked(blog.content) : '';
+// Convert markdown to HTML and remove first H1 (duplicate title)
+let processedContent = blog.content || '';
+if (processedContent.startsWith('# ')) {
+  const firstLineEnd = processedContent.indexOf('\n');
+  // Remove the first H1 line and the following newline
+  processedContent = processedContent.substring(firstLineEnd + 1);
+}
+const htmlContent = processedContent ? marked(processedContent) : '';
 ---
 
 <html lang="en">
