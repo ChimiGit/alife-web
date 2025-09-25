@@ -82,9 +82,9 @@ export async function getAllSupportContent(): Promise<SupportContent[]> {
 
 export async function getAllSupportTeamMembers(): Promise<SupportTeamMember[]> {
   try {
-    const supportContent = await getCollection('support-content');
+    const supportTeam = await getCollection('support-team');
 
-    return supportContent.map(member => ({
+    return supportTeam.map(member => ({
       name: member.data.name,
       title: member.data.title,
       bio: member.data.bio,
