@@ -1,10 +1,9 @@
 ---
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 import { getAllTeamMembers } from '../utils/team.ts';
 import { getAllSupportTeamMembers } from '../utils/support.ts';
 import TeamSection from '../components/TeamSection.tsx';
 import SupporterSection from '../components/SupporterSection.tsx';
-import '../styles/global.css';
 
 const teamMembers = await getAllTeamMembers();
 const executives = teamMembers.filter(member => member.category === 'executives');
@@ -14,115 +13,58 @@ const supporters = supportMembers.filter(member => member.category === 'supporte
 const donors = supportMembers.filter(member => member.category === 'donors');
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/logo/thumbnail-logo.png`} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>People - ALIFE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-      /* Noise effect */
-      .noise-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.15;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        animation: noise 0.2s infinite;
-        mix-blend-mode: overlay;
-      }
-      
-      @keyframes noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0%); }
-        70% { transform: translate(0%, 15%); }
-        80% { transform: translate(-15%, 10%); }
-        90% { transform: translate(10%, 5%); }
-      }
-    </style>
-  </head>
+<Layout title="People - ALIFE" description="Meet the brilliant minds at ALIFE - world-class researchers and innovative engineers exploring the intersection of nature and computation.">
+  <main id="people-content" class="pt-10 sm:pt-10 md:pt-24 pb-6 sm:pb-8 md:pb-12 content-stagger">
+    <!-- Hero Section -->
+    <section class="mb-6 sm:mb-8 md:mb-10 px-3 sm:px-4 md:px-6">
+      <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
+        <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+          Where Brilliant<br />
+          Minds Explore Together
+        </h2>
+        <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary leading-relaxed mb-8 sm:mb-12 md:mb-20 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
+          Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
+        </p>
+      </div>
+    </section>
 
-  <body class="min-h-screen bg-gray-50">
-    <!-- Noise overlay -->
-    <div class="noise-overlay"></div>
-    
-    <!-- Main Content -->
-    <div id="main-content">
-      <Header />
+    <!-- Team Sections -->
+    <section class="mb-8 sm:mb-12 md:mb-20 px-3 sm:px-4 md:px-6">
+      <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
+        <TeamSection title="Executives" members={executives} client:load />
+        <TeamSection title="Researchers" members={researchers} client:load />
+      </div>
+    </section>
 
-      <!-- Main content -->
-      <main id="people-content" class="pt-10 sm:pt-10 md:pt-24 pb-6 sm:pb-8 md:pb-12 content-stagger">
-
-      <!-- Hero Section -->
-      <section class="mb-6 sm:mb-8 md:mb-10 px-3 sm:px-4 md:px-6">
-        <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
-          <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">
-            Where Brilliant<br />
-            Minds Explore Together
-          </h2>
-          <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary leading-relaxed mb-8 sm:mb-12 md:mb-20 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
-            Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
-          </p>
-        </div>
-      </section>
-
-      <!-- Team Sections -->
-      <section class="mb-8 sm:mb-12 md:mb-20 px-3 sm:px-4 md:px-6">
-        <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6">
-          <TeamSection title="Executives" members={executives} client:load />
-          <TeamSection title="Researchers" members={researchers} client:load />
-        </div>
-      </section>
-
-      <!-- Meet our supporters Section -->
-      <div class="w-full py-6 sm:py-8 min-h-screen flex flex-col" style="background-color: #F5F6E3;">
-        <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
-          <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
+    <!-- Meet our supporters Section -->
+    <div class="w-full py-6 sm:py-8 min-h-screen flex flex-col" style="background-color: #F5F6E3;">
+      <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6">
+        <h1 class="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-primary mb-4 sm:mb-6 md:mb-8 leading-tight" style="font-family: 'GT Alpina Fine', serif;">
           Meet<br />
           our Supporters
         </h1>
-          <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary w-full leading-relaxed mb-8 sm:mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
-            Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
-          </p>
-        </div>
-
-        <!-- Supporters Section -->
-        <SupporterSection title="Supporters" members={supporters} client:load />
-
-        <!-- Donors Section -->
-        <SupporterSection title="Donors" members={donors} client:load />
+        <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary w-full leading-relaxed mb-8 sm:mb-12 font-light" style="font-family: 'Inter', sans-serif; line-height: 1.6;">
+          Discover what happens at the intersection of nature and computation, where we're creating something unprecedented. Our team combines world-class researchers and innovative engineers united by a shared fascination with emergence and open-ended discovery. Here, your expertise contributes to projects that grow organically, surprising even their creators.
+        </p>
       </div>
-      </main>
+
+      <!-- Supporters Section -->
+      <SupporterSection title="Supporters" members={supporters} client:load />
+
+      <!-- Donors Section -->
+      <SupporterSection title="Donors" members={donors} client:load />
     </div>
+  </main>
 
-
-    <!-- Initialize content animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const staggerContainer = document.querySelector('.content-stagger');
-          if (staggerContainer) {
-            staggerContainer.classList.add('loaded');
-          }
-        }, 100);
-
-      });
-    </script>
-
-  </body>
-</html>
+  <!-- Initialize content animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const staggerContainer = document.querySelector('.content-stagger');
+        if (staggerContainer) {
+          staggerContainer.classList.add('loaded');
+        }
+      }, 100);
+    });
+  </script>
+</Layout>

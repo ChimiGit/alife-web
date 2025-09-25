@@ -1,181 +1,128 @@
 ---
-import Header from '../components/Header.astro';
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/logo/thumbnail-logo.png`} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Support Us - ALIFE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      /* Noise effect */
-      .noise-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.15;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        animation: noise 0.2s infinite;
-        mix-blend-mode: overlay;
-      }
-      
-      @keyframes noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0%); }
-        70% { transform: translate(0%, 15%); }
-        80% { transform: translate(-15%, 10%); }
-        90% { transform: translate(10%, 5%); }
-      }
-    </style>
-  </head>
-  <body class="min-h-screen bg-gray-50">
-    <!-- Noise overlay -->
-    <div class="noise-overlay"></div>
-    <!-- Main Content -->
-    <div id="main-content">
-      <Header />
+<Layout title="Support Us - ALIFE" description="Support ALIFE's mission to advance evolutionary AI research. Help us build the future where humans and artificial life forms co-evolve.">
+  <main class="pt-10 sm:pt-10 content-stagger" style="font-family: 'Inter', sans-serif;">
+    <!-- Hero Section -->
+    <section class="pb-12 sm:pb-16 md:py-10">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Join the Evolution</h2>
+        <p class="text-primary max-w-5xl leading-relaxed font-light text-sm" style="font-family: 'Inter', sans-serif; line-height: 2;">
+          Support our mission to advance artificial life research and development
+        </p>
+      </div>
+    </section>
 
-      <!-- Main content -->
-      <main class="pt-10 sm:pt-10 content-stagger" style="font-family: 'Inter', sans-serif;">
-        <!-- Hero Section -->
-        <section class="pb-12 sm:pb-16 md:py-20">
-          <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Join the Evolution</h2>
-            <p class="text-primary max-w-5xl leading-relaxed font-light text-sm" style="font-family: 'Inter', sans-serif; line-height: 2;">
-              Support our mission to advance artificial life research and development
-            </p>
-          </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="py-10 sm:py-10 md:py-10">
-          <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div>
-              <!-- Contact Information -->
-              <div class="space-y-8 mb-12">
-                <!-- Email -->
-                <div class="flex items-start space-x-3 sm:space-x-4">
-                  <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex justify-center">
-                    <img src={`${import.meta.env.BASE_URL}assets/images/email.svg`} alt="Email" class="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div>
-                    <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">example@teamwebflow.com</p>
-                  </div>
-                </div>
-
-                <!-- Location -->
-                <div class="flex items-start space-x-3 sm:space-x-4">
-                  <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex justify-center">
-                    <img src={`${import.meta.env.BASE_URL}assets/images/property-location.svg`} alt="Location" class="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div>
-                    <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">Kyoto HQ, Japan</p>
-                  </div>
-                </div>
-
-                <!-- Phone -->
-                <div class="flex items-start space-x-3 sm:space-x-4">
-                  <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex justify-center">
-                    <img src={`${import.meta.env.BASE_URL}assets/images/mobile-chat.svg`} alt="Phone" class="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div>
-                    <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">+44 123 654 7890</p>
-                  </div>
-                </div>
+    <!-- Contact Section -->
+    <section class="py-10 sm:py-10 md:py-10">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div>
+          <!-- Contact Information -->
+          <div class="space-y-8 mb-12">
+            <!-- Email -->
+            <div class="flex items-start space-x-3 sm:space-x-4">
+              <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/images/email.svg`} alt="Email" class="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-
-              <!-- Contact Form -->
               <div>
-                <form class="space-y-6 max-w-2xl">
-                  <!-- Name Field -->
-                  <div>
-                    <label for="name" class="block text-sm font-normal text-gray-700 mb-2">
-                      Name <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500"
-                      placeholder="Name"
-                      >
-                  </div>
+                <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">example@teamwebflow.com</p>
+              </div>
+            </div>
 
-                  <!-- Email Field -->
-                  <div>
-                    <label for="email" class="block text-sm font-normal text-gray-700 mb-2">
-                      Email <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500"
-                      placeholder="Email"
-                      >
-                  </div>
+            <!-- Location -->
+            <div class="flex items-start space-x-3 sm:space-x-4">
+              <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/images/property-location.svg`} alt="Location" class="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div>
+                <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">Kyoto HQ, Japan</p>
+              </div>
+            </div>
 
-                  <!-- Message Field -->
-                  <div>
-                    <label for="message" class="block text-sm font-normal text-gray-700 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="6"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500 resize-vertical"
-                      placeholder="Message"
-                    ></textarea>
-                  </div>
-
-                  <!-- Submit Button -->
-                  <div class="flex justify-end">
-                    <button
-                      type="submit"
-                      class="bg-primary text-white px-6 py-2 rounded-4xl font-normal text-sm hover:bg-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
+            <!-- Phone -->
+            <div class="flex items-start space-x-3 sm:space-x-4">
+              <div class="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 flex justify-center">
+                <img src={`${import.meta.env.BASE_URL}assets/images/mobile-chat.svg`} alt="Phone" class="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div>
+                <p class="text-sm sm:text-base lg:text-lg text-primary font-normal">+44 123 654 7890</p>
               </div>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
 
+          <!-- Contact Form -->
+          <div>
+            <form class="space-y-6 max-w-2xl">
+              <!-- Name Field -->
+              <div>
+                <label for="name" class="block text-sm font-normal text-gray-700 mb-2">
+                  Name <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500"
+                  placeholder="Name"
+                  >
+              </div>
 
-    <!-- Initialize content animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const staggerContainer = document.querySelector('.content-stagger');
-          if (staggerContainer) {
-            staggerContainer.classList.add('loaded');
-          }
-        }, 100);
-      });
-    </script>
+              <!-- Email Field -->
+              <div>
+                <label for="email" class="block text-sm font-normal text-gray-700 mb-2">
+                  Email <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500"
+                  placeholder="Email"
+                  >
+              </div>
 
-  </body>
-</html>
+              <!-- Message Field -->
+              <div>
+                <label for="message" class="block text-sm font-normal text-gray-700 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 text-gray-900 placeholder-gray-500 resize-vertical"
+                  placeholder="Message"
+                ></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-primary text-white px-6 py-2 rounded-4xl font-normal text-sm hover:bg-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Initialize content animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const staggerContainer = document.querySelector('.content-stagger');
+        if (staggerContainer) {
+          staggerContainer.classList.add('loaded');
+        }
+      }, 100);
+    });
+  </script>
+</Layout>

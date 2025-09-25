@@ -1,93 +1,39 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 import History from '../components/sections/about/History.astro';
 import Mission from '../components/sections/about/Mission.astro';
 import WhoWeAre from '../components/sections/about/WhoWeAre.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />  
-    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/logo/thumbnail-logo.png`} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>About Us - ALIFE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      /* Noise effect */
-      .noise-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.15;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        animation: noise 0.2s infinite;
-        mix-blend-mode: overlay;
-      }
+<Layout title="About Us - ALIFE" description="Learn about ALIFE - Artificial Life Institute, our mission, history, and vision for the future of evolutionary AI.">
+  <main class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 pt-6 sm:pt-8 md:pt-10 pb-6 sm:pb-8 md:pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
+    <div>
+      <!-- About Section -->
+      <section id="about-section" class="section-content pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-12 md:pb-16">
+        <WhoWeAre />  
+      </section>
       
-      @keyframes noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0%); }
-        70% { transform: translate(0%, 15%); }
-        80% { transform: translate(-15%, 10%); }
-        90% { transform: translate(10%, 5%); }
-      }
+      <!-- History Section -->
+      <section id="history-section" class="section-content pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-12 md:pb-16">
+        <History />
+      </section>
       
-    </style>
-  </head>
-  <body class="min-h-screen bg-gray-50">
-    <!-- Noise overlay -->
-    <div class="noise-overlay"></div>
-    
-    <!-- Main Content -->
-    <div id="main-content">
-      <Header />
-      <!-- Main content -->
-      <main class="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 pt-6 sm:pt-8 md:pt-10 pb-6 sm:pb-8 md:pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
-      <div>
-          <!-- About Section -->
-          <section id="about-section" class="section-content pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-12 md:pb-16">
-            <WhoWeAre />  
-          </section>
-          
-          <!-- History Section -->
-          <section id="history-section" class="section-content pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-12 md:pb-16">
-            <History />
-          </section>
-          
-          <!-- Mission Section -->
-          <section id="mission-section" class="section-content pt-4 sm:pt-6 md:pt-8">
-            <Mission />
-          </section>
-        </div>
-      </div>
-    </main>
+      <!-- Mission Section -->
+      <section id="mission-section" class="section-content pt-4 sm:pt-6 md:pt-8">
+        <Mission />
+      </section>
     </div>
+  </main>
 
-
-    <!-- Initialize content animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const staggerContainer = document.querySelector('.content-stagger');
-          if (staggerContainer) {
-            staggerContainer.classList.add('loaded');
-          }
-        }, 100);
-
-      });
-    </script>
-  </body>
-</html>
+  <!-- Initialize content animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const staggerContainer = document.querySelector('.content-stagger');
+        if (staggerContainer) {
+          staggerContainer.classList.add('loaded');
+        }
+      }, 100);
+    });
+  </script>
+</Layout>

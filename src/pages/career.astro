@@ -1,382 +1,326 @@
 ---
 import { marked } from 'marked';
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 import getAllJobs from '../utils/jobs.ts';
-import '../styles/global.css';
 
 const jobs = await getAllJobs();
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}assets/logo/thumbnail-logo.png`} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Career - ALIFE</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-      /* Noise effect */
-      .noise-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.15;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        animation: noise 0.2s infinite;
-        mix-blend-mode: overlay;
-      }
-      
-      @keyframes noise {
-        0%, 100% { transform: translate(0, 0); }
-        10% { transform: translate(-5%, -5%); }
-        20% { transform: translate(-10%, 5%); }
-        30% { transform: translate(5%, -10%); }
-        40% { transform: translate(-5%, 15%); }
-        50% { transform: translate(-10%, 5%); }
-        60% { transform: translate(15%, 0%); }
-        70% { transform: translate(0%, 15%); }
-        80% { transform: translate(-15%, 10%); }
-        90% { transform: translate(10%, 5%); }
-    }
-    </style>
-  </head>
-
-  <body class="min-h-screen bg-gray-50">
-    <!-- Noise overlay -->
-    <div class="noise-overlay"></div>
-    
-    <!-- Main Content -->
-    <div id="main-content">
-      <Header />
-
-      <!-- Main content -->
-      <main id="career-content" class="pt-10 sm:pt-10 pb-8 sm:pb-12 content-stagger">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+<Layout title="Career - ALIFE" description="Join ALIFE and be part of pioneering evolutionary AI research. Explore career opportunities at the intersection of nature and computation.">
+  <main id="career-content" class="pt-10 sm:pt-10 pb-8 sm:pb-12 content-stagger">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
       <!-- Hero Section -->
-          <section class="mb-8 sm:mb-12 md:mb-16">
-            <h2 class="text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">
-              Where Brilliant<br />
-              Minds Explore Together
-            </h2>
-            <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
-              We believe in systems that explore without predetermined goals, discovering paths no one planned.
-            </p>
-          </section>
-
-          <!-- Symbiosis Philosophy Section -->
-          <section class="mb-12 sm:mb-16 md:mb-20">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-              <div>
-                <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
-                <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
-                  Rather than replacement,<br />
-                  we seek harmonious<br />
-                  coexistence between<br />
-                  human and artificial<br />
-                  intelligence
-                </p>
-              </div>
-              <div>
-                <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
-                <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
-                  Rather than replacement,<br />
-                  we seek harmonious<br />
-                  coexistence between<br />
-                  human and artificial<br />
-                  intelligence
-                </p>
-              </div>
-              <div>
-                <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
-                <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
-                  Rather than replacement,<br />
-                  we seek harmonious<br />
-                  coexistence between<br />
-                  human and artificial<br />
-                  intelligence
-                </p>
-              </div>
-              <div>
-                <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
-                <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
-                  Rather than replacement,<br />
-                  we seek harmonious<br />
-                  coexistence between<br />
-                  human and artificial<br />
-                  intelligence
-                </p>
-              </div>
-            </div>
+      <section class="mb-8 sm:mb-12 md:mb-16">
+        <h2 class="text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">
+          Where Brilliant<br />
+          Minds Explore Together
+        </h2>
+        <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+          We believe in systems that explore without predetermined goals, discovering paths no one planned.
+        </p>
       </section>
 
-          <!-- Divider Line -->
-          <div class="border-b border-primary mb-8 sm:mb-12 md:mb-16"></div>
-
-          <!-- Jobs Section -->
-          <section>
-            <div class="space-y-8">
-              {jobs && jobs.length > 0 ? (
-                jobs.map((job: any, index: number) => {
-                  const htmlContent = job.content ? String(marked(job.content)) : '';
-                  return (
-                    <div class="border-b border-primary pb-8 last:border-b-0">
-                      <div class="flex justify-between items-start mb-6">
-                        <div class="flex-1">
-                          <h3 class="text-2xl font-medium text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">
-                            {job.title}
-                          </h3>
-                          <p class="text-primary text-16px font-medium mb-3">{job.location}</p>
-                          <p class="text-primary text-base font-light mb-4">
-                            {job.title === 'Research Head' ? 'Taming data into insights, and insights into impact.' : 'Bridging business needs with smart solutions.'}
-                          </p>
-                        </div>
-                        <div class="flex flex-col items-end space-y-3 ml-8">
-                          <button
-                            type="button"
-                            class="bg-primary text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-primary transition-colors duration-200 inline-block job-details-toggle cursor-pointer"
-                            data-target={`#job-details-${index}`}
-                          >
-                            View Details
-                          </button>
-                          <div class="text-right text-sm">
-                            <p class="text-primary">
-                              {new Date(job.deadline).toLocaleDateString('en-US', {
-                                day: '2-digit',
-                                month: 'short',
-                                year: 'numeric'
-                              })}
-                            </p>
-                            <p class="text-primary">
-                              {job.type}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Job Details Accordion -->
-                      <div id={`job-details-${index}`} class="job-details-content hidden">
-                        <!-- Separator -->
-                        <hr class="border-primary mb-8">
-
-                        <!-- Job Content from Markdown -->
-                        <div class="job-markdown-content mb-12">
-                          <div set:html={htmlContent
-                            .replace(/<h2>/g, '<h2 style="font-family: \'GT Alpina Fine\', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">')
-                            .replace(/<h2 style="font-family: 'Inter', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem; font-size: '20px'">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
-                            .replace(/<p>/g, '<p style="margin-bottom: 1rem; line-height: 1.7; color: #2E3192; font-family: \'Inter\', sans-serif; font-weight: 300;">')
-                            .replace(/<ul>/g, '<ul style="margin-bottom: 3rem; padding-left: 0; list-style: none;">')
-                            .replace(/<li>/g, '<li style="margin-bottom: 0.75rem; color: #2E3192; display: flex; align-items: flex-start; font-family: \'Inter\', sans-serif; font-weight: 300;"><span style="width: 8px; height: 8px; background-color: #2E3192; border-radius: 50%; margin-top: 8px; margin-right: 12px; flex-shrink: 0;"></span>')
-                            .replace(/<\/li>/g, '</li>')
-                          }></div>
-                        </div>
-
-                        <!-- Separator -->
-                        <hr class="border-primary mb-12">
-
-                        <!-- Application Form -->
-                        <section class="mb-12">
-                          <h3 class="text-40px font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
-                            Apply Now.
-                          </h3>
-                          <p class="text-primary text-16px mb-8">
-                            Tell us why you'd be a good fit for the {job.title} role.
-                          </p>
-
-                          <form class="space-y-6" id={`job-application-form-${index}`}>
-                            <!-- Name Fields -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              <div>
-                                <label for={`firstName-${index}`} class="block text-sm font-medium text-primary mb-2">First Name</label>
-                                <input 
-                                  type="text" 
-                                  id={`firstName-${index}`}
-                                  name="firstName" 
-                                  placeholder="First Name"
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                  required
-                                >
-                              </div>
-                              <div>
-                                <label for={`lastName-${index}`} class="block text-sm font-medium text-primary mb-2">Last Name</label>
-                                <input 
-                                  type="text" 
-                                  id={`lastName-${index}`}
-                                  name="lastName" 
-                                  placeholder="Last Name"
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                  required
-                                >
-                              </div>
-                            </div>
-
-                            <!-- Email Field -->
-                            <div>
-                              <label for={`email-${index}`} class="block text-sm font-medium text-primary mb-2">Email</label>
-                              <input 
-                                type="email" 
-                                id={`email-${index}`}
-                                name="email" 
-                                placeholder="example123@gmail.com"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                required
-                              >
-                            </div>
-
-                            <!-- Phone Field -->
-                            <div>
-                              <label for={`phone-${index}`} class="block text-sm font-medium text-primary mb-2">Phone</label>
-                              <input 
-                                type="tel" 
-                                id={`phone-${index}`}
-                                name="phone" 
-                                placeholder="+0 123 456 789"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                              >
-                            </div>
-
-                            <!-- Resume Upload -->
-                            <div>
-                              <label for={`resume-${index}`} class="block text-sm font-medium text-primary mb-2">Resume</label>
-                              <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
-                                <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                </svg>
-                                <p class="text-gray-600 mb-2">Upload your resume</p>
-                                <p class="text-sm text-gray-500">Resume should be a PDF under 3.5MB</p>
-                                <input 
-                                  type="file" 
-                                  id={`resume-${index}`}
-                                  name="resume" 
-                                  accept=".pdf"
-                                  class="hidden"
-                                  required
-                                >
-                                <button 
-                                  type="button" 
-                                  onclick={`document.getElementById('resume-${index}').click()`}
-                                  class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary transition-colors duration-200 cursor-pointer"
-                                >
-                                  Choose File
-          </button>
-                              </div>
-                            </div>
-
-                            <!-- Checkboxes -->
-                            <div class="space-y-4">
-                              <div class="flex items-start">
-                                <input 
-                                  type="checkbox" 
-                                  id={`privacy-${index}`}
-                                  name="privacy" 
-                                  class="mt-1 mr-3 text-primary focus:ring-primary"
-                                  required
-                                >
-                                <label for={`privacy-${index}`} class="text-sm text-primary font-light">
-                                  By submitting my application, I acknowledge that I have read and understand GMC's Job Applicant Privacy Notice.
-                                </label>
-                              </div>
-                              <div class="flex items-start">
-                                <input 
-                                  type="checkbox" 
-                                  id={`accuracy-${index}`}
-                                  name="accuracy" 
-                                  class="mt-1 mr-3 text-primary focus:ring-primary"
-                                  required
-                                >
-                                <label for={`accuracy-${index}`} class="text-sm text-primary font-light">
-                                  I have reviewed and confirmed that all the information provided is accurate and complete.
-                                </label>
-                              </div>
-        </div>
-
-                            <!-- Important Note -->
-                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                              <p class="text-sm text-primary">
-                                <strong>Important: Please double-check all the information provided above. Ensuring accuracy is crucial, as any errors or omissions may impact the review of your application.</strong>
-                              </p>
+      <!-- Symbiosis Philosophy Section -->
+      <section class="mb-12 sm:mb-16 md:mb-20">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+            <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+              Rather than replacement,<br />
+              we seek harmonious<br />
+              coexistence between<br />
+              human and artificial<br />
+              intelligence
+            </p>
           </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+            <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+              Rather than replacement,<br />
+              we seek harmonious<br />
+              coexistence between<br />
+              human and artificial<br />
+              intelligence
+            </p>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+            <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+              Rather than replacement,<br />
+              we seek harmonious<br />
+              coexistence between<br />
+              human and artificial<br />
+              intelligence
+            </p>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-primary mb-2 sm:mb-3 md:mb-4" style="font-family: 'GT Alpina Fine', serif;">Symbiosis:</h3>
+            <p class="text-sm sm:text-base text-primary leading-relaxed font-light" style="font-family: 'Inter', sans-serif;">
+              Rather than replacement,<br />
+              we seek harmonious<br />
+              coexistence between<br />
+              human and artificial<br />
+              intelligence
+            </p>
+          </div>
+        </div>
+      </section>
 
-                            <!-- Submit Button -->
-                            <div class="flex justify-end">
-                              <button 
-                                type="submit" 
-                                class="bg-primary text-white text-sm px-8 py-3 font-medium hover:bg-primary transition-colors duration-200 cursor-pointer" style="border-radius: 100px;"
-                              >
-                                Submit Application
-                              </button>
-                            </div>
-                          </form>
-                        </section>
+      <!-- Divider Line -->
+      <div class="border-b border-primary mb-8 sm:mb-12 md:mb-16"></div>
+
+      <!-- Jobs Section -->
+      <section>
+        <div class="space-y-8">
+          {jobs && jobs.length > 0 ? (
+            jobs.map((job: any, index: number) => {
+              const htmlContent = job.content ? String(marked(job.content || '')) : '';
+              return (
+                <div class="border-b border-primary pb-8 last:border-b-0">
+                  <div class="flex justify-between items-start mb-6">
+                    <div class="flex-1">
+                      <h3 class="text-2xl font-medium text-primary mb-2" style="font-family: 'GT Alpina Fine', serif;">
+                        {job.title}
+                      </h3>
+                      <p class="text-primary text-16px font-medium mb-3">{job.location}</p>
+                      <p class="text-primary text-base font-light mb-4">
+                        {job.title === 'Research Head' ? 'Taming data into insights, and insights into impact.' : 'Bridging business needs with smart solutions.'}
+                      </p>
+                    </div>
+                    <div class="flex flex-col items-end space-y-3 ml-8">
+                      <button
+                        type="button"
+                        class="bg-primary text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-primary transition-colors duration-200 inline-block job-details-toggle cursor-pointer"
+                        data-target={`#job-details-${index}`}
+                      >
+                        View Details
+                      </button>
+                      <div class="text-right text-sm">
+                        <p class="text-primary">
+                          {new Date(job.deadline).toLocaleDateString('en-US', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric'
+                          })}
+                        </p>
+                        <p class="text-primary">
+                          {job.type}
+                        </p>
                       </div>
                     </div>
-                  );
-                })
-              ) : (
-                <div class="text-center text-primary py-8">
-                  <h3 class="text-xl font-medium mb-4">Job Openings Coming Soon</h3>
-                  <p>We're currently updating our job listings. Please check back later for new opportunities.</p>
+                  </div>
+
+                  <!-- Job Details Accordion -->
+                  <div id={`job-details-${index}`} class="job-details-content hidden">
+                    <!-- Separator -->
+                    <hr class="border-primary mb-8">
+
+                    <!-- Job Content from Markdown -->
+                    <div class="job-markdown-content mb-12">
+                      <div set:html={htmlContent
+                        .replace(/<h2>/g, '<h2 style="font-family: \'GT Alpina Fine\', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem;">')
+                        .replace(/<h2 style="font-family: 'Inter', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 3rem; font-size: '20px'">About ALife<\/h2>/g, '<h2 style="font-family: \'Inter\', sans-serif; color: #2E3192; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0;">About ALife</h2>')
+                        .replace(/<p>/g, '<p style="margin-bottom: 1rem; line-height: 1.7; color: #2E3192; font-family: \'Inter\', sans-serif; font-weight: 300;">')
+                        .replace(/<ul>/g, '<ul style="margin-bottom: 3rem; padding-left: 0; list-style: none;">')
+                        .replace(/<li>/g, '<li style="margin-bottom: 0.75rem; color: #2E3192; display: flex; align-items: flex-start; font-family: \'Inter\', sans-serif; font-weight: 300;"><span style="width: 8px; height: 8px; background-color: #2E3192; border-radius: 50%; margin-top: 8px; margin-right: 12px; flex-shrink: 0;"></span>')
+                        .replace(/<\/li>/g, '</li>')
+                      }></div>
+                    </div>
+
+                    <!-- Separator -->
+                    <hr class="border-primary mb-12">
+
+                    <!-- Application Form -->
+                    <section class="mb-12">
+                      <h3 class="text-40px font-medium text-primary mb-4" style="font-family: 'GT Alpina Fine', serif;">
+                        Apply Now.
+                      </h3>
+                      <p class="text-primary text-16px mb-8">
+                        Tell us why you'd be a good fit for the {job.title} role.
+                      </p>
+
+                      <form class="space-y-6" id={`job-application-form-${index}`}>
+                        <!-- Name Fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <label for={`firstName-${index}`} class="block text-sm font-medium text-primary mb-2">First Name</label>
+                            <input 
+                              type="text" 
+                              id={`firstName-${index}`}
+                              name="firstName" 
+                              placeholder="First Name"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            >
+                          </div>
+                          <div>
+                            <label for={`lastName-${index}`} class="block text-sm font-medium text-primary mb-2">Last Name</label>
+                            <input 
+                              type="text" 
+                              id={`lastName-${index}`}
+                              name="lastName" 
+                              placeholder="Last Name"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            >
+                          </div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div>
+                          <label for={`email-${index}`} class="block text-sm font-medium text-primary mb-2">Email</label>
+                          <input 
+                            type="email" 
+                            id={`email-${index}`}
+                            name="email" 
+                            placeholder="example123@gmail.com"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            required
+                          >
+                        </div>
+
+                        <!-- Phone Field -->
+                        <div>
+                          <label for={`phone-${index}`} class="block text-sm font-medium text-primary mb-2">Phone</label>
+                          <input 
+                            type="tel" 
+                            id={`phone-${index}`}
+                            name="phone" 
+                            placeholder="+0 123 456 789"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                          >
+                        </div>
+
+                        <!-- Resume Upload -->
+                        <div>
+                          <label for={`resume-${index}`} class="block text-sm font-medium text-primary mb-2">Resume</label>
+                          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
+                            <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <p class="text-gray-600 mb-2">Upload your resume</p>
+                            <p class="text-sm text-gray-500">Resume should be a PDF under 3.5MB</p>
+                            <input 
+                              type="file" 
+                              id={`resume-${index}`}
+                              name="resume" 
+                              accept=".pdf"
+                              class="hidden"
+                              required
+                            >
+                            <button 
+                              type="button" 
+                              onclick={`document.getElementById('resume-${index}').click()`}
+                              class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary transition-colors duration-200 cursor-pointer"
+                            >
+                              Choose File
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Checkboxes -->
+                        <div class="space-y-4">
+                          <div class="flex items-start">
+                            <input 
+                              type="checkbox" 
+                              id={`privacy-${index}`}
+                              name="privacy" 
+                              class="mt-1 mr-3 text-primary focus:ring-primary"
+                              required
+                            >
+                            <label for={`privacy-${index}`} class="text-sm text-primary font-light">
+                              By submitting my application, I acknowledge that I have read and understand GMC's Job Applicant Privacy Notice.
+                            </label>
+                          </div>
+                          <div class="flex items-start">
+                            <input 
+                              type="checkbox" 
+                              id={`accuracy-${index}`}
+                              name="accuracy" 
+                              class="mt-1 mr-3 text-primary focus:ring-primary"
+                              required
+                            >
+                            <label for={`accuracy-${index}`} class="text-sm text-primary font-light">
+                              I have reviewed and confirmed that all the information provided is accurate and complete.
+                            </label>
+                          </div>
+                        </div>
+
+                        <!-- Important Note -->
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                          <p class="text-sm text-primary">
+                            <strong>Important: Please double-check all the information provided above. Ensuring accuracy is crucial, as any errors or omissions may impact the review of your application.</strong>
+                          </p>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end">
+                          <button 
+                            type="submit" 
+                            class="bg-primary text-white text-sm px-8 py-3 font-medium hover:bg-primary transition-colors duration-200 cursor-pointer" style="border-radius: 100px;"
+                          >
+                            Submit Application
+                          </button>
+                        </div>
+                      </form>
+                    </section>
+                  </div>
                 </div>
-              )}
+              );
+            })
+          ) : (
+            <div class="text-center text-primary py-8">
+              <h3 class="text-xl font-medium mb-4">Job Openings Coming Soon</h3>
+              <p>We're currently updating our job listings. Please check back later for new opportunities.</p>
             </div>
-          </section>
-
+          )}
         </div>
-      </main>
+      </section>
+
     </div>
+  </main>
 
+  <!-- Initialize content animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const staggerContainer = document.querySelector('.content-stagger');
+        if (staggerContainer) {
+          staggerContainer.classList.add('loaded');
+        }
+      }, 100);
 
-    <!-- Initialize content animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          const staggerContainer = document.querySelector('.content-stagger');
-          if (staggerContainer) {
-            staggerContainer.classList.add('loaded');
-          }
-        }, 100);
-
-        // Job details accordion functionality
-        const jobDetailToggles = document.querySelectorAll('.job-details-toggle');
-        
-        jobDetailToggles.forEach((toggle) => {
-          toggle.addEventListener('click', () => {
-            const targetId = toggle.getAttribute('data-target');
-            const targetContent = targetId ? document.querySelector(targetId) : null;
-            
-            if (targetContent) {
-              // Toggle visibility
-              if (targetContent.classList.contains('hidden')) {
-                // Close all other open accordions
-                document.querySelectorAll('.job-details-content').forEach((content) => {
-                  content.classList.add('hidden');
-                });
-                document.querySelectorAll('.job-details-toggle').forEach((btn) => {
-                  btn.textContent = 'View Details';
-                });
-                
-                // Open this accordion
-                targetContent.classList.remove('hidden');
-                toggle.textContent = 'Close Details';
-              } else {
-                // Close this accordion
-                targetContent.classList.add('hidden');
-                toggle.textContent = 'View Details';
-              }
+      // Job details accordion functionality
+      const jobDetailToggles = document.querySelectorAll('.job-details-toggle');
+      
+      jobDetailToggles.forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+          const targetId = toggle.getAttribute('data-target');
+          const targetContent = targetId ? document.querySelector(targetId) : null;
+          
+          if (targetContent) {
+            // Toggle visibility
+            if (targetContent.classList.contains('hidden')) {
+              // Close all other open accordions
+              document.querySelectorAll('.job-details-content').forEach((content) => {
+                content.classList.add('hidden');
+              });
+              document.querySelectorAll('.job-details-toggle').forEach((btn) => {
+                btn.textContent = 'View Details';
+              });
+              
+              // Open this accordion
+              targetContent.classList.remove('hidden');
+              toggle.textContent = 'Close Details';
+            } else {
+              // Close this accordion
+              targetContent.classList.add('hidden');
+              toggle.textContent = 'View Details';
             }
-          });
+          }
         });
       });
-    </script>
-
-  </body>
-</html>
+    });
+  </script>
+</Layout>
