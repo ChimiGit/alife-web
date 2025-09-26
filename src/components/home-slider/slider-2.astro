@@ -3,8 +3,8 @@
 ---
 
 <div class="fixed inset-0 w-full h-full overflow-hidden bg-[#FFB5A7]" style="font-family: 'Inter', sans-serif; z-index: 0; position: fixed !important; width: 100vw !important; height: 100vh !important; min-height: 100vh !important;">
-  <div class="grid h-full place-items-center overflow-hidden">
-      <div class="[grid-area:1/1] translate-x-[1580px] translate-y-[-100px] scale-[4] grid place-items-center transform-gpu origin-center">
+  <div class="grid h-full place-items-center overflow-hidden mobile-grid-container">
+      <div class="[grid-area:1/1] translate-x-[1580px] translate-y-[-100px] scale-[4] grid place-items-center transform-gpu origin-center mobile-images-center">
           <div aria-hidden="true" class="z-[999] pointer-events-none w-[10px] h-[10px] rounded-full bg-[#ff2d55] ring-2 ring-white shadow-[0_0_0_2px_rgba(0,0,0,0.2)] [grid-area:1/1]"></div>
   
           <img src={`${import.meta.env.BASE_URL}assets/images/layer-6.svg`} alt="back layer (inner)" class="[grid-area:1/1] z-[1] w-[36.8vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCW 50s linear infinite; transform-origin: center;" />
@@ -50,3 +50,33 @@
     </div>
   </section>
 </div>
+
+<style>
+  /* Force mobile centering with high specificity to override translate-x-[1580px] */
+  @media (max-width: 768px) {
+    
+    /* Override the container to behave like a center-positioned flex container */
+    .mobile-grid-container {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      position: relative !important;
+    }
+    
+    /* Force image container to center absolutely with explicit reset */
+    .mobile-images-center {
+      /* Override the translate-x-[1580px] with absolute centering and bigger scale */
+      transform: translate(-50%, -60%) scale(3) !important;
+      position: absolute !important;
+      top: 50% !important;
+      left: 10% !important;
+    }
+  }
+  
+  /* Optimize for smaller screens */
+  @media (max-width: 640px) {
+    .mobile-images-center {
+      transform: translate(-50%, -50%) scale(2.5) !important;
+    }
+  }
+</style>
