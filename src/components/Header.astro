@@ -20,15 +20,13 @@
             <img 
               src={`${import.meta.env.BASE_URL}assets/logo/logo1.svg`} 
               alt="ALIFE Logo 1" 
-              class="absolute top-0 left-0 sm:-left-7 z-10 w-full h-auto object-left"
-              style="width: 189.92px; height: 27.63px;"
+              class="logo-1 absolute top-0 left-0 sm:-left-7 z-10 w-full h-auto object-left"
             />
             <!-- Logo 2 (animated overlay) -->
             <img 
               src={`${import.meta.env.BASE_URL}assets/logo/logo2.svg`} 
               alt="ALIFE Logo 2" 
-              class="logo-slide absolute top-0 left-0 sm:-left-7 z-20 w-full h-auto object-left transition-all duration-500 ease-in-out"
-              style="width: 189.92px; height: 27.63px;"
+              class="logo-2 logo-slide absolute top-0 left-0 sm:-left-7 z-20 w-full h-auto object-left transition-all duration-500 ease-in-out"
             />
           </div>
         </a>
@@ -231,6 +229,45 @@
     transform: translateX(0);
     opacity: 0;
     z-index: 30;
+  }
+  
+  /* Mobile - Position logo2 closer to logo1 */
+  @media (max-width: 640px) {
+    .logo-slide {
+      transform: translateX(65px);
+    }
+  }
+  
+  /* Medium screens - Moderate distance */
+  @media (max-width: 1024px) and (min-width: 641px) {
+    .logo-slide {
+      transform: translateX(60px);
+    }
+  }
+  
+  /* Logo sizing - Desktop size (keep original) */
+  .logo-1,
+  .logo-2 {
+    width: 189.92px;
+    height: 27.63px;
+  }
+  
+  /* Mobile - Smaller logo sizes */
+  @media (max-width: 640px) {
+    .logo-1,
+    .logo-2 {
+      width: 120px;
+      height: 17.2px;
+    }
+  }
+  
+  /* Medium screens - Slightly reduced */
+  @media (max-width: 1024px) and (min-width: 641px) {
+    .logo-1,
+    .logo-2 {
+      width: 160px;
+      height: 23.3px;
+    }
   }
 </style>
 

@@ -1,0 +1,303 @@
+---
+import '../../../styles/global.css';
+---
+
+<!-- History Content -->
+<div class="w-full px-2 sm:px-4 mt-8 sm:mt-10 md:mt-12">
+  <style>
+    /* Timeline Animation Styles */
+    .timeline-line {
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .timeline-line.animate {
+      transform: scaleY(1);
+    }
+    
+    .timeline-dot {
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .timeline-dot.animate {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .timeline-content {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .timeline-content.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Remove hardcoded delays - we'll control this dynamically */
+    
+    /* Timeline line styling */
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      background-color: #2E3192;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    
+    /* Timeline dot styling */
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #2E3192;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: block;
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    
+    /* Desktop specific styling */
+    @media (min-width: 768px) {
+      .timeline-dot {
+        width: 16px;
+        height: 16px;
+        border: 3px solid white;
+      }
+    }
+  </style>
+  
+  <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">History</h2>
+  <div class="mb-8 sm:mb-10 md:mb-15">
+    <span class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-primary" style="font-family: 'Inter', sans-serif; line-height: 1.6; font-weight: 300;"><strong class="font-medium">Why Us?</strong> We are already well positioned to succeed.</span>
+  </div>
+  
+  <!-- Timeline -->
+  <div class="relative w-full">
+    <!-- Timeline Line (Vertical) -->
+    <div class="timeline-line" style="height: calc(100% - 1rem);"></div>
+    
+    <!-- Vertical Layout for Both Desktop and Mobile -->
+    <div class="space-y-8 sm:space-y-12 md:space-y-16 lg:space-y-20">
+      <!-- Item 1 -->
+      <div class="timeline-item flex items-center">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-2 sm:pr-4 md:pr-8 text-end">
+          <span class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Sakana.ai</span>
+          <span class="inline-flex items-center gap-x-1 sm:gap-x-1.5 py-1 px-2 sm:px-3 md:px-5 rounded-full text-xs bg-primary text-white mt-1 sm:mt-2">Jan, 2024</span>
+          <p class="text-xs sm:text-sm md:text-base text-primary mt-1 sm:mt-2 block">1st Japanese company with a focus on ALife. $30M seed round.</p>
+        </div>
+        
+        <!-- Timeline Dot -->
+        <div class="relative z-10 size-5 sm:size-6 md:size-7 lg:size-8 flex justify-center items-center">
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-2 sm:pl-4 md:pl-8">
+          <img src={`${import.meta.env.BASE_URL}assets/images/We-raised-30M 1.svg`} alt="Sakana.ai Logo" class="h-12 sm:h-16 md:h-20 lg:h-32 w-auto" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="timeline-item flex items-center">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-2 sm:pr-4 md:pr-8 text-end">
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">ALIFE</span>
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Institute Incorporated</span>
+          <span class="inline-flex items-center gap-x-1 sm:gap-x-1.5 py-1 px-2 sm:px-3 md:px-5 rounded-full text-xs bg-primary text-white mt-1 sm:mt-2">Sep, 2024</span>
+        </div>
+        
+        <!-- Timeline Dot -->
+        <div class="relative z-10 size-5 sm:size-6 md:size-7 lg:size-8 flex justify-center items-center">
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-2 sm:pl-4 md:pl-8">
+          <img src={`${import.meta.env.BASE_URL}assets/logo/logo3.svg`} alt="ALIFE Logo" class="h-12 sm:h-16 md:h-20 lg:h-32 w-auto" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="timeline-item flex items-center">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-2 sm:pr-4 md:pr-8 text-end">
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Research</span>
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Projects Began</span>
+          <span class="inline-flex items-center gap-x-1 sm:gap-x-1.5 py-1 px-2 sm:px-3 md:px-5 rounded-full text-xs bg-primary text-white mt-1 sm:mt-2">Dec, 2024</span>
+        </div>
+        
+        <!-- Timeline Dot -->
+        <div class="relative z-10 size-5 sm:size-6 md:size-7 lg:size-8 flex justify-center items-center">
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-2 sm:pl-4 md:pl-8">
+          <!-- Research Project Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+            <div class="text-center">
+              <div class="overflow-hidden rounded-lg">
+                <img src={`${import.meta.env.BASE_URL}assets/research-project/Ellipse 314.svg`} alt="Primordial Soup" class="w-full object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden rounded-lg">
+                <img src={`${import.meta.env.BASE_URL}assets/research-project/Ellipse 315.svg`} alt="Structure" class="w-full object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden rounded-lg">
+                <img src={`${import.meta.env.BASE_URL}assets/research-project/Ellipse 316.svg`} alt="Locomotion" class="w-full object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden rounded-lg">
+                <img src={`${import.meta.env.BASE_URL}assets/research-project/Ellipse 317.svg`} alt="Coevolution" class="w-full object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden rounded-lg">
+                <img src={`${import.meta.env.BASE_URL}assets/research-project/Ellipse 318.svg`} alt="Complexification" class="w-full object-cover" loading="lazy"/>
+              </div>
+            </div>
+            <div class="text-center">
+              <div class="overflow-hidden rounded-lg">
+                <img src={`${import.meta.env.BASE_URL}assets/research-project/Ellipse 319.svg`} alt="Disordered Structures" class="w-full object-cover" loading="lazy"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="timeline-item flex items-center">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-2 sm:pr-4 md:pr-8 text-end">
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Kyoto</span>
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Office Opened</span>
+          <span class="inline-flex items-center gap-x-1 sm:gap-x-1.5 py-1 px-2 sm:px-3 md:px-5 rounded-full text-xs bg-primary text-white mt-1 sm:mt-2">Oct, 2025</span>
+        </div>
+        
+        <!-- Timeline Dot -->
+        <div class="relative z-10 size-5 sm:size-6 md:size-7 lg:size-8 flex justify-center items-center">
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-2 sm:pl-4 md:pl-8">
+          <img src={`${import.meta.env.BASE_URL}assets/images/meeting_room 1.svg`} alt="Kyoto Office" class="h-20 sm:h-24 md:h-40 lg:h-60 w-auto" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="timeline-item flex items-center">
+        <!-- Left Content -->
+        <div class="timeline-content w-1/2 pr-2 sm:pr-4 md:pr-8 text-end">
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Non-Profit</span>
+          <span class="text-sm sm:text-base md:text-xl lg:text-2xl xl:text-4xl text-primary block" style="font-family: 'GT Alpina Fine', serif;">Incorporation</span>
+          <span class="inline-flex items-center gap-x-1 sm:gap-x-1.5 py-1 px-2 sm:px-3 md:px-5 rounded-full text-xs bg-primary text-white mt-1 sm:mt-2">Oct, 2025</span>
+        </div>
+        
+        <!-- Timeline Dot -->
+        <div class="relative z-10 size-5 sm:size-6 md:size-7 lg:size-8 flex justify-center items-center">
+          <div class="timeline-dot"></div>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="timeline-content w-1/2 pl-2 sm:pl-4 md:pl-8">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flex justify-center mt-6 sm:mt-8 md:mt-10">
+    <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-center px-2" style="color: #FFAC3F; font-family: 'Inter', sans-serif;">*These are the labours of passionate researchers volunteering part-time.</p>
+  </div>
+  <div class="flex justify-center mt-1 sm:mt-2">
+    <p class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-20px text-center px-2 text-primary" style="font-family: 'Inter', sans-serif;">Imagine what we could do with a full time team!</p>
+  </div> 
+  <!-- End Timeline -->
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const timelineLine = document.querySelector('.timeline-line');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    let hasAnimated = false;
+    
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      return rect.top < windowHeight && rect.bottom > 0;
+    }
+    
+    // Function to animate timeline items sequentially
+    function animateTimelineItems() {
+      // First animate the timeline line
+      if (timelineLine) {
+        timelineLine.classList.add('animate');
+        
+        setTimeout(() => {
+          let index = 0;
+          
+          function animateNextItem() {
+            if (index >= timelineItems.length) return;
+            
+            const item = timelineItems[index];
+            const dot = item.querySelector('.timeline-dot');
+            const contents = item.querySelectorAll('.timeline-content');
+            
+            // Animate dot first
+            if (dot) {
+              dot.classList.add('animate');
+            }
+            
+            // Then animate content after brief delay
+            setTimeout(() => {
+              if (contents) {
+                contents.forEach(content => {
+                  content.classList.add('animate');
+                });
+              }
+            }, 300);
+            
+            // Move to next item after pause
+            setTimeout(() => {
+              index++;
+              animateNextItem();
+            }, 700);
+          }
+          
+          animateNextItem();
+        }, 800);
+      }
+    }
+    
+    // Function to trigger animations
+    function triggerAnimations() {
+      const timelineContainer = document.querySelector('.timeline-line');
+      
+      if (!hasAnimated && timelineContainer && isInViewport(timelineContainer)) {
+        hasAnimated = true;
+        animateTimelineItems();
+      }
+    }
+    
+    // Trigger animations on scroll
+    window.addEventListener('scroll', triggerAnimations);
+    
+    // Trigger animations immediately if already in viewport
+    setTimeout(triggerAnimations, 100);
+  });
+</script>

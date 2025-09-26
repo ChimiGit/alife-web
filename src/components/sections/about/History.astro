@@ -17,8 +17,8 @@ import '../../../styles/global.css';
     }
     
     .timeline-dot {
-      opacity: 1;
-      transform: scale(1);
+      opacity: 0;
+      transform: scale(0.5);
       transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
     
@@ -29,27 +29,14 @@ import '../../../styles/global.css';
     
     .timeline-content {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     
     .timeline-content.animate {
       opacity: 1;
       transform: translateY(0);
     }
-    
-    /* Staggered animation delays */
-    .timeline-item:nth-child(1) .timeline-content { transition-delay: 0.2s; }
-    .timeline-item:nth-child(2) .timeline-content { transition-delay: 0.4s; }
-    .timeline-item:nth-child(3) .timeline-content { transition-delay: 0.6s; }
-    .timeline-item:nth-child(4) .timeline-content { transition-delay: 0.8s; }
-    .timeline-item:nth-child(5) .timeline-content { transition-delay: 1.0s; }
-    
-    .timeline-item:nth-child(1) .timeline-dot { transition-delay: 0.1s; }
-    .timeline-item:nth-child(2) .timeline-dot { transition-delay: 0.3s; }
-    .timeline-item:nth-child(3) .timeline-dot { transition-delay: 0.5s; }
-    .timeline-item:nth-child(4) .timeline-dot { transition-delay: 0.7s; }
-    .timeline-item:nth-child(5) .timeline-dot { transition-delay: 0.9s; }
     
     /* Timeline line styling */
     .timeline-line {
@@ -70,9 +57,6 @@ import '../../../styles/global.css';
       border: 2px solid white;
       border-radius: 50%;
       display: block;
-      visibility: visible;
-      opacity: 1;
-      transform: scale(1);
       position: relative;
       z-index: 10;
       flex-shrink: 0;
@@ -84,27 +68,6 @@ import '../../../styles/global.css';
         width: 16px;
         height: 16px;
         border: 3px solid white;
-      }
-      
-      .timeline-content {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-      }
-      
-      .timeline-line {
-        transform: translateX(-50%) scaleY(1) !important;
-      }
-    }
-    
-    /* Mobile specific styling */
-    @media (max-width: 767px) {
-      .timeline-content {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-      }
-      
-      .timeline-line {
-        transform: translateX(-50%) scaleY(1) !important;
       }
     }
   </style>
@@ -267,8 +230,8 @@ import '../../../styles/global.css';
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const timelineLine = document.querySelector('.timeline-line');
-    const timelineDots = document.querySelectorAll('.timeline-dot');
-    const timelineContents = document.querySelectorAll('.timeline-content');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    let hasAnimated = false;
     
     // Function to check if element is in viewport
     function isInViewport(element: Element) {
@@ -277,29 +240,53 @@ import '../../../styles/global.css';
       return rect.top < windowHeight && rect.bottom > 0;
     }
     
-    // Function to trigger animations
-    function triggerAnimations() {
-      if (timelineLine && isInViewport(timelineLine)) {
-        // Animate timeline line
+    // Function to animate timeline items sequentially
+    function animateTimelineItems() {
+      // First animate the timeline line
+      if (timelineLine) {
         timelineLine.classList.add('animate');
         
-        // Animate dots with staggered delay
         setTimeout(() => {
-          timelineDots.forEach((dot, index) => {
-            setTimeout(() => {
+          let index = 0;
+          
+          function animateNextItem() {
+            if (index >= timelineItems.length) return;
+            
+            const item = timelineItems[index];
+            const dot = item.querySelector('.timeline-dot');
+            const contents = item.querySelectorAll('.timeline-content');
+            
+            // Animate dot first
+            if (dot) {
               dot.classList.add('animate');
-            }, index * 200);
-          });
-        }, 300);
-        
-        // Animate content with staggered delay
-        setTimeout(() => {
-          timelineContents.forEach((content, index) => {
+            }
+            
+            // Then animate content after brief delay
             setTimeout(() => {
-              content.classList.add('animate');
-            }, index * 150);
-          });
-        }, 500);
+              if (contents) {
+                contents.forEach(content => {
+                  content.classList.add('animate');
+                });
+              }
+            }, 300);
+            
+            // Move to next item after pause
+            setTimeout(() => {
+              index++;
+              animateNextItem();
+            }, 700);
+          }
+          
+          animateNextItem();
+        }, 800);
+      }
+    }
+    
+    // Function to trigger animations
+    function triggerAnimations() {
+      if (!hasAnimated && timelineLine && isInViewport(timelineLine)) {
+        hasAnimated = true;
+        animateTimelineItems();
       }
     }
     
