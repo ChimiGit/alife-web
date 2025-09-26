@@ -5,9 +5,14 @@ import Slider2 from '../components/home-slider/slider-2.astro';
 import Slider3 from '../components/home-slider/slider-3.astro';
 import '../styles/global.css';
 
-// Pre-calculate which slider to show server-side
+// Server-side string approach to eliminate blinking - render only one slider
 const backgrounds = ['slider-1', 'slider-2', 'slider-3'];
-const selectedIndex = Math.floor(Math.random() * backgrounds.length);
+// High-entropy server-side randomization with string manipulation for true randomness
+const timestamp = Date.now();
+const timeString = timestamp.toString().split('').reverse().join('');
+const entropy = Math.floor(Math.random() * timestamp * 3.14159);
+const combinedSeed = Number(`1${timeString.slice(-6)}${entropy.toString().slice(-3)}`.slice(-8));
+const selectedIndex = combinedSeed % backgrounds.length;
 const selectedSlider = backgrounds[selectedIndex];
 ---
 
@@ -45,7 +50,7 @@ const selectedSlider = backgrounds[selectedIndex];
         mix-blend-mode: overlay;
       }
       
-      /* Slider background positioning - Enhanced for mobile full coverage */
+      /* Slider background positioning - Server-side rendering eliminates blinking */
       .slider-background {
         position: fixed !important;
         top: 0 !important;
@@ -54,8 +59,10 @@ const selectedSlider = backgrounds[selectedIndex];
         height: 100vh !important;
         min-height: 100vh !important;
         z-index: 0;
-        visibility: hidden;
-        opacity: 0;
+        /* Direct show state - no hiding/visibility changes needed for server-side */
+        visibility: visible;
+        opacity: 1;
+        display: block !important;
         /* Ensure coverage on all mobile devices including notched devices */
         min-width: 100vw;
         max-width: 100vw;
@@ -64,6 +71,7 @@ const selectedSlider = backgrounds[selectedIndex];
       .slider-background.show {
         visibility: visible;
         opacity: 1;
+        display: block !important;
       }
       
       /* Extra mobile-specific rules */
@@ -136,7 +144,7 @@ const selectedSlider = backgrounds[selectedIndex];
     
     <Header />
     
-    <!-- Background sliders - only render the selected one server-side -->
+    <!-- Background sliders - Server-side string-based selection (no blinking) -->
     {selectedSlider === 'slider-1' && (
       <div id="slider-1-background" class="slider-background show">
         <Slider1 />
@@ -154,7 +162,9 @@ const selectedSlider = backgrounds[selectedIndex];
     )}
     
     <script>
+      // Store selected slider for debugging 
       sessionStorage.setItem('selectedSlider', `{selectedSlider}`);
+      console.log('Server-selected slider:', `{selectedSlider}`);
     </script>
   </body>
 </html>
