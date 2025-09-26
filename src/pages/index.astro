@@ -4,6 +4,11 @@ import Slider1 from '../components/home-slider/slider-1.astro';
 import Slider2 from '../components/home-slider/slider-2.astro';
 import Slider3 from '../components/home-slider/slider-3.astro';
 import '../styles/global.css';
+
+// Pre-calculate which slider to show server-side
+const backgrounds = ['slider-1', 'slider-2', 'slider-3'];
+const selectedIndex = Math.floor(Math.random() * backgrounds.length);
+const selectedSlider = backgrounds[selectedIndex];
 ---
 
 <!DOCTYPE html>
@@ -40,6 +45,29 @@ import '../styles/global.css';
         mix-blend-mode: overlay;
       }
       
+      /* Slider background positioning */
+      .slider-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        visibility: hidden;
+        opacity: 0;
+      }
+      
+      .slider-background.show {
+        visibility: visible;
+        opacity: 1;
+      }
+      
+      /* Header should be above sliders */
+      header {
+        position: relative;
+        z-index: 50;
+      }
+      
       @keyframes noise {
         0%, 100% { transform: translate(0, 0); }
         10% { transform: translate(-5%, -5%); }
@@ -72,53 +100,25 @@ import '../styles/global.css';
     
     <Header />
     
-    <!-- Backgrounds will be shown/hidden via JavaScript -->
-    <div id="slider-1-background" class="content-fade">
-      <Slider1 />
-    </div>
-    <div id="slider-2-background" class="hidden content-fade">
-      <Slider2 />
-    </div>
-    <div id="slider-3-background" class="hidden content-fade">
-      <Slider3 />
-    </div>
+    <!-- Background sliders - only render the selected one server-side -->
+    {selectedSlider === 'slider-1' && (
+      <div id="slider-1-background" class="slider-background show">
+        <Slider1 />
+      </div>
+    )}
+    {selectedSlider === 'slider-2' && (
+      <div id="slider-2-background" class="slider-background show">
+        <Slider2 />
+      </div>
+    )}
+    {selectedSlider === 'slider-3' && (
+      <div id="slider-3-background" class="slider-background show">
+        <Slider3 />
+      </div>
+    )}
     
     <script>
-      // Randomly choose which background to show on page load
-      const backgrounds = ['slider-1', 'slider-2', 'slider-3'];
-      const randomIndex = Math.floor(Math.random() * backgrounds.length);
-      const randomBackground = backgrounds[randomIndex];
-
-      // Get background elements
-      const slider1 = document.getElementById('slider-1-background') as HTMLElement;
-      const slider2 = document.getElementById('slider-2-background') as HTMLElement;
-      const slider3 = document.getElementById('slider-3-background') as HTMLElement;
-      
-      // Show the selected background and hide the others
-      if (randomBackground === 'slider-1') {
-        slider1?.classList.add('active-slider');
-        slider2?.classList.add('hidden');
-        slider3?.classList.add('hidden');
-      } else if (randomBackground === 'slider-2') {
-        slider1?.classList.add('hidden');
-        slider2?.classList.remove('hidden');
-        slider2?.classList.add('active-slider');
-        slider3?.classList.add('hidden');
-      } else {
-        slider1?.classList.add('hidden');
-        slider2?.classList.add('hidden');
-        slider3?.classList.remove('hidden');
-        slider3?.classList.add('active-slider');
-      }
-      
-      // Initialize content animations immediately to prevent flash
-      const contentElements = document.querySelectorAll('.content-fade');
-      contentElements.forEach(element => {
-        element.classList.add('loaded');
-      });
-      
-      // Store the current selection in sessionStorage to prevent flickering on navigation
-      sessionStorage.setItem('selectedSlider', randomBackground);
+      sessionStorage.setItem('selectedSlider', `{selectedSlider}`);
     </script>
   </body>
 </html>

@@ -1,9 +1,9 @@
 ---
 ---
 
-<div class="relative min-h-screen overflow-hidden bg-[#FBEC61]" style="font-family: 'Inter', sans-serif; margin-top: -5rem">
+<div class="fixed inset-0 w-full h-full overflow-hidden bg-[#FBEC61]" style="font-family: 'Inter', sans-serif; z-index: 0;">
   <!-- Particle Animation Canvas -->
-  <canvas id="particleCanvas" class="fixed inset-0 z-5" style="touch-action: none; background-color: transparent; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"></canvas>
+  <canvas id="particleCanvas" class="absolute inset-0 w-full h-full z-5" style="touch-action: none; background-color: transparent; image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"></canvas>
 
   <!-- Text Content -->
   <section class="absolute bottom-20 md:bottom-16 left-0 right-0 mb-8 sm:mb-10 px-4 sm:px-6 z-10">
@@ -47,12 +47,12 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Set up the canvas and other variables
-    const canvas = document.getElementById('particleCanvas') as HTMLCanvasElement;
+    const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
     
-    if (!ctx) return; // Exit if canvas context is not available
+    if (!ctx || !canvas) return; // Exit if canvas context is not available
     
-    let lines: any[] = [];
+    let lines = [];
     const particleRadius = 1.7;
     const baseLineSpeed = 2.0;
     const baseLineSpread = 200;
@@ -92,13 +92,7 @@
     }
 
     class Particle {
-      relativeX: number;
-
-      y: number;
-
-      speedY: number;
-
-      constructor(relativeX: number, y: number, speedY: number) {
+      constructor(relativeX, y, speedY) {
         this.relativeX = relativeX;
         this.y = y;
         this.speedY = speedY;
@@ -179,7 +173,7 @@
         const traveled = Math.abs(line.xOffset - (line.startX ?? defaultStartX));
         line.opacity = Math.min(1, traveled / fadeInDistance);
 
-        line.particles.slice(0, particlesToDraw).forEach((p: Particle) => {
+        line.particles.slice(0, particlesToDraw).forEach((p) => {
           p.update();
 
           const xOffset = (p.relativeX * currentLineSpread) - (currentLineSpread / 2);

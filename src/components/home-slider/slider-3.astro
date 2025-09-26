@@ -3,9 +3,9 @@
 import Wave from "../animations/Wave.astro";
 ---
 
-<div class="relative min-h-screen overflow-hidden bg-[#29D6E2]" style="font-family: 'Inter', sans-serif; margin-top: -5rem">
+<div class="fixed inset-0 w-full h-full overflow-hidden bg-[#29D6E2]" style="font-family: 'Inter', sans-serif; z-index: 0;">
   <!-- Ripple Particles Background -->
-  <div class="fixed inset-0" aria-hidden="true">
+  <div class="absolute inset-0 w-full h-full" aria-hidden="true">
    <Wave />
   </div>
 
