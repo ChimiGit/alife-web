@@ -40,15 +40,15 @@ const contentData = Object.fromEntries(
 ---
 
 <Layout title="Blog - ALIFE" description="Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI">
-  <main id="blog-content" class="max-w-6xl mx-auto px-4 sm:px-6 pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
-    <div class="mb-12 pt-10 sm:pt-10 md:pt-10">
+  <main id="blog-content" class="max-w-6xl mx-auto px-4 pb-12 content-stagger" style="font-family: 'Inter', sans-serif;">
+    <div class="mb-6 sm:mb-8 md:mb-12 md:pt-10">
       <h2 class="text-5xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-64px text-primary mb-4 sm:mb-6 md:mb-8" style="font-family: 'GT Alpina Fine', serif;">Sharing Our Journey</h2>
       <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary max-w-3xl font-light">
         Research breakthroughs, upcoming events, and latest news from the frontier of evolutionary AI
       </p>
     </div>
 
-    <div class="mb-8 tabs-section">
+    <div class="mb-4 sm:mb-6 md:mb-8 tabs-section">
       <div class="overflow-x-auto">
         <div class="flex min-w-max">
           <div class="flex bg-gray-100 rounded-full p-1 font-light text-sm">
@@ -101,6 +101,13 @@ const contentData = Object.fromEntries(
                       <p class="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed line-clamp-3 font-light">
                         {post.excerpt}
                       </p>
+                      <div class="text-xs sm:text-sm md:text-base lg:text-lg font-light">
+                        {new Date(post.pubDate).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: '2-digit', 
+                          day: '2-digit' 
+                        }).replace(/\//g, '.')} by {post.author}
+                      </div>
                     </div>
                   </a>
                 ))}
