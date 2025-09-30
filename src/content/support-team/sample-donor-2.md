@@ -1,7 +1,7 @@
 ---
 name: 'Research Institute'
 title: 'Research Partner'
-image: '/alife-web/assets/team/Ken Suzuki.png'
+image: '/assets/team/Ken Suzuki.png'
 bio: 'Collaborating on breakthrough research in evolutionary algorithms and digital organisms'
 location: 'Tokyo, Japan'
 linkedin: 'https://linkedin.com/company/research-institute'

@@ -1,7 +1,7 @@
 ---
 name: 'Tech Foundation'
 title: 'Major Donor'
-image: '/alife-web/assets/team/Banjo Yamauchi.png'
+image: '/assets/team/Banjo Yamauchi.png'
 bio: 'Supporting cutting-edge research in artificial life and emergent systems'
 location: 'San Francisco, USA'
 linkedin: 'https://linkedin.com/company/tech-foundation'
