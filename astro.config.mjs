@@ -11,7 +11,7 @@ export default defineConfig({
     }),
   ],
   output: 'static',
-  site: ' https://alife.institute/',
+  site: 'https://alife.institute',
   base: '/',
   i18n: {
     defaultLocale: 'en',
@@ -48,17 +48,7 @@ export default defineConfig({
       },
     },
     server: {
-      allowedHosts: [
-        'localhost',
-        '127.0.0.1',
-        '.ngrok-free.app',
-        '.ngrok.io',
-        '.ngrok.app',
-        '.trycloudflare.com',
-        'americas-municipal-express-philips.trycloudflare.com',
-        'https://reservations-poker-trademark-teacher.trycloudflare.com',
-        'https://chimigit.github.io/alife-web',
-      ],
+      allowedHosts: ['localhost', '127.0.0.1', 'https://alife.institute'],
       headers: {
         'ngrok-skip-browser-warning': 'true',
         'cf-tunnel-skip-browser-warning': 'true',
