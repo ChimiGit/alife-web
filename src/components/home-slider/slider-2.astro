@@ -7,9 +7,9 @@
       <div class="[grid-area:1/1] translate-x-[1580px] translate-y-[-100px] scale-[4] grid place-items-center transform-gpu origin-center mobile-images-center">
           <div aria-hidden="true" class="z-[999] pointer-events-none w-[10px] h-[10px] rounded-full bg-[#ff2d55] ring-2 ring-white shadow-[0_0_0_2px_rgba(0,0,0,0.2)] [grid-area:1/1]"></div>
   
-          <img src={`${import.meta.env.BASE_URL}assets/images/layer-6.svg`} alt="back layer (inner)" class="[grid-area:1/1] z-[1] w-[36.8vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCW 50s linear infinite; transform-origin: center;" />
-          <img src={`${import.meta.env.BASE_URL}assets/images/layer-5.svg`} alt="middle layer" class="[grid-area:1/1] z-[2] w-[43.3vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCCW 50s linear infinite; transform-origin: center;" />
-          <img src={`${import.meta.env.BASE_URL}assets/images/layer-4.svg`} alt="front layer (outer)" class="[grid-area:1/1] z-[3] w-[50vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCW 50s linear infinite; transform-origin: center;" />
+          <img src={`${import.meta.env.BASE_URL}assets/images/layer-6.svg`} alt="back layer (inner)" class="[grid-area:1/1] z-[1] w-[36.8vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCW 50s linear infinite; transform-origin: center; transform: rotate(45deg);" />
+          <img src={`${import.meta.env.BASE_URL}assets/images/layer-5.svg`} alt="middle layer" class="[grid-area:1/1] z-[2] w-[43.3vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCCW 50s linear infinite; transform-origin: center; transform: rotate(45deg);" />
+          <img src={`${import.meta.env.BASE_URL}assets/images/layer-4.svg`} alt="front layer (outer)" class="[grid-area:1/1] z-[3] w-[50vw] h-auto [will-change:transform] transform-gpu" style="animation: rotateCW 50s linear infinite; transform-origin: center; transform: rotate(45deg);" />
       </div>
   </div>
   
@@ -66,10 +66,10 @@
     /* Force image container to center absolutely with explicit reset */
     .mobile-images-center {
       /* Override the translate-x-[1580px] with absolute centering and bigger scale */
-      transform: translate(-50%, -60%) scale(3) !important;
+      transform: translate(-508, -60%) scale(3) !important;   
       position: absolute !important;
-      top: 50% !important;
-      left: 10% !important;
+      top: 80% !important;
+      left: -30% !important;
     }
   }
   
