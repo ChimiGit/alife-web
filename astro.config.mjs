@@ -11,8 +11,8 @@ export default defineConfig({
     }),
   ],
   output: 'static',
-  site: 'https://ChimiGit.github.io/alife-web',
-  base: '/alife-web/',
+  site: ' https://alife.institute/',
+  base: '/',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],
